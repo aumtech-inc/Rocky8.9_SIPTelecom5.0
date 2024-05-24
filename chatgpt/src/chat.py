@@ -1,7 +1,7 @@
 import openai
 import sys
 
-openai.api_key = "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"
+openai.api_key = ""
 
 
 # ROLES: system, assistant, user
