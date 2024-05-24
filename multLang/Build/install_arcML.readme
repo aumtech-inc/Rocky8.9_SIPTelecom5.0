@@ -1,0 +1,78 @@
+$TELECOM/doc/install_arcML.readme			      June 28, 2015
+
+          Instructions for Installing/Removing ARC ML Services
+          =====================================================
+
+The purpose of this document:
+
+This document provides instructions for installing and removing ARC 
+ML Services on your Telecom Server.
+
+
+To determine if the Multiple Languages (ML) Services package is already
+installed:
+
+	1)	cat /home/.arcML.pkginfo
+	2) 	If the file does not exist, then the package is not installed.
+
+	If the file does exist, then examine the last set of information. The 
+	last line in the file should be either "INSTALLED" or "REMOVED". If
+	it is "INSTALLED", you must remove the existing installed package
+	before proceeding with the installation of the new package.
+
+
+To install the ML Services package:
+
+	1) This package is to be installed under the same user as arc Telecom
+	   Services.  
+
+	Note: You may have to get an administrator for you to do this.
+
+	2) su root
+
+	3) mkdir /tmp/pkg  (if it does not already exist)
+
+	4) cd /tmp/pkg
+
+	5) Copy the package file, arcML.1.0.tar, to /tmp/pkg
+
+	These commands will place all the files that make up the package
+	into the current directory, including the installation script. 
+
+	6) Run the installation script by typing: 
+
+	./install_arcML
+
+	7) Reboot your machine.
+
+	Before proceeding, you should reboot your machine to make sure that
+	all of the changes made during the installation have properly taken
+	effect. 
+
+	8) Start Telecom Services
+
+	Link your application with the libarcML.a.  
+
+To remove the ML Services package:
+
+NOTE: 	You MUST be root remove the package.
+
+	1) cd /home/arc/.ISP/Telecom/bin
+	
+	2) su root
+
+	3) ./remove_arcML
+
+	4) If you have trouble removing the package:
+
+	You cannot remove the arcML package unless it is installed. 
+	If you are sure it is installed and it is not allowing you to 
+	remove it, then check to see if the package information file 
+	"/home/.arcML.pkginfo" exists. If it does not, then create it 
+	and put a single line in it that contains only the word 
+	"INSTALLED" (upper case, no quotes).  This will allow you to 
+	proceed with the removal of the package.
+
+	Please note that it is NOT a good idea to manipulate the package
+	information file unless absolutely necessary.
+	

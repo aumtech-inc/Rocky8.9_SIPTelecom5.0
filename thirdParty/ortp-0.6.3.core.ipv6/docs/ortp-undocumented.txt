@@ -1,0 +1,30 @@
+80% symbol docs coverage.
+52 symbols documented.
+9 symbols incomplete.
+13 not documented.
+
+
+PayloadType
+RTP_CALLBACK_TABLE_MAX_ENTRIES
+RtpProfile
+RtpSession (next, profile, lock, ssrc, payload_type, max_buf_size, dest_mproto, on_ssrc_changed, on_payload_type_changed, on_telephone_event_packet, on_telephone_event, on_timestamp_jump, rtp, rtcp, mode, sched, flags, stats, mask_pos, user_data, telephone_events_pt, current_tev, contributing_sources, lastTS, lastDTMFTS, lastSN, isBridgeStarted)
+RtpSessionMode
+SessionSet
+getSocketError
+rtp_profile_get_name
+rtp_session_create_packet (markBit)
+rtp_session_recv_with_ts (type, cross_session)
+rtp_session_recvm_with_ts (cross_session)
+rtp_session_send_with_ts (type, markBit)
+rtp_session_sendm_with_ts (userts)
+rtp_session_set_local_addr (ifname)
+rtp_session_set_remote_addr (dest)
+rtp_session_set_seq_number (seq)
+session_set_destroy
+telephone_event
+this
+
+
+stackmanagement:Long_Description
+stackmanagement:Short_Description
+telephoneevents:Short_Description

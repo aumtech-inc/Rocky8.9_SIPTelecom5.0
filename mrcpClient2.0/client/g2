@@ -1,0 +1,21 @@
+g++ -ggdb -g3 -DOSIP_MT		\
+	-o /home/devmaul/isp2.2/mrcpClient2.0/bin/mrcpClient2.sdm			\
+	mrcpClient2.o mrcpCommon2.o SRPort.o GrammarList.o sipThread.o		\
+	readerThread.o mrcpThread.o mrcp2_HeaderList.o mrcp2_Request.o		\
+	mrcp2_Event.o mrcp2_Response.o mrcp2_parser_utils.o MrcpInitialize.o 		\
+	/home/devmaul/isp2.2/Common/flexNET/v11.5/i86_re3/lm_new.o 			\
+	-L /home/devmaul/isp2.2/mrcpClient2.0/lib 			\
+	-L /home/devmaul/lib 			\
+	-L /home/devmaul/lib/flexlm 			\
+	-L /home/devmaul/thirdParty/xerces-c-src_2_8_0/lib 			\
+	-L /home/devmaul/isp2.2/Common/lib 			\
+	-L /home/devmaul/isp2.2/SNMP/lib 			\
+	-L /home/devmaul/isp2.2/mrcpClient2.0/lib		\
+	-L /home/devmaul/ddnsrc/dmalloc-5.5.2			\
+	-ldmallocth -larcLicenseV11.5_with_handleLic -llmgr_pic -lcrvs_pic -lsb_pic -lnoact_pic	\
+	-lISPUtil -lISPLog -lloglite -larcSNMP -lpthread -lSR_mrcpV2301_sdm			\
+	-losipparser2 -losip2 -leXosip2 -lxerces-c -Wall
+
+exit
+gcc -c mrcpClient2Mgr.c 
+gcc -o /home/devmaul/isp2.2/mrcpClient2.0/bin/mrcpClient2Mgr mrcpClient2Mgr.o

@@ -1,0 +1,71 @@
+<refentry id="ortp-Library-management-functions">
+<refmeta>
+<refentrytitle role="top_of_page" id="ortp-Library-management-functions.top_of_page">Library management functions</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>ORTP Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Library management functions</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ortp-Library-management-functions.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+#include &lt;ortp.h&gt;
+
+<link linkend="void">void</link>                <link linkend="ortp-init">ortp_init</link>                           ();
+<link linkend="void">void</link>                <link linkend="ortp-scheduler-init">ortp_scheduler_init</link>                 ();
+<link linkend="void">void</link>                <link linkend="ortp-exit">ortp_exit</link>                           ();
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="ortp-Library-management-functions.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+
+<refsect1 id="ortp-Library-management-functions.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ortp-init" role="function">
+<title>ortp_init ()</title>
+<indexterm zone="ortp-init"><primary sortas="ortp_init">ortp_init</primary></indexterm><programlisting><link linkend="void">void</link>                ortp_init                           ();</programlisting>
+<para>
+Initialize the oRTP library. You should call this function first before using
+oRTP API.</para>
+<para>
+</para></refsect2>
+<refsect2 id="ortp-scheduler-init" role="function">
+<title>ortp_scheduler_init ()</title>
+<indexterm zone="ortp-scheduler-init"><primary sortas="ortp_scheduler_init">ortp_scheduler_init</primary></indexterm><programlisting><link linkend="void">void</link>                ortp_scheduler_init                 ();</programlisting>
+<para>
+Initialize the oRTP scheduler. You only have to do that if you intend to use the
+scheduled mode of the <link linkend="RtpSession"><type>RtpSession</type></link> in your application.</para>
+<para>
+</para></refsect2>
+<refsect2 id="ortp-exit" role="function">
+<title>ortp_exit ()</title>
+<indexterm zone="ortp-exit"><primary sortas="ortp_exit">ortp_exit</primary></indexterm><programlisting><link linkend="void">void</link>                ortp_exit                           ();</programlisting>
+<para>
+Gracefully uninitialize the library, including shutdowning the scheduler if it was started.</para>
+<para>
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

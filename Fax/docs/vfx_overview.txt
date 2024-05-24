@@ -1,0 +1,188 @@
+								4-16-99
+
+Dialogic VFX Fax
+
+A couple definitions (you probably know this, but since I don't know if
+you know, I will risk insulting your intelligence rather than not knowing
+what I mean when you read this document).
+
+	Two phases of a fax session are:
+		Phase B: pre-message procedure;
+		         negotiates parameters that govern the sending
+			 and receiving of fax documents
+		Phase D: post-message procedure;
+			 defines teh continuation value to indicat what to
+		         do next, after the transfer of a fax document/page
+		         is complete
+
+Sending Faxes:
+
+The fx_sendfax() API is used to send faxes.  In addition to that, there are
+three convenience functions to send them:
+	fx_sendtiff()	- send a tiff file
+	fx_sendascii()	- send an ascii text file
+	fx_sendraw()	- send a raw file.
+
+Dialogic VFX provides the capability to merge pages
+(i.e. logo followed by text), perform fax polling, control page length,
+number of pages, specify which pages to faxes, as well as other
+characteristics of a fax (i.e. resolution, encoding).  It also allows 
+faxing both raw and ascii data from a memory buffer - don't have to write it
+to a file.  All of this is controlled by the DF_IOTT and DF_ASCIIDATA
+data structures (defined in faxlib.h):
+
+  typedef struct df_iott DF_IOTT;
+
+  struct df_iott {
+   unsigned long  io_offset;      /* Start page or file offset */
+   unsigned long  io_length;      /* Number of pages or length of data */
+   char          *io_bufferp;     /* Memory transfer start location */
+   DF_IOTT       *io_prevp;       /* Pointer to the previous iott entry */
+   DF_IOTT       *io_nextp;       /* Pointer to the next iott entry */
+   void          *io_datap;       /* Pointer to additional data associated
+                                     with io_datatype */
+   int            io_fhandle;     /* File descriptor */
+   unsigned short io_type;        /* Entry type */
+   unsigned short io_datatype;    /* Transmit data type */
+   unsigned short io_phdcont;     /* Phase D TX value for last page */
+   unsigned short io_width;       /* Image width (raw/ascii mode only) */
+   unsigned char  io_resln;       /* Image data resolution (raw mode only) */
+   unsigned char  io_coding;      /* Image encoding used (raw mode only) */
+   unsigned char  rfu[2];         /* Reserved for future use */
+  };
+
+  typedef struct {
+   unsigned short pagelength;     /* Page length */
+   unsigned short pagepad;        /* Pad with blank scan lines to page end */
+   unsigned short topmargin;      /* Top margin */
+   unsigned short botmargin;      /* Bottom margin */
+   unsigned short leftmargin;     /* Left margin */
+   unsigned short rightmargin;    /* Right margin */
+   unsigned short linespace;       /* Spacing between Ascii lines */
+   unsigned short font;            /* Font selection */
+   unsigned short tabstops;        /* Number of tab stops on line */
+   unsigned char  units;           /* Units for specifying margins/lengths */
+   unsigned char  flags;          /* Reserved for future use */
+  } DF_ASCIIDATA;
+
+Note: There is also a DF_UIO structure, which contains user-definable
+      i/o functions to replace the read(), write(), and lseek().
+
+The application must build a contiguous array (default), linked list, or
+combination of arrays and linked lists, of DF_IOTT structures specifying
+all the document sources to be faxed, and how to fax them.  For example,
+if a fax is to be sent out, which is comprised of four separate files,
+the application would have to have an array of four DF_IOTT structures.
+
+Key fields and descriptions are:
+  io_type:	specifies whether the fax data is a file or in memory (raw
+		and ascii only) and whether the DF_IOTT structure entry is
+		an array or linked list, as well as termination (last page).
+  io_datatype:	if the fax data is from file, this field specifies the 
+		format (TIFF, RAW, or ASCII)
+  io_phdcont:	specifies the phase-d instructions (what to expect next).
+		This signals whether or not to expect another page. 
+		If there is another page, is it in the same format?
+		Is it to be concatenated?
+
+		The possible values of this are:
+		DFC_AUTO	the fax driver will automatically determine
+				the phaseD continuation
+		DFC_EOP		end of procedure - end fax call
+		DFC_MPS		multi-page signal - next page is the same
+				format as the current page
+		DFC_EOM		end of message - more information to come;
+				renegotiate the format (return to phase B)
+		DFC_MPS		merge page - to concatenate the next page
+				to the current one.
+  io_datap:	if the fax data is ascii, this pointer can point to a 
+		DF_ASCIIDATA stucture element which controls the description
+		of the ascii data (margins, fonts, etc.).  If this is null,
+		then the defaults are assumed.
+
+A description of the convenience functions follows.  Note that merging is 
+not doable using the convenience functions.  Also, there must be two
+global variable defined and set:
+	voxhandle - type int and set to the open voice channel device (dx_open)
+	devhandle - type int and set to the open fax channel device (fx_open).
+
+fx_sendtiff(char *faxname, long firstpg, long pgcount, short phdcont)
+	Where faxname is the name of a tiff file, it will send out pages
+	of a single TIFF file.  
+
+fx_sendascii(char *faxname, short phdcont)
+	Where faxname is the name of a ascii file, it will fax it out using
+	the defaults of resolution, width, length, margings, etc.
+	
+fx_sendraw(char *faxname, short width, char resln, short phdcont)
+	Where faxname is the name of a ascii file, it will fax out a single
+	page of raw fax data, unformatted Modified Huffman Group 3 data
+	at the width and resolution specified.
+
+fx_setiott() can be used to set up a DF_IOTT structure with default values.
+
+
+Receiving faxes:
+
+Receiving faxes is done with either the fx_rcvfax() or fx_rcvfax2() API.
+
+The prototypes are:
+	int fx_rcvfax(int dev, char *faxname, unsigned long rcvflag)
+	  where
+		dev 	the fax channel device handle
+		faxname name to assign the received document
+		rcvflag specifies the mode
+
+	int fx_rcvfax2(int dev, int fd, unsigned long rcvflag)
+	  where
+		dev 	the fax channel device handle
+		fd	open file descriptor to receive the data
+		rcvflag specifies the mode
+
+The difference of the API calls are:
+	1) fx_rcvfax() receives the name of a receive file while fx_rcvfax2()
+	   receives an open file descriptor
+	2) user-definable i/o capability
+In short, if we want to redefine our own read(), write(), and lseek(), we have
+to use fx_rcvfax2().  To use fx_rcvfax2(), the application is responsible for
+opening and closing the receive file(s).  Functionally, everything else is
+the same.
+
+There are no convenience functions to receive faxes.
+
+Fax data can be received in either raw or tiff format.  
+
+The mode (rcvflag) specifies:
+	- the file format (raw of tiff)
+	- polling
+	- sync or async
+	- phase B and D, and voice request enable (generation)
+	- resolution, length, width.
+
+To receive fax data stored in multiple tiff files, the application must 
+first enable the phase_d and phase_b generation bits (mask them in the
+receive flag and establishing an event handler using sr_enbhdlr() to
+catch them.  Then, when incoming data comes in, it can be detected by
+the transmitter (send fax machine) sending phase-d commands
+	DFS_EOM (end of message)
+	DFS_EOP (end of procedure - default)
+	DFS_MPS (multi-page signal)
+
+Upon receipt of a delimiter, the fx_rcvfax() returns control to the 
+application, where it checks the phase-d signal (ATFX_PHDCMD()).  If the
+signal is DFS_EOM or DFS_MPS, fx_rcvfax() must be called again.  This 
+can be put in a loop until DFS_EOP is caught.  (Note: As of 5-5-99, I have
+not gotten this to work - an incident has been reported to Dialogic.)
+
+For receive raw file, the above process out-lined must be followed, since
+storage into raw files is automatically delimited by all of the phase-d
+command values.
+
+Other capabilities of fx_rcvfax() enabling of operator intervention (complete
+the fax session, but keep the channel open for voice communications),
+selection of receive length and width, selecting the preferred maximum baud
+rate, bad scan line replacement (when a scan line error is detected, the
+Bad Line Replacement (BLR) will automatically replace the bad scan line(s)
+with the last correctly received scan line, and finally user-definable i/o
+functions.
+

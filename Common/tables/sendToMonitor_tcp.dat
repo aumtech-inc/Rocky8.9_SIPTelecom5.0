@@ -1,0 +1,24 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_tcp.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		07/30/99
+#-----------------------------------------------------------------------------
+#
+# TCP APIs
+2001	TCP_Check 
+2002	TCP_ComInit
+2003	TCP_Exit
+2004	TCP_GetData
+2005	TCP_GetGlobal
+2006	TCP_HostEvent
+2007	TCP_Init
+2008	TCP_PosCursor
+2009	TCP_PutData
+2010	TCP_SendKey
+2011	TCP_SetGlobal
+2012	TCP_GetCursorPos
+

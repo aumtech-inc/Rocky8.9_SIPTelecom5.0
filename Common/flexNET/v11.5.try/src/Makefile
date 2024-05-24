@@ -1,0 +1,100 @@
+#----------------------------------------------------------------------------
+# Program:	Makefile 
+# Purpose:	Make file for creating the licensing library.
+#		This make file makes license.o and getmac and archives them
+#		into libarcLicense.a.
+# Author:	George Wenzel
+# Date:		10/25/2000
+#----------------------------------------------------------------------------
+CC		=	gcc	-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+AR		= 	ar
+ECHO		=	echo
+
+FLEXLM=/home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5.try
+FLEXLM_INC=${FLEXLM}/machind
+FLEXLM_LIB=${FLEXLM}/lib
+
+LIB=${FLEXLM_LIB}/libarcLicenseV11.5.a
+LIB_WITH_HANDLE_LIC=${FLEXLM_LIB}/libarcLicenseV11.5_with_handleLic.a
+
+SYSLIBS="-lnsl -lsocket -lgen -lelf"
+INCLUDE= -I ${FLEXLM_INC} -I .
+
+HEADERS= ${FLEXLM_INC}/lmpolicy.h  license.h 
+
+CFLAGS=-ggdb
+
+LIB_OBJECTS=license.o getmac.o 
+
+LIB_WITH_HANDLE_LIC_OBJECTS=license_withHandleLic.o getmac.o
+
+EXEC_SIP		=	arcLicense.sip
+
+EXEC2			=	testLic
+
+all:	${LIB} ${EXEC_SIP} ${LIB_WITH_HANDLE_LIC} ${EXEC2} 
+
+${LIB}: ${LIB_OBJECTS}
+	  @${ECHO} "Building library ${LIB}"   
+	  @${AR} ${ARFLAGS} ${LIB} ${LIB_OBJECTS}   
+#		scp ${LIB} dev@maul:/home/dev/isp2.2/Common/flexNET/v11.5/lib
+
+${LIB_WITH_HANDLE_LIC}: ${LIB_WITH_HANDLE_LIC_OBJECTS}
+	@${ECHO} "Building library ${LIB_WITH_HANDLE_LIC}"   
+	@${AR} ${ARFLAGS} ${LIB_WITH_HANDLE_LIC} ${LIB_WITH_HANDLE_LIC_OBJECTS}
+#	scp ${LIB_WITH_HANDLE_LIC} dev@maul:/home/dev/isp2.2/Common/flexNET/v11.5/lib
+
+clean:	
+	rm -f ${LIB} ${LIB_OBJECTS} ${EXEC} arcLicense.o arcLicense_sdm.o		\
+		arcLicense_sip.o ${EXEC2}	\
+		testLic.o ${LIB_WITH_HANDLE_LIC} ${LIB_WITH_HANDLE_LIC_OBJECTS}
+
+${EXEC_SIP}: arcLicense_sip.o ${LIB}
+	@${ECHO} "Building arcLicense.sip"
+	@${CC} -DLIC_SIP ${CFLAGS} -o $@ arcLicense_sip.o getmac.o -L ${FLEXLM_LIB}
+
+${EXEC2}: testLic.o ${LIB}
+	@${ECHO} "Building testLic"
+	@${CC} ${CFLAGS} -o $@ testLic.o			\
+		-L  /home/dan/isp2.2/SIPTelecom3.6/Common/lib           \
+		-L  /home/dan/isp2.2/SNMP/lib           \
+		-L ${FLEXLM_LIB}						\
+		-L ${FLEXLM}/amd64_re3/activation/lib	\
+		-L ${FLEXLM}/amd64_re3				\
+		../amd64_re3/lm_new.o					\
+		-larcLicenseV11.5 -llmgr -lcrvs -lsb -lnoact -lpthread 	\
+		-lrespcom -lISPUtil -lUTILS -lgaUtils  -lISPLog -lloglite	\
+		-larcSNMP -lsnmp  -lcrypto
+
+
+arcLicense_sip.o: 	arcLicense.c 	${HEADERS}
+		@${ECHO} "Building arcLicense_sip.o"
+		@${CC} ${CFLAGS} ${INCLUDE} -DLIC_SIP -o arcLicense_sip.o -c arcLicense.c
+
+license.o: 	license.c 	${HEADERS}
+		@${ECHO} "Building license.o"
+			@${CC} ${CFLAGS} ${INCLUDE} -c license.c
+
+license_noLicense.o: license_noLicense.c       ${HEADERS}
+		@${ECHO} "Building license_noLicense.o"
+			@${CC} ${CFLAGS} ${INCLUDE} 	\
+				-o license_noLicense.o	-c license_noLicense.c
+
+license_noLicense_withHandleLic.o: license_noLicense.c       ${HEADERS}
+		@${ECHO} "Building license_noLicense_withHandleLic.o"
+			@${CC} ${CFLAGS} -DWITH_HANDLE_LIC ${INCLUDE} 	\
+				-o license_noLicense_withHandleLic.o	\
+				-c license_noLicense.c
+
+license_withHandleLic.o: license.c       ${HEADERS}
+		@${ECHO} "Building license_withHandleLic.o"
+			@${CC} ${CFLAGS} -DWITH_HANDLE_LIC ${INCLUDE} 	\
+				-o license_withHandleLic.o	-c license.c
+
+getmac.o: 	getmac.c 	${HEADERS}
+		@${ECHO} "Building getmac.o"
+		@${CC} ${CFLAGS} ${INCLUDE} -c getmac.c
+
+testLic.o: 	testLic.c 	${HEADERS}
+		@${ECHO} "Building testLic.o"
+		@${CC} ${CFLAGS} ${INCLUDE} -c testLic.c

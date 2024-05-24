@@ -1,0 +1,10 @@
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_tones_ringbuff.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_audio_frame.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_decode.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_encode.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_small_conference.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_conference_frames.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_fax_session.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c arc_udptl.c  
+gcc -Wall -ggdb -std=c99 -I./ -I../../include -I /home/dev/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6_for_libarctunes_library/src  -c clock_sync.c  
+ar -cr libarctones.a *.o 

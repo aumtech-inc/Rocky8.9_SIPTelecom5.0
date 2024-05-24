@@ -1,0 +1,76 @@
+#CC = g++
+CC = gcc
+AR = ar cr
+
+SVID_HOME		= ${HOME}/isp2.2/SIPTelecom3.4
+SVID_INC		= ${SVID_HOME}/include
+
+COMMON_HOME		= ${SVID_HOME}/Common
+COMMON_INC      = ${COMMON_HOME}/include
+COMMON_LIB      = ${COMMON_HOME}/lib
+
+SNMP_LIB		= ${HOME}/isp2.2/SNMP/lib
+
+AVB_BASE =	${HOME}/isp2.2/arcavb
+
+#CFLAGS = -g -Wall
+CFLAGS = -ggdb
+# INCLUDES = -I . -I ${SVID_INC} -I ${COMMON_INC} -I ${AVB_BASE}/db -I ${AVB_BASE}/include -I ${AVB_BASE}/VoiceID_release_2.1.146
+INCLUDES = -I . -I ${SVID_INC} -I ${COMMON_INC} -I ${AVB_BASE}/db -I ${AVB_BASE}/include		\
+		-I ${SVID_HOME}/dynmgr/spandsp		\
+		-I ${AVB_BASE}/Current_VoiceID_Release	\
+		-I  ${AVB_BASE}/Current_VoiceID_Release/customers/aumtech
+
+
+ARCAVB_SRCS = arcavb.c 
+
+ARCAVB_OBJS					= ${ARCAVB_SRCS:.c=.o}
+ARCAVB_NODB_OBJS			= arcavb_nodb.o
+ARCAVB_STANDALONE_OBJS		= arcavb_standalone.o
+ARCAVB_STANDALONE_NODB_OBJS	= arcavb_standalone_nodb.o
+
+DB_OBJECT = ${AVB_BASE}/db/arcavb_db_hooks.o
+
+ARCAVB_LIB      = ${SVID_HOME}/lib/libarcavb.a
+ARCAVB_NODB_LIB = ${SVID_HOME}/lib/libarcavb_nodb.a
+ARCAVB_STANDALONE_LIB = ${AVB_BASE}/lib/libarcavb_standalone.a
+ARCAVB_STANDALONE_NODB_LIB = ${AVB_BASE}/lib/libarcavb_standalone_nodb.a
+
+TARGETS = ${ARCAVB_LIB} ${ARCAVB_STANDALONE_LIB} ${ARCAVB_NODB_LIB} ${ARCAVB_STANDALONE_NODB_LIB}
+
+.c.o:
+	$(CC) -DAVB_DATABASE -DVOICE_BIOMETRICS  $(CFLAGS) -c $< ${INCLUDES}
+
+# LIBS = ${AVB_BASE}/libVoiceID_publicAPI.a
+
+all: ${TARGETS} 
+
+default: ${TARGETS}
+
+${ARCAVB_NODB_OBJS}: arcavb.c
+	$(CC) -DVOICE_BIOMETRICS $(CFLAGS) -c  arcavb.c ${INCLUDES} -o ${ARCAVB_NODB_OBJS}
+
+${ARCAVB_STANDALONE_OBJS}: arcavb.c
+	$(CC) -DAVB_DATABASE  -DVOICE_BIOMETRICS -DAVB_STANDALONE $(CFLAGS) -c  arcavb.c ${INCLUDES} -o ${ARCAVB_STANDALONE_OBJS}
+
+${ARCAVB_STANDALONE_NODB_OBJS}: arcavb.c
+	$(CC) -DVOICE_BIOMETRICS -DAVB_STANDALONE $(CFLAGS) -c  arcavb.c ${INCLUDES} -o ${ARCAVB_STANDALONE_NODB_OBJS}
+
+${ARCAVB_LIB} : ${ARCAVB_OBJS} ${DB_OBJECT}
+	@ar rv $@ ${ARCAVB_OBJS}
+#	( cd ${AVB_BASE}/db; make ; make install )
+
+${ARCAVB_NODB_LIB}: ${ARCAVB_NODB_OBJS}
+	@ar rv $@ ${ARCAVB_NODB_OBJS}
+
+${ARCAVB_STANDALONE_LIB}: ${ARCAVB_STANDALONE_OBJS}
+	@ar rv $@ ${ARCAVB_STANDALONE_OBJS}
+
+${ARCAVB_STANDALONE_NODB_LIB}: ${ARCAVB_STANDALONE_NODB_OBJS}
+	@ar rv $@ ${ARCAVB_STANDALONE_NODB_OBJS}
+
+install:
+	scp ${ARCAVB_LIB} arc@10.0.10.63:/home/arc/.ISP/Telecom/Applications/lib
+
+clean:
+	rm -f ${TARGETS} *.o

@@ -1,0 +1,4 @@
+echo "Building debugShm"	
+gcc -ggdb  -o debugShm debugShm.c		\
+		-I .  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include		\
+		-L /home/dan/isp2.2/SIPTelecom3.6/Common/lib -lUTILS  -lISPLog 

@@ -1,0 +1,88 @@
+#include <stdio.h>
+
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h> 
+
+lua_State *lua_ports[48];
+
+static const struct luaL_reg luac_lib[] = {
+{"create", map_create},
+{"slice", map_slice},
+{NULL, NULL}}; 
+
+
+
+
+int map_create(lua_State *lua){
+int w = luaL_checkinteger(lua, 1);
+int h = luaL_checkinteger(lua, 2);
+ 
+unsigned char *map = malloc(w * h);
+ 
+int n;
+for(n = 0; n != w * h; n++){
+map[n] = n % 10;
+}
+ 
+lua_pushlightuserdata(lua, map);
+return 1;
+}
+ 
+int map_slice(lua_State *lua){
+unsigned char *map = lua_touserdata(lua, 1);
+int map_width = luaL_checkinteger(lua, 2);
+int x = luaL_checkinteger(lua, 3); int y = luaL_checkinteger(lua, 4);
+int w = luaL_checkinteger(lua, 5); int h = luaL_checkinteger(lua, 6);
+ 
+lua_newtable(lua);
+ 
+int cx, cy;
+for(cy = 0; cy != h; cy++)
+for(cx = 0; cx != w; cx++){
+lua_pushnumber(lua, cx + w * cy);
+lua_pushnumber(lua, map[x + cx + (y + cy) * map_width]);
+lua_settable(lua, -3);
+}
+ 
+return 1;
+} 
+
+
+
+
+int 
+arc_debug_init(){
+
+   int rc = -1;
+   int i;
+
+   for(i = 0; i < 48; i++){
+     lua_ports[i] = lua_open();
+	 if(lua_ports[i]){
+	   luaL_openlibs(lua_ports[i]);
+	   luaL_openlib(lua_ports[i], "Telecom", luac_lib, 0);
+     }
+   }
+
+   return rc;
+}
+
+void arc_debug_free(){
+
+   int i;
+ 
+   
+
+};
+
+#ifdef MAIN 
+
+int main(){
+
+   return 0;
+}
+
+#endif 
+
+

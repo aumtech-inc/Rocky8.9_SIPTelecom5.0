@@ -1,0 +1,24 @@
+#------------------------------------------------------------------------------
+# Program:	.arciptelrc
+# Purpose:	To set all environment variables required for IP 
+#		Telecom Services. This script shoulde be executed from your
+#		.profile after the .isprc script.
+# Author:	Aumtech, Inc.
+# Date:		2001/10/12
+#------------------------------------------------------------------------------
+echo Setting environment variables for ARC IP Telecom Services.
+#
+#------------------------------------------------------------------------------
+# Dialogic Telecom Services specific variables
+#------------------------------------------------------------------------------
+
+TELECOM=$ISPBASE/Telecom;		export TELECOM
+
+OBJDB="$TELECOM/phrases"		export OBJDB
+
+PATH=$PATH:.:$TELECOM/bin; export PATH
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SWISRSDK/lib:.; export LD_LIBRARY_PATH
+
+ulimit -s unlimited
+ulimit -c unlimited
+

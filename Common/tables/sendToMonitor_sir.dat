@@ -1,0 +1,29 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_sir.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		08/25/99
+#-----------------------------------------------------------------------------
+#
+# SIR APIs
+#
+#
+1901	TEL_SRInit 
+1902	TEL_SRReserveResource   
+1903	TEL_SRReleaseResource
+1904	TEL_SRRecognize
+1905	TEL_SRGetResult
+1906	TEL_SRSetParameters
+1907	TEL_SRGetParameter
+1908	TEL_SRAddWords
+1909	TEL_SRDeleteWords
+1910	TEL_SRExit
+1911	TEL_SRLearnWord   	
+1912	TEL_SRLoadGrammar   	
+1913	TEL_SRGetPhoneticSpelling   	
+1914	TEL_SRUnloadGrammars   	
+1915	TEL_SRGetXMLResult   	
+1916	TEL_SRLogEvent   	

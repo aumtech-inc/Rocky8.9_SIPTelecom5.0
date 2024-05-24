@@ -1,0 +1,6 @@
+gcc -Wno-implicit-function-declaration -ggdb -c mrcpTTSClient2Mgr.c
+exit
+
+gcc -ggdb -o /home/dan/isp2.2/SIPTelecom3.6/mrcpTTSClient2.0/bin/mrcpTTSClient2Mgr mrcpTTSClient2Mgr.o		\
+    	-L /home/dan/isp2.2/SIPTelecom3.6/Common/lib  \
+	-lISPUtil -lISPLog 

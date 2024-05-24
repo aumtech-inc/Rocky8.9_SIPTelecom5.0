@@ -1,0 +1,5 @@
+
+export LD_LIBRARY_PATH=` cd ../../thirdParty/ortp-0.6.3.core.ipv6/src/.libs && pwd`  
+
+
+

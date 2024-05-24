@@ -1,0 +1,1 @@
+./config --prefix=/home/dan/isp2.2/SIPTelecom3.6/thirdParty/openssl-1.0.2k threads no-asm shared

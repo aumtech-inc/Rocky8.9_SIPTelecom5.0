@@ -1,0 +1,183 @@
+cscope 15 $HOME/thirdParty/ortp-0.6.3.core               0000000956
+	@ortp-config.h
+
+5 
+	#BUILD_SCHEDULER
+ 1
+
+	)
+
+11 
+	#HAVE_DLFCN_H
+ 1
+
+	)
+
+14 
+	#HAVE_FCNTL_H
+ 1
+
+	)
+
+17 
+	#HAVE_GLIB
+ 1
+
+	)
+
+20 
+	#HAVE_INTTYPES_H
+ 1
+
+	)
+
+23 
+	#HAVE_LINUX_SOUNDCARD_H
+ 1
+
+	)
+
+26 
+	#HAVE_MEMORY_H
+ 1
+
+	)
+
+29 
+	#HAVE_SELECT
+ 1
+
+	)
+
+32 
+	#HAVE_SETEUID
+ 1
+
+	)
+
+35 
+	#HAVE_SOCKET
+ 1
+
+	)
+
+38 
+	#HAVE_STDINT_H
+ 1
+
+	)
+
+41 
+	#HAVE_STDLIB_H
+ 1
+
+	)
+
+44 
+	#HAVE_STRERROR
+ 1
+
+	)
+
+47 
+	#HAVE_STRINGS_H
+ 1
+
+	)
+
+50 
+	#HAVE_STRING_H
+ 1
+
+	)
+
+56 
+	#HAVE_SYS_STAT_H
+ 1
+
+	)
+
+59 
+	#HAVE_SYS_TIME_H
+ 1
+
+	)
+
+62 
+	#HAVE_SYS_TYPES_H
+ 1
+
+	)
+
+65 
+	#HAVE_UNISTD_H
+ 1
+
+	)
+
+74 
+	#PACKAGE_BUGREPORT
+ ""
+
+	)
+
+77 
+	#PACKAGE_NAME
+ ""
+
+	)
+
+80 
+	#PACKAGE_STRING
+ ""
+
+	)
+
+83 
+	#PACKAGE_TARNAME
+ ""
+
+	)
+
+86 
+	#PACKAGE_VERSION
+ ""
+
+	)
+
+89 
+	#POSIXTIMER_INTERVAL
+ 10000
+
+	)
+
+95 
+	#RTP_DEBUG
+ 1
+
+	)
+
+98 
+	#STDC_HEADERS
+ 1
+
+	)
+
+104 
+	#TIME_WITH_SYS_TIME
+ 1
+
+	)
+
+118 #iâdeà
+__ýlu¥lus
+
+
+	@
+1
+.
+1
+/usr/include
+1
+14
+ortp-config.h

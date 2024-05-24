@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Masquerading an Asterisk box</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Siproxd Users Guide"
+HREF="siproxd_guide.html"><LINK
+REL="UP"
+TITLE="Sample Configurations"
+HREF="siproxd_guide_c7.html"><LINK
+REL="PREVIOUS"
+TITLE="Transparent SIP Proxy"
+HREF="siproxd_guide_c7s4.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Siproxd Users Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="siproxd_guide_c7s4.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 7. Sample Configurations</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+>&nbsp;</TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN484"
+>7.5. Masquerading an Asterisk box</A
+></H1
+><P
+>Scenario:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>private IP address range             :          Internet
+10.0.0.x                             :          (public IP address range)
+                                     :
+                                     :         foo.bar.org
++-------------+               +--------------+
+!             !.10         .1 ! masquerading ! publicIP
+! Asterisk    !---------------! Firewall     !------------&#62;&#62;  
+!             !  SIP trunk    ! siproxd      !
++-------------+               +--------------+
+  ! ! ! ! !               eth0       :        ppp0
+..!.!.!.!.!.....
+ extensions
+ (local SIP clients)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Siproxd can also be used to masquerade an Asterisk server.
+        The Asterisk server will register itself as a SIP UA (Client)
+        to an external SIP registrar. In this example this would be
+        again sipphone.com. As Asterisk does not allow to specify an
+        SIP outbound proxy we use the same setup for transparent proxying.
+        The context values of the asterisk configuration probably must
+        be adapted to fit your needs.</P
+><P
+>siproxd.conf:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>if_inbound  = eth0
+if_outbound = ppp0
+hosts_allow_reg = 10.0.0.0/24
+sip_listen_port = 5060
+daemonize = 1
+silence_log = 1
+user = siproxd
+registration_file = /var/lib/siproxd_registrations
+pid_file = /var/run/siproxd/siproxd.pid
+rtp_proxy_enable = 1
+rtp_port_low  = 7070
+rtp_port_high = 7089
+rtp_timeout = 300
+default_expires = 600
+debug_level = 0
+debug_port = 0</PRE
+></TD
+></TR
+></TABLE
+><P
+>Firewall configuration (iptables):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+># redirect outgoing SIP traffic to siproxd (myself)
+iptables -t nat -A PREROUTING -m udp -p udp -i eth0 \
+                     --source 10.0.0.11 --destination-port 5060 -j REDIRECT
+# allow incoming SIP and RTP traffic
+iptables -A INPUT -m udp -p udp -i ppp0 --dport 5060      -j ACCEPT
+iptables -A INPUT -m udp -p udp -i ppp0 --dport 7070:7080 -j ACCEPT</PRE
+></TD
+></TR
+></TABLE
+><P
+>Asterisk configuration (SIP related part):</P
+><P
+>Note: Very important are the fromuser and fromdomain
+        keywords in the client section. They are required to have
+        Asterisk send the correct From headers in SIP dialogs.
+        The used Asterisk version is 'SVN-branch-1.4-r62331M'.</P
+><P
+>With newer Asterisk versions, it is no longer required
+        to have a separate REGISTER definition, this can be made
+        implicit in the SIP trunk config.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>; sip.conf:
+
+[general]
+port = 5060           ; Port to bind to (SIP is 5060)
+bindaddr = 0.0.0.0    ; Address to bind to (all addresses on machine)
+context = from-sip-external ; Send unknown SIP callers to this context
+
+useragent = PBX       ; NOTE: some providers (e.g sipcall.ch) do simply
+                      ;       not work with the default "AsteriskPBX"
+                      ;       UA String.
+
+; Network Settings
+nat=never
+localnet = 10.0.0.0/24
+domain = 10.0.0.10
+
+; Codecs
+disallow=all
+allow=gsm       ; 13 Kbps
+allow=ulaw      ; 64 Kbps
+allow=alaw      ; 64 Kbps
+autoframing = yes
+
+; SIP Settings
+canreinvite = no      ; important!
+
+; the following are just my settings I use, however
+; I dont' consider them critical
+allowexternaldomains = yes
+allowexternalinvites = yes
+allowguest = yes
+allowsubscribe = no
+allowtransfer = yes
+alwaysauthreject = no
+autodomain = yes
+callevents = no
+compactheaders = no
+dumphistory = no
+g726nonstandard = no
+ignoreregexpire = no
+jbenable = no
+jbforce = no
+jblog = no
+maxcallbitrate = 384
+maxexpiry = 3600
+minexpiry = 180
+notifyringing = no
+pedantic = no
+promiscredir = no
+recordhistory = no
+relaxdtmf = no
+rtcachefriends = no
+rtsavesysname = no
+rtupdate = no
+sendrpid = yes
+sipdebug = no
+t1min = 100
+progressinband = no
+;register = 
+t38pt_udptl = no
+trustrpid = no
+usereqphone = no
+videosupport = no</PRE
+></TD
+></TR
+></TABLE
+><P
+>The Trunk definition looks like:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>; users.conf:
+
+[general]
+;
+; Full name of a user
+;
+fullname = New User
+userbase = 200
+;
+; Create voicemail mailbox and use use macro-stdexten
+;
+hasvoicemail = yes
+;
+; Set voicemail mailbox 6000 password to 1234
+;
+vmsecret = 1234
+;
+; Create SIP Peer
+;
+hassip = yes
+hasiax = no
+;
+; Create H.323 friend
+;
+;hash323 = yes
+;
+; Create manager entry
+;
+hasmanager = no
+;
+; Remaining options are not specific to users.conf entries but are general.
+;
+callwaiting = yes
+threewaycalling = yes
+callwaitingcallerid = yes
+transfer = yes
+canpark = yes
+cancallforward = yes
+callreturn = yes
+callgroup = 1
+pickupgroup = 1
+host = dynamic
+localextenlength = 3
+allow_aliasextns = no
+allow_an_extns = no
+hasagent = no
+hasdirectory = no
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Local SIP UAs
+; = locally connected phones. nothing special here.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[201]
+callwaiting = yes
+cid_number = 201
+context = local_sip
+email = e@mail
+fullname = Full Name
+group = 
+hasagent = yes
+hasdirectory = yes
+hasiax = no
+hasmanager = no
+hassip = yes
+hasvoicemail = yes
+host = dynamic
+mailbox = 201
+secret = sip_password
+threewaycalling = yes
+zapchan = 
+registeriax = no
+registersip = yes
+vmsecret = 1234
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; SIP Trunks
+; these are masqueraded via siproxd
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[trunk_1]
+disallow = all
+allow = gsm,ulaw,alaw,adpcm,speex,g729,g723
+callerid = 
+contact = 17476691234       ; IMPORTANT
+context = DID_trunk_1
+dialformat = ${EXTEN:1}
+fromdomain = proxy01.sipphone.com
+fromuser = 17476691234      ; IMPORTANT
+group = 
+hasexten = no
+hasiax = no
+hassip = yes
+host = proxy01.sipphone.com
+insecure = very
+port = 5060
+provider = 
+registeriax = no
+registersip = yes
+secret = sip_password
+trunkname = Custom - sipphone1234
+trunkstyle = customvoip
+username = 17476691234</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c7s4.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="siproxd_guide.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Transparent SIP Proxy</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c7.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

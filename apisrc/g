@@ -1,0 +1,4 @@
+gcc -fPIC  -ggdb  -ggdb -DMRCP_SR -c 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/include 	\
+	-I /home/dan/isp2.2/SIPTelecom3.6/Common/include 	\
+	-I../include   ocmUtil.c -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64

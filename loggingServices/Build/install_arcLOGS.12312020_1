@@ -1,0 +1,483 @@
+#!/bin/ksh
+#---------------------------------------------------------------------------
+# Program:	install_arcLOGS
+# Purpose:	Script to install Central Log Server package on Linux.
+# Date:		04/08/01  djb	Created the file.
+# Update:	12/04/01	djb Changed grep "^<user>"  to grep "^<user>:"
+#---------------------------------------------------------------------------
+Chgrp()
+{
+	# Change group -  Disabled
+#	chgrp "$1" "$2"
+	:
+}
+
+Makedir()
+{
+	dir="$1"
+	permissions="$2"
+	owner="$3"
+	group="$4"
+
+	if [ ! -d $dir ]; then
+		mkdir -p $dir
+	fi
+	chmod $permissions $dir
+	chown $owner $dir
+	Chgrp $group $dir
+}
+
+Update_rc_files_and_profile()
+{
+	# Update rc files & make sure they are in the profile
+
+	DEST_DIR="$USER_HOME"
+
+	FILE_LIST=".isprc"
+	for file in $FILE_LIST
+	do
+		if [ -f "$DEST_DIR/$file" ]
+		then
+			Echo "Using existing $file"
+			Copy $TEMP/isprc $DEST_DIR/$file.$TODAY
+		else	
+			Echo "Creating new $file"
+			Copy $TEMP/isprc $DEST_DIR/$file
+		fi
+	done
+
+	PROFILE="$USER_HOME/.profile"
+	FILE_LIST=".isprc"
+	for file in $FILE_LIST
+	do
+		# Insert the command in the profile, if necessary	
+		CMD=$file
+       	if grep "$CMD" $PROFILE  1>/dev/null 2>&1
+       	then
+			echo "Found $CMD command in $PROFILE."
+       	else
+			if [  ! -f "$PROFILE" ]
+			then
+				echo "No profile found; creating $PROFILE"
+				echo "#" > $PROFILE
+				chmod 644 $PROFILE
+			fi
+			echo "Inserting $CMD command in $PROFILE"
+			echo ". $USER_HOME/$CMD  # Do not remove">>$PROFILE
+		fi
+	done
+}
+
+Update_kshell_aliases()
+{
+	ks=$USER_HOME/.kshrc
+	
+	header="Global aliases"
+	if grep "$header" $ks 1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $header"
+		echo "# $header added `date`"				>>$ks
+		echo "alias Ge=\"cd \$ISPBASE/Global/Exec; pwd\""	>>$ks
+		echo "alias Gt=\"cd \$ISPBASE/Global/Tables; pwd\""	>>$ks
+	fi
+	
+	cmd='set -o vi'
+	if grep "$cmd" $ks  1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $cmd"
+		echo "$cmd # added `date`" >> $ks	
+	fi
+
+	header='alias Log'
+	if grep "$header" $ks  1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $header"
+		echo "# $header added `date`"			>>$ks
+		echo "alias Log=\"cd \$ISPBASE/LOG; pwd\""	>>$ks
+	fi
+
+	chown $USER_ID $ks
+	Chgrp $GROUP   $ks
+
+}
+
+Echo()
+{
+	echo "$1" 
+}
+
+Beep()
+{
+#	echo "\007" 
+	:
+}
+
+Copy()
+{
+	Echo "cp $1 $2"
+	cp -pf $1 $2
+}
+
+Move()
+{
+	Echo "mv $1 $2"
+	mv $1 $2
+}
+
+CD()
+{
+	Echo "cd $1"
+	cd $1
+}
+
+Remove()
+{
+#	Echo "rm -f $1" 
+	rm -f $1 
+}
+
+Update_global_config_files()
+{
+        # If a file already exists, don't overwrite it, but always retain
+        # the new file (in case the original proves to have a problem).
+
+	DEST_DIR=$USER_HOME/.ISP/Global
+	sourceFile="Global.cfg"
+	destFile=".Global.cfg"
+	if [ -f "$DEST_DIR/$destFile" ]
+	then
+		Echo "Using existing $DEST_DIR/$destFile"
+		Copy $SRC_DIR/$sourceFile $DEST_DIR/$destFile.$TODAY
+	else	
+		Echo "Creating new $DEST_DIR/$destFile"
+		Copy $SRC_DIR/$sourceFile $DEST_DIR/$destFile
+	fi
+	chown $USER_ID $DEST_DIR/$destFile
+	Chgrp $GROUP $DEST_DIR/$destFile
+
+}
+
+Set_all_permissions()
+{
+	Echo "Setting ownership and permissions on all $USER_ID files..."
+	DIR=$USER_HOME
+	chown $USER_ID  $DIR/.isprc
+	Chgrp $GROUP    $DIR/.isprc
+        
+	DIR=$USER_HOME/ISP
+	chown -R $USER_ID  $DIR
+	Chgrp -R $GROUP    $DIR
+
+	DIR=$USER_HOME/.ISP
+	chown -R $USER_ID  $DIR
+	Chgrp -R $GROUP    $DIR
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the request script on SCO
+#-------------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null 2>/dev/null
+	then
+		echo "You must be root to install Central Log Server. "
+		echo "Installation aborted."
+		exit 3
+	fi
+	
+	clear
+	
+ 	if 	ps -ef | grep "log_listen" | egrep -v "grep|vi|install" >/dev/null   
+	then
+		Beep
+echo "ERROR: Central Log Server appears to be running."
+echo "Please stop it and remove the package by running 'remove_LOGSVC' before proceeding."
+		Echo "Installation aborted."
+		exit 3
+	fi
+ 	
+	if tail -1 $PKGINFO 2>/dev/null | grep "INSTALL" | grep -v grep >/dev/null 2>/dev/null  
+	then
+		Beep
+		echo "ERROR: Central Log Server appears to be already installed."
+		show_pkginfo 
+		Echo "Installation aborted."
+		exit 3
+	fi
+		
+echo
+echo "If other Aumtech products are installed, the user id entered below should"
+echo "be the same as that which was used when installing the other Aumtech products."
+echo "If no other Aumtech products are installed, please enter an id that currently"
+echo "exists on the system with home directory /home/<user_id> and ksh as its default shell."
+
+	echo
+	echo "Enter the user id [default: arc] : \c"
+	read USER_ID
+	if [ "$USER_ID" = "" ]
+	then
+		USER_ID=arc
+	fi
+
+	# Check to see if $USER_ID user exists, has home dir, and kshell
+	if grep "^$USER_ID:" /etc/passwd > /tmp/$USER_ID.$$
+	then
+		USER_HOME="`grep "^$USER_ID:" /etc/passwd | cut -d':' -f6`"
+		if [ ! -d $USER_HOME ]
+		then
+			Beep
+echo "ERROR: User id '$USER_ID' doesn't have home directory '$USER_HOME'."
+echo "Please set home directory for '$USER_ID' to '$USER_HOME'."
+			echo "Installation aborted."
+			exit 3
+		fi
+		if [ `grep "^$USER_ID:" /etc/passwd | cut -d':' -f7` = "/bin/ksh" ]
+		then
+			:
+		else
+			Beep
+echo "ERROR: User id '$USER_ID' does not have 'ksh' as its default shell."
+echo "Please make 'ksh' the default shell or install under another user."
+			echo "Installation aborted."
+			exit 3
+		fi
+	else
+		echo "ERROR: $USER_ID does not exist on the system."
+		echo "Please create userid '$USER_ID' with home directory '/home/$USER_ID' and default shell 'ksh'."
+		echo "Installation aborted."
+		exit 3
+	fi
+	
+	Update_kshell_aliases
+
+} 
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the Unix script of the same name.
+#-------------------------------------------------------------------------------
+prototype()
+{
+
+	Makedir $USER_HOME/ISP 						0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/Exec 				0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/Tables 				0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/lib					0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/include				0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/doc					0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/.Utilities			0755 $USER_ID $GROUP
+	Makedir $USER_HOME/.ISP						0755 $USER_ID $GROUP
+	Makedir $USER_HOME/.ISP/LOG					0755 $USER_ID $GROUP
+
+	return 0
+} # prototype
+
+Copy_exec_file()
+{
+	oldFile="$1"
+	newFile="$2"
+
+	Copy $oldFile $newFile
+
+	chmod 755		$newFile
+	chown $USER_ID	$newFile
+	chgrp $GROUP	$newFile
+}
+
+Copy_plain_file()
+{
+	oldFile="$1"
+	newFile="$2"
+
+	Copy $oldFile $newFile
+
+	chmod 644		$newFile
+	chown $USER_ID	$newFile
+	chgrp $GROUP	$newFile
+}
+
+Copy_All_Files()
+{
+	Copy_exec_file	$TEMP/log_svc		$EXEC_DIR/log_svc
+	Copy_exec_file	$TEMP/log_listen		$LISTENER
+
+#	Copy_plain_file $TEMP/Parameters.def	$TABLE_DIR/Parameters.def
+#	Copy_plain_file $TEMP/Global.def		$TABLE_DIR/Global.def
+#	Copy_plain_file $TEMP/Global.hlp		$TABLE_DIR/Global.hlp
+#	Copy_plain_file $TEMP/cfg-global.def	$TABLE_DIR/cfg-global.def
+#	Copy_plain_file $TEMP/cfg.def			$TABLE_DIR/cfg.def
+
+	Copy_exec_file $TEMP/remove_arcLOGS		$EXEC_DIR/remove_arcLOGS
+	Copy_exec_file $TEMP/install_arcLOGS	$EXEC_DIR/install_arcLOGS
+
+#	Copy_plain_file $TEMP/arcLOGS_installation.readme $DOC_DIR/arcLOGS_installation.readme
+#	Copy_plain_file $TEMP/arcLOGS_licensing.readme $DOC_DIR/arcLOGS_licensing.readme
+
+}
+
+#-------------------------------------------------------------------------------
+# Does_inittab_entry_already_exist()
+#		$1 - grep string to grep from /etc/inittab
+#		$2 - entry to be added
+# Return values:
+# 	0 - entry does not exist
+#	1 - entry exists
+#-------------------------------------------------------------------------------
+Does_inittab_entry_already_exist()
+{
+	if [ `grep -c "$1" $inittab` -gt 0 ] ; then
+		echo "$1 already exists in $inittab:"
+		echo "  $2"
+		echo "$1 will not be added to $inittab."
+		return 1
+	fi
+
+	return 0
+}
+
+Modify_inittab()
+{
+	inittab="/etc/inittab"
+
+	logListenStr="llis:2345:respawn:su - $USER_ID -c \"cd $USER_HOME/.ISP/Global/Exec; log_listen LOG 30\""
+	Does_inittab_entry_already_exist  "^llis" "$logListenStr"
+	if [ $? -eq 1 ]
+	then
+        echo
+        echo "An entry for log_listen already exists in the $inittab file."
+        echo "$inittab will not be modified."
+        return
+	fi
+
+	echo 
+	echo "The following line must to be appended to the $inittab:"
+	echo 
+	echo "$logListenStr"
+
+	echo
+	echo "You have the option of having it automatically appended now, or, "
+	echo "you can manually append them to the $inittab file later."
+	echo "Automatically append the line to $inittab now [(y/n): def:y]: \c"
+	read ans
+
+	if [ "$ans" = "n" -o "$ans" = "N" -o "$ans" = "no" -o "$ans" = "No" ]
+	then
+		return 0
+	fi
+
+	inittabSave="$inittab.`date +%Y%m%d`"
+	echo "Saving the current $inittab file to $inittabSave..."
+	Copy $inittab $inittabSave
+
+	echo "$logListenStr" >>$inittab
+
+	return 0
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the most of the postinstall script on SCO
+#-------------------------------------------------------------------------------
+postinstall()
+{
+	Echo
+	Echo "`date` postinstall script begins..."
+	Echo
+	
+	if [ ! -d $USER_HOME/.ISP/Global ]
+	then
+	 	Echo "ln -s $USER_HOME/ISP $USER_HOME/.ISP/Global"
+	 	ln -s $USER_HOME/ISP $USER_HOME/.ISP/Global
+		chown	$USER_ID $USER_HOME/ISP
+		Chgrp	$GROUP   $USER_HOME/ISP
+		chown  	$USER_ID $USER_HOME/.ISP/Global
+		Chgrp  	$GROUP   $USER_HOME/.ISP/Global
+	fi
+
+	TABLE_DIR="$ISPBASE/Global/Tables"
+	EXEC_DIR="$ISPBASE/Global/Exec"
+	DOC_DIR="$ISPBASE/Global/doc"
+	LISTENER="$EXEC_DIR/log_listen"
+
+	Copy_All_Files
+
+	Update_rc_files_and_profile
+	Modify_inittab
+
+	Update_global_config_files
+
+	echo 
+	echo "Install complete."
+	
+} # postinstall
+
+#------------------------------------------------------------------------------
+# Put the file in place that indicates what version of this product is 
+# installed and when. 
+#------------------------------------------------------------------------------
+update_pkginfo()
+{
+	STATUS=$1
+	INSTDATE=`date +"%Y %B %d %X"`
+	subSystems="`echo $INSTALL_OPTION | sed s/" "/,/g`"
+	
+	echo "------------------------"	>> $PKGINFO
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST" 	>> $PKGINFO
+	echo "NAME      : $NAME" 	>> $PKGINFO
+	echo "VERSION   : $VERSION" 	>> $PKGINFO
+	echo "USER      : $USER_ID"	>> $PKGINFO
+	echo "VENDOR    : $VENDOR" 	>> $PKGINFO
+	echo "DESC      : $DESC ($subSystems) Services" 	>> $PKGINFO
+	echo "PSTAMP    : $PSTAMP" 	>> $PKGINFO
+	echo "INSTDATE  : $INSTDATE" 	>> $PKGINFO
+	echo "STATUS    : $STATUS" 	>> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO ...
+	tail -11 $PKGINFO | grep -v -i Caution
+}
+
+#------------------------------------------------------------------------------
+# main routine
+#------------------------------------------------------------------------------
+TEMP="."
+
+# Package information
+PKGINST="arcLOGS"
+PKGINFO="/home/.$PKGINST.pkginfo"	# File that contains Unix-like pkginfo
+NAME="ARC Central Log Server on Linux"
+PACKAGE_DATE="06-Dec-21-10AM"
+
+VERSION="2.2"
+PSTAMP=$VERSION.$PACKAGE_DATE
+VENDOR="Aumtech, Inc."
+DESC="ARC Central Log Server"
+
+
+TODAY=`date +%y%m%d` 	# Used as suffix on "extra" files
+SRC_DIR=`pwd`
+
+request
+
+GROUP="`id -ng $USER_ID`"
+
+prototype
+ISPBASE=$USER_HOME/.ISP
+
+Echo "Installing ARC Central Log Server $VERSION, please wait ... "
+
+postinstall
+
+update_pkginfo INSTALLED
+	
+echo "Please reboot now to insure proper functioning of the Central Log Server."
+echo "Press Enter"
+read answer

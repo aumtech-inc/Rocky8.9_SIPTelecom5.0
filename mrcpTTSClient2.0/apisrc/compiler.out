@@ -1,0 +1,5 @@
+echo "Compiling TTSCommon.cpp"
+Compiling TTSCommon.cpp
+g++ -ggdb -c -DOSIP_MT TTSCommon.cpp -I //mrcpTTSClient2.0/include -I //SIPTelecom3.3/include -I //SIPTelecom3.3/Common/include -I //SIPTelecom3.3/thirdParty/mrcpClient2/include -I //SIPTelecom3.3/thirdParty/mrcpClient2/include/osip2 -I //SIPTelecom3.3/thirdParty/mrcpClient2/include/osipparser2 -I //SIPTelecom3.3/thirdParty/mrcpClient2/include/eXosip2
+
+

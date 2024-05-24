@@ -1,0 +1,34 @@
+echo "Building ISPglb.o"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c ISPglb.c
+mv *.o obj
+echo "Building util_options.o"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c util_options.c
+mv *.o obj
+echo "Building util_sleep.o"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c util_sleep.c
+mv *.o obj
+echo "Building support.o - shared memory routines"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c support.c
+mv *.o obj
+echo "Building util_send_to_monitor.o"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c util_send_to_monitor.c
+mv *.o obj
+echo "Building util_get_name_value.o - get name=value routine"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c util_get_name_value.c
+mv *.o obj
+echo "Building util_get_cfg_filename.o - get filename using a token"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c util_get_cfg_filename.c
+mv *.o obj
+echo "Building loadapis.o"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c loadapis.c
+mv *.o obj
+echo "Building ResourceMgrAPIs.o"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c ResourceMgrAPIs.c
+mv *.o obj
+echo "Building Library /home/dan/isp2.2/SIPTelecom3.6/Common/lib/libUTILS.a"
+ar r /home/dan/isp2.2/SIPTelecom3.6/Common/lib/libUTILS.a obj/ISPglb.o obj/util_options.o obj/util_sleep.o obj/support.o obj/util_send_to_monitor.o obj/util_get_name_value.o obj/util_get_cfg_filename.o obj/loadapis.o obj/ResourceMgrAPIs.o 
+echo "Building turnkey_handshake.o"
+gcc	-fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O -s -I/home/dan/isp2.2/SIPTelecom3.6/Common/include -I/home/dan/isp2.2/SIPTelecom3.6/include -I/home/dan/isp2.2/SIPTelecom3.6/SNA/include -I/home/dan/isp2.2/SIPTelecom3.6/TCP/include -I"/home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server"/include -I/home/dan/isp2.2/SIPTelecom3.6/Common/ResourceMgr -c turnkey_handshake.c
+mv *.o obj
+echo "Building Library /home/dan/isp2.2/SIPTelecom3.6/Common/lib/libhandshake.a"
+ar r /home/dan/isp2.2/SIPTelecom3.6/Common/lib/libhandshake.a obj/turnkey_handshake.o

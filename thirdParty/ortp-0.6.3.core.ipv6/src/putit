@@ -1,0 +1,4 @@
+if [ $1 ]
+then
+	ftp -d -n $1 < put.ftp
+fi

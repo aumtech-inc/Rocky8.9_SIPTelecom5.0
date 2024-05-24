@@ -1,0 +1,256 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <fcntl.h>
+#include <stdlib.h>
+
+#define GSR_STREAMING_REQUEST   1       // mm -> java client
+#define GSR_RESPONSE            2       // java client -> mm
+#define GSR_VXI_RECORD_REQUEST	6		// mm -> java client
+
+static int googleRecordOnNomatch(int zCall, int zRecordType, int zRemoveFile,
+					char *zUtterance, char *zTranslation);
+static int checkGoogleResultV2(int zCall, int removeFile, int timeout, char *resultFile, char *resultStr);
+
+int main(int argc, char *argv[])
+{
+	int			rc;
+	char		translation[128]="";
+	
+	if ( argc != 2 )
+	{
+		printf("Usage: %s <utterance file>\n", argv[0]);
+		exit(0);
+	}
+	rc = googleRecordOnNomatch(3, 0, 0, argv[1], translation);
+
+	printf("%d=googleRecordOnNomatch(%s, %s)\n",
+			rc, argv[1], translation);
+
+}
+
+static int googleRecordOnNomatch(int zCall, int zRecordType, int zRemoveFile,
+					char *zUtterance, char *zTranslation)
+{
+	typedef struct
+	{ 
+		int		opcode;
+		int		mmid;
+		int		telport;
+		int		rectime;
+		int		trailtime;
+		int		recognitionType;	// 0 - nonDTMF, 1 - DTMF
+		char	data[128];
+		char	returnFifo[128];
+	} GSR_request;
+
+	typedef struct
+	{ 
+		int		opcode;
+		int		mmid;
+		int		telport;
+		int		udpport;
+		int		other;
+		char	data[128];
+	} GSR_response;
+
+	GSR_request		gsrRequest;
+	GSR_response	gsrResponse;
+	char			resultStr[256];
+	int			rc;
+	char			resultFile[128];
+	char			triggerFile[128];
+
+	static char		googleResponseFifo[128] = "";
+	static int		googleResponseFifoFd = -1;
+	static char		googleRequestFifo[128] = "/tmp/ArcGSRRequestFifo";
+	static int		googleRequestFifoFd = -1;
+
+	*zTranslation = '\0';
+	//
+	// Send the the request struct
+	//
+	if(googleRequestFifoFd <= -1)
+	{
+		if ( (googleRequestFifoFd = open (googleRequestFifo, O_RDWR)) < 0 )
+		{
+			printf("[%d] ARCGS: Failed to open request fifo (%s). [%d, %s] "
+					"Unable to communicate with Google SR Client.\n", __LINE__,
+					googleRequestFifo, errno, strerror (errno));
+			return(-1);
+		}
+	}
+	sprintf(resultFile, "/tmp/googleResult.%d", zCall);
+	if ( access( resultFile, F_OK ) )
+	{
+		unlink(resultFile);
+	}
+	sprintf(triggerFile, "/tmp/googleResult.trigger.%d", zCall);
+	if ( access( triggerFile, F_OK ) )
+	{
+		unlink(triggerFile);
+	}
+
+	sprintf(googleResponseFifo, "%s.%d",  "/tmp/googleVXIResponseFifo", zCall);
+	memset((GSR_request *)&gsrRequest, '\0', sizeof(gsrRequest));
+	gsrRequest.opcode 	= 6;
+	gsrRequest.mmid 	= 99;
+	gsrRequest.telport = zCall;
+	gsrRequest.rectime = 97;
+	gsrRequest.trailtime = 96;
+	gsrRequest.recognitionType = 92;
+	sprintf(gsrRequest.data, "%s", zUtterance);
+	sprintf(gsrRequest.returnFifo, "%s", googleResponseFifo);
+
+	rc = write (googleRequestFifoFd, &gsrRequest, sizeof (gsrRequest));
+	
+	printf("ARCGS: [%d] Sent %d bytes to (%s) for opcode=%d, file=(%s) fifo(%s)\n", __LINE__,
+		rc, googleRequestFifo, gsrRequest.opcode, gsrRequest.data, gsrRequest.returnFifo);
+	
+	sprintf (googleResponseFifo, "/tmp/vxiGoogleResponse.%d", zCall);
+	if ( (rc = access(googleResponseFifo, R_OK)) != 0 ) 
+	{
+		if (mknod (googleResponseFifo, S_IFIFO | 0666, 0) < 0 && errno != EEXIST)
+		{
+			printf("ARCGS: Failed to create response fifo (%s). [%d, %s] "
+				"Unable to communicate with Google SR Client.\n",
+					googleResponseFifo, errno, strerror (errno));
+	
+			close(googleResponseFifoFd);
+			googleResponseFifoFd = -1;
+	
+			return (-1);
+		}
+	}
+
+	memset((char *)&resultStr, '\0', sizeof(resultStr));
+	rc = checkGoogleResultV2(gsrRequest.telport, 0, 30, gsrResponse.data, resultStr);
+	return(0);
+
+} // END: googleRecordOnNomatch()
+
+static int checkGoogleResultV2(int zCall, int removeFile, int timeout, char *resultFile, char *resultStr)
+{
+	int 		yRc						= 0;
+	int 		rc						= 0;
+	int			googleResultFileCounter	= 100;
+	int			i;
+	time_t		startTime;
+	time_t		currentTime;
+
+
+	char mod[] = "checkGoogleResultV2";
+
+	char	grprefix[1024];
+	char	grsuffix[1024];
+	
+	sprintf(grprefix, "%s", "<input mode=\"speech\">");
+	sprintf(grsuffix, "%s", "</input>");
+
+	char yStrGoogleTriggerFile[64];
+	resultStr[0] = '\0';
+
+	size_t len = 0;
+	ssize_t read;
+	int triggerContent = 0;
+
+	*resultStr = '\0';
+	sprintf(resultFile, "/tmp/googleResult.%d", zCall);
+	sprintf(yStrGoogleTriggerFile, "/tmp/googleResult.trigger.%d", zCall);
+
+//	if( (removeFile == 1) &&
+//	    (access(resultFile, R_OK|W_OK) > -1) )
+//	{
+//		yRc = unlink(resultFile);
+//		myLog(__LINE__, mod,  "[%d] GSR: unlinked (%s). rc = %d", __LINE__, resultFile, yRc);
+//	}
+
+	time(&startTime);
+	while (access(yStrGoogleTriggerFile, W_OK) != 0)
+	{
+		usleep(2000);
+		time(&currentTime);
+		if(currentTime - startTime >= timeout)
+		{
+			return(-2);
+		}
+	}
+	if ( access( yStrGoogleTriggerFile, F_OK ) )
+	{
+		unlink(yStrGoogleTriggerFile);
+	}
+
+	if( (rc = access(resultFile, R_OK|W_OK)) == 0 )
+	{
+		FILE *yGoogleFp = NULL;
+
+		if((yGoogleFp = fopen(resultFile, "r") )!= NULL)
+		{
+			rc = fread(resultStr, 1024, 1, yGoogleFp); 
+			fclose(yGoogleFp);
+
+			printf("[%d] GSR: %d = fread(%s)\n", __LINE__, rc, resultStr);
+		}
+		else
+		{
+			printf("[%d] ARCGSR: Google Result is available. But failed to open %s\n", __LINE__, resultFile);
+
+			yRc = -1;
+			if( (removeFile == 1) &&
+			    (access(resultFile, R_OK|W_OK) > -1) )
+			{
+				yRc = unlink(resultFile);
+				printf("[%d] GSR: unlinked (%s). rc = %d\n", __LINE__, resultFile, yRc);
+			}
+			fclose(yGoogleFp);
+			return(-1);
+		}
+
+		if( (removeFile == 1) &&
+		    (access(resultFile, R_OK|W_OK) > -1) )
+		{
+			yRc = unlink(resultFile);
+			printf("[%d] ARCGSR: unlinked (%s). rc = %d\n", __LINE__, resultFile, yRc);
+		}
+
+	}//end access yStrGoogleResult
+	else
+	{
+		yRc = -1;
+		if( (removeFile == 1) &&
+		    (access(resultFile, R_OK|W_OK) > -1) )
+		{
+			yRc = unlink(resultFile);
+		}
+		printf("[%d] GSR: Unable to access result file (%s)\n", __LINE__, resultFile, rc);
+
+		return(-1);
+	}
+		
+
+	if(strlen(resultStr) == 0)
+	{
+		if( (removeFile == 1) &&
+		    (access(resultFile, R_OK|W_OK) > -1) )
+		{
+			yRc = unlink(resultFile);
+			printf("[%d] ARCGSR: unlinked (%s). rc = %d\n", __LINE__, resultFile, yRc);
+		}
+
+		return (-2);
+	}
+
+	if( (removeFile == 1) &&
+	    (access(resultFile, R_OK|W_OK) > -1) )
+	{
+		yRc = unlink(resultFile);
+		printf("[%d] ARCGSR: unlinked (%s). rc = %d", __LINE__, resultFile, yRc);
+	}
+
+	return (0);
+
+}// END: checkGoogleResultV2()

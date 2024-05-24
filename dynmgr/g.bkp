@@ -1,0 +1,120 @@
+
+function comp_callmgr()
+{
+	unset FFLAGS
+	echo "Compiling ArcSipCallMgr.c"
+	g++ -Wno-write-strings    -DSR_MRCP -ggdb -O2 -DSR_MRCP -D__DEBUG__ -DTTS_CHANGES 	\
+		-DENABLE_TRACE -DMAX_PORTS=960 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64		\
+		-DOSIP_MT -DHAVE_GLIB  -DEXOSIP_VERSION_401 -c ArcSipCallMgr.c  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/include  \
+		-I .  \
+		-I ./spandsp  \
+		-I ./soundtouch  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/ortp-0.6.3.core.ipv6		\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/ortp-0.6.3.core.ipv6/src		\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include  \
+		I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/src  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/include  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/glib-2.14.4/  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/glib-2.14.4/glib  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/c-ares-1.5.2  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/spandsp-0.0.6/src  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/dynmgr/soundtouch/soundtouch/include  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/include  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/machind  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/src  \
+		-I /usr/lib/glib-2.0/include  \
+		-I ./video_stack  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/arcavb/Current_VoiceID_Release  \
+		-I /home/dan/isp2.2/SIPTelecom3.6/arcavb/Current_VoiceID_Release/customers/aumtech  \
+		-DARCSIP_VERSION=`cat .version` -DARCSIP_BUILD=`cat .build`
+}
+	
+function comp_mediamgr
+{
+	g++ -Wno-write-strings    -DSR_MRCP -ggdb -O2 -DSR_MRCP -D__DEBUG__ -DTTS_CHANGES 		\
+		-DENABLE_TRACE -DMAX_PORTS=960 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 			\
+		-DOSIP_MT -DHAVE_GLIB  -DEXOSIP_VERSION_401					\
+		-c ArcSipMediaMgr.c 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/include 					\
+		-I . 					\
+		-I ./spandsp 					\
+		-I ./soundtouch 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/src 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/ortp-0.6.3.core.ipv6		\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/ortp-0.6.3.core.ipv6/src		\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/src 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/glib-2.14.4/ 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/glib-2.14.4/glib 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/c-ares-1.5.2 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/spandsp-0.0.6/src 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/dynmgr/soundtouch/soundtouch/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/machind 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/src 					\
+		-I /usr/lib/glib-2.0/include 					\
+		-I ./video_stack 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/arcavb/Current_VoiceID_Release 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/arcavb/Current_VoiceID_Release/customers/aumtech 		\
+		-DARCSIP_VERSION=`cat .version` -DARCSIP_BUILD=`cat .build`
+}
+
+function comp_other()
+{
+	src="$1.c"
+	if [ ! -f ${src} ];
+	then
+		src="${1}.cpp"
+	fi
+	echo "Compiling ${src}"
+	g++ -Wno-write-strings    -DSR_MRCP -ggdb -O2 -DSR_MRCP -D__DEBUG__ -DTTS_CHANGES 		\
+		-DENABLE_TRACE -DMAX_PORTS=960 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 			\
+		-DOSIP_MT -DHAVE_GLIB  -DEXOSIP_VERSION_401					\
+		-c ${src} 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/include 					\
+		-I . 					\
+		-I ./spandsp 					\
+		-I ./soundtouch 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/src 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include			\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/src 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/ortp-0.6.3.core.ipv6 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/ortp-0.6.3.core.ipv6/src 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/bctoolbox-release-5.2/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/glib-2.14.4/ 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/glib-2.14.4/glib 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/c-ares-1.5.2 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/spandsp-0.0.6/src 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/dynmgr/soundtouch/soundtouch/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/include 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/machind 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/src 					\
+		-I /usr/lib/glib-2.0/include 					\
+		-I ./video_stack 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/arcavb/Current_VoiceID_Release 					\
+		-I /home/dan/isp2.2/SIPTelecom3.6/arcavb/Current_VoiceID_Release/customers/aumtech -DARCSIP_VERSION=`cat .version` -DARCSIP_BUILD=`cat .build`
+
+	if [ $? -ne 0 ]; then
+		exit
+	fi
+
+}
+
+#-----------------------------------------------
+# main
+#-----------------------------------------------
+
+comp_callmgr
+#comp_mediamgr
+
+exit
+
+for x in RegistrationInfo RegistrationHandlers SubscriptionInfo IncomingCallHandlers OutboundCallHandlers callTerminateList SipInit Options CallOptions enum ArcSipCommon dl_open recycle arc_sdp osip_utils dtmf_utils dynVarLog
+do
+	comp_other $x
+done
+
+exit

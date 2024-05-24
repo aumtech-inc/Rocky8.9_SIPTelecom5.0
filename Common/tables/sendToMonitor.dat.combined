@@ -1,0 +1,110 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	G. Wenzel
+# Date:		06/29/99
+#-----------------------------------------------------------------------------
+#
+# Telecom Services APIs
+1001	TEL_InitTelecom
+1002	TEL_ExitTelecom
+1003	TEL_AnswerCall
+1004	TEL_ClearDTMF
+1005	TEL_CopyPhrase
+1006	TEL_BridgeCall
+1007	TEL_DeletePhrase
+1008	TEL_EndOfCall
+1009	TEL_FileToPhrase
+1010	TEL_GetGlobal
+1011	TEL_GetGlobalString
+1012	TEL_LoadLanguage
+1013	TEL_LoadVocab
+1014	TEL_InitiateCall
+1015	TEL_InputDTMF
+1016	TEL_InputNumber
+1017	TEL_InputPhrase
+1018	TEL_InputVoice
+1019	TEL_ISDNHoldPhrase
+1020	TEL_OutputDTMF
+1021	TEL_OutputPhrase
+1022	TEL_PortOperation
+1023	TEL_OutputTTS
+1024	TEL_PhraseLength
+1025	TEL_PhraseToFile
+1026	TEL_RecvFax
+1027	TEL_SendFax
+1028	TEL_SetGlobal
+1029	TEL_SetHook
+1030	TEL_TransferCall
+1031	TEL_StartPartialFax
+1032	TEL_AddToPartialFax
+1033	TEL_EndPartialFax
+1034	TEL_SpeakSystemPhrase
+1035	TEL_ScheduleFax
+1036	TEL_SpeakPhrase
+1037	TEL_SpeakPhraseFile
+1038	TEL_PortStatus
+1039	TEL_StartNewApp
+1040	TEL_SetGlobalString
+1041	TEL_SpeakTTS
+1042	TEL_ScheduleCall
+1043	TEL_UnscheduleCall
+1044	TEL_GetCDFInfo
+1045	TEL_GetInput
+1046	TEL_RecordPhrase
+1047	TEL_SpeakFile
+
+# TCP APIs
+2001	TCP_Check 
+2002	TCP_ComInit
+2003	TCP_Exit
+2004	TCP_GetData
+2005	TCP_GetGlobal
+2006	TCP_HostEvent
+2007	TCP_Init
+2008	TCP_PosCursor
+2009	TCP_PutData
+2010	TCP_SendKey
+2011	TCP_SetGlobal
+2012	TCP_GetCursorPos
+
+3001 	SNA_Check
+3002	SNA_Exit
+3003	SNA_GetData
+3004	SNA_GetGlobal
+3005	SNA_HostEvent
+3006	SNA_Init
+3007	SNA_PosCursor
+3008	SNA_PutData
+3009	SNA_ScreenDump
+3010	SNA_SendKey
+3011	SNA_SetGlobal
+3011	SNA_Return
+3012	SNA_GetStatInfo
+3013	SNA_GetStatusValue
+
+# Fax APIs
+9001	TEL_SendFax
+9002	TEL_RecvFax
+9003	TEL_ScheduleFax
+9004	TEL_BuildFaxList
+9005	TEL_SetFaxTextDefaults
+#
+#
+# Common APIs
+10000	CDR_CustomEvent
+10001	CDR_ServiceTran
+10002	ARY_IndxAryInit
+10003	ARY_IndxAryRetrieve
+10004	UTL_AddToFile
+10005	UTL_BusinessHours
+10006	UTL_CopyFile
+10007	UTL_CreateAFile
+10008	UTL_DeleteFile
+10009	UTL_GetField
+10010	UTL_LogMessage
+10011	UTL_SubString
+10012	UTL_SendToMonitor

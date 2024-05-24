@@ -1,0 +1,24 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_sna.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		07/30/99
+#-----------------------------------------------------------------------------
+#
+3001 	SNA_Check
+3002	SNA_Exit
+3003	SNA_GetData
+3004	SNA_GetGlobal
+3005	SNA_HostEvent
+3006	SNA_Init
+3007	SNA_PosCursor
+3008	SNA_PutData
+3009	SNA_ScreenDump
+3010	SNA_SendKey
+3011	SNA_SetGlobal
+3011	SNA_Return
+3012	SNA_GetStatInfo
+3013	SNA_GetStatusValue

@@ -1,0 +1,16 @@
+[Unit]
+Description=Aumtech's Redirector
+After=network.target
+
+[Service]
+Environment=ISPBASE=/home/arc/.ISP
+Environment=TELECOM=/home/arc/.ISP/Telecom
+Environment=SWISBSDK=/home/arc/.ISP/Telecom/Exec/vxi
+Environment=LD_LIBRARY_PATH=/home/arc/.ISP/Telecom/Exec:/lib:.
+Type=simple
+User=arc
+ExecStart=/home/arc/.ISP/Telecom/Exec/ArcSipRedirector
+PIDFile=/var/run/ArcSipRedirector.pid
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,45 @@
+CC=gcc -Wall -c  -fPIC 
+
+SOURCES=\
+ISPglb.c\
+loadapis.c\
+ResourceMgrAPIs.c\
+support.c\
+turnkey_handshake.c\
+util_get_cfg_filename.c\
+util_get_name_value.c\
+util_options.c\
+util_send_to_monitor.c\
+util_send_to_monitor_djb.c\
+util_sleep.c\
+
+INCLUDES=-I../include  -I../ResourceMgr -I../../../WSS/include
+
+UTILOBS=\
+ISPglb.o\
+loadapis.o\
+ResourceMgrAPIs.o\
+support.o\
+util_get_cfg_filename.o\
+util_get_name_value.o\
+util_options.o\
+util_send_to_monitor.o\
+util_send_to_monitor_djb.o\
+util_sleep.o\
+
+
+HAND=\
+	turnkey_handshake.o\
+
+
+all: compile  
+
+compile: $(SOURCES)
+	$(CC) $(INCLUDES) $^
+
+UTIL: $(SOURCES)
+	ar -cru ../lib/libUTILS.a  $(UTILOBS) 
+
+HAND: $(SOURCES)
+	ar -cru ../lib/libhandshake.a  $(HAND) 
+	

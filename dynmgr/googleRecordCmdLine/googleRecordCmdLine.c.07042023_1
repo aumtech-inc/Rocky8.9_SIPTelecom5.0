@@ -1,0 +1,343 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <fcntl.h>
+#include <stdlib.h>
+
+#define GSR_STREAMING_REQUEST   1       // mm -> java client
+#define GSR_RESPONSE            2       // java client -> mm
+#define GSR_VXI_RECORD_REQUEST	6		// mm -> java client
+
+static int googleRecordOnNomatch(int zCall, char *zUtterance, char *zTranslation);
+static int checkV2GoogleResult(int zCall, char *zTranslation);
+
+int main(int argc, char *argv[])
+{
+	int			rc;
+	char		translation[128]="";
+	
+	if ( argc != 2 )
+	{
+		printf("Usage: %s <utterance file>\n", argv[0]);
+		exit(0);
+	}
+	rc = googleRecordOnNomatch(3, argv[1], translation);
+
+	printf("%d=googleRecordOnNomatch(%s, %s)\n",
+			rc, argv[1], translation);
+
+}
+
+static int googleRecordOnNomatch(int zCall, char *zUtterance, char *zTranslation)
+{
+	typedef struct
+	{ 
+		int		opcode;
+		int		mmid;
+		int		telport;
+		int		rectime;
+		int		trailtime;
+		char	data[128];
+		char	returnFifo[64];
+		char	options[64];
+	} GSR_request;
+
+	typedef struct
+	{ 
+		int		opcode;
+		int		mmid;
+		int		telport;
+		int		udpport;
+		int		other;
+		char	data[128];
+		char	returnFifo[64];
+		char	options[64];
+	} GSR_response;
+
+	GSR_request		gsrRequest;
+	GSR_response	gsrResponse;
+	char			resultStr[256];
+	int			rc;
+	char			resultFile[128];
+	char			triggerFile[128];
+
+	static char		googleResponseFifo[128] = "";
+	static int		googleResponseFifoFd = -1;
+	static char		googleRequestFifo[128] = "/tmp/ArcGSRRequestFifo";
+	static int		googleRequestFifoFd = -1;
+
+	*zTranslation = '\0';
+	//
+	// Send the the request struct
+	//
+	if(googleRequestFifoFd <= -1)
+	{
+		if ( (googleRequestFifoFd = open (googleRequestFifo, O_RDWR)) < 0 )
+		{
+			printf("[%d] ARCGS: Failed to open request fifo (%s). [%d, %s] "
+					"Unable to communicate with Google SR Client.\n", __LINE__,
+					googleRequestFifo, errno, strerror (errno));
+			return(-1);
+		}
+	}
+		printf("[%d] Successfully opened request fifo (%s) \n", __LINE__, googleRequestFifo);
+
+	sprintf(resultFile, "/tmp/googleResult.%d", zCall);
+	if ( access( resultFile, F_OK ) )
+	{
+		unlink(resultFile);
+	}
+	sprintf(triggerFile, "/tmp/googleResult.trigger.%d", zCall);
+	if ( access( triggerFile, F_OK ) )
+	{
+		unlink(triggerFile);
+	}
+
+	if ( access( zUtterance, F_OK ) )
+	{
+		printf("[%d] Utterance file (%s) does not exist [%d, %s].  Returning failure.\n", __LINE__, zUtterance, errno, strerror(errno));
+		return(-1);
+	}
+
+	sprintf(googleResponseFifo, "%s.%d",  "/tmp/googleVXIResponseFifo", zCall);
+	memset((GSR_request *)&gsrRequest, '\0', sizeof(gsrRequest));
+	gsrRequest.opcode 	= 6;
+	gsrRequest.mmid 	= 99;
+	gsrRequest.telport = zCall;
+	gsrRequest.rectime = 97;
+	gsrRequest.trailtime = 96;
+	sprintf(gsrRequest.data, "%s", zUtterance);
+	sprintf(gsrRequest.returnFifo, "%s", googleResponseFifo);
+	sprintf(gsrRequest.options, "%s", "");
+
+	rc = write (googleRequestFifoFd, &gsrRequest, sizeof (gsrRequest));
+	
+	printf("ARCGS: [%d] Sent %d bytes to (%s) for opcode=%d, file=(%s) fifo(%s)\n", __LINE__,
+		rc, googleRequestFifo, gsrRequest.opcode, gsrRequest.data, gsrRequest.returnFifo);
+	
+	sprintf (googleResponseFifo, "/tmp/vxiGoogleResponse.%d", zCall);
+	if ( (rc = access(googleResponseFifo, R_OK)) != 0 ) 
+	{
+		if (mknod (googleResponseFifo, S_IFIFO | 0666, 0) < 0 && errno != EEXIST)
+		{
+			printf("Failed to create response fifo (%s). [%d, %s] "
+				"Unable to communicate with Google SR Client.\n",
+					googleResponseFifo, errno, strerror (errno));
+	
+			close(googleResponseFifoFd);
+			googleResponseFifoFd = -1;
+	
+			return (-1);
+		}
+	}
+
+	rc = checkV2GoogleResult(gsrRequest.telport, zTranslation);
+	close(googleResponseFifoFd);
+	return(rc);
+
+} // END: googleRecordOnNomatch()
+
+static int checkV2GoogleResult(int zCall, char *zTranslation)
+{
+	#define		TIME_TO_WAIT	60 // seconds
+	int rc = 0;
+	int removeFile = 1;
+	int	status;
+	time_t currentTime;
+	time_t endTime;
+	int gotResult;
+	int			counter;
+	char		tmpBuf[512];
+	struct stat	stat_buf;
+
+	char mod[] = "checkGoogleResult";
+
+	*zTranslation= '\0';
+	if((rc = access("/tmp/gsKeepAudio.txt", R_OK)) == 0)
+	{
+		removeFile = 0;
+	}
+	
+	memset((char *)tmpBuf, '\0', sizeof(tmpBuf));
+	char yStrGoogleResultFile[64];
+	char yStrGoogleTriggerFile[64];
+
+	char *triggerLine = NULL;
+	size_t len = 0;
+	ssize_t read;
+	int triggerContent = 0;
+
+	sprintf(yStrGoogleResultFile, "/tmp/googleResult.%d", zCall);
+	sprintf(yStrGoogleTriggerFile, "/tmp/googleResult.trigger.%d", zCall);
+
+    time(&currentTime);
+	endTime = currentTime + TIME_TO_WAIT;
+
+	while ( currentTime < endTime )
+	{
+		if(access(yStrGoogleTriggerFile, W_OK) > -1)
+		{
+			FILE *yGoogleTriggerFp = NULL;
+			if((yGoogleTriggerFp = fopen(yStrGoogleTriggerFile, "r") )!= NULL)
+			 {
+				read = getline(&triggerLine, &len, yGoogleTriggerFp);	
+	
+				fclose(yGoogleTriggerFp);
+	
+				if(triggerLine)
+				{
+					triggerContent = atoi(triggerLine);
+	//				arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, 
+	//						arcUtil[zCall].GV_Info,
+	//						"DJB: Set triggerContent:(%d)\n", triggerContent);
+					free(triggerLine);
+				}
+			}
+	
+			printf(
+//			arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, arcUtil[zCall].GV_Info,
+				"Google trigger file contents (%d).\n", triggerContent);
+	
+			//  This means the final google result is expected. so wait for at least 10 sec
+	
+			counter = 1;
+	
+	
+//	arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, arcUtil[zCall].GV_Info,
+		printf(
+		"DJB: triggerContent=%d  currentTime=%ld  endtime=%ld access(%s)=%d\n",
+		triggerContent, currentTime, endTime, yStrGoogleResultFile, access(yStrGoogleResultFile, R_OK|W_OK));
+
+			while( (triggerContent == 0) &&
+			       (currentTime < endTime) &&
+				   (access(yStrGoogleResultFile, R_OK|W_OK)) < 0)
+			{
+				if ( counter++ % 15 == 0 )  // check for disconnect every 1.5  seconds
+				{
+//					if ((rc = arcApi[zCall].TEL_PortOperation(GET_FUNCTIONAL_STATUS, zCall, &status)) == TEL_DISCONNECTED )
+//					{
+//						arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, arcUtil[zCall].GV_Info,
+//									"Got DISCONNECT waiting for google result file.");
+//						if ( ( removeFile == 1 ) &&
+//						     ( access (yStrGoogleTriggerFile, F_OK) == 0 ) )
+//				        {
+//							unlink(yStrGoogleTriggerFile);
+//						}
+//						return( TEL_DISCONNECTED);
+//					}
+					printf("[%d] DJB: Returning -3\n", __LINE__);
+					return(-3);
+				}
+	
+				usleep(100000); // 0.1 seconds
+				time(&currentTime);
+			}
+			if ( ( removeFile == 1 ) &&
+			     ( access (yStrGoogleTriggerFile, F_OK) == 0 ) )
+	        {
+				unlink(yStrGoogleTriggerFile);
+			}
+			break;
+		}
+		else
+		{
+			
+//	arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_NORMAL, TEL_BASE, arcUtil[zCall].GV_Err,
+//					"DJB:  no trigger file (%s) yet .", yStrGoogleTriggerFile);
+			usleep(100000); // 0.1 seconds
+			time(&currentTime);
+		}
+	}
+	printf("[%d] DJB: out of loop.  triggerContent=%d  currentTime=%ld  endTime=%le\n",
+			__LINE__, triggerContent, currentTime, endTime);
+	
+	if ( (triggerContent == -2) ||
+         (currentTime >= endTime) )
+	{
+		if ( removeFile == 1 ) 
+        {
+			if ( access (yStrGoogleTriggerFile, F_OK) == 0 )
+			{
+				unlink(yStrGoogleTriggerFile);
+			}
+			if ( access (yStrGoogleResultFile, F_OK) == 0 )
+			{
+				unlink(yStrGoogleResultFile);
+			}
+		}
+		//return(TEL_TIMEOUT);
+		printf("[%d] DJB: returning -2\n", __LINE__);
+		return(-2);
+	}
+
+	if(access(yStrGoogleResultFile, R_OK|W_OK) > -1)
+	{
+		FILE *yGoogleFp = NULL;
+
+		if((yGoogleFp = fopen(yStrGoogleResultFile, "r") )!= NULL)
+		{
+			int nBytes = 0;
+
+			fprintf(stderr, "DJB: [%d] opened (%s)\n", __LINE__, yStrGoogleResultFile);
+			if(stat(yStrGoogleResultFile,  &stat_buf) < 0)
+			{
+				//	arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_NORMAL, TEL_BASE, arcUtil[zCall].GV_Err,
+				//				"Failed to stat result file (%s). [%d, %s] Returning failure.",
+				//				yStrGoogleResultFile, errno, strerror(errno));
+				fclose(yGoogleFp);
+				return (-1);
+			}
+			if ( stat_buf.st_size <= 0 )
+			{
+				printf(
+				//	arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_NORMAL, TEL_BASE, arcUtil[zCall].GV_Err,
+								"No results returned.  Returning failure.\n");
+			}
+		
+			nBytes = fread(tmpBuf, 1, stat_buf.st_size, yGoogleFp);
+			fprintf(stderr, "DJB: [%d] %d = fread (%s)\n", __LINE__, nBytes, tmpBuf);
+			sprintf(zTranslation, "%s", tmpBuf);
+			fclose(yGoogleFp);
+			
+			printf(
+			//arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, arcUtil[zCall].GV_Info,
+				"Google Result (%s)\n", zTranslation);
+		}
+		else
+		{
+			//	arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_NORMAL, TEL_BASE, arcUtil[zCall].GV_Err,
+			//				"Failed to open result file (%s). [%d, %s] Returning failure.",
+			//				yStrGoogleResultFile, errno, strerror(errno));
+			if ( ( removeFile == 1 ) &&
+			     ( access (yStrGoogleResultFile, F_OK) ) )
+			{
+				unlink(yStrGoogleResultFile);
+			}
+			return (-1);
+		}
+
+		if ( ( removeFile == 1 ) &&
+		     ( access (yStrGoogleResultFile, F_OK) ) )
+		{
+			unlink(yStrGoogleResultFile);
+		}
+		return(0);
+	}//end access yStrGoogleResult
+	else
+	{
+//		arcUtil[zCall].arcLog(__LINE__, zCall, mod, REPORT_NORMAL, TEL_BASE, arcUtil[zCall].GV_Err,
+//							"Failed to acces result file (%s). [%d, %s] Returning failure.",
+//							yStrGoogleResultFile, errno, strerror(errno));
+		if ( ( removeFile == 1 ) &&
+		     ( access (yStrGoogleResultFile, F_OK) ) )
+		{
+			unlink(yStrGoogleResultFile);
+		}
+		return (-1);
+	}
+
+} // static int checkV2GoogleResult(int zCall, char *zTranslation)

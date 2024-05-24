@@ -1,0 +1,146 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# Program:	Stop_Telecom (mrcp)
+# Purpose:	To stop SIP Telecom Services and its associated processes.
+# Author: 	Aumtech, Inc.
+# Date:		12/04/00
+#------------------------------------------------------------------------------
+# Copyright (c) 2000, Aumtech, Inc.
+# All Rights Reserved.
+#
+# This is an unpublished work of Aumtech which is protected under
+# the copyright laws of the United States and a trade secret
+# of Aumtech. It may not be used, copied, disclosed or transferred
+# other than in accordance with the written permission of Aumtech.
+#------------------------------------------------------------------------------
+
+Echo()
+{
+	echo $1 | tee -a $HOME/start_stop.log
+}
+
+Beep()
+{
+		echo "\007\c"
+}
+
+Read_Anything()
+{
+	if [ -z "$AUTO" ]
+	then
+		echo
+		echo "Press Enter\c"
+		read ANYTHING
+	fi
+}
+
+Is_she_sure()
+{
+	Echo "\n`date`"
+	Echo "You are about to stop $SERVICE Services."
+	Echo "Are you sure? \c"
+        read ans
+	if [ "$ans" = "y" -o "$ans" = "yes" -o "$ans" = "Y" -o "$ans" = "YES" -o "$ans" = "Yes" ]
+	then
+		echo 
+	else
+       		Beep	
+		echo
+		Echo "Shutdown of $SERVICE Services aborted."
+		Read_Anything
+       		exit 2
+	fi
+}
+
+Kill_Service()
+{
+	X=`ps -ef | grep "$SERVICE_EXEC" | grep -v grep` >/dev/null
+  	if [ "$X" = "" ]
+	then
+		Echo "$SERVICE Services is not running."
+	else	
+		Echo "Stopping $SERVICE Services..."
+		SOMETHING_RUNNING="1"
+		$ISPBASE/$SERVICE_DIR/Exec/ArcIPStopResp $SERVICE_ID $GRACE
+	fi
+}
+
+Kill_Resource_Mgr()
+{
+	X=`ps -ef | grep "$RESMGR_EXEC" | grep -v grep` >/dev/null
+  	if [ "$X" = "" ]
+	then
+		Echo "ResourceMgr is not running."
+	else	
+		Echo "Stopping ResourceMgr..."
+		SOMETHING_RUNNING="1"
+		PID=`ps -ef|fgrep $RESMGR_EXEC\
+			 |fgrep -v fgrep|awk '{print $2}'`
+		if [ ! -z "$PID" ]
+		then
+#			kill -9 $PID
+			kill  $PID
+		fi
+	fi
+}
+
+#----------------------------------------------------------------------------
+# Stop mrcp SR Clients
+#----------------------------------------------------------------------------
+Stop_mrcp_sr_clients()
+{
+
+	
+	if [ `ps -ef|grep mrcpClient2 |egrep -v "grep"  |wc -l` -ge 1 ]
+	then
+		return
+	fi
+
+	if [ `ps -ef | grep ArcMrcpSRClientMgr | egrep -v "grep" | awk '{ print $2 }'` ]
+	then
+		echo "Stopping MRCP Client V1.0"
+		for pid in 		\
+				`ps -ef | grep ArcMrcpSRClientMgr | egrep -v "grep" | awk '{ print $2 }'`
+		do
+			kill $pid
+		done
+	fi
+
+}
+
+#-----------------------------------------------------------------------------
+# main routine
+#-----------------------------------------------------------------------------
+SERVICE="IP Telecom"
+SERVICE_DIR="Telecom"
+SERVICE_ID="TEL"
+SERVICE_EXEC="ArcIPResp"
+GRACE=15
+
+X=`ps -ef | grep "$SERVICE_EXEC" | grep -v grep` >/dev/null
+if [ "$X" = "" ]
+then
+	Echo "$SERVICE Services is not running.\n"
+	Read_Anything
+	exit 1
+fi
+
+AUTO="$1"
+
+if [ -z "$AUTO" ]
+then
+	clear
+	Echo "Stop $SERVICE"
+	Is_she_sure
+fi
+
+Kill_Service
+# Kill_Resource_Mgr
+# Stop_mrcp_sr_clients
+
+$ISPBASE/Global/Exec/isplogrc stop
+if [ "$SOMETHING_RUNNING" = "0" ]; then Read_Anything; exit; fi
+Echo "$SERVICE Services is stopped."
+
+Read_Anything
+exit 0

@@ -1,0 +1,194 @@
+autoscan: warning: missing AC_CHECK_FUNCS([clock_gettime]) wanted by: 
+	ares__timeval.c:49
+autoscan: warning: missing AC_CHECK_FUNCS([gethostbyname]) wanted by: 
+	adig.c:188
+autoscan: warning: missing AC_CHECK_FUNCS([gethostname]) wanted by: 
+	ares_getnameinfo.c:217
+	ares_init.c:945
+autoscan: warning: missing AC_CHECK_FUNCS([memset]) wanted by: 
+	ares_mkquery.c:135
+	ares_getnameinfo.c:285
+	ares_init.c:256
+	ares_process.c:915
+	ares_process.c:953
+	acountry.c:228
+	inet_net_pton.c:289
+	inet_ntop.c:149
+autoscan: warning: missing AC_CHECK_FUNCS([select]) wanted by: 
+	ahost.c:128
+	acountry.c:185
+	adig.c:284
+autoscan: warning: missing AC_CHECK_FUNCS([socket]) wanted by: 
+	ares_process.c:889
+	ares_process.c:941
+autoscan: warning: missing AC_CHECK_FUNCS([strcasecmp]) wanted by: 
+	ahost.c:74
+	ahost.c:76
+	ares_parse_a_reply.c:134
+	ares_gethostbyname.c:333
+	ares_gethostbyname.c:337
+	ares_parse_aaaa_reply.c:136
+	ares_process.c:1032
+	acountry.c:536
+	acountry.c:537
+	ares_parse_ptr_reply.c:104
+	adig.c:211
+	adig.c:223
+autoscan: warning: missing AC_CHECK_FUNCS([strchr]) wanted by: 
+	ares_search.c:253
+	ares_getnameinfo.c:218
+	ares_init.c:714
+	ares_init.c:946
+	ares_init.c:956
+	ares__get_hostent.c:50
+	acountry.c:541
+	ares_getopt.c:85
+	inet_net_pton.c:93
+	inet_net_pton.c:115
+	inet_net_pton.c:143
+	inet_net_pton.c:212
+	inet_net_pton.c:244
+	inet_net_pton.c:305
+	inet_net_pton.c:306
+autoscan: warning: missing AC_CHECK_FUNCS([strdup]) wanted by: 
+	ares_search.c:89
+	ares_search.c:249
+	ares_search.c:315
+	ares_init.c:299
+	ares_init.c:308
+	ares_init.c:392
+	ares_init.c:403
+	ares_init.c:707
+	ares_init.c:956
+	ares_init.c:971
+	ares_init.c:1016
+	ares__get_hostent.c:112
+	ares_gethostbyname.c:103
+	ares_gethostbyname.c:259
+	acountry.c:534
+autoscan: warning: missing AC_CHECK_FUNCS([strerror]) wanted by: 
+	ares_search.c:302
+	ares_init.c:790
+	ares_init.c:816
+	ares_init.c:843
+	ares_init.c:870
+	ares_gethostbyname.c:324
+	ares_gethostbyaddr.c:213
+autoscan: warning: missing AC_CHECK_FUNCS([strncasecmp]) wanted by: 
+	ares_search.c:265
+	windows_port.c:54
+autoscan: warning: missing AC_CHECK_FUNCS([strtol]) wanted by: 
+	adig.c:235
+	adig.c:243
+autoscan: warning: missing AC_CHECK_HEADERS([fcntl.h]) wanted by: 
+	ares_process.c:67
+	setup_once.h:62
+autoscan: warning: missing AC_CHECK_HEADERS([limits.h]) wanted by: 
+	ares_parse_a_reply.c:38
+	ares_parse_aaaa_reply.c:40
+autoscan: warning: missing AC_CHECK_HEADERS([malloc.h]) wanted by: 
+	ares_init.c:24
+	windows_port.c:13
+autoscan: warning: missing AC_C_INLINE wanted by: 
+	setup_once.h:415
+	setup_once.h:429
+	setup_once.h:443
+	setup_once.h:458
+autoscan: warning: missing AC_FUNC_ALLOCA wanted by: 
+	ares_init.c:506
+	ares_init.c:534
+	windows_port.c:74
+autoscan: warning: missing AC_FUNC_MALLOC wanted by: 
+	ares_search.c:82
+	ares_search.c:220
+	ares_search.c:276
+	ares_mkquery.c:129
+	ares_expand_string.c:54
+	ares_getnameinfo.c:162
+	ares_init.c:123
+	ares_init.c:282
+	ares_init.c:292
+	ares_init.c:315
+	ares_init.c:369
+	ares_init.c:386
+	ares_init.c:411
+	ares_init.c:462
+	ares_init.c:678
+	ares_init.c:933
+	ares_init.c:952
+	ares_init.c:1198
+	ares_init.c:1211
+	ares__read_line.c:41
+	ares_parse_ns_reply.c:79
+	ares_parse_ns_reply.c:114
+	ares_parse_ns_reply.c:147
+	ares_parse_ns_reply.c:150
+	ares__get_hostent.c:107
+	ares__get_hostent.c:115
+	ares__get_hostent.c:118
+	ares__get_hostent.c:121
+	ares__get_hostent.c:137
+	ares_parse_a_reply.c:90
+	ares_parse_a_reply.c:96
+	ares_parse_a_reply.c:212
+	ares_parse_a_reply.c:215
+	ares_parse_naptr_reply.c:76
+	ares_parse_naptr_reply.c:111
+	ares_parse_naptr_reply.c:145
+	ares_parse_naptr_reply.c:148
+	ares_expand_name.c:72
+	ares_gethostbyname.c:96
+	ares_parse_aaaa_reply.c:93
+	ares_parse_aaaa_reply.c:99
+	ares_parse_aaaa_reply.c:214
+	ares_parse_aaaa_reply.c:217
+	ares_gethostbyaddr.c:81
+	ares_process.c:254
+	ares_process.c:389
+	ares_process.c:1081
+	ares_send.c:52
+	ares_send.c:58
+	ares_send.c:65
+	ares_parse_ptr_reply.c:80
+	ares_parse_ptr_reply.c:113
+	ares_parse_ptr_reply.c:149
+	ares_parse_ptr_reply.c:152
+	ares_parse_ptr_reply.c:155
+	ares_parse_ptr_reply.c:158
+	ares_query.c:125
+autoscan: warning: missing AC_FUNC_MEMCMP wanted by: 
+	bitncmp.c:43
+	ares_gethostbyaddr.c:229
+	ares_gethostbyaddr.c:234
+autoscan: warning: missing AC_FUNC_REALLOC wanted by: 
+	ares_init.c:1057
+	ares_init.c:1073
+	ares_init.c:1325
+	ares__read_line.c:60
+	ares_parse_ptr_reply.c:122
+	adig.c:194
+autoscan: warning: missing AC_FUNC_SELECT_ARGTYPES wanted by: 
+	ahost.c:128
+	acountry.c:185
+	adig.c:284
+autoscan: warning: missing AC_FUNC_VPRINTF wanted by: 
+	acountry.c:83
+autoscan: warning: missing AC_HEADER_STDBOOL wanted by: 
+	setup_once.h:218
+autoscan: warning: missing AC_PROG_CXX wanted by: 
+	ltmain.sh:255
+	ltmain.sh:266
+	ltmain.sh:266
+	ltmain.sh:266
+	ltmain.sh:266
+	ltmain.sh:275
+	ltmain.sh:285
+	ltmain.sh:285
+	ltmain.sh:285
+	ltmain.sh:285
+	ltmain.sh:459
+	ltmain.sh:1533
+autoscan: warning: missing AC_PROG_GCC_TRADITIONAL wanted by: 
+	ares_process.c:811
+autoscan: warning: missing AC_PROG_RANLIB wanted by: 
+	ltmain.sh:6910

@@ -1,0 +1,54 @@
+
+
+int proxy_rewrite_request_uri(osip_message_t *mymsg, int idx)
+{
+...
+	  if ((idx >= URLMAP_SIZE) || (idx < 0))
+      {
+      WARN("proxy_rewrite_request_uri: called with invalid index");
+      return STS_FAILURE;
+   }
+...
+}
+-----------------------------
+
+proxy_request(sip_ticket_t *ticket)
+{
+   int i = -1;
+...
+    if(MSG_IS_INVITE(request)){
+        i = -1;
+        sip_find_direction(ticket, &i, invite_only_pointer, URLMAP_SIZE);
+
+        if(i == -1 && invite_only_pointer > 0){
+            sip_find_direction(ticket, &i, 0, invite_only_pointer);
+        }
+
+        if(i > -1) invite_only_pointer = i + 1;
+
+        if(invite_only_pointer >= URLMAP_SIZE) {
+            invite_only_pointer = 0;
+        }
+    }
+    else{
+        sip_find_direction(ticket, &i, 0, URLMAP_SIZE);
+    }
+
+...
+	switch (type) {
+	...
+	   case REQTYP_INCOMING:
+	
+	      DEBUGC(DBCLASS_PROXY,"incoming request from %s@%s from outbound",
+	    request->from->url->username? request->from->url->username:"*NULL*",
+	        request->from->url->host? request->from->url->host: "*NULL*");
+	
+	      /*
+	       * RFC 3261, Section 16.6 step 2
+	       * Proxy Behavior - Request Forwarding - Request-URI
+	       * (rewrite request URI to point to the real host)
+	       */
+	      /* 'i' still holds the valid index into the URLMAP table */
+	      proxy_rewrite_request_uri(request, i);			// ONLY PLACE IT'S CALLED FROM
+	...
+}

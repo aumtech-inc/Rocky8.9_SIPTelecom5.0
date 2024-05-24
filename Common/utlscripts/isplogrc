@@ -1,0 +1,185 @@
+#------------------------------------------------------------------------------
+# Program:	isplogrc
+# Purpose 	Start and stop the logging client deamon
+# Author: 	Dan Barto
+# Date: 	02/27/97
+# Update: 	03/14/97 D. Barto modified it to recognize LOG_FREQUENCY
+# Update: 	05/13/97 D. Barto modified it to validate LOG_x_LOCAL_FILE
+# Update: 	05/16/97 sja	Added isp_<svc>serv to OTHER_PRODUCTS
+#------------------------------------------------------------------------------
+
+Echo()
+{
+
+echo "$1"
+
+}
+
+VerifySetting()
+{
+	if [ -z "$1" -o -z "$2" ]
+	then
+		return 1
+	fi
+
+	str="$1"
+	file="$2"
+
+	if [ `grep -c "^$str=" $file` -eq 0 ]
+	then
+		Echo "Error: $str does not exist in $file."
+		Echo "Remote logging services will not be started.  Correct and retry."
+		return 1
+	fi
+
+	if [ `grep -c "^$str" $file` -gt 1 ]
+	then
+		Echo "Error: multiple entries of $str exist in $file."
+		Echo "Remote logging services will not be started.  Correct and retry."
+		return 1
+	fi
+
+	return 0
+}
+
+StartLogSvc()
+{
+typeset -u LogFrequency
+typeset PrimaryServ=""
+
+LOGFREQUENCY="LOG_FREQUENCY"
+LOGSERVER="LOG_PRIMARY_SERVER"
+CONFIGFILE="$ISPBASE/Global/.Global.cfg"
+LOG_X[0]="LOG_x_LOCAL_FILE"
+LOG_X[1]="LOG_2x_LOCAL_FILE"
+
+VerifySetting "$LOGFREQUENCY" $CONFIGFILE
+if [ $? -ne 0 ]; then
+	return 0
+fi
+VerifySetting "$LOGSERVER" $CONFIGFILE
+if [ $? -ne 0 ]; then
+	return 0
+fi
+VerifySetting "LOG_x_LOCAL_FILE" $CONFIGFILE
+if [ $? -ne 0 ]; then
+	return 0
+fi
+VerifySetting "LOG_2x_LOCAL_FILE" $CONFIGFILE
+if [ $? -ne 0 ]; then
+	return 0
+fi
+
+Echo "Starting Logging Services ..."
+
+LogFrequency=`grep "^$LOGFREQUENCY=" $CONFIGFILE | cut -d'=' -f2`
+PrimaryServ=`grep "^$LOGSERVER=" $CONFIGFILE | cut -d'=' -f2`
+
+for i in 0 1
+do
+	LogX=`grep "^${LOG_X[$i]}=" $CONFIGFILE | cut -d'=' -f2`
+	if [ -d "$LogX" ]; then
+		echo
+		Echo "Invalid Entry in $CONFIGFILE!"
+		Echo "    ${LOG_X[$i]}=$LogX.  $LogX is a directory!"
+		Echo "Proper format is ${LOG_X[$i]}=<pathname>/<basename>"
+		echo
+		return -1
+	fi
+
+	Dname=`dirname "$LogX"`
+	if [ ! -d "$Dname" ]; then
+		echo
+		Echo "Invalid Entry in $CONFIGFILE!"
+		Echo "    ${LOG_X[$i]}=$LogX."
+		Echo "$LogX directory does not exist!"
+		echo
+		return -1
+	fi
+
+	if [ ! -w "$Dname" ]; then
+		echo
+		Echo "$CONFIGFILE"
+		Echo "${LOG_X[$i]}=$LogX.  $LogX directory is not writable!"
+		Echo "Verify Permissions of $LogX"
+		echo
+		return -1
+	fi
+done
+
+if [ "$LogFrequency" = "HOURLY" -o "$PrimaryServ" = "" -o "$PrimaryServ" = "`uname -n`" ]; then
+	return 0
+fi
+
+cd $ISPBASE/Global/Exec
+
+nohup log_cli &
+sleep 1
+
+Echo "\t\t in directory `pwd`"  # this will append to the nohup msg
+
+# Did it really come up ?
+ps -ef | grep "log_cli" | grep -v grep >/dev/null
+if [ "$?" != "0" ]; then
+	echo
+	Echo "Remote Logging startup FAILED!"
+else
+	logpid=`ps -ef| fgrep log_cli |fgrep -v fgrep|awk '{print $2}'`
+	Echo "Remote Logging started, pid=$logpid"
+fi
+
+}
+
+# ---------------------------------------------------------------------------
+# main routine - running user or process must have $ISPBASE set
+# ---------------------------------------------------------------------------
+
+Action=$1
+USAGE="Usage:  $0 { start | stop }"
+
+OTHER_PRODUCTS="isp_snaresp|isp_wssresp|isp_tcpresp|isp_netserv|isp_telresp|isp_snaserv|isp_tcpserv|isp_netserv|isp_wssserv|isp_telserv"
+LOGCLIENT_EXEC="log_cli"
+
+if [ $# -lt 1 ]
+then
+	Echo "$USAGE"
+	exit
+fi
+
+if [ "${ISPBASE}" = "" ]
+then
+	Echo "$0: ISPBASE environment variable is not set."
+	exit 1
+fi
+
+retcode=0
+case $Action in
+start)
+        ps -ef | grep "log_cli" | grep -v grep >/dev/null
+        if [ "$?" = "0" ]; then
+                logpid=`ps -ef | grep "log_cli" | grep -v grep| awk '{ print $2 }'`
+                Echo "Remote Logging is already running. pid=$logpid"
+                exit 0
+        else
+			StartLogSvc
+			retcode=$?
+        fi
+	;;
+stop)
+        ps -ef | egrep "$OTHER_PRODUCTS" | grep -v grep >/dev/null
+        if [ "$?" != "0" ]; then
+                Echo "Shutting down Remote Logging..."
+                LPID=`ps -ef|fgrep $LOGCLIENT_EXEC |fgrep -v fgrep|awk '{ print $2 }'`
+                if [ -n "$LPID" ]; then
+                        kill -9 $LPID
+                        Echo "Remote Logging is stopped."
+                fi
+        fi
+	;;
+*)
+	Echo "$USAGE"
+	exit 1
+	;;
+esac
+
+exit $retcode

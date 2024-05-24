@@ -1,0 +1,2 @@
+cc  -o lmgrd liblmgrd.a liblmgr_s.a liblmgr.a -ldl  -lpthread
+strip lmgrd

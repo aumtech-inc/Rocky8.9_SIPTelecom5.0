@@ -1,0 +1,47 @@
+# Program:      Makefile
+# Purpose:      Make file for building the MRCP V2 TTSclient API libraries
+# Author:       Rahul Gupta
+# Update:       01/05/2009 rg Created the file 
+#----------------------------------------------------------------------------
+
+include			../Make.def.eXosip4.1
+
+INCLUDE_DEPS	= ${MRCP_INC}/arcSR.hpp ${MRCP_INC}/mrcpCommon2.hpp
+ 
+
+INC_PATHS	=	\
+        -I ${MRCP_INC}      \
+        -I ${SVID_INC}      \
+        -I ${SVID_HOME}/Common/include  \
+        -I ${SVID_HOME}/thirdParty/libosip2-4.1.0/include \
+        -I ${SVID_HOME}/thirdParty/libeXosip2-4.1.0/include
+
+CC=g++ -ggdb -Wno-write-strings
+
+
+CPP_SRCS	=	\
+	TTSCommon.cpp	\
+	TTSGetParams.cpp	\
+	TTSSpeak.cpp
+
+CPP_OBJECTS	=	${CPP_SRCS:.cpp=.o}
+
+.cpp.o: ${INCLUDE_DEPS}
+	echo "Compiling $<"
+	$(CC) -c -DEXOSIP_4 -DOSIP_MT $< ${INC_PATHS}
+
+all: ${SR_LIB} 
+
+${SR_LIB} : ${SR_OBJECTS} ${CPP_OBJECTS}
+	${AR} ${ARFLAGS} ${SR_LIB} ${SR_OBJECTS} ${CPP_OBJECTS}
+
+clean : 
+	rm -f ${SR_OBJECTS} ${CPP_OBJECTS} ${SR_LIB} 
+
+tags: Always
+
+envs:
+	@echo " svid home = ${SVID_HOME} "
+	
+
+Always:

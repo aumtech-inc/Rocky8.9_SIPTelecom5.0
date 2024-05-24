@@ -1,0 +1,358 @@
+
+Tue Dec 4 06:39:25 EST 2001
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Failed to copy /home/dev/isp2.2/WSS/log_svc/log_svc to /tmp/packtemp
+You must correct the problem before attempting to make the arcLOGS.2.2 package.
+Exiting...
+
+Tue Dec 4 06:39:43 EST 2001
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Thu Dec 27 15:26:56 EST 2001
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Fri Mar 7 15:30:46 EST 2003
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Fri Mar 12 14:15:35 EST 2004
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Fri Jul 14 15:19:49 EDT 2006
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Mon Nov 6 14:37:50 EST 2006
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Tue Nov 28 11:34:32 EST 2006
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Tue Nov 28 12:35:37 EST 2006
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Wed Nov 29 09:52:49 EST 2006
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+
+Thu Dec 21 10:22:24 EST 2006
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Failed to copy /home/dev/isp2.2/WSS/log_svc/log_svc to /tmp/packtemp
+You must correct the problem before attempting to make the arcLOGS.2.2 package.
+Exiting...
+
+Thu Dec 21 10:22:36 EST 2006
+
+Build Package
+
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+
+Copying files from master directories to /tmp/packtemp...
+
+	Master directories : /home/dev/isp2.2/WSS/log_svc
+	Master directories : /home/dev/isp2.2/WSS/listener
+	Master directories : /home/dev/isp2.2/Common
+Building arcLOGS.2.2 ...
+\nFri Sep 7 12:03:29 EDT 2012\n
+Build Package\n
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/devmaul/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+\nCopying files from master directories to /tmp/packtemp...\n
+\tMaster directories : /home/devmaul/isp2.2/WSS/log_svc
+\tMaster directories : /home/devmaul/isp2.2/WSS/listener
+\tMaster directories : /home/devmaul/isp2.2/Common
+Building arcLOGS.2.2 ...
+\nFri Sep 14 05:32:58 EDT 2012\n
+Build Package\n
+Product Id.......: arcLOGS
+Product Descrip..: arcLOGS.2.3
+Temp directory...: /tmp/packtemp
+Storage directory: /home/devmaul/isp2.2/builds
+Log file.........: BUILD.LOG.arcLOGS
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+\nCopying files from master directories to /tmp/packtemp...\n
+\tMaster directories : /home/devmaul/isp2.2/WSS/log_svc
+\tMaster directories : /home/devmaul/isp2.2/WSS/listener
+\tMaster directories : /home/devmaul/isp2.2/Common
+Building arcLOGS.2.3 ...
+Removing files in /tmp/packtemp...
+Building arcLOGS.2.3 ...
+Removing files in /tmp/packtemp...
+Building arcLOGS.2.3 ...
+Removing files in /tmp/packtemp...
+Failed to copy /home/devmaul/isp2.2/loggingServices/server/log_svc to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/loggingServices/server/log_listen to /tmp/packtemp
+Failed to copy /tables/Global.cfg to /tmp/packtemp
+Failed to copy /utlscripts/isprc to /tmp/packtemp
+You must correct the problem before attempting to make the arcLOGS.2.3 package.
+Exiting...
+Removing files in /tmp/packtemp...
+Failed to copy /home/devmaul/isp2.2/loggingServices/server/log_svc to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/loggingServices/server/log_listen to /tmp/packtemp
+You must correct the problem before attempting to make the arcLOGS.2.3 package.
+Exiting...
+Removing files in /tmp/packtemp...
+Building arcLOGS.2.3 ...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Failed to copy /home/dan/isp2.2/loggingServices/server/src/log_svc to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/loggingServices/server/src/log_listen to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/loggingServices/server/tables/arcLogListen.service.noRun to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/loggingServices/server/tables/README.log_listen.txt to /tmp/packtemp
+You must correct the problem before attempting to make the arcLOGS.2.3 package.
+Exiting...
+Removing files in /tmp/packtemp...
+Failed to copy /home/dan/isp2.2/loggingServices/server/src/log_svc to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/loggingServices/server/src/log_listen to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/loggingServices/server/tables/arcLogListen.service.noRun to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/loggingServices/server/tables/README.log_listen.txt to /tmp/packtemp
+You must correct the problem before attempting to make the arcLOGS.3.7 package.
+Exiting...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Failed to copy /home/dan/SIPTelecom3.6/isp2.2/Common/tables/Global.cfg to /tmp/packtemp/.Global.cfg
+Failed to copy /home/dan/SIPTelecom3.6/isp2.2/Common/utlscripts/isprc to /tmp/packtemp/.isprc
+You must correct the problem before attempting to make the arcLOGS.3.7 package.
+Exiting...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Failed to copy /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/server/tables/arcRTRListener.service.noRun to /tmp/packtemp
+You must correct the problem before attempting to make the arcLOGS.3.7 package.
+Exiting...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Cannot copy /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/tables/arcLogListen.service.noRun to /tmp/packtemp. Does not exist.
+You must correct the problem before attempting to make the arcLOGS.3.7 package.
+Exiting...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...
+Removing files in /tmp/packtemp...

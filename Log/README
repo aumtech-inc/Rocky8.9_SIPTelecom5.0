@@ -1,0 +1,125 @@
+This file contains information about major Log utility changes as on 5/9/94.
+
+	source code is under 	isdna:/home/jsh/R3/source  	for R3
+				isdna:/home/jsh/R21/source 	for R21
+
+	(the only differences in R3 & R21 are Makefiles )
+
+To incorporate this release of Log utilities, you MUST:
+**********************************************************
+
+1.  On your system, update /usr/lib/liblm.a with the following command
+
+	ar r /usr/lib/liblm.a bcopy.o bzero.o stricmp.o
+
+    (above .o files are in source/Log dir )
+
+    (This is to elimitate inclusion of the libucb.a. This problem will be
+     fixed in the next iVIEW release ).
+
+2. update your source tree with files provided in my source tree
+   Note: ispinc.h has been modified with few new reporting mode.
+
+3. Incorporate Makefile changes.
+
+   For those who are not using makefile, the SYSLIB should chage to
+   
+	SYSLIBS=-lnsl -lsocket -lgen -L/usr/ccs/lib -lelf
+
+4. update Global log configuration files with the one in
+   this release under Log/LOG.cfg .
+
+   It is assume that the configuration file will be in
+   ---------------------------------------------------
+   
+   $ISPBASE/Global/.Global.cfg		for R2.1
+
+   Or
+
+   $PARMLIB/parms/domain/Global		for R3.0
+   $PARMLIB/parms/domain/<hostname>
+
+
+Major Changes:
+===============
+1. Log configuration file has been changed significantly !!
+   R2.1 Configuration tool writer should read the comments in the 
+   configuration file, to understand the dependencies.
+
+2. Log Registration and De-registration messages are reported in REPORT_VERBOSE
+   mode. You will see these messages, only if LOG_REPORT_VERBOSE=ON in your
+   host configuration file (default is OFF).
+
+3. a return code of ISP_SERVOFF will be returned if the reporting mode
+   passed in the LOGXXPRT is NOT ON.
+
+   If you have a lot of preprocessing need to be done before calling the 
+   LOGXXPRT for a certain reporting mode, you might want to check if
+   LOGXXPRT returns ISP_SERVOFF when you first call it.
+   A flag can be set if return code is ISP_SERVOFF,
+   so that subsequent LOGXXPRT calls on that reporing mode will not 
+   be processed.
+   
+
+4. Three new Reporting Mode has been added:
+
+   REPORT_STDWRITE: this reporting mode is generally used before register
+	      	    to the common logger.
+
+		    This  is to replace the current STDWriteMsg routine so
+		    a uniform interface is used for all messages.
+
+		    The following formats are allowed:
+
+	LOGXXPRT(modulename, REPORT_STDWRITE, PRINTF_MSG, "actual message" );
+
+
+	LOGXXPRT(modulename, REPORT_STDWRITE, PRINTF_MSG, 
+	"control format as in printf",followed, by, variable, arg list);
+
+
+   REPORT_CDR: this reporting mode should be used when log call detail records. 
+	       This is mapped to REPORT_SPECIAL flag and it changes the 
+               LOG ID to "CDR"
+
+   REPORT_CEV: this reporting mode should be used when log call event records.
+	       This is mapped to REPORT_SPECIAL flag and changes the 
+               LOG ID to "CEV"
+
+5. A new LOGXXCTL command ISP_LOGCMD_TAGAPP is implemented to allow 
+   application to identify its instance in addition to the PID information.
+   Once this Log control function is called, all the subsequent messages logged
+   by this instance will have its message tagged with the specified identifier.
+
+   Information is passed in LOGXXCTL request structure Log_ReqParms_t with:
+
+   Log_ReqParms.CommandID=ISP_LOGCMD_TAPAPP.
+   Log_ReqParms.PT_UserData="<application_name>.<resource>";
+
+   where application_name is the name of the customer application, 
+   e.g. federal_express
+   resource is the external resource used by this application instance,
+   this could be the port number for Telecom, TCP/IP or LU/PU # for SNA.
+
+   In convention, application name and resource number should not contain any
+   space. The maxmum UserData is 40 characters, field will be truncated if
+   greater than 40 characters.
+
+
+   To un-tag application messages, simply call this function again and pass
+   a null string in the UserData field.
+
+6. All message body will prefix with XXXddddd- message number,
+   where XXX is the name of the message set as used in XXXmsg.c
+   e.g. COM, LOG or TEL (instead of OBJ name as we currently have).
+   This is to easy identify its message group.
+
+
+What's coming next:
+===================
+
+1. tools to start log processes based on ISP Log configuration.
+
+2. tools to clean-up log based on parameters specified in log configuration.
+
+3. dynamic changing process reporting mode.

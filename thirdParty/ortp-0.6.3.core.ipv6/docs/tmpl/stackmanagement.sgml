@@ -1,0 +1,40 @@
+<!-- ##### SECTION Title ##### -->
+Library management functions
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### FUNCTION ortp_init ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION ortp_scheduler_init ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION ortp_exit ##### -->
+<para>
+
+</para>
+
+
+

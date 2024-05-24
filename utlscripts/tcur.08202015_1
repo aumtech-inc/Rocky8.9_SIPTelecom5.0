@@ -1,0 +1,63 @@
+#!/bin/bash
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# File:		tcur
+# Purpose:	A shortcut to tail the current ISP.cur file.
+# Usage:	tcur
+# Author:	Aumtech, Inc. 
+# Update:	02/06/2001
+#------------------------------------------------------------------------------
+sigHandler()
+{
+	if [ "$lastPid" -gt "0" ]
+	then
+		echo "Killing PID $lastPid of last background job."
+		kill $lastPid
+	fi
+	exit 0
+}
+
+
+#-------------------------------------------------------------------------------
+# main
+#-------------------------------------------------------------------------------
+
+trap sigHandler 1 2 3 6 15
+
+ME=`basename $0`
+NAPTIME=2
+LOGFILE=$ISPBASE/LOG/ISP.cur
+
+currentHour=
+lastHour=
+lastPid=
+
+while :
+do
+	if [ ! -f "$LOGFILE" ]
+	then
+		echo "Log file ($LOGFILE) not found. Will retry after $NAPTIME seconds."
+		sleep $NAPTIME
+		lastHour=
+		continue
+	fi
+
+	currentHour=`ls -l $LOGFILE | awk -F'>' '{ print $2 }' | awk -F'-' '{ print $3 }'`
+
+	if [ "$currentHour" = "$lastHour" ]
+	then
+		sleep $NAPTIME
+		continue
+	fi
+
+	if [ "$lastPid" -gt "0" ]
+	then
+		echo "Killing PID $lastPid of last background job."
+		kill $lastPid
+	fi
+
+	tail -f $ISPBASE/LOG/ISP.cur &
+	lastPid=$!
+	lastHour=$currentHour
+
+done

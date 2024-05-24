@@ -1,0 +1,46 @@
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+
+ECHO		= 	@echo
+# CC		= 	@gcc	-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+CC		= 	gcc	
+CFLAGS		= -ggdb -fPIC -D_LARGEFILE64_SOURCE
+
+ISP_BASE_DIR=/home/dan
+ISP_VERSION=isp2.2
+
+BASE		=	$(ISP_BASE_DIR)/$(ISP_VERSION)/SIPTelecom3.6
+LSBASE  = $(BASE)/loggingServices/logForwarding
+COMINC  = ${BASE}/Common/include
+WSCINC  = ${LSBASE}/client/include
+LIBDIR  = ${LSBASE}/lib
+
+LIBPATH		= 	-L ${LIBDIR} -L ${BASE}/Common/lib
+INCPATH		=	-I ${WSCINC}  -I ${COMINC}
+
+INCLUDES	=	$(COMINC)/loginc.h $(COMINC)/COMmsg.h		\
+			$(COMINC)/LOGmsg.h $(COMINC)/CDRmsg.h		\
+			$(COMINC)/CEVmsg.h $(COMINC)/NETmsg.h		\
+			${COMINC}/arc_snmpdefs.h
+
+EXECS		=	log_forward
+
+# CFLAGS		=	-s 
+# CFLAGS		=	-g
+
+.c.o: ${INCLUDES} $<
+	${ECHO} "Compiling $<"
+	${CC} $(CFLAGS) -O2 -c ${INCPATH} $<
+
+#	${CC} -O2 -mcpu=pentium4 -march=pentium4 -c ${INCPATH} $<
+
+all:		$(LIBS) $(EXECS)
+
+install:
+	scp log_forward arc@10.0.0.64:/home/arc/.ISP/Global/Exec
+
+clean:
+	rm -f *.o $(EXECS)
+
+log_forward: log_forward.o 
+	${CC} $(CFLAGS) -O2 -o log_forward log_forward.o  ${BASE}/Common/Log/log_routines.o $(INCPATH) $(LIBPATH) -llogComm -lgaUtils -lloglite

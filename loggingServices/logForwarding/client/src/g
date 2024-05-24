@@ -1,0 +1,4 @@
+echo "Compiling log_forward.c"
+gcc	 -ggdb -fPIC -D_LARGEFILE64_SOURCE -O2 -c -I /home/dev/isp2.2/loggingServices/client/include  -I /home/dev/isp2.2/SIPTelecom3.6/Common/include log_forward.c
+
+gcc	 -ggdb -fPIC -D_LARGEFILE64_SOURCE -O2 -o log_forward log_forward.o  /home/dev/isp2.2/SIPTelecom3.6/Common/Log/log_routines.o -I /home/dev/isp2.2/loggingServices/client/include  -I /home/dev/isp2.2/SIPTelecom3.6/Common/include -L /home/dev/isp2.2/loggingServices/lib -L /home/dev/isp2.2/SIPTelecom3.6/Common/lib -llogComm -lgaUtils -lloglite

@@ -1,0 +1,3 @@
+echo "Compiling arcRTRClient.c"
+gcc	 -ggdb -fPIC -D_LARGEFILE64_SOURCE -O0 -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include arcRTRClient.c
+gcc	 -ggdb -fPIC -D_LARGEFILE64_SOURCE -O0 -o arcRTRClient arcRTRClient.o  /home/dan/isp2.2/SIPTelecom3.6/Common/Log/log_routines.o -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include -L /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/lib -L /home/dan/isp2.2/SIPTelecom3.6/Common/lib -llogComm -lgaUtils -lloglite -lpthread

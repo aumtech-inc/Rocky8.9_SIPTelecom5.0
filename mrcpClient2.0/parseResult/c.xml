@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<result>
+	<interpretation grammar="session:0xa022e60" confidence="0.74">
+	<input mode="speech">two</input>
+	<instance>two</instance>
+	</interpretation>
+</result>

@@ -1,0 +1,12 @@
+
+There was some changes made to jauth.c on 09-16-2021, which
+coincided with changes to osipparser/osip_message_to_str.c (BT-175).
+
+On 03-07-2022 when debugging a REGISTER issue for voiceport, found
+these changes and it broke the our REGISTER functionality.  We could
+not figure you why these changes were made.
+
+Given that, what I think what happened is me and/or Deep put in 
+these changes for debugging BT-175 and never removed them.  
+
+So, I reverted the code back to 9-16-2021.

@@ -1,0 +1,332 @@
+#---------------------------------------------------------------------------
+# Program:	install_arcFAX
+# Purpose:	Script to install Aumtech's Fax Services package for Linux.
+# Author:	Aumtech, Inc.
+# Update:	03/30/01
+#---------------------------------------------------------------------------
+Chgrp()
+{
+	# Change group -  Disabled because we don't force a specific group
+#	chgrp "$1" "$2"
+	:
+}
+
+Makedir()
+{
+	dir="$1"
+	permissions="$2"
+	owner="$3"
+	group=="$4"
+
+	if [ ! -d $dir ]; then
+		mkdir -p $dir
+	fi
+	chmod $permissions $dir
+	chown $owner $dir
+	Chgrp $group $dir
+}
+
+Echo()
+{
+	echo "$1" 
+}
+
+Beep()
+{
+#	echo "\007" 
+	:
+}
+
+# This routine addes the appropriate include lines to sendToMonitor.dat
+AddTo_sendToMonitor()
+{
+	BASE=sendToMonitor
+	FILE=$ISPBASE/Global/Tables/sendToMonitor.dat
+
+	if [ ! -f $FILE ]
+	then
+		>$FILE
+	fi
+
+	for SUFFIX in $*
+	do
+		rm -f /tmp/$$
+		INSERT=${BASE}_${SUFFIX}.dat
+#debug		CMD="grep $INSERT $FILE | grep ^include > /tmp/$$"
+#debug		echo CMD=$CMD
+		grep $INSERT $FILE | grep \^include > /tmp/$$
+		if [ -s /tmp/$$ ]
+		then
+			# It's already there. Do nothing.
+			:
+		else
+			Echo "Adding $INSERT to $FILE"
+			Echo "include $INSERT" >> $FILE
+		fi
+	done	
+	rm -f /tmp/$$
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the script of the same name on SCO
+#-------------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null 2>/dev/null
+	then
+		echo "You must be root to install ARC Fax Services. "
+		echo "Installation aborted."
+		exit 3
+	fi
+	
+	clear
+	
+ 	if 	ps -ef | grep "isp_telresp" | grep -v grep >/dev/null   
+	then
+		Beep
+		echo "ERROR: Telecom Services appears to be running."
+	echo "Please stop it with the Stop_Telecom command before proceeding."
+		Echo "Installation aborted."
+		exit 3
+	fi
+ 	
+	if tail -1 $PKGINFO | grep "INSTALL" | grep -v grep >/dev/null 2>/dev/null  
+	then
+		Beep
+		echo "ERROR: ARC Fax Services appears to be already installed."
+		show_pkginfo 
+		Echo "Installation aborted."
+		exit 3
+	fi
+		
+	echo
+	echo
+	echo -n "Enter the user id under which Telecom Services is installed [default: arc] : "
+	read USER_ID
+	if [ "$USER_ID" = "" ]
+	then
+       		USER_ID=arc
+	fi
+
+	# Check to see if $USER_ID user exists, has home dir, and kshell
+	if grep "^$USER_ID:" /etc/passwd > /tmp/$USER_ID.$$
+	then
+		if [ ! -d /home/$USER_ID ]
+		then
+			Beep
+echo "ERROR: User id '$USER_ID' doesn't have home directory '/home/$USER_ID'."
+echo "Please set home directory for '$USER_ID' to '/home/$USER_ID'."
+			echo "Installation aborted."
+			exit 3
+		fi
+		if grep "ksh" /tmp/$USER_ID.$$ >/dev/null
+		then
+			rm /tmp/$USER_ID.$$
+		else
+			Beep
+echo "ERROR: User id '$USER_ID' does not have 'ksh' as its default shell."
+echo "Please make 'ksh' the default shell or install under another user."
+			echo "Installation aborted."
+			rm /tmp/$USER_ID.$$
+			exit 3
+		fi
+	else
+		echo "ERROR: $USER_ID does not exist on the system."
+		echo "Please create userid '$USER_ID' with home directory '/home/$USER_ID' and default shell 'ksh'."
+		echo "Installation aborted."
+		exit 3
+	fi
+} 
+
+#---------------------------------------------------------------------------
+# Copy file utility used by the Prototype function.
+#-----------------------------------------------------------------------------
+C()
+{
+	to="$1"
+	from="$2"
+	permissions="$3"
+	owner="$4"
+	group="$5"
+
+	cp $from $to
+	chmod $permissions $to
+	chown $owner $to
+	Chgrp $group $to
+}
+	
+#-------------------------------------------------------------------------------
+# This is the equivalent to the Prototype script for Unix
+#-------------------------------------------------------------------------------
+prototype()
+{
+U=$USER_ID
+G=$GROUP
+H=/home/$USER_ID
+Makedir $H/ISP 					0755 $U $G
+Makedir $H/ISP/Exec 				0755 $U $G
+Makedir $H/ISP/Tables 				0755 $U $G
+Makedir $H/.ISP					0755 $U $G
+Makedir $H/.ISP/Telecom				0755 $U $G
+Makedir $H/.ISP/Telecom/Exec			0755 $U $G
+Makedir $H/.ISP/Telecom/Applications 		0755 $U $G
+Makedir $H/.ISP/Telecom/Applications/lib 	0755 $U $G
+Makedir $H/.ISP/Telecom/Applications/include 	0755 $U $G
+Makedir $H/.ISP/Telecom/Tables			0755 $U $G
+Makedir $H/.ISP/Telecom/bin			0755 $U $G
+Makedir $H/.ISP/Telecom/doc			0755 $U $G
+Makedir /tmp/no					0755 $U $G
+Makedir /tmp/global				0755 $U $G
+
+#C /tmp/global/Exec/replace_token $TEMP/replace_token 	0755 $U $G
+#C /tmp/global/Exec/get_input 	 $TEMP/get_input 	0755 $U $G
+#C /tmp/global/Exec/get_value 	 $TEMP/get_value 	0755 $U $G
+#C /tmp/global/Exec/update_config $TEMP/update_config 	0755 $U $G
+
+C /home/$U/.ISP/Telecom/Applications/lib/libarcFAX.a $TEMP/libarcFAX.a 0644 $U $G
+C /home/$U/.ISP/Telecom/Applications/include/arcFAX.h $TEMP/arcFAX.h   0644 $U $G
+C /home/$U/.ISP/Telecom/Tables/FaxTextDefaultsConfig.sample.txt $TEMP/FaxTextDefaultsConfig.sample.txt   0644 $U $G
+C /home/$U/.ISP/Telecom/Exec/FaxServerAnalog 	$TEMP/FaxServerAnalog   0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/FaxServerT1 	$TEMP/FaxServerT1   0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/FaxServerE1 	$TEMP/FaxServerE1   0755 $U $G
+C /home/$U/ISP/Tables/sendToMonitor_fax.dat $TEMP/sendToMonitor_fax.dat 0644 $U $G
+C /tmp/no/FaxServer.cfg 			$TEMP/FaxServer.cfg 0644 $U $G
+#
+C /home/$U/.ISP/Telecom/bin/remove_arcFAX     	$TEMP/remove_arcFAX 0744 root $G
+C /home/$U/.ISP/Telecom/doc/install_arcFAX.readme $TEMP/install_arcFAX.readme 0644 $U $G
+} # prototype
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the most of the Postinstall script on SCO
+#-------------------------------------------------------------------------------
+postinstall()
+{
+	Echo "`date` postinstall script begins..."
+	
+	if [ ! -d /home/$USER_ID/.ISP/Global ]
+	then
+	 	Echo "ln -s /home/$USER_ID/ISP /home/$USER_ID/.ISP/Global"
+	 	ln -s /home/$USER_ID/ISP /home/$USER_ID/.ISP/Global
+		chown	$USER_ID /home/$USER_ID/ISP
+		Chgrp	$GROUP   /home/$USER_ID/ISP
+		chown  	$USER_ID /home/$USER_ID/.ISP/Global
+		Chgrp  	$GROUP   /home/$USER_ID/.ISP/Global
+	fi
+	
+	Update_fax_config_files
+	Update_FaxServer_config_file
+	AddTo_sendToMonitor fax
+	Echo 
+	Echo "Install complete."
+	
+	if [ ! -f /home/$USER_ID/.ISP/Global/Tables/license.dat ]
+	then
+		Echo "To obtain a license for this product, run the following command:"
+		Echo "cd /home/$USER_ID/ISP/Exec"
+		Echo "arcLicense FAX"
+		Echo
+	fi 
+		
+} # postinstall
+
+Update_fax_config_files()
+{
+        # Create new configuration files (unless they exist)
+        # If a file exists, retain its newly copied counterpart.
+        SRC_DIR=/tmp/no
+        DEST_DIR=/home/$USER_ID/.ISP/Telecom/Tables
+        FILE_LIST="FaxServer.cfg"
+
+        for file in $FILE_LIST
+        do
+                if [ -f "$DEST_DIR/$file" ]
+                then
+                        Echo "Using existing $file"
+                        cp -p $SRC_DIR/$file $DEST_DIR/$file.$VERSION
+                else
+                        Echo "Creating new $file"
+                        cp -p $SRC_DIR/$file $DEST_DIR/$file
+                fi
+
+                chown $USER_ID $DEST_DIR/$file
+                Chgrp $GROUP $DEST_DIR/$file
+        done
+}
+
+Update_FaxServer_config_file()
+{
+        #if FAX_USER is found in the config file, substitute the real user
+
+        FILE=/home/$USER_ID/.ISP/Telecom/Tables/FaxServer.cfg
+        STRING="\/home\/FAX_USER\/.ISP\/Telecom\/Fax"
+        BASE_DIR="/home/$USER_ID/.ISP/Telecom/Fax"
+
+        if grep "$STRING" $FILE  1>/dev/null 2>&1
+        then
+                # Update the default fax directory
+                Echo "Setting base fax directory to $BASE_DIR."
+                echo "/$STRING\nd\n.\ni\n$BASE_DIR\n.\nw\nq" > e$$
+                ed $FILE < e$$ > /dev/null
+                rm e$$
+        fi
+}
+
+#------------------------------------------------------------------------------
+# Put the file in place that indicates what version of this product is 
+# installed and when. 
+#------------------------------------------------------------------------------
+update_pkginfo()
+{
+	STATUS=$1
+	INSTDATE=`date +"%Y %B %d %X"`
+	
+	echo "------------------------"	>> $PKGINFO
+	echo
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST" 	>> $PKGINFO
+	echo "NAME      : $NAME" 	>> $PKGINFO
+	echo "VERSION   : $VERSION" 	>> $PKGINFO
+	echo "USER      : $USER_ID"	>> $PKGINFO
+	echo "VENDOR    : $VENDOR" 	>> $PKGINFO
+	echo "DESC      : $DESC" 	>> $PKGINFO
+	echo "PSTAMP    : $PSTAMP" 	>> $PKGINFO
+	echo "INSTDATE  : $INSTDATE" 	>> $PKGINFO
+	echo "STATUS    : $STATUS" 	>> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO ...
+	tail -11 $PKGINFO
+}
+
+#------------------------------------------------------------------------------
+# main routine
+#------------------------------------------------------------------------------
+TEMP="."
+
+# Package information
+PKGINST="arcFAX"
+PKGINFO="/home/.$PKGINST.pkginfo"	# File that contains Unix-like pkginfo
+NAME="ARC Fax Services for Dialogic on Linux"
+PACKAGE_DATE="2010-Mar-04"
+VERSION="3.1"
+PSTAMP=$VERSION.$PACKAGE_DATE
+VENDOR="Aumtech, Inc."
+DESC="The ARC Fax Services package provides fax capabilities to applications running on an ARC Telecom Services Dialogic/Linux platform."
+
+GROUP="ispgrp"		# Note: Use of a specific group is not enforced
+TODAY=`date +%y%m%d` 	# Used as suffix on "extra" files
+
+request
+ISPBASE=/home/$USER_ID/.ISP
+
+Echo "Installing ARC Fax Services Services $VERSION, please wait ... "
+
+prototype
+postinstall
+update_pkginfo INSTALLED
+Echo "Please reboot now to insure proper functioning of ARC Fax Services."
+Echo "Press Enter"
+read anything

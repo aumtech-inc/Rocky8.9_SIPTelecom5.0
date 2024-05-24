@@ -1,0 +1,64 @@
+#-------------------------------------------------------------------------------
+# File:		Make.def
+#
+# Purpose:	Contains all constants and macros used in the arcLicenseMgr program
+#
+# Author:	Sandeep Agate
+#
+# Update:	2002/05/23 sja	Created the file
+#-------------------------------------------------------------------------------
+#
+# ARC Variables
+#
+#ARC_CFLAGS				= -O2
+ARC_CFLAGS				= -g
+
+ARC_BASE_DIR			= ${HOME}/isp2.2/SIPTelecom3.2
+COMMON					= ${ARC_BASE_DIR}/Common
+ARC_LICENSE_NEW			= ${COMMON}/arcLicenseMgr
+
+ARC_LIC_SRC				= ${ARC_LICENSE_NEW}/src
+ARC_LIC_INC				= ${ARC_LICENSE_NEW}/include
+ARC_LIC_LIB				= ${ARC_LICENSE_NEW}/lib
+ARC_LIC_BIN				= ${ARC_LICENSE_NEW}/bin
+ARC_LIC_MGR				= ${ARC_LIC_BIN}/arcLicenseMgr
+ARC_LIC_CLIENT			= arcLicenseClient
+
+ARC_COM					= ${COMMON}
+ARC_COM_INC				= ${ARC_COM}/include
+ARC_COM_LIB				= ${ARC_COM}/lib
+
+ARC_LIC_LIBS		  	= -larcLicense -llmgr 
+
+#
+# INCPATHS, LIBPATHS and LIBS Used to Compile arcLicenseMgr
+#
+ARC_INCPATHS 			= \
+						-I . 							\
+						-I ${ARC_LIC_INC}				\
+						-I ${ARC_COM_INC}
+
+ARC_LIBPATHS			= \
+						-L ${ARC_LIC_LIB}				\
+						-L ${ARC_COM_LIB}
+
+ARC_LIBS 				= \
+						-lISPUtil 			\
+						-lISPCDR 			\
+	 					-lUTILS 			\
+						-lISPLog 			\
+						-lloglite 			\
+						-lsaUtils 			\
+						${ARC_LIC_LIBS}		\
+						-lelf				\
+						-lnsl
+
+#-------------------------------------------------------------------------------
+# YOU SHOULD NOT HAVE TO CHANGE ANYTHING BELOW THIS LINE
+#
+#
+EC						= @echo
+CTAGS					= @ctags
+CC						= @gcc
+AR						= @ar
+ARFLAGS					= ruv

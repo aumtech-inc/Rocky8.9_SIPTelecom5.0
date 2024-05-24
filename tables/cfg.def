@@ -1,0 +1,10 @@
+#------------------------------------------------------------------------------
+# File:		cfg.def
+# Purpose:	arcFlash GUI definition file for Telecom Services.
+# Author:	Aumtech, Inc.
+# Date:		07/01/99
+# DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE.
+#------------------------------------------------------------------------------
+
+[Config]
+Telecom Configuration=Telecom/Tables/cfg-tel.def

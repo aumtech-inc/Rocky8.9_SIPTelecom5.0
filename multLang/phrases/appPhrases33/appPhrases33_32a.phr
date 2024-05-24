@@ -1,0 +1,84 @@
+#------------------------------------------------------------------------------
+# File:		appPhrases33.phr
+#
+# Purpose:	Contains all the phrase definitions for the application. This
+#		file is read by the taLoadTags() accessory routine to load
+#		all phrase tags and lists.
+#
+# Author:	Aumtech, Inc. (USA)
+#
+# Usage:	Each line contains a phrase tag definition entry. e.g.:
+#
+#		prompt		|prompt.32a	|This is a prompt
+#		
+#		In this case, the application would use the phrase tag "prompt"
+#		to speak the phrase "prompt.32a". 
+#		
+#		Menus can be defined as a list of comma separated phrase tags
+#		each defined in the format described above. e.g.:
+#
+#		^menu 		= option1, press1, option2, press2
+#
+# Update:	26/05/2000      Gary Knapper (XAL)  
+#------------------------------------------------------------------------------
+# Actual Phrase Tag	|Name of the phrase file	|Actual Text
+goodMorning		|1000.32a	|Good Morning
+goodEvening		|1001.32a	|Good Evening
+goodAfternoon		|1002.32a	|Good Afternoon
+enterAcctNo		|1003.32a	|Please enter PIN
+invalidAcctNo		|1004.32a	|Pin not recognised
+enterPin		|1005.32a	|Please enter PIN
+invalidPin		|1006.32a	|Pin not recognised
+redialNumber		|1007.32a	|Please redial
+outOfTime		|1008.32a	|You have no more time
+warning			|1009.32a	|You have 20s left
+makeACall 		|1010.32a	|Please dial the number
+operatorXfer 		|1011.32a	|Please wait....operator
+operatorsAreBusy	|1012.32a	|All operators are busy
+yourBalanceIs		|1013.32a	|Your balance is...
+remaining		|1014.32a	|Remaining
+invalidPhoneNo		|1015.32a	|Dialed invalid number
+cardExpired		|1016.32a	|Your card has expired
+numberIsBusy		|1017.32a	|Number dialed is busy
+ringNoAnswer		|1018.32a	|Number did not answer
+invalidTone		|1019.32a	|Number is not responding
+callDuration		|1020.32a	|Time on this call...
+minute			|1021.32a	|Minute
+minutes			|1022.32a	|Minutes
+second			|1023.32a	|Second
+seconds			|1024.32a	|Seconds
+zero			|1025.32a	|Zero
+pressStarNow		|1026.32a	|Please press star now
+accountInUse            |1028.32a	|Your Card is locked
+tryAgain		|1029.32a	|Try again
+tryLater		|1030.32a	|Try later
+pressHashHash		|1031.32a	|Press ##
+weeks			|1032.32a	|Weeks
+month			|1033.32a	|Month
+months			|1034.32a	|Months
+days			|1035.32a	|Days
+week			|1036.32a	|Week
+day			|1037.32a	|Day
+needHlp			|1039.32a	|If you need help....
+helpMsg1		|1040.32a	|Help message 1
+helpMsg2		|1041.32a	|Help message 2
+noMoreTime		|1042.32a	|No more time
+# remaining		|1043.32a	|Remaining
+beforeExpiry		|1044.32a	|Befory expiry
+useFor			|1045.32a	|Can use card for...
+notEnoughCredit		|1046.32a	|Not enough credit for call
+dialTone		|dialTone.24a	|DialTone
+hundred    		|hundred.32a	|Hundred
+thousand    		|thousand.32a	|Thousand
+million    		|million.32a	|Million
+mainCurrencyUnit1    	|mainCU1.32a	|Franc
+mainCurrencyUnit2    	|mainCU2.32a	|Francs
+mainCurrencyUnit3    	|mainCU3.32a	|Francs
+and			|and.32a	|And
+minorCurrencyUnit1    	|minorCU1.32a	|Centime
+minorCurrencyUnit2    	|minorCU1.32a	|Centimes
+#
+# Menus and phrase lists
+#
+#^welcomeStar		= welcome, pressStarNow
+^daysBeforeExpiry	= days, beforeExpiry

@@ -1,0 +1,113 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# Program:	get_input
+# Purpose:	To get input from the user.
+# Author:	George Wenzel
+# Date:		06/15/99
+# Upate:	02/06/01 G. Wenzel modified read in RANGE handling
+# Upate:	06/11/01 APJ Changed rm to rm -f.
+#------------------------------------------------------------------------------
+get_input()
+{
+	getTEXT=$1
+	getDEFAULT=$2
+	getEDIT_CODE=$3
+	getVALID_VALUES=$4
+	getREQUIRED=$5
+
+	if [ "$getDEFAULT" = "" ] 
+	then 
+		def="[(no default)]"; 
+	else
+		def="[default: $getDEFAULT]"
+	fi
+
+	if [ "$getEDIT_CODE" = "LIST" -o "$getEDIT_CODE" = "ANYTHING" ] 
+	then
+		if [ "$getVALID_VALUES" = "" ]
+		then 
+			valid=""
+		else
+			valid="($getVALID_VALUES)"
+		fi
+	fi
+	if [ "$getEDIT_CODE" = "RANGE" ]
+	then
+		echo -e $getVALID_VALUES > t$$
+#		cat t$$ | read getLower getUpper
+		read -r getLower getUpper < t$$
+		rm -f t$$
+		valid="($getLower-$getUpper)"
+	fi
+
+	getPROMPT="$getTEXT $valid $def : \c"
+
+	getINPUT_IS_VALID="NO"
+	getDONE="NO"
+	while [ "$getINPUT_IS_VALID" = "NO" ]
+	do
+		while [ "$getDONE" = "NO" ]
+		do
+			echo -e $getPROMPT
+			read getINPUT
+			if [ "$getINPUT" = "" ]; then getINPUT=$getDEFAULT; fi 
+
+			if [ "$getREQUIRED" = "REQUIRED" ]
+			then
+				if [ "$getINPUT" = "" ]
+				then
+					echo -e "Required field not entered. \007"	
+				else
+					getDONE="YES"
+				fi
+			else
+				getDONE="YES"
+			fi
+		done
+		# At this point, we have input. Is it valid?
+		getDONE="NO"
+		case "$getEDIT_CODE"
+		in
+		"LIST" )
+			for value in $getVALID_VALUES
+			do
+				if [ "$getINPUT" = "$value" ] 
+				then
+					getINPUT_IS_VALID="YES"
+					getDONE="YES"
+				fi
+			done
+			if [ "$getINPUT_IS_VALID" != "YES" ] 
+			then
+				echo -e "Invalid value: $getINPUT. Value not in list.\007"	
+			fi
+			;;
+		"RANGE" )
+			if [ "$getINPUT" -lt "$getLower" -o "$getINPUT" -gt "$getUpper" ]
+			then
+				echo -e "Invalid value: $getINPUT. Value not within range.\007"	
+			else
+				getINPUT_IS_VALID="YES"
+				getDONE="YES"
+			fi
+			;;
+		"ANYTHING" )
+			getINPUT_IS_VALID="YES"
+			getDONE="YES"
+			;;
+		* ) echo Invalid edit option;;
+		esac 	
+	done
+	echo -e $getINPUT >/tmp/value
+}
+
+#------------------------------------------------------------------------------
+# main
+#------------------------------------------------------------------------------
+if [ "$#" != "5" ]
+then
+	echo -e "Invalid number of parameters prompting for $1".
+	return
+fi
+
+get_input "$1" "$2" "$3" "$4" "$5"

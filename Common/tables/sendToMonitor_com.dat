@@ -1,0 +1,24 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_com.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		07/30/99
+#-----------------------------------------------------------------------------
+#
+# Common APIs
+10000	CDR_CustomEvent
+10001	CDR_ServiceTran
+10002	ARY_IndxAryInit
+10003	ARY_IndxAryRetrieve
+10004	UTL_AddToFile
+10005	UTL_BusinessHours
+10006	UTL_CopyFile
+10007	UTL_CreateAFile
+10008	UTL_DeleteFile
+10009	UTL_GetField
+10010	UTL_LogMessage
+10011	UTL_SubString
+10012	UTL_SendToMonitor

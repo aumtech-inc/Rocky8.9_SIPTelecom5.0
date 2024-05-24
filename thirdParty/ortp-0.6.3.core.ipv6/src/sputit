@@ -1,0 +1,4 @@
+if [ $1 ]
+then
+	sftp arc@$1 < put.sftp
+fi

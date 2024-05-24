@@ -1,0 +1,773 @@
+#---------------------------------------------------------------------------
+# Program:	build_SIPTEL
+# Purpose:	Script to build SIP Telecom Services for Linux systems.
+# Author:	Aumtech, Inc.
+# Update: 02/21/2001 gpw created the file.
+# Update: 04/21/2005 djb Modified it to SIP Telecom.
+# Update: 08/19/2005 djb Added ttsClient_speechify
+# Update: 11/13/2005 ddn Added silence.729a
+# Update 09/13/2007 djb Added mrcpV2 client mgr.
+# Update 09/25/2007 djb Added mrcpV2 TTS client mgr.
+# Update 07/01/2011 ddn Added inband_*.wav files to support inband tones in TEL_OutputDTMF
+#---------------------------------------------------------------------------
+
+getOSVersion()
+{
+	osFile="/etc/redhat-release"
+
+	export LINUX_OS_VERSION=""
+	if [ ! -f ${osFile} ]; then
+		echo "Unable to get OS and Version.  ${osFile} does not exist."
+		return
+	fi
+
+	ln="`cat ${osFile}`"
+	if [ `echo $ln |  grep "Rocky Linux" | grep "8.9" | grep "Green Obsidian" | wc -l` -eq 1 ]
+	then
+		export LINUX_OS_VERSION="Rocky8.9"
+		return
+	fi
+
+	if [ `echo $ln |  grep "^Red Hat" | grep "8.9" | grep "Ootpa" | wc -l` -eq 1 ]
+	then
+		export LINUX_OS_VERSION="Oracle8.9"
+		return
+	fi
+
+	echo "Unable to get OS and Version.  ${osFile} contents don't match Rocky or Oracle."
+
+	return
+
+}
+
+Echo()
+{
+	# echo a sting to the screen and write it to the log file
+	echo $1 | tee -a $LOGFILE
+}
+
+Copy()
+{
+    echo -ne " * copying $1 to $2: "
+	cp $1 $2
+	if [ "$?" != "0" ]; 
+	then 
+        echo -ne " [FAILED] \n"
+		#Echo "Failed to copy $1 to $2"
+		ERRORS=`expr $ERRORS + 1`; 
+        exit 1;
+    else 
+	    echo -ne " [OK] \n";
+	fi
+}
+
+Copy_from_master_directories()
+{
+	ERRORS=0
+	
+	Echo "Copying files from master directories to $TMP..."
+	Echo
+	Echo "Master directories : $STelecom"
+#	Echo ".................. : $DTelecom"
+	Echo ".................. : $Common"
+
+	# Make the temporary directory if necessary
+	mkdir -p $TMP 1>/dev/null 2>&1
+	
+	Copy $Common/tables/Global.cfg		$TMP
+	Copy $Common/tables/arcLogFiles		$TMP
+	Copy $Common/tables/ResourceMgr.cfg	$TMP
+
+	# Common GUI def files for arcFlash
+	Copy $Common/tables/cfg-global.def	$TMP
+	Copy $Common/tables/cfg.def		$TMP/gcfg.def # Name change
+	
+	Copy $Common/utlscripts/isplogrc 	$TMP
+	Copy $Common/utlscripts/isprc 		$TMP
+	Copy $Common/utlscripts/Current_LogParams 	$TMP
+	Copy $Common/utlscripts/arcLogCleanup		$TMP
+	Copy $Common/utlscripts/arczip.sh 	$TMP
+
+	# Scripts that aid in installation
+	Copy $Common/install_utils/replace_token	$TMP
+	Copy $Common/install_utils/get_input		$TMP
+	Copy $Common/install_utils/get_value		$TMP
+	Copy $Common/install_utils/update_config	$TMP
+	
+	Copy $STelecom/bin/ArcIPResp			$TMP
+	Copy $STelecom/bin/ArcIPStopResp		$TMP
+#    Copy $STelecom/calea/ArcCalea			$TMP
+#    Copy $STelecom/bin/ArcSipTonesClient       $TMP
+#    Copy $STelecom/bin/ArcSipTonesClientMgr    $TMP
+#    Copy $STelecom/conferencing/ArcConferenceMgr       $TMP
+	Copy $STelecom/mrcpClient2.0/bin/mrcpClient2.sip.eXosip4.1   $TMP/mrcpClient2.sip
+	Copy $STelecom/mrcpClient2.0/bin/mrcpClient2Mgr   $TMP
+	Copy $STelecom/Build/aumtechagreement.txt $TMP
+
+#	SIP Proxy
+	Copy $STelecom/proxy/siproxd-0.8.1/src/siproxd  $TMP/arcsiproxd
+	Copy $STelecom/proxy/siproxd-0.8.1/doc/arcsiproxy.conf  $TMP
+
+	Copy $Common/monitor/isp_monitor 		$TMP
+	Copy $Common/monitor/textMonitor 		$TMP
+	Copy $Common/tables/sendToMonitor_tel.dat	$TMP
+	Copy $Common/tables/sendToMonitor_com.dat	$TMP
+	Copy $Common/tables/sendToMonitor_sir.dat	$TMP
+	
+	Copy $Common/lib/libISPLog.a 		$TMP
+	Copy $Common/lib/libUTILS.a 		$TMP  
+	Copy $Common/lib/libISPCDR.a 		$TMP
+
+#	Copy $Common/lib/libRULES.a 		$TMP
+#	echo Warning: Not copying $Common/lib/libRULES.a
+
+	Copy $Common/lib/libISPUtil.a 		$TMP
+#	Copy $Common/lib/libISPIndxary.a 	$TMP
+
+	Copy $Common/lib/libgaUtils.a		$TMP
+
+	Copy $STelecom/dynmgr/ArcSipMediaMgr				$TMP
+
+# thirdparty libs I got  from running ldd the binaries  
+# even though 
+
+THIRDPARTYLIBPATH="$STelecom/thirdParty"
+
+ Copy $THIRDPARTYLIBPATH/libosip2-4.1.0/src/osip2/.libs/libosip2.so.11.0.0 $TMP
+ Copy $THIRDPARTYLIBPATH/libosip2-4.1.0/src/osipparser2/.libs/libosipparser2.so.11.0.0 $TMP
+ Copy $THIRDPARTYLIBPATH/libeXosip2-4.1.0/src/.libs/libeXosip2.so.11.0.0 $TMP
+ Copy $THIRDPARTYLIBPATH/ortp-0.6.3.core.ipv6/src/.libs/libortp.so.0.0.0 $TMP
+ Copy $THIRDPARTYLIBPATH/spandsp-0.0.6/src/.libs/libspandsp.so.2 $TMP
+ Copy $THIRDPARTYLIBPATH/xerces-c-src_2_8_0/lib/libxerces-c.so.28.0 $TMP
+
+ Copy $STelecom/dynmgr/soundtouch/soundtouch/lib/libSoundTouch.so.0.0.0   $TMP 
+
+# DJB_NOMORE  Copy /usr/lib64/libjpeg.so.62.1.0  $TMP
+
+	Copy /usr/local/lib/libtiff.so.3.9.4     $TMP/libtiff.so.3.9.4
+ Copy $THIRDPARTYLIBPATH/openssl-1.0.2k/libcrypto.so.1.0.0 $TMP
+ Copy $THIRDPARTYLIBPATH/openssl-1.0.2k/libssl.so.1.0.0 $TMP
+#
+#end thirdparty libs 
+#
+
+	# Flexlm license files.
+	Copy $Common/flexNET/v11.5/src/arcLicense.sip		$TMP/arcLicense
+	Copy $Common/flexNET/v11.5/amd64_re3_enterprise/lmgrd			$TMP
+	Copy $Common/flexNET/v11.5/amd64_re3_enterprise/lmutil			$TMP
+	Copy $Common/flexNET/v11.5/amd64_re3/arclicd			$TMP
+	Copy $Common/flexNET/v11.5/src/chkSRLicense			$TMP/chkSRLicense
+
+	Copy $STelecom/Common/include/ISPCommon.h 	$TMP
+	Copy $STelecom/Common/include/UTL_accessories.h 	$TMP
+
+	Copy $Common/include/gaUtils.h		$TMP
+	
+#	Copy $Common/Log/lm_log_recover 		$TMP
+
+	Copy $Common/bin/log_cli 			$TMP
+	Copy /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/client/src/log_forward 	$TMP
+	Copy $Common/Log/Start_LogForward 		$TMP
+
+#	Operations scripts including rc scripts
+	Copy $STelecom/Operations/Start_Telecom				$TMP
+	Copy $STelecom/Operations/Stop_Telecom 				$TMP
+	Copy $STelecom/Operations/Verify_Telecom			$TMP
+	Copy $STelecom/Operations/S99arciptel 				$TMP
+#	Copy $STelecom/Operations/K89arciptel 				$TMP
+	Copy $STelecom/Operations/Aumtech-Mrcp-SR.conf		$TMP
+	Copy $STelecom/Operations/Aumtech-Mrcp-TTS.conf		$TMP
+	Copy $STelecom/Operations/Aumtech-Redirector.conf	$TMP
+	Copy $STelecom/Operations/Aumtech-Redirector.service	$TMP
+	
+# 	Dynamic manager 
+	Copy $STelecom/dynmgr/ArcSipMediaMgr				$TMP
+	Copy $STelecom/dynmgr/ArcSipCallMgr					$TMP
+
+#	Redirection Server
+	Copy $STelecom/dynmgr/ArcSipRedirector			$TMP
+
+#	Real-time Reports Client
+	Copy $STelecom/loggingServices/realTimeReports/client/src/arcRTRClient			$TMP
+
+#	FaxServer
+	Copy $STelecom/Fax/bin/FaxServer		$TMP
+
+	Copy $STelecom/lib/libISPTel_mrcp.a 	$TMP
+#	Copy $STelecom/lib/libISPTel_mrcp_GC.a 	$TMP
+
+	Copy $STelecom/lib/libTELLog.a 			$TMP
+
+	Copy $STelecom/mrcpTTSClient2.0/bin/ttsClient.mrcp.eXosip4.1	$TMP/ttsClient.mrcp
+	Copy $STelecom/mrcpTTSClient2.0/bin/mrcpTTSClient2Mgr		$TMP
+	
+	Copy $STelecom/include/Telecom.h 		$TMP
+	Copy $STelecom/include/arcSR.h	$TMP
+	Copy $STelecom/Common/include/ISPCommon.h 		$TMP
+	Copy $STelecom/include/arcFAX.h 		$TMP
+	
+	Copy $STelecom/scripts/makegen 			$TMP
+	Copy $STelecom/scripts/arciptelrc		$TMP
+
+	Copy $STelecom/scripts/lsCores.sh			$TMP
+	Copy $STelecom/scripts/copyCoresToTmp.sh	$TMP
+	Copy $STelecom/scripts/rmCores.sh			$TMP
+	
+	Copy $STelecom/ssl_certificates/generate_certs.sh       $TMP
+
+#	Telecom configuration files.
+	Copy $STelecom/tables/TEL.cfg 		$TMP	
+	Copy $STelecom/tables/trunkGroups.cfg	$TMP	
+	Copy $STelecom/tables/ArcSipRedirector.cfg	$TMP	
+	Copy $STelecom/tables/FaxServer.cfg		$TMP
+	Copy $STelecom/tables/OCServer.cfg	$TMP	
+	Copy $STelecom/tables/appref 			$TMP
+	Copy $STelecom/tables/pgmreference 		$TMP
+	Copy $STelecom/tables/schedule 			$TMP
+	Copy $STelecom/tables/TranLocTab		$TMP
+	Copy $STelecom/tables/RedirectorTab		$TMP
+	Copy $STelecom/tables/RedirectorTab.work		$TMP
+	Copy $STelecom/mrcpClient2.0/tables/arcMRCP2.cfg   $TMP
+	Copy $STelecom/tables/ResourceDefTab 		$TMP
+
+	Copy $STelecom/googleSR/arcGoogleSR.sh				$TMP
+	Copy $STelecom/googleSR/GoogleSpeechRec.jar		$TMP
+
+#	Sample code
+	Copy $STelecom/samples/sample.c			$TMP
+	Copy $STelecom/samples/instructions.wav		$TMP
+	
+	# System Phrases	
+	Echo "Putting empty file for $STelecom/phrases/0090.wav";   
+							> $TMP/0090.wav 
+	Copy $STelecom/phrases/beep.wav		$TMP
+	Copy $STelecom/phrases/beep.711		$TMP
+	Copy $STelecom/phrases/beep.729		$TMP
+	Copy $STelecom/phrases/beep.g729a	$TMP
+	Copy $STelecom/phrases/beep.g729b	$TMP
+	Copy $STelecom/phrases/0091.wav		$TMP
+	Copy $STelecom/phrases/0092.wav		$TMP
+	Copy $STelecom/phrases/0093.wav		$TMP
+	Copy $STelecom/phrases/0094.wav		$TMP
+	Copy $STelecom/phrases/0095.wav		$TMP
+	Copy $STelecom/phrases/0096.wav		$TMP
+	Copy $STelecom/phrases/0097.wav		$TMP
+	Copy $STelecom/phrases/0098.wav		$TMP
+	Copy $STelecom/phrases/0099.wav		$TMP
+	Copy $STelecom/phrases/0100.wav		$TMP
+	Copy $STelecom/phrases/0101.wav		$TMP
+	Copy $STelecom/phrases/0102.wav		$TMP
+	Copy $STelecom/phrases/0103.wav		$TMP
+	Copy $STelecom/phrases/0104.wav		$TMP
+	Copy $STelecom/phrases/0105.wav		$TMP
+	Copy $STelecom/phrases/0106.wav		$TMP
+	Copy $STelecom/phrases/0107.wav		$TMP
+	Copy $STelecom/phrases/0108.wav		$TMP
+	Copy $STelecom/phrases/0109.wav		$TMP
+	Copy $STelecom/phrases/0110.wav		$TMP
+	Copy $STelecom/phrases/0111.wav		$TMP
+	Copy $STelecom/phrases/0112.wav		$TMP
+	Copy $STelecom/phrases/0113.wav		$TMP
+	Copy $STelecom/phrases/0114.wav		$TMP
+	Copy $STelecom/phrases/0115.wav		$TMP
+	Copy $STelecom/phrases/0116.wav		$TMP
+	Copy $STelecom/phrases/0117.wav		$TMP
+	Copy $STelecom/phrases/0118.wav		$TMP
+	Copy $STelecom/phrases/0119.wav		$TMP
+	Copy $STelecom/phrases/0120.wav		$TMP
+	Copy $STelecom/phrases/0121.wav		$TMP
+	Copy $STelecom/phrases/0122.wav		$TMP
+	Copy $STelecom/phrases/0123.wav		$TMP
+	Copy $STelecom/phrases/0124.wav		$TMP
+	Copy $STelecom/phrases/0125.wav		$TMP
+	Copy $STelecom/phrases/0126.wav		$TMP
+	Copy $STelecom/phrases/0127.wav		$TMP
+	Copy $STelecom/phrases/0128.wav		$TMP
+	Copy $STelecom/phrases/0129.wav		$TMP
+	Copy $STelecom/phrases/0130.wav		$TMP
+	Copy $STelecom/phrases/0131.wav		$TMP
+	Copy $STelecom/phrases/0132.wav		$TMP
+	Copy $STelecom/phrases/0133.wav		$TMP
+	Copy $STelecom/phrases/0134.wav		$TMP
+	Copy $STelecom/phrases/0135.wav		$TMP
+	Copy $STelecom/phrases/0136.wav		$TMP
+	Copy $STelecom/phrases/0137.wav		$TMP
+	Copy $STelecom/phrases/0138.wav		$TMP
+	Copy $STelecom/phrases/0139.wav		$TMP
+	Copy $STelecom/phrases/0140.wav		$TMP
+	Copy $STelecom/phrases/0141.wav		$TMP
+	Copy $STelecom/phrases/0142.wav		$TMP
+	Copy $STelecom/phrases/0143.wav		$TMP
+	Copy $STelecom/phrases/0144.wav		$TMP
+	Copy $STelecom/phrases/0145.wav		$TMP
+	Copy $STelecom/phrases/0146.wav		$TMP
+	Copy $STelecom/phrases/0147.wav		$TMP
+	Copy $STelecom/phrases/0148.wav		$TMP
+	Copy $STelecom/phrases/0149.wav		$TMP
+	Copy $STelecom/phrases/0150.wav		$TMP
+	Copy $STelecom/phrases/0151.wav		$TMP
+	Copy $STelecom/phrases/0152.wav		$TMP
+	Copy $STelecom/phrases/0153.wav		$TMP
+	Copy $STelecom/phrases/0154.wav		$TMP
+	Copy $STelecom/phrases/0155.wav		$TMP
+	Copy $STelecom/phrases/0156.wav		$TMP
+	Copy $STelecom/phrases/0157.wav		$TMP
+	Copy $STelecom/phrases/0158.wav		$TMP
+	Copy $STelecom/phrases/0159.wav		$TMP
+	Copy $STelecom/phrases/0160.wav		$TMP
+	Copy $STelecom/phrases/0161.wav		$TMP
+	Copy $STelecom/phrases/0162.wav		$TMP
+	Copy $STelecom/phrases/0163.wav		$TMP
+	Copy $STelecom/phrases/0164.wav		$TMP
+	Copy $STelecom/phrases/0165.wav		$TMP
+	Copy $STelecom/phrases/0166.wav		$TMP
+	Copy $STelecom/phrases/0167.wav		$TMP
+	Copy $STelecom/phrases/0168.wav		$TMP
+	Copy $STelecom/phrases/0169.wav		$TMP
+	Copy $STelecom/phrases/0170.wav		$TMP
+	Copy $STelecom/phrases/0171.wav		$TMP
+	Copy $STelecom/phrases/0172.wav		$TMP
+	Copy $STelecom/phrases/0173.wav		$TMP
+	Copy $STelecom/phrases/0174.wav		$TMP
+	Copy $STelecom/phrases/0175.wav		$TMP
+	Copy $STelecom/phrases/0176.wav		$TMP
+	Copy $STelecom/phrases/0177.wav		$TMP
+	Copy $STelecom/phrases/0178.wav		$TMP
+	Copy $STelecom/phrases/0179.wav		$TMP
+	Copy $STelecom/phrases/0180.wav		$TMP
+	Copy $STelecom/phrases/0181.wav		$TMP
+	Copy $STelecom/phrases/0182.wav		$TMP
+	Copy $STelecom/phrases/0183.wav		$TMP
+	Copy $STelecom/phrases/0184.wav		$TMP
+	Copy $STelecom/phrases/0185.wav		$TMP
+	Copy $STelecom/phrases/0186.wav		$TMP
+	Copy $STelecom/phrases/0187.wav		$TMP
+	Copy $STelecom/phrases/0188.wav		$TMP
+	Copy $STelecom/phrases/0189.wav		$TMP
+	Copy $STelecom/phrases/0190.wav		$TMP
+	Copy $STelecom/phrases/0191.wav		$TMP
+	Copy $STelecom/phrases/0192.wav		$TMP
+	Copy $STelecom/phrases/0193.wav		$TMP
+	Copy $STelecom/phrases/0194.wav		$TMP
+	Copy $STelecom/phrases/0195.wav		$TMP
+	Copy $STelecom/phrases/0196.wav		$TMP
+	Copy $STelecom/phrases/0197.wav		$TMP
+	Copy $STelecom/phrases/0198.wav		$TMP
+	Copy $STelecom/phrases/0199.wav		$TMP
+	Copy $STelecom/phrases/0201.wav		$TMP
+	Copy $STelecom/phrases/0202.wav		$TMP
+	Copy $STelecom/phrases/0203.wav		$TMP
+	Copy $STelecom/phrases/0250.wav		$TMP
+	Copy $STelecom/phrases/0251.wav		$TMP
+	Copy $STelecom/phrases/0252.wav		$TMP
+	Copy $STelecom/phrases/0253.wav		$TMP
+	Copy $STelecom/phrases/0254.wav		$TMP
+	Copy $STelecom/phrases/0255.wav		$TMP
+	Copy $STelecom/phrases/0256.wav		$TMP
+	Copy $STelecom/phrases/0257.wav		$TMP
+	Copy $STelecom/phrases/0258.wav		$TMP
+	Copy $STelecom/phrases/0259.wav		$TMP
+	Copy $STelecom/phrases/0260.wav		$TMP
+	Copy $STelecom/phrases/0261.wav		$TMP
+	Copy $STelecom/phrases/0270.wav		$TMP
+	Copy $STelecom/phrases/0271.wav		$TMP
+	Copy $STelecom/phrases/0272.wav		$TMP
+	Copy $STelecom/phrases/0273.wav		$TMP
+	Copy $STelecom/phrases/0274.wav		$TMP
+	Copy $STelecom/phrases/0275.wav		$TMP
+	Copy $STelecom/phrases/0276.wav		$TMP
+	Copy $STelecom/phrases/0277.wav		$TMP
+	Copy $STelecom/phrases/0278.wav		$TMP
+	Copy $STelecom/phrases/0279.wav		$TMP
+	Copy $STelecom/phrases/0280.wav		$TMP
+	Copy $STelecom/phrases/0281.wav		$TMP
+	Copy $STelecom/phrases/0282.wav		$TMP
+	Copy $STelecom/phrases/0283.wav		$TMP
+	Copy $STelecom/phrases/0284.wav		$TMP
+	Copy $STelecom/phrases/0285.wav		$TMP
+	Copy $STelecom/phrases/0286.wav		$TMP
+	Copy $STelecom/phrases/0287.wav		$TMP
+	Copy $STelecom/phrases/0288.wav		$TMP
+	Copy $STelecom/phrases/0289.wav		$TMP
+	Copy $STelecom/phrases/0290.wav		$TMP
+	Copy $STelecom/phrases/0291.wav		$TMP
+	Copy $STelecom/phrases/0292.wav		$TMP
+	Copy $STelecom/phrases/0293.wav		$TMP
+	Copy $STelecom/phrases/0294.wav		$TMP
+	Copy $STelecom/phrases/0295.wav		$TMP
+	Copy $STelecom/phrases/0296.wav		$TMP
+	Copy $STelecom/phrases/0297.wav		$TMP
+	Copy $STelecom/phrases/0298.wav		$TMP
+	Copy $STelecom/phrases/0299.wav		$TMP
+	Copy $STelecom/phrases/0300.wav		$TMP
+	Copy $STelecom/phrases/0310.wav		$TMP
+	Copy $STelecom/phrases/0311.wav		$TMP
+	Copy $STelecom/phrases/0312.wav		$TMP
+	Copy $STelecom/phrases/0313.wav		$TMP
+	Copy $STelecom/phrases/0314.wav		$TMP
+	Copy $STelecom/phrases/0315.wav		$TMP
+	Copy $STelecom/phrases/0316.wav		$TMP
+	Copy $STelecom/phrases/0320.wav		$TMP
+	Copy $STelecom/phrases/0321.wav		$TMP
+	Copy $STelecom/phrases/0322.wav		$TMP
+	Copy $STelecom/phrases/0323.wav		$TMP
+	Copy $STelecom/phrases/0324.wav		$TMP
+	Copy $STelecom/phrases/0325.wav		$TMP
+	Copy $STelecom/phrases/0326.wav		$TMP
+	Copy $STelecom/phrases/0327.wav		$TMP
+	Copy $STelecom/phrases/0328.wav		$TMP
+	Copy $STelecom/phrases/0330.wav		$TMP
+	Copy $STelecom/phrases/0331.wav		$TMP
+	Copy $STelecom/phrases/0332.wav		$TMP
+	Copy $STelecom/phrases/0333.wav		$TMP
+	Copy $STelecom/phrases/0334.wav		$TMP
+	Copy $STelecom/phrases/0335.wav		$TMP
+	Copy $STelecom/phrases/0340.wav		$TMP
+	Copy $STelecom/phrases/0341.wav		$TMP
+	Copy $STelecom/phrases/0342.wav		$TMP
+	Copy $STelecom/phrases/0343.wav		$TMP
+	Copy $STelecom/phrases/0332.wav		$TMP
+	Copy $STelecom/phrases/0333.wav		$TMP
+	Copy $STelecom/phrases/0334.wav		$TMP
+	Copy $STelecom/phrases/0335.wav		$TMP
+	Copy $STelecom/phrases/0340.wav		$TMP
+	Copy $STelecom/phrases/0341.wav		$TMP
+	Copy $STelecom/phrases/0342.wav		$TMP
+	Copy $STelecom/phrases/0343.wav		$TMP
+	Copy $STelecom/phrases/0344.wav		$TMP
+	Copy $STelecom/phrases/0345.wav		$TMP
+	Copy $STelecom/phrases/0346.wav		$TMP
+	Copy $STelecom/phrases/0347.wav		$TMP
+	Copy $STelecom/phrases/0348.wav		$TMP
+	Copy $STelecom/phrases/0349.wav		$TMP
+	Echo "Putting empty file for $STelecom/phrases/0350.wav";
+						>$TMP/0350.wav
+	Copy $STelecom/phrases/0351.wav		$TMP
+	Copy $STelecom/phrases/0352.wav		$TMP
+	Copy $STelecom/phrases/0353.wav		$TMP
+	Copy $STelecom/phrases/0354.wav		$TMP
+	Copy $STelecom/phrases/0355.wav		$TMP
+	Copy $STelecom/phrases/0356.wav		$TMP
+
+	Echo "We do not support 0400.wav to 0411.32; files not copied"
+
+	Copy $STelecom/phrases/0420.wav		$TMP
+	Copy $STelecom/phrases/0425.wav		$TMP
+	Copy $STelecom/phrases/0700.wav		$TMP
+	Copy $STelecom/phrases/0701.wav		$TMP
+	Copy $STelecom/phrases/0702.wav		$TMP
+	Copy $STelecom/phrases/0703.wav		$TMP
+	Copy $STelecom/phrases/0704.wav		$TMP
+	Copy $STelecom/phrases/0705.wav		$TMP
+	Copy $STelecom/phrases/0706.wav		$TMP
+	Copy $STelecom/phrases/0707.wav		$TMP
+	Copy $STelecom/phrases/0708.wav		$TMP
+	Copy $STelecom/phrases/0709.wav		$TMP
+	Copy $STelecom/phrases/0710.wav		$TMP
+	Copy $STelecom/phrases/0711.wav		$TMP
+	Copy $STelecom/phrases/0712.wav		$TMP
+	Copy $STelecom/phrases/0713.wav		$TMP
+	Copy $STelecom/phrases/0714.wav		$TMP
+	Copy $STelecom/phrases/0715.wav		$TMP
+	Copy $STelecom/phrases/0716.wav		$TMP
+	Copy $STelecom/phrases/0717.wav		$TMP
+	Copy $STelecom/phrases/0718.wav		$TMP
+	Copy $STelecom/phrases/0719.wav		$TMP
+	Copy $STelecom/phrases/0720.wav		$TMP
+	Copy $STelecom/phrases/0721.wav		$TMP
+	Copy $STelecom/phrases/0722.wav		$TMP
+	Copy $STelecom/phrases/0723.wav		$TMP
+	Copy $STelecom/phrases/0724.wav		$TMP
+	Copy $STelecom/phrases/0725.wav		$TMP
+	Copy $STelecom/phrases/0726.wav		$TMP
+	Copy $STelecom/phrases/0727.wav		$TMP
+	Copy $STelecom/phrases/0728.wav		$TMP
+	Copy $STelecom/phrases/0729.wav		$TMP
+	Copy $STelecom/phrases/0730.wav		$TMP
+	Copy $STelecom/phrases/0731.wav		$TMP
+	Copy $STelecom/phrases/0732.wav		$TMP
+	Copy $STelecom/phrases/0733.wav		$TMP
+	Copy $STelecom/phrases/0734.wav		$TMP
+	Copy $STelecom/phrases/0735.wav		$TMP
+	Copy $STelecom/phrases/0736.wav		$TMP
+	Copy $STelecom/phrases/0737.wav		$TMP
+	Copy $STelecom/phrases/0738.wav		$TMP
+	Copy $STelecom/phrases/0739.wav		$TMP
+	Copy $STelecom/phrases/0740.wav		$TMP
+	Copy $STelecom/phrases/0741.wav		$TMP
+	Copy $STelecom/phrases/0742.wav		$TMP
+	Copy $STelecom/phrases/0743.wav		$TMP
+	Copy $STelecom/phrases/0744.wav		$TMP
+	Copy $STelecom/phrases/0745.wav		$TMP
+	Copy $STelecom/phrases/0746.wav		$TMP
+	Copy $STelecom/phrases/0747.wav		$TMP
+	Copy $STelecom/phrases/0748.wav		$TMP
+	Copy $STelecom/phrases/0749.wav		$TMP
+	Copy $STelecom/phrases/0750.wav		$TMP
+	Copy $STelecom/phrases/0751.wav		$TMP
+	Copy $STelecom/phrases/0752.wav		$TMP
+	Copy $STelecom/phrases/0753.wav		$TMP
+	Copy $STelecom/phrases/0754.wav		$TMP
+	Copy $STelecom/phrases/0755.wav		$TMP
+	Copy $STelecom/phrases/0756.wav		$TMP
+	Copy $STelecom/phrases/0757.wav		$TMP
+	Copy $STelecom/phrases/0758.wav		$TMP
+	Copy $STelecom/phrases/0759.wav		$TMP
+	Copy $STelecom/phrases/0760.wav		$TMP
+	Copy $STelecom/phrases/0761.wav		$TMP
+	Copy $STelecom/phrases/0762.wav		$TMP
+	Copy $STelecom/phrases/0763.wav		$TMP
+	Copy $STelecom/phrases/0764.wav		$TMP
+	Copy $STelecom/phrases/0765.wav		$TMP
+	Copy $STelecom/phrases/0766.wav		$TMP
+	Copy $STelecom/phrases/0767.wav		$TMP
+	Copy $STelecom/phrases/0768.wav		$TMP
+	Copy $STelecom/phrases/0769.wav		$TMP
+	Copy $STelecom/phrases/0770.wav		$TMP
+	Copy $STelecom/phrases/0771.wav		$TMP
+	Copy $STelecom/phrases/0772.wav		$TMP
+	Copy $STelecom/phrases/0773.wav		$TMP
+	Copy $STelecom/phrases/0774.wav		$TMP
+	Copy $STelecom/phrases/0775.wav		$TMP
+	Copy $STelecom/phrases/0776.wav		$TMP
+	Copy $STelecom/phrases/0777.wav		$TMP
+	Copy $STelecom/phrases/0778.wav		$TMP
+	Copy $STelecom/phrases/0779.wav		$TMP
+	Copy $STelecom/phrases/0780.wav		$TMP
+	Copy $STelecom/phrases/0781.wav		$TMP
+	Copy $STelecom/phrases/0782.wav		$TMP
+	Copy $STelecom/phrases/0783.wav		$TMP
+	Copy $STelecom/phrases/0784.wav		$TMP
+	Copy $STelecom/phrases/0785.wav		$TMP
+	Copy $STelecom/phrases/0786.wav		$TMP
+	Copy $STelecom/phrases/0787.wav		$TMP
+	Copy $STelecom/phrases/0788.wav		$TMP
+	Copy $STelecom/phrases/0789.wav		$TMP
+	Copy $STelecom/phrases/0790.wav		$TMP
+	Copy $STelecom/phrases/0791.wav		$TMP
+	Copy $STelecom/phrases/0792.wav		$TMP
+	Copy $STelecom/phrases/0793.wav		$TMP
+	Copy $STelecom/phrases/0794.wav		$TMP
+	Copy $STelecom/phrases/0795.wav		$TMP
+	Copy $STelecom/phrases/0796.wav		$TMP
+	Copy $STelecom/phrases/0797.wav		$TMP
+	Copy $STelecom/phrases/0798.wav		$TMP
+	Copy $STelecom/phrases/0799.wav		$TMP
+	Copy $STelecom/phrases/0800.wav		$TMP
+	Copy $STelecom/phrases/0801.wav		$TMP
+	Copy $STelecom/phrases/0802.wav		$TMP
+	Copy $STelecom/phrases/0803.wav		$TMP
+	Copy $STelecom/phrases/0804.wav		$TMP
+	Copy $STelecom/phrases/0805.wav		$TMP
+	Copy $STelecom/phrases/0806.wav		$TMP
+	Copy $STelecom/phrases/0807.wav		$TMP 
+
+	# Copy phrases used for fax
+	Copy $STelecom/phrases/fax_cng.wav		$TMP
+	Copy $STelecom/phrases/fax_ced.wav		$TMP
+
+	# Copy all of the silence phrases
+	Copy $STelecom/phrases/silence_1024.64p  $TMP
+	Copy $STelecom/phrases/silence_128.64p   $TMP
+	Copy $STelecom/phrases/silence_1.64p $TMP
+	Copy $STelecom/phrases/silence_16.64p    $TMP
+	Copy $STelecom/phrases/silence_2048.64p  $TMP
+	Copy $STelecom/phrases/silence_256.64p   $TMP
+	Copy $STelecom/phrases/silence_2.64p $TMP
+	Copy $STelecom/phrases/silence_32.64p    $TMP
+	Copy $STelecom/phrases/silence_4096.64p  $TMP
+	Copy $STelecom/phrases/silence_4.64p $TMP
+	Copy $STelecom/phrases/silence_512.64p   $TMP
+	Copy $STelecom/phrases/silence_64.64p    $TMP
+	Copy $STelecom/phrases/silence_8192.64p  $TMP
+	Copy $STelecom/phrases/silence_8.64p $TMP
+	Copy $STelecom/phrases/silence.729a $TMP
+
+	# Copy all inband dtmf tone phrases
+	Copy $STelecom/phrases/inband_0.wav $TMP
+	Copy $STelecom/phrases/inband_1.wav $TMP
+	Copy $STelecom/phrases/inband_2.wav $TMP
+	Copy $STelecom/phrases/inband_3.wav $TMP
+	Copy $STelecom/phrases/inband_4.wav $TMP
+	Copy $STelecom/phrases/inband_5.wav $TMP
+	Copy $STelecom/phrases/inband_6.wav $TMP
+	Copy $STelecom/phrases/inband_7.wav $TMP
+	Copy $STelecom/phrases/inband_8.wav $TMP
+	Copy $STelecom/phrases/inband_9.wav $TMP
+	Copy $STelecom/phrases/inband_A.wav $TMP
+	Copy $STelecom/phrases/inband_B.wav $TMP
+	Copy $STelecom/phrases/inband_C.wav $TMP
+	Copy $STelecom/phrases/inband_D.wav $TMP
+	Copy $STelecom/phrases/inband_comma.wav $TMP
+	Copy $STelecom/phrases/inband_star.wav $TMP
+	Copy $STelecom/phrases/inband_pound.wav $TMP
+
+	Copy $STelecom/phrases/SPANISH_phrases.tar.Z $TMP
+	Copy $STelecom/phrases/FRENCH_phrases.tar.Z $TMP
+	Copy $STelecom/phrases/MANDARIN_phrases.tar.Z $TMP
+	Copy $STelecom/phrases/CANTONESE_phrases.tar.Z $TMP
+
+	Copy $STelecom/phrases/FRENCH_phrases_in_english.tar.Z $TMP
+	Copy $STelecom/phrases/MANDARIN_phrases_in_english.tar.Z $TMP
+	Copy $STelecom/phrases/CANTONESE_phrases_in_english.tar.Z $TMP
+
+	# Copy all the utility scripts for Telecom
+	Copy $STelecom/utlscripts/gatherAumtechInfo		$TMP
+	Copy $STelecom/utlscripts/cps		$TMP
+	Copy $STelecom/utlscripts/starttel	$TMP
+	Copy $STelecom/utlscripts/stoptel	$TMP
+	Copy $STelecom/utlscripts/tcur		$TMP
+	Copy $STelecom/utlscripts/arcmon    $TMP
+	Copy $STelecom/utlscripts/tno		$TMP
+	Copy $STelecom/utlscripts/lsCores.sh			$TMP
+	Copy $STelecom/utlscripts/rmCores.sh			$TMP
+	Copy $STelecom/utlscripts/copyCoresToTmp.sh		$TMP
+
+
+	Copy $STelecom/Build/install_arcSIPTEL	$TMP
+	Copy $STelecom/Build/remove_arcSIPTEL	$TMP
+
+	# chatGPT AI
+    Copy $STelecom/chatgpt/src/aiCommon.py			$TMP
+    Copy $STelecom/chatgpt/src/aiThread.py			$TMP
+    Copy $STelecom/chatgpt/src/arcChatGPTClient.py		$TMP
+    Copy $STelecom/chatgpt/src/chat.py				$TMP
+    Copy $STelecom/chatgpt/requirements.txt			$TMP
+    Copy $STelecom/chatgpt/bin/arcChatGPTEncrypt	$TMP
+    Copy $STelecom/chatgpt/bin/arcChatGPTClientMgr.sh	$TMP
+    Copy $STelecom/chatgpt/lib/libaiISPLog.so		$TMP
+    Copy $STelecom/chatgpt/lib/libailoglite.so		$TMP
+    Copy $STelecom/chatgpt/lib/libarcAICommon.so	$TMP
+    Copy $STelecom/chatgpt/requirements.txt			$TMP
+    Copy $STelecom/chatgpt/chatGPT_Setup.README.txt			$TMP
+
+	if [ "$ERRORS" = "0" ]
+	then
+		Echo "All files copied successfully."
+		return 0
+	else
+		Echo "Error: failed to copy all files to $TMP. "
+		return 1
+	fi	
+	
+}
+	
+Compress_phrases()
+{
+	Echo "Tarring American English speech phrases..."
+	HERE=`pwd`;	
+	cd $TMP
+	tar -cvf ameng.tar *.wav beep* 1>/dev/null
+	cd $HERE	
+}
+
+modify_scripts()
+{
+	echo -n "Modifying version and build in the install/remove script..."
+	
+	VERSION=`cat $HOME/isp2.2/SIPTelecom3.6/dynmgr/.version | sed s/\"//g`
+	BUILD=`cat $HOME/isp2.2/SIPTelecom3.6/dynmgr/.build | sed s/\"//g`
+	
+	echo "s/^VERSION.*$/VERSION=\"$VERSION\"/" >sip.sed
+	echo "s/^BUILD.*$/BUILD=\"$BUILD\"/" >>sip.sed
+	
+	for SCRIPT in install_arcSIPTEL remove_arcSIPTEL
+	do
+		TMP_SCRIPT="/tmp/$SCRIPT.$$"
+		cat $SCRIPT | sed -f sip.sed >$TMP_SCRIPT
+		if [ $? -ne 0 ]; then
+			echo "Error: Unable to modify description in $SCRIPT.  Correct and retry"
+			exit
+		fi
+		mv -f $TMP_SCRIPT $SCRIPT
+		chmod +x $SCRIPT
+	done
+	echo "Done."
+}
+
+# ----------------------------------------------------------------------------
+# main routine
+# ----------------------------------------------------------------------------
+ISP_BASE_DIR="$HOME"
+ISP_VERSION="isp2.2"
+STelecom="$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6"
+Common="$STelecom/Common"
+TMP="/tmp/buildsiptemp"
+VERSION=`cat $STelecom/dynmgr/.version | sed s/\"//g`
+BUILD=`cat $STelecom/dynmgr/.build | sed s/\"//g`
+STORAGE_DIR="$ISP_BASE_DIR/$ISP_VERSION/builds"
+PRODUCT="arcSIPTEL.$VERSION-b$BUILD" # DO NOT CHANGE
+PRODUCT_ID="arcSIPTEL"
+LOGFILE="BUILD.LOG.$PRODUCT_ID"
+
+getOSVersion
+if [ ${#LINUX_OS_VERSION} -eq 0 ]
+then
+	exit 	# error message is printed in log file
+fi
+TAR_FILE="$PRODUCT.${LINUX_OS_VERSION}.tar" 
+
+clear
+Echo "`date`"
+Echo
+Echo "Build Package"
+Echo
+Echo "Product Id.......: $PRODUCT_ID"
+Echo "Product Descrip..: $PRODUCT "
+Echo "Temp directory...: $TMP"
+Echo "Storage directory: $STORAGE_DIR"
+Echo "Log file.........: $LOGFILE"
+Echo
+
+Echo "Press Enter to proceed or DELETE to abort."
+read Anything
+
+modify_scripts
+
+Echo "Removing files in $TMP..."
+rm -f $TMP/[a-l]* 1>/dev/null 2>&1
+rm -f $TMP/[m-z]* 1>/dev/null 2>&1
+rm -f $TMP/[A-Z]* 1>/dev/null 2>&1
+rm -f $TMP/* 1>/dev/null 2>&1
+
+# Setup the environment for creating the ISP package
+#. $ISP_BASE_DIR/$ISP_VERSION/set_env
+
+Copy_from_master_directories
+if [ "$?" != "0" ]
+then
+	Echo "You must correct the problem before attempting to make the $PRODUCT package."
+	Echo "Exiting..."
+	exit
+fi
+
+Compress_phrases
+
+Echo "Building $PRODUCT ..."
+cd $TMP
+rm /tmp/$TAR_FILE   2>/dev/null
+rm /tmp/$TAR_FILE.Z 2>/dev/null
+echo
+tar -zcf /tmp/${TAR_FILE}.Z *
+Echo "SIP Telecom package (/tmp/$TAR_FILE.Z) has been created." 
+
+BUILD_DIR="$HOME/isp2.2/builds"
+TODAY=`date +%Y%m%d`
+
+#!/usr/bin/ksh
+echo ""
+echo -n "Save this package in the builds directory (y or n, default=y)? "
+read a
+if [ "$a" = "Y" -o "$a" = "y" -o "$a" = "yes" -o "$a" = "Yes" -o "$a" = "YES" -o "$a" = "" ]
+then
+	mkdir `dirname $BUILD_DIR/$PRODUCT/$TAR_FILE.Z.$TODAY` 2>/dev/null
+
+	CMD="mv -i /tmp/$TAR_FILE.Z $BUILD_DIR/$PRODUCT/$TAR_FILE.Z.$TODAY"
+
+	$CMD
+	if [ $? -eq 0 ]; then
+		echo $PRODUCT package has been stored $BUILD_DIR/$PRODUCT/$TAR_FILE.Z.$TODAY
+	fi
+else
+	echo File "(/tmp/$TAR_FILE.Z)" has not been copied to the builds directory.
+fi

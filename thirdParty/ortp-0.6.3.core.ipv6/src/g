@@ -1,0 +1,7 @@
+
+g++ -shared -Bdynamic .libs/str_utils.o .libs/port_fct.o .libs/rtpmod.o .libs/rtpparse.o 		\
+	.libs/rtpsession.o .libs/ortpdlkm.o .libs/rtpsignaltable.o .libs/rtptimer.o 		\
+	.libs/posixtimer.o .libs/ortp.o .libs/scheduler.o .libs/avprofile.o 				\
+	.libs/sessionset.o .libs/telephonyevents.o .libs/payloadtype.o  					\
+	 -L /usr/lib64 -lglib-2.0 -lpthread -lm  -Wl,-soname -Wl,libortp.so.0 -o .libs/libortp.so.0.0.0
+

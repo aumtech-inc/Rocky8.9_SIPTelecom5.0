@@ -1,0 +1,111 @@
+SIGSET(3)                                               Linux Programmer's Manual                                              SIGSET(3)
+
+[1mNAME[0m
+       sigset, sighold, sigrelse, sigignore - System V signal API
+
+[1mSYNOPSIS[0m
+       [1m#include <signal.h>[0m
+
+       [1mtypedef void (*sighandler_t)(int);[0m
+
+       [1msighandler_t sigset(int [4m[22msig[24m[1m, sighandler_t [4m[22mdisp[24m[1m);[0m
+
+       [1mint sighold(int [4m[22msig[24m[1m);[0m
+
+       [1mint sigrelse(int [4m[22msig[24m[1m);[0m
+
+       [1mint sigignore(int [4m[22msig[24m[1m);[0m
+
+   Feature Test Macro Requirements for glibc (see [1mfeature_test_macros[22m(7)):
+
+       [1msigset[22m(), [1msighold[22m(), [1msigrelse[22m(), [1msigignore[22m():
+           _XOPEN_SOURCE >= 500
+
+[1mDESCRIPTION[0m
+       These  functions  are provided in glibc as a compatibility interface for programs that make use of the historical System V signal
+       API.  This API is obsolete: new applications should use the POSIX signal API ([1msigaction[22m(2), [1msigprocmask[22m(2), etc.)
+
+       The [1msigset[22m() function modifies the disposition of the signal [4msig[24m.  The [4mdisp[24m argument can be the address of a signal handler func‐
+       tion, or one of the following constants:
+
+       [1mSIG_DFL[0m
+              Reset the disposition of [4msig[24m to the default.
+
+       [1mSIG_IGN[0m
+              Ignore [4msig[24m.
+
+       [1mSIG_HOLD[0m
+              Add [4msig[24m to the process's signal mask, but leave the disposition of [4msig[24m unchanged.
+
+       If  [4mdisp[24m  specifies  the address of a signal handler, then [4msig[24m is added to the process's signal mask during execution of the han‐
+       dler.
+
+       If [4mdisp[24m was specified as a value other than [1mSIG_HOLD[22m, then [4msig[24m is removed from the process's signal mask.
+
+       The dispositions for [1mSIGKILL [22mand [1mSIGSTOP [22mcannot be changed.
+
+       The [1msighold[22m() function adds [4msig[24m to the calling process's signal mask.
+
+       The [1msigrelse[22m() function removes [4msig[24m from the calling process's signal mask.
+
+       The [1msigignore[22m() function sets the disposition of [4msig[24m to [1mSIG_IGN[22m.
+
+[1mRETURN VALUE[0m
+       On success, [1msigset[22m() returns [1mSIG_HOLD [22mif [4msig[24m was blocked before the call, or the signal's previous  disposition  if  it  was  not
+       blocked before the call.  On error, [1msigset[22m() returns -1, with [4merrno[24m set to indicate the error.  (But see BUGS below.)
+
+       The  [1msighold[22m(),  [1msigrelse[22m(),  and [1msigignore[22m() functions return 0 on success; on error, these functions return -1 and set [4merrno[24m to
+       indicate the error.
+
+[1mERRORS[0m
+       For [1msigset[22m() see the ERRORS under [1msigaction[22m(2) and [1msigprocmask[22m(2).
+
+       For [1msighold[22m() and [1msigrelse[22m() see the ERRORS under [1msigprocmask[22m(2).
+
+       For [1msigignore[22m(), see the errors under [1msigaction[22m(2).
+
+[1mATTRIBUTES[0m
+       For an explanation of the terms used in this section, see [1mattributes[22m(7).
+
+       ┌────────────────────────┬───────────────┬─────────┐
+       │[1mInterface               [22m│ [1mAttribute     [22m│ [1mValue   [22m│
+       ├────────────────────────┼───────────────┼─────────┤
+       │[1msigset[22m(), [1msighold[22m(),    │ Thread safety │ MT-Safe │
+       │[1msigrelse[22m(), [1msigignore[22m() │               │         │
+       └────────────────────────┴───────────────┴─────────┘
+[1mCONFORMING TO[0m
+       SVr4, POSIX.1-2001, POSIX.1-2008.  These functions are obsolete: do not use them in new programs.  POSIX.1-2008 marks  [1msighold[22m(),
+       [1msigignore[22m(),  [1msigpause[22m(3),  [1msigrelse[22m(),  and  [1msigset[22m()  as  obsolete,  recommending  the  use  of  [1msigaction[22m(2),  [1msigprocmask[22m(2),
+       [1mpthread_sigmask[22m(3), and [1msigsuspend[22m(2) instead.
+
+[1mNOTES[0m
+       These functions appeared in glibc version 2.1.
+
+       The [4msighandler_t[24m type is a GNU extension; it is used on this page only to make the [1msigset[22m() prototype more easily readable.
+
+       The [1msigset[22m() function provides reliable signal handling semantics (as when calling [1msigaction[22m(2) with [4msa_mask[24m equal to 0).
+
+       On System V, the [1msignal[22m() function provides unreliable semantics (as when calling [1msigaction[22m(2) with [4msa_mask[24m equal to [4mSA_RESETHAND[0m
+       [4m|[24m  [4mSA_NODEFER[24m).   On  BSD, [1msignal[22m() provides reliable semantics.  POSIX.1-2001 leaves these aspects of [1msignal[22m() unspecified.  See
+       [1msignal[22m(2) for further details.
+
+       In order to wait for a signal, BSD and System V both provided a function named [1msigpause[22m(3), but this function has a different ar‐
+       gument on the two systems.  See [1msigpause[22m(3) for details.
+
+[1mBUGS[0m
+       In versions of glibc before 2.2, [1msigset[22m() did not unblock [4msig[24m if [4mdisp[24m was specified as a value other than [1mSIG_HOLD[22m.
+
+       In  versions of glibc before 2.5, [1msigset[22m() does not correctly return the previous disposition of the signal in two cases.  First,
+       if [4mdisp[24m is specified as [1mSIG_HOLD[22m, then a successful [1msigset[22m() always returns [1mSIG_HOLD[22m.  Instead, it  should  return  the  previous
+       disposition  of  the signal (unless the signal was blocked, in which case [1mSIG_HOLD [22mshould be returned).  Second, if the signal is
+       currently blocked, then the return value of a successful [1msigset[22m() should be [1mSIG_HOLD[22m.  Instead, the previous disposition  of  the
+       signal is returned.  These problems have been fixed since glibc 2.5.
+
+[1mSEE ALSO[0m
+       [1mkill[22m(2), [1mpause[22m(2), [1msigaction[22m(2), [1msignal[22m(2), [1msigprocmask[22m(2), [1mraise[22m(3), [1msigpause[22m(3), [1msigvec[22m(3), [1msignal[22m(7)
+
+[1mCOLOPHON[0m
+       This  page  is  part  of  release 5.10 of the Linux [4mman-pages[24m project.  A description of the project, information about reporting
+       bugs, and the latest version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+
+Linux                                                          2020-08-13                                                      SIGSET(3)

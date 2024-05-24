@@ -1,0 +1,12 @@
+#-----------------------------------------------------------------------------
+# File:		cfg.def
+# Purpose:	arcFlash top level definition file.
+# Author:	Aumtech, Inc.
+# Date:		09/02/99
+#
+# DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY.
+#
+#----------------------------------------------------------------------------
+
+[Config]
+Global Configuration=Global/Tables/cfg-global.def

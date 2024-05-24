@@ -1,0 +1,9 @@
+
+gcc -c addNumbers.c
+gcc -c subNumbers.c
+
+ar rcs libmathola.a  addNumbers.o subNumbers.o
+
+gcc -c doMath.c
+
+gcc -o doMath doMath.o -L . -lmathola

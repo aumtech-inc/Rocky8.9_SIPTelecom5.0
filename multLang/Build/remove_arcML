@@ -1,0 +1,134 @@
+#---------------------------------------------------------------------------
+# Program:	remove_arcML
+# Purpose:	Script to remove an ARC ML Services package. 
+# Author:	Aumtech, Inc.
+# Date:		03/30/2001 
+#---------------------------------------------------------------------------
+Echo()
+{
+	echo "$1" 
+}
+
+RemoveFrom_sendToMonitor()
+{
+	SUFFIX=$1	
+	BASE=sendToMonitor
+	FILE=$ISPBASE/Global/Tables/sendToMonitor.dat
+
+	Echo "Removing $SUFFIX entry from $FILE"
+        if [ -f $FILE ]
+        then
+                INSERT=${BASE}_${SUFFIX}.dat
+                CMD="cat $FILE | egrep -v $INSERT > $FILE.tmp"
+                cat $FILE | egrep -v "$INSERT" > $FILE.tmp
+                if [ -s $FILE.tmp ]
+                then
+                        # There was "keepable" stuff in original cron file
+                        # so move the good stuff back.
+                        mv $FILE.tmp $FILE
+                else
+                        # There was NO "keepable" stuff in original cron file
+                        # so just delete the original file & the tmp file.
+                        rm $FILE $FILE.tmp
+                fi
+        fi
+}
+
+Remove_files()
+{
+	echo "Removing ARC Multiple Language Services files..."
+	echo " "
+	rm -f /home/$USER_ID/.ISP/Telecom/Applications/lib/libarcML.a
+	rm -f /home/$USER_ID/.ISP/Telecom/Applications/include/arcML.h
+# 	rm -f /home/$USER_ID/ISP/Tables/sendToMonitor_fax.dat
+
+	rm -f /home/$USER_ID/.ISP/Telecom/bin/remove_arcML
+	rm -f /home/$USER_ID/.ISP/Telecom/doc/install_arcML.readme
+
+} # Remove_files
+
+#-------------------------------------------------------------------------
+# This function asks for relevant information from the user before allowing
+# the removal to proceed. In particular, it gets the user id under which
+# Telecom Services was installed.
+#-------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null
+	then
+		echo "You must be root to remove ARC ML Services. "
+		echo "Removal aborted."
+		exit 3
+	fi
+        
+	if  !   tail -1 $PKGINFO | grep "INSTALL" | grep -v grep >/dev/null
+        then
+                echo "ERROR: ARC ML Services does not appear to be installed."
+                show_pkginfo
+                echo "Removal aborted."
+                exit 3
+        fi
+
+echo
+echo -n "User id under which you installed ML Services $VERSION [default: arc] : "
+read USER_ID
+if [ "$USER_ID" = "" ]
+then
+	USER_ID=arc
+fi
+}
+
+update_pkginfo()
+{
+	STATUS=$1
+	REMOVEDATE=`date +"%Y %B %d %X"`
+
+	echo "--------------------------" >> $PKGINFO
+	echo 				  >> $PKGINFO
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST"       >> $PKGINFO
+	echo "VERSION   : $VERSION"       >> $PKGINFO
+	echo "USER      : $USER_ID"       >> $PKGINFO
+	echo "REMOVEDATE: $REMOVEDATE"    >> $PKGINFO
+	echo "STATUS    : $STATUS"        >> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO...
+        tail -11 $PKGINFO
+}
+
+#-----------------------------------------------------------------------------
+# main routine
+#-----------------------------------------------------------------------------
+
+# Packing information
+PKGINST="arcML"
+VERSION="1.2"
+PKGINFO="/home/.$PKGINST.pkginfo" 
+
+request
+
+echo "About to remove ARC Multiple Language Services $VERSION. "
+echo -n "Are you sure? [y/n]: " 
+read answer
+if [ "$answer" = "y" -o "$answer" = "Y" -o "$answer" = "yes" -o "$answer" = "Yes" ]
+then 
+	:
+else
+	echo "Removal aborted."
+	exit 3
+fi
+                             
+Echo "`date` Removing ARC ML Services ..."
+
+ISPBASE=/home/$USER_ID/.ISP
+
+# RemoveFrom_sendToMonitor ML
+Remove_files
+update_pkginfo REMOVED
+echo 
+echo ARC ML Services has been removed.
+echo

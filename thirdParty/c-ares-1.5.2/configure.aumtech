@@ -1,0 +1,5 @@
+DIR=`cd .. && pwd`
+
+echo $DIR
+
+./configure --prefix=/home/dan --enable-static 

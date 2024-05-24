@@ -1,0 +1,74 @@
+[WHAT_IS_NOT_USED]
+ServiceType=TEL 			--  not used
+TTS_Server_Port_Speechify	--  not used
+CTI_Services=OFF            --  not used
+
+[DUPLICATES]
+[IP] SIP_RFC2833Payload: loaded by ArcSipCommon.c from loadConfigFile() in to gRfc2833Payload, but gRfc2833Payload is not used; however, the mediamgr reads it to a local variable yRfc2833Payload in the
+readAndProcessShmData() routine
+[SIP] RFC2833Payload:  loaded by SipInit.c in to sip_config_values, but never used
+
+
+[IP] SIP_InterDigitDuration: loaded by ArcSipCommon.c from loadConfigFile() in to gInterDigitDelay - used by mediamgr
+[SIP] InterdigitDuration: not loaded at all
+
+
+[IP] SIP_Port: loaded by ArcSipCommon.c from loadConfigFile() in to gSipPort - used by callmgr
+[SIP] BindPort: loaded by SipInit.c, then to gSipPort - used by callmgr
+		There is a conflict here - both do the same thing, so they have to be set to the same value.
+
+[IP] SIP_Redirection:  this is not read by anything
+[SIP] SipRedirection: loaded by ArcSipCommon.c, loadConfigFile(), then sets gSipRedirection
+					loaded by SipInit.c, then sets gSipRedirection
+
+[IP] SIP_Proxy: loaded by ArcSipCommon.c from loadConfigFile() in to gSipPort, sets gProxy and gProxyRequired
+[SIP] Proxy: this is not read by anything
+
+[IP] SIP_HostIP: loaded by ArcSipCommon.c from loadConfigFile() in to gHostIp - used by callmgr
+[SIP] BindAddress: loaded by SipInit.c, then to gHostIp - used by callmgr
+		There is a conflict here - both do the same thing, so they have to be set to the same value.
+
+[IP] SIP_RtpStartPort:loaded by ArcSipCommon.c from loadConfigFile() in to LOCAL_STARTING_RTP_PORT - used by callmgr
+[SIP] RtpStartPort: this is not read by anything
+
+[IP] SIP_CacheDir: loaded by ArcSipCommon.c from loadConfigFile() in to gCacheDirectory 
+[SIP] CacheDir: this is not read by anything
+
+[IP] SIP_PreferredCodec: loaded by ArcSipCommon.c from loadConfigFile() in to gPreferredCodec 
+[SIP] PreferredCodec: this is not read by anything
+
+
+----------------------------------------------------------------------
+
+[IP]
+DefaultGateway=0.0.0.0
+SIP_RFC2833Payload=96
+SIP_InterDigitDuration=60
+SIP_Port=5060
+SIP_Redirection=ON
+# SIP_Proxy=0.0.0.0
+# Debug_Modules=FILE_IO,AUDIO,SR,SIP,RTP,CALL,MEMORY,DEBUG,STACK8
+SIP_HostIP=0.0.0.0
+SIP_RtpStartPort=10500
+SIP_CacheDir=.
+#SIP_PreferredCodec Values: PCMU, PCMA, G729
+SIP_PreferredCodec=PCMU
+#PRACKMethod=[Disabled]|Supported|Required
+PRACKMethod=Disabled
+#SIP_SymmetricRtp=1
+
+SIP]
+BindAddress=0.0.0.0
+BindPort=5060
+Transport=udp
+SipRedirection=ON
+FromUri=username@example.com
+# Proxy=0.0.0.0
+PreferredCodec=PCMU
+RTPStartPort=10500
+CacheDir=.
+RFC2833Payload=96
+InterdigitDuration=60
+OutputDtmf=RFC_2833
+SIP_From=arc@aumtechinc.com
+

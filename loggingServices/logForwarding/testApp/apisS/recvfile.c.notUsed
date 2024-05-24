@@ -1,0 +1,226 @@
+
+int ss_RecvFile(char *destination, int fileOption)
+{
+	size_t	file_size=0L;
+	size_t	bytesRead;
+	long	recvdBytes = 0L;
+	size_t	writeRecvdBytes = 0L;
+	long	recvdataBytes;
+	char	diag_mesg[256];
+	char	data[4096000 + 1024], response[30], result[30], srcfile[50];
+	char	fileSizeBuf[20];
+	int	rc, flags;
+	FILE	*fd;
+	struct	stat64 	stat_buf;
+	short	done;
+	int		counter;
+
+	sprintf(LAST_API, "%s", ModuleName);
+
+	if(GV_SsConnected == 0)
+	{
+		Write_Log(ModuleName, "Client disconnected");
+		return(ss_DISCONNECT);
+	}
+
+	if(destination == NULL)
+	{
+		sprintf(__log_buf, "Destination filename cannot be NULL");
+		Write_Log(ModuleName, __log_buf);
+        	return (ss_FAILURE);
+	}
+
+	switch(fileOption)
+	{
+		case RF_APPEND:
+			flags = O_WRONLY|O_APPEND|O_CREAT;
+			break;
+	
+		case RF_OVERWRITE:
+			flags = O_WRONLY|O_TRUNC|O_CREAT;
+			break;
+	
+		case RF_PROTECT:
+			if(access(destination, F_OK) == 0)
+			{
+				sprintf(__log_buf, 
+					"WARN: Destination file (%s) exists, "
+					"won't overwrite", destination);
+				Write_Log(ModuleName, __log_buf);
+				return(ss_FILE_EXISTS);
+			}
+			flags = O_WRONLY|O_CREAT;
+			break;
+
+		default:
+			sprintf(__log_buf, 
+				"Invalid file create option %d, file=(%s)",
+							fileOption,destination);
+			Write_Log(ModuleName, __log_buf);
+        		return (ss_FAILURE);
+	} /* switch */
+
+	memset(data, 0, sizeof(data));
+	memset(srcfile, 0, sizeof(srcfile));
+	memset(result, 0, sizeof(result));
+	memset(response, 0, sizeof(response));
+
+	rc = ss_RecvData(GV_SysTimeout, -1, data, &recvdataBytes);
+	if(rc != ss_SUCCESS)
+	{
+		sprintf(__log_buf, "No response from client, file=(%s)",
+							destination);
+		Write_Log(ModuleName, __log_buf);
+		return(rc);
+	}
+		sprintf(__log_buf, "%s|%d|%d=ss_RecvData(). recvdataBytes=%ld", 
+				__FILE__, __LINE__, rc, recvdataBytes);
+		Write_Log(ModuleName, __log_buf);
+
+	getField('|', data, 1, srcfile);
+	getField('|', data, 2, result);
+	getField('|', data, 3, response);
+
+#ifdef DEBUG
+	fprintf(stderr, "srcfile  = >%s<\n", srcfile);
+	fprintf(stderr, "result   = >%s<\n", result);
+	fprintf(stderr, "response = >%s<\n", response);
+#endif
+
+	if(srcfile[0] == '\0' || result[0] == '\0' || response[0] == '\0')
+        {
+		sprintf(__log_buf, "Invalid response from client (%s)", data);
+		Write_Log(ModuleName, __log_buf);
+        	return(ss_FAILURE);
+        }
+	sscanf(response, "%ld", &file_size);
+
+	if (strstr(result, "OK") == NULL)
+	{
+		sprintf(__log_buf, "Receive file protocol failed, file: %s, "
+				   "reason: %s", destination,response); 
+		Write_Log(ModuleName, __log_buf);
+		return (ss_FAILURE);
+	}
+
+	if((fd = fopen64(destination, "wb")) == (FILE *)NULL)
+	{
+		sprintf(__log_buf, 
+			"Failed to open file %s for writing, errno=%d (%s)",
+					destination, errno, strerror(errno));
+		Write_Log(ModuleName, __log_buf);
+       	return (ss_FAILURE);
+	}
+	sprintf(__log_buf, "%s|%d|Successfully opened file (%s) for output.",
+			__FILE__, __LINE__, destination);
+	Write_Log(ModuleName, __log_buf);
+
+	if(file_size == 0)
+	{
+		fclose(fd);
+		sprintf(__log_buf, "%s|%d|Closed (%s).", __FILE__, __LINE__, destination);
+		Write_Log(ModuleName, __log_buf);
+
+		if(sendSize(ModuleName, 0) < 0)
+		{
+			return(ss_FAILURE); 	/* msg written in sub-routine */
+		}
+		return(ss_SUCCESS);
+	}
+
+	// alarm(GV_SysTimeout);
+
+	bytesRead = 0;
+	done = 0;
+	counter = 0;
+	while(done == 0)
+        {
+		memset(data, 0, sizeof(data));
+//		sprintf(__log_buf, "%s|%d|Calling ss_RecvData()", __FILE__, __LINE__);
+//		Write_Log(ModuleName, __log_buf);
+
+		rc = ss_RecvData(GV_SysTimeout, -1, data, &recvdBytes);
+		sprintf(__log_buf, "%s|%d|%d=ss_RecvData(%d, -1, ,%d)",
+					__FILE__, __LINE__, rc, GV_SysTimeout, recvdBytes);
+		Write_Log(ModuleName, __log_buf);
+		
+		if(recvdBytes < 0)
+		{
+           	fclose(fd);
+			unlink(destination);
+            return(rc);
+		}
+		else if(recvdBytes == 0)
+		{
+			sprintf(__log_buf, "%s|%d|COUNT-%d:read %d bytes; total bytes read=%lld.",
+					__FILE__, __LINE__, counter++, recvdBytes, bytesRead);
+			Write_Log(ModuleName, __log_buf);
+           	fclose(fd);
+			done = 1;
+			break;
+		}
+       	else                	/* write to file */
+        {
+			bytesRead += recvdBytes;
+
+			sprintf(__log_buf, "%s|%d|COUNT-%d:read %d bytes; total bytes read=%lld.",
+					__FILE__, __LINE__, counter++, recvdBytes, bytesRead);
+			Write_Log(ModuleName, __log_buf);
+       
+           	if(fwrite(&data[0], 1, (size_t)recvdBytes, fd) != recvdBytes)
+			{
+				sprintf(__log_buf, "%s|%d|Failed to write data to file %s, "
+					"errno=%d, (%s)", __FILE__, __LINE__, 
+					destination, errno,strerror(errno)); 
+				Write_Log(ModuleName, __log_buf);
+				fclose(fd);
+               	return (ss_FAILURE);
+			}
+			else
+			{
+				sprintf(__log_buf, "%s|%d|fwrite() returned %d",
+						__FILE__, __LINE__, recvdBytes);
+				Write_Log(ModuleName, __log_buf);
+			}
+		} /* else */
+
+				sprintf(__log_buf, "%s|%d|bytesRead=%d file_size=%d",
+						__FILE__, __LINE__, bytesRead, file_size);
+				Write_Log(ModuleName, __log_buf);
+
+		if(bytesRead >= file_size)
+		{
+			done = 1;
+			break;
+		}
+	} /* while */
+	fclose(fd);
+	sprintf(__log_buf, "%s|%d|Closed (%s).", __FILE__, __LINE__, destination);
+	Write_Log(ModuleName, __log_buf);
+	writeRecvdBytes = recvdBytes;
+
+	if(stat64(destination,  &stat_buf) < 0)
+	{
+		sprintf(__log_buf, "Failed to stat64 file %s, errno=%d (%s)",
+					destination, errno, strerror(errno));
+		Write_Log(ModuleName, __log_buf);
+		return(ss_FAILURE);
+	}
+
+#ifdef DEBUG
+	fprintf(stderr, "Size of destination file (%s) on disk = (%ld)\n",
+					destination, stat_buf.st_size);
+#endif
+
+	sprintf(fileSizeBuf, "%ld", stat_buf.st_size);
+	if((rc = ss_SendData(strlen(fileSizeBuf), fileSizeBuf)) != ss_SUCCESS)
+	{
+		sprintf(__log_buf,
+			"Failed to send file (%s) receipt confirmation",
+			destination);
+		Write_Log(ModuleName, __log_buf);
+		return(rc);
+	}
+
+	return (ss_SUCCESS);
+} /* ss_RecvFile */

@@ -1,0 +1,147 @@
+# ---------------------------------------------------------------------------
+# Program:	build_ML
+# Purpose:	Copies the appropriate files to the build directory in 
+#		preparation for running a pkgmk. (The actual "pkgmk" is
+#		executed in a different script.) 
+#
+#		Note: ISP_BASE_DIR and ISP_VERSION must be set
+#
+# Author:	Aumtech, Inc.
+# Update:	01/28/02 djb Created the file.
+#----------------------------------------------------------------------------
+
+Echo()
+{
+	# echo a string to the screen and write it to the log file
+	echo $1 | tee -a $LOGFILE
+}
+
+Copy()
+{
+	cp $1 $2
+	if [ "$?" != "0" ]; 
+	then 
+		Echo "Failed to copy $1 to $2"
+		ERRORS=`expr $ERRORS + 1`; 
+	fi
+}
+
+Copy_from_master_directories()
+{
+	ERRORS=0
+	
+	Echo "Copying files from master directories to $TMP..."
+	Echo "Master directories : $ML"
+
+	# Make the temporary directory if necessary
+	mkdir -p $TMP 1>/dev/null 2>&1
+	
+	# Copy the libraries and include files
+	Copy $ML/lib/libarcML.a				$TMP
+	Copy $ML/include/arcML.h				$TMP
+
+	# Copy the phrases
+	Copy $ML/phrases/LANG33.tar.Z				$TMP
+	Copy $ML/phrases/LANG133.tar.Z				$TMP
+	Copy $ML/phrases/appPhrases33.tar.Z			$TMP
+
+	Copy $ML/phrases/LANG34.tar.Z				$TMP
+	Copy $ML/phrases/LANG134.tar.Z				$TMP
+	Copy $ML/phrases/appPhrases34.tar.Z			$TMP
+
+	# Copy all the install related scripts and docs.
+	Copy $ML/Build/install_arcML  			$TMP
+	Copy $ML/Build/remove_arcML   			$TMP
+	Copy $ML/Build/install_arcML.readme 	$TMP
+	Copy $ML/doc/arcML_releaseNotes.1.2.txt	$TMP
+
+	if [ "$ERRORS" = "0" ]
+	then
+		Echo "All files copied successfully."
+		return 0
+	else
+		Echo "Error: failed to copy all files to $TMP. "
+		return 1
+	fi
+}
+	
+# ----------------------------------------------------------------------------
+# main routine
+# ----------------------------------------------------------------------------
+VERSION=1.2
+ML="$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/multLang"
+Common="$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/Common"
+TMP="/tmp/packtemp"
+STORAGE_DIR="$ISP_BASE_DIR/$ISP_VERSION/builds"
+PRODUCT="arcML.$VERSION"
+PRODUCT_ID="arcML"
+LOGFILE="BUILD.LOG.$PRODUCT_ID"
+TAR_FILE="$PRODUCT.tar"
+
+clear
+echo  "Make a Multiple Language Package ($PRODUCT_ID $VERSION)"
+echo
+echo -n "Version # : "
+read version
+
+if [ "$version" != "$VERSION" ]
+then
+        echo This script only builds version $VERSION. Exiting.
+        exit
+fi
+
+clear
+echo 
+Echo "`date`"
+echo 
+Echo "Build Package"
+echo 
+Echo "Product Id.......: $PRODUCT_ID"
+Echo "Product Descrip..: $PRODUCT "
+Echo "Temp directory...: $TMP"
+Echo "Storage directory: $STORAGE_DIR"
+Echo "Log file.........: $LOGFILE"
+Echo
+
+Echo "Press Enter to proceed or DELETE to abort."
+read Anything
+
+Echo "Removing files in $TMP..."
+rm -f $TMP/[a-l]* 1>/dev/null 2>&1
+rm -f $TMP/[m-z]* 1>/dev/null 2>&1
+rm -f $TMP/[A-Z]* 1>/dev/null 2>&1
+rm -f $TMP/* 1>/dev/null 2>&1
+
+Copy_from_master_directories
+
+if [ "$?" != "0" ]
+then
+	Echo "You must correct the problem before attempting to make the $PRODUCT package."
+	Echo "Exiting..."
+	exit
+fi
+
+Echo "Building $PRODUCT ..."
+cd $TMP
+rm /tmp/$TAR_FILE   2>/dev/null
+tar -cf /tmp/$TAR_FILE *
+# compress /tmp/$TAR_FILE
+Echo "Package (/tmp/$TAR_FILE) has been created."
+
+BUILD_DIR="/home/dev/isp2.2/builds"
+TODAY=`date +%m%d%Y`
+
+echo ""
+echo -n "Save this package in the builds directory (y or n, default=y)? "
+read a
+if [ "$a" = "Y" -o "$a" = "y" -o "$a" = "yes" -o "$a" = "Yes" -o "$a" = "YES" -o "$a" = "" ]
+then
+        mkdir -p $BUILD_DIR/$PRODUCT 2>/dev/null
+        CMD="mv -i /tmp/$TAR_FILE $BUILD_DIR/$PRODUCT/$TAR_FILE.$TODAY"
+        $CMD
+        echo $PRODUCT package has been stored in the builds directory:
+		echo "$BUILD_DIR/$PRODUCT/$TAR_FILE.$TODAY"
+else
+        echo "File (/tmp/$TAR_FILE) has not been copied to the builds directory."
+fi
+

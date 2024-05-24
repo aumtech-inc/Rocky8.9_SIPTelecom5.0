@@ -1,0 +1,32 @@
+
+I forgot a couple of items which may be helpful.
+
+The following files are delivered with the ARCFax package:
+	$TELECOM/Exec/FaxServerAnalog        
+	$TELECOM/Exec/FaxServerT1           
+	$TELECOM/Exec/FaxServerE1           
+	$TELECOM/Applications/lib/libARCFax.a 
+	$TELECOM/Applications/include/ARCFax.h
+	$TELECOM/Applications/makegen.fax    
+	$TELECOM/Tables/FaxTextDefaultsConfig.sample.txt.
+
+Regarding the Resource Manager and the $TELECOM/Tables/resource.cfg file,
+the TEL_SendFax() and TEL_RecvFax() APIs request fax resources from
+the resource manager.  The first and second fields must be FAX and VFX
+respectively.  An example file with valid fax entries is:
+	FAX|VFX|dxxxB13C1
+	FAX|VFX|dxxxB13C2
+	FAX|VFX|dxxxB13C3
+	FAX|VFX|dxxxB13C4
+	SIR|contin-digit|vrxB1C1
+	SIR|contin-digit|vrxB1C2
+	SIR|contin-digit|vrxB1C3
+
+The resource manager reads the $TELECOM/Tables/resource.cfg
+at startup only, so any changes to the file will not take effect until
+either Telecom is re-booted or the resource manager is killed.  The 
+
+Also, when testing the applications, be sure to monitor the resource 
+manager when the fax applications are running.  This is done thru the 
+tel_monitor.  After starting up tel_monitor, choose
+option 4 (Resource Status) from the menu.

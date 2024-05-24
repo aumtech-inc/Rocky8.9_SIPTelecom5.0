@@ -1,0 +1,157 @@
+# ---------------------------------------------------------------------------
+# Program:	build_FAX
+# Purpose:	Copies the appropriate files to the build directory in 
+#		preparation for running a pkgmk. (The actual "pkgmk" is
+#		executed in a different script.) Files in the build
+#		are not compressed.
+#
+#		Note: ISP_BASE_DIR and ISP_VERSION must be set
+#
+# Author:	Dan Barto
+# Date:		05/19/99
+# Update:	09/03/99 gpw changed script name to build_FAX
+# Update:	09/03/99 gpw added sendToMonitor_fax.dat
+# Update:	09/08/99 gpw added FaxServer.cfg
+# Update:	03/17/00 gpw changed version to 3.1
+# Update:	05/03/00 gpw removed makegen.fax; Not used
+# Update:	05/22/00 gpw now forces user to enter version 
+# Update:	03/30/01 gpw adapted for use by Linux.
+#----------------------------------------------------------------------------
+
+Echo()
+{
+	# echo a string to the screen and write it to the log file
+	echo $1 | tee -a $LOGFILE
+}
+
+Copy()
+{
+	cp $1 $2
+	if [ "$?" != "0" ]; 
+	then 
+		Echo "Failed to copy $1 to $2"
+		ERRORS=`expr $ERRORS + 1`; 
+	fi
+}
+
+Copy_from_master_directories()
+{
+	ERRORS=0
+	
+	Echo "Copying files from master directories to $TMP..."
+	Echo "Master directories : $Fax"
+
+	# Make the temporary directory if necessary
+	mkdir -p $TMP 1>/dev/null 2>&1
+	
+	# Copy the executables, libraries, etc
+	Copy $Fax/bin/FaxServerAnalog				$TMP
+	Copy $Fax/bin/FaxServerT1				$TMP
+	Copy $Fax/bin/FaxServerE1				$TMP
+	Copy $Fax/lib/libarcFAX.a				$TMP
+	Copy $Fax/include/arcFAX.h				$TMP
+	Copy $Fax/tables/FaxTextDefaultsConfig.sample.txt	$TMP
+	Copy $Fax/tables/FaxServer.cfg				$TMP
+
+        Copy $Common/tables/sendToMonitor_fax.dat       	$TMP
+
+	# Copy all the install related scripts and docs.
+	Copy $Fax/Build/install_arcFAX  			$TMP
+	Copy $Fax/Build/remove_arcFAX   			$TMP
+	Copy $Fax/Build/install_arcFAX.readme 			$TMP
+
+	if [ "$ERRORS" = "0" ]
+	then
+		Echo "All files copied successfully."
+		return 0
+	else
+		Echo "Error: failed to copy all files to $TMP. "
+		return 1
+	fi
+}
+	
+# ----------------------------------------------------------------------------
+# main routine
+# ----------------------------------------------------------------------------
+VERSION=3.1
+Fax="$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom/2.0.video/Fax"
+Common="$ISP_BASE_DIR/$ISP_VERSION/Common"
+TMP="/tmp/packtemp"
+STORAGE_DIR="$ISP_BASE_DIR/$ISP_VERSION/builds"
+PRODUCT="arcFAX.$VERSION"
+PRODUCT_ID="arcFAX"
+LOGFILE="BUILD.LOG.$PRODUCT_ID"
+TAR_FILE="$PRODUCT.tar"
+
+clear
+echo  "Make a FAX Package ($PRODUCT_ID $VERSION)"
+echo
+echo -n "Version # : "
+read version
+
+if [ "$version" != "$VERSION" ]
+then
+        echo This script only builds version $VERSION. Exiting.
+        exit
+fi
+
+clear
+echo 
+Echo "`date`"
+echo 
+Echo "Build Package"
+echo 
+Echo "Product Id.......: $PRODUCT_ID"
+Echo "Product Descrip..: $PRODUCT "
+Echo "Temp directory...: $TMP"
+Echo "Storage directory: $STORAGE_DIR"
+Echo "Log file.........: $LOGFILE"
+Echo
+
+if ! echo $HOME | grep "root" >/dev/null 2>/dev/null
+then
+        echo "You must be root to build a Fax package. "
+        exit
+fi
+
+Echo "Press Enter to proceed or DELETE to abort."
+read Anything
+
+Echo "Removing files in $TMP..."
+rm -f $TMP/[a-l]* 1>/dev/null 2>&1
+rm -f $TMP/[m-z]* 1>/dev/null 2>&1
+rm -f $TMP/[A-Z]* 1>/dev/null 2>&1
+rm -f $TMP/* 1>/dev/null 2>&1
+
+Copy_from_master_directories
+
+if [ "$?" != "0" ]
+then
+	Echo "You must correct the problem before attempting to make the $PRODUCT package."
+	Echo "Exiting..."
+	exit
+fi
+
+Echo "Building $PRODUCT ..."
+cd $TMP
+rm /tmp/$TAR_FILE   2>/dev/null
+rm /tmp/$TAR_FILE.Z 2>/dev/null
+tar -cf /tmp/$TAR_FILE *
+compress /tmp/$TAR_FILE
+Echo "Package (/tmp/$TAR_FILE.Z) has been created."
+
+BUILD_DIR="/home/dev/isp2.2/builds"
+TODAY=`date +%y%m%d`
+
+echo ""
+echo -n "Save this package in the builds directory (y or n, default=y)? "
+read a
+if [ "$a" = "Y" -o "$a" = "y" -o "$a" = "yes" -o "$a" = "Yes" -o "$a" = "YES" -o "$a" = "" ]
+then
+        CMD="mv -i /tmp/$TAR_FILE.Z $BUILD_DIR/$PRODUCT/$TAR_FILE.Z.$TODAY"
+        $CMD
+        echo $PRODUCT package has been stored in the builds directory.
+else
+        echo File "(/tmp/$TAR_FILE.Z)" has not been copied to the builds directory.
+fi
+

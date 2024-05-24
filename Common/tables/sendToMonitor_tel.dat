@@ -1,0 +1,78 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_tel.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		08/29/2002
+#-----------------------------------------------------------------------------
+#
+# Telecom Services APIs
+1001	TEL_InitTelecom
+1002	TEL_ExitTelecom
+1003	TEL_AnswerCall
+1004	TEL_ClearDTMF
+1005	TEL_CopyPhrase
+1006	TEL_BridgeCall
+1007	TEL_DeletePhrase
+1008	TEL_EndOfCall
+1009	TEL_FileToPhrase
+1010	TEL_GetGlobal
+1011	TEL_GetGlobalString
+1012	TEL_LoadLanguage
+1013	TEL_LoadVocab
+1014	TEL_InitiateCall
+1015	TEL_InputDTMF
+1016	TEL_InputNumber
+1017	TEL_InputPhrase
+1018	TEL_InputVoice
+1019	TEL_ISDNHoldPhrase
+1020	TEL_OutputDTMF
+1021	TEL_OutputPhrase
+1022	TEL_PortOperation
+1023	TEL_OutputTTS
+1024	TEL_PhraseLength
+1025	TEL_PhraseToFile
+1026	TEL_RecvFax
+1027	TEL_SendFax
+1028	TEL_SetGlobal
+1029	TEL_SetHook
+1030	TEL_TransferCall
+1031	TEL_StartPartialFax
+1032	TEL_AddToPartialFax
+1033	TEL_EndPartialFax
+1034	TEL_SpeakSystemPhrase
+1035	TEL_ScheduleFax
+1036	TEL_SpeakPhrase
+1037	TEL_SpeakPhraseFile
+1038	TEL_PortStatus
+1039	TEL_StartNewApp
+1040	TEL_SetGlobalString
+1041	TEL_SpeakTTS
+1042	TEL_ScheduleCall
+1043	TEL_UnscheduleCall
+1044	TEL_GetCDFInfo
+1045	TEL_GetInput
+1046	TEL_RecordPhrase
+1047	TEL_SpeakFile
+1048	TEL_ISDNHoldInput
+1049	TEL_DropCall
+1050	TEL_GetDTMF
+1051	TEL_Speak
+1052	TEL_Record
+1053	TEL_PromptAndCollect
+1054	TEL_LoadTags
+1055	TEL_SaveTags
+1056	TEL_DialExtension
+1059	TEL_TTSSetParameter
+1060	TEL_RejectCall 
+1062	TEL_TTSGetParameter
+1063	TEL_PlayMedia
+1064	TEL_RecordMedia
+1065	TEL_FindMe
+1066	TEL_HoldCall
+1067	TEL_RetrieveCall
+1068	TEL_SendInfoElements
+1069	TEL_GetInfoElements
+1077	TEL_BlastDial

@@ -1,0 +1,20 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_wss.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		08/11/99
+#-----------------------------------------------------------------------------
+#
+# WSS APIs
+6001	WSS_Init 
+6002	WSS_Exit
+6003	WSS_RecvData
+6004	WSS_SendData
+6005	WSS_SendFile
+6006	WSS_RecvFile
+6007	WSS_GetGlobal
+6008	WSS_SetGlobal
+6009	WSS_GetGlobalString

@@ -1,0 +1,8 @@
+#!/bin/sh
+# This script will be run on the clients from the 
+# Central Log manager using a remote shell to 
+# recover any escalated messages from the LM_client
+# or ISP escalation files.
+
+LM_recover ./.ISP/LOG/cEsc
+LM_recover ./.ISP/LOG/pEsc

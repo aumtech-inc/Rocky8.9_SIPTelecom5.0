@@ -1,0 +1,1214 @@
+ISP|V|04:21:2023 15:30:38:096|RES|3560|new235a|14658|-1|main|ArcIPResp|[677] Last OCS port used 0.  tran_proc_num=48
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|main|ArcIPDynMgr|INF: [21102]eXosip event  Call(3) Dialog(4) type(5) (New call received!)
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|main|ArcIPDynMgr|INF: [22375]eXosip event EXOSIP_CALL_INVITE received. sipCallId=00D68DA8-E8DE-ED11-83C4-AD7C6BB00BF6
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|checkINVITEForPRACK|ArcIPDynMgr|INF: [25859]PRACK Header "Supported" position=1 value=replaces.
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|checkINVITEForPRACK|ArcIPDynMgr|INF: [25859]PRACK Header "Supported" position=2 value=replaces.
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|checkINVITEForPRACK|ArcIPDynMgr|INF: [25859]PRACK Header "Supported" position=3 value=from-change.
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|checkINVITEForPRACK|ArcIPDynMgr|INF: [25859]PRACK Header "Supported" position=4 value=100rel.
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|checkINVITEForPRACK|ArcIPDynMgr|INF: [25889]PRACK Header "Supported" for 100rel is present.
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|-1|main|ArcIPDynMgr|INF: [22515]checkINVITEForPRACK() returned 2; PRACK_REJECT_420(0), PRACK_REJECT_403(1), PRACK_NORMAL_CALL(2), PRACK_SEND_REQUIRE(3).
+ISP|V|04:21:2023 15:30:38:808|DYN|1300|new235a|14735|1|getFreeCallNum|ArcIPDynMgr|INF: [5053]Set gCall[1].callDirection to 210.  INBOUND=210.  OUTBOUND=211
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [22611]For Call-ID (00D68DA8-E8DE-ED11-83C4-AD7C6BB00BF6): Free call slot available (1).
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [22651]Saved To(<sip:777@10.0.10.236>) From("PhonerLite" <sip:dan@12.1.1.29>;tag=1997735440) Contact(<sip:dan@12.1.1.29;gr=80E51CF5-D7DE-ED11-8389-AD7C6BB00BF6>) from initial INVITE.
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|clearPort|ArcIPDynMgr|INF: [5900]Setting isCallAnswered_noMedia = 0.
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|clearPort|ArcIPDynMgr|INF: [5967]originalContactHeader=.
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|clearPort|ArcIPDynMgr|INF: [5996]Set alreadyClosed to 0
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [22724]Set gCall[1].PRACKSendRequire to 0
+ISP|V|04:21:2023 15:30:38:809|DYN|1|new235a|14735|1|ProcessSessionTimers|ArcIPDynMgr|INF: [195]Called from [main, 22729]
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [22748]Retrieved session-expires of 0
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [22839]gCall[1].PRACKSendRequire=0
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [22868]Sending SIP Message 180 Ringing.
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [23477]Remote URI(dan@12.1.1.29) Local URI(777@10.0.10.236:(null)) Remote Audio Port (5064)
+ISP|V|04:21:2023 15:30:38:809|DYN|1300|new235a|14735|1|parseSdpMessage|ArcIPDynMgr|INF: [19108]Inside parseSdpMessage.  Called from 23591.
+ISP|V|04:21:2023 15:30:38:810|DYN|1|new235a|14735|1|setAudioCodecString|ArcIPDynMgr|INF: [18903]Setting audiocodec string gCall[1].audioCodecString=711r, zIntCodec(0)
+ISP|V|04:21:2023 15:30:38:810|DYN|1300|new235a|14735|1|setSendReceiveStatus|ArcIPDynMgr|INF: [18805]Got sendrecv in SDP message.
+ISP|D|04:21:2023 15:30:38:810|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [5463]Wrote 288 bytes to Resp; msg=({op:101,c#:1,pid:0,ref:0,pw:0,dnis:777,ani:dan}).
+ISP|V|04:21:2023 15:30:38:810|RES|3106|new235a|14658|1|readFromDynMgr|ArcIPResp|[from 1691] Received 288 bytes from DM. msg={op:101,c#:1,pid:0,ref:0,pw:0,dnis:777,ani:dan,data:}
+ISP|V|04:21:2023 15:30:38:810|RES|3522|new235a|14658|-1|checkDataToken|ArcIPResp|Attempting to check tokens (777,dan) for match_rule 2.
+ISP|V|04:21:2023 15:30:38:810|RES|3152|new235a|14658|1|find_application|ArcIPResp|Program = arcVXML2(arcVXML2) for token 777, state = ready to run.
+ISP|V|04:21:2023 15:30:38:810|RES|3580|new235a|14658|1|processRESOP_FIREAPP|ArcIPResp|GV_arcVXML2Pid is 14810
+ISP|V|04:21:2023 15:30:38:810|RES|3473|new235a|14658|1|launchBrowserApp|ArcIPResp|VXI is present.
+ISP|V|04:21:2023 15:30:38:811|RES|3473|new235a|14658|1|launchBrowserApp|ArcIPResp|Wrote to arcVXML2 app. fd[0]=9.
+ISP|V|04:21:2023 15:30:38:811|RES|3580|new235a|14658|1|processRESOP_FIREAPP|ArcIPResp|ret_code after launchBrowserApp is 0
+ISP|D|04:21:2023 15:30:38:812|VXML|-1|new235a|14816|1|main|arcVXML2|INF: [1187]Notification received from Resp for port (1).:pid=14816
+ISP|D|04:21:2023 15:30:38:812|VXML|-1|new235a|14816|1|main|arcVXML2|INF: [1190]Args(1^arcVXML2^-p^1^-y^CompanyABC^-P^arcVXML2^-z^0^-D^777^-A^dan^-U^^-r^0421202315303880^-d^0^-t^TWOWAY^).:pid=14816
+ISP|D|04:21:2023 15:30:38:812|VXML|-1|new235a|14816|1|main|arcVXML2|INF: [1193]callAvailable=0, callNum=0:pid=14816
+ISP|D|04:21:2023 15:30:38:812|VXML|-1|new235a|14816|1|main|arcVXML2|INF: [1205]Setting callAvailable=1:pid=14816
+ISP|D|04:21:2023 15:30:38:812|VXML|-1|new235a|14816|1|main|arcVXML2|INF: [1208]Reading generic FIFO (/tmp/RespToVxml2Fifo.0) to accept new calls.:pid=14816
+ISP|V|04:21:2023 15:30:38:826|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIlog implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:826|VXML|-1|new235a|14816|1|VXIplatformCreateResources|arcVXML2|INF: [1039]S:pid=14816
+ISP|V|04:21:2023 15:30:38:826|VXML|-1|new235a|14816|1|VXIplatformCreateResources|arcVXML2|INF: [1054]S:pid=14816
+ISP|V|04:21:2023 15:30:38:826|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIcache implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:826|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIinet implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:826|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIjsi implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXItel implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIprompt implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIrec implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIobject implementation: c, interface version 3.3:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]VXIinterpreter implementation: c, interface version 3.3:pid=14816
+ISP|D|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIplatformCreateResources|arcVXML2|INF: [1436]Exiting: rc = 0, 0x0x2ac97800a5f0:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|ChannelThread|arcVXML2|INF: [421]Calling writeCallInfoToResp to add an application instance.:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|ChannelThread|arcVXML2|INF: [441]Setting the ref to platform in platformRefArray:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|ChannelThread|arcVXML2|INF: [447]Setting callAvailable=0:pid=14816
+ISP|D|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIplatformEnableCall|arcVXML2|INF: [1573]Entering: 0x0x2ac97800a5f0:pid=14816
+ISP|D|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|VXIplatformEnableCall|arcVXML2|INF: [1586]Entering EnableCall:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|1300|new235a|14816|1|VXItelEnableCall|arcVXML2|INF: [2012]Calling loadConfigurationFile :pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|arcSetTTSParameter|arcVXML2|INF: [1744]Set TEL_TTSSetParameter ($TTS_LANGUAGE) to value (ENGLISH_AMERICAN).:pid=14816
+ISP|V|04:21:2023 15:30:38:827|VXML|-1|new235a|14816|1|arcSetSRParameter|arcVXML2|INF: [1814]Set TEL_SRSetParameter ($SR_LANGUAGE) to value (ENGLISH_AMERICAN).:pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|1|loadConfigurationFile|arcVXML2|INF: [1647]skipTimeInSeconds is set to 3.:pid=14816
+ISP|D|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|1|VXIplatformEnableCall|arcVXML2|INF: [1609]Exiting: rc = 0:pid=14816
+ISP|D|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|1|VXIplatformEnableCall|arcVXML2|INF: [1612]Leaving EnableCall:pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|1|VXIclientDiag|arcVXML2|INF: [2390]Calling VXIplatformWaitForCall.:pid=14816
+ISP|D|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|-1|VXIplatformWaitForCall|arcVXML2|INF: [1632]Entering: 0x0x2ac97800a5f0:pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|1|VXItelWaitForCall|arcVXML2|INF: [2126]WaitForCall:pid=14816
+ISP|D|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|1|VXIplatformWaitForCall|arcVXML2|INF: [1670]Exiting: rc = 0:pid=14816
+ISP|D|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|1|VXIplatformWaitForCall|arcVXML2|INF: [1673]Leaving WaitForCall:pid=14816
+ISP|D|04:21:2023 15:30:38:828|VXML|-1|new235a|14816|1|ChannelThread|arcVXML2|INF: [475]In the call.:pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|1|VXItelBeginSession|arcVXML2|INF: [471]CacheDir=/tmp/VXML2:pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=0, argv(arcVXML2):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=1, argv(-p):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=2, argv(1):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=3, argv(-y):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=4, argv(CompanyABC):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=5, argv(-P):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=6, argv(arcVXML2):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=7, argv(-z):pid=14816
+ISP|V|04:21:2023 15:30:38:828|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=8, argv(0):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=9, argv(-D):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=10, argv(777):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=11, argv(-A):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=12, argv(dan):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=13, argv(-U):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=14, argv():pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=15, argv(-r):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=16, argv(0421202315303880):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=17, argv(-d):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=18, argv(0):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=19, argv(-t):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [104]i=20, argv(TWOWAY):pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [7782]Setting App Name to arcVXML2.:pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|0|TEL_InitTelecom|arcVXML2|INF: [7793]After setting App Name to arcVXML2.:pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|-99|TEL_InitTelecom|arcVXML2|INF: [7819]GV_AppCallNum1=-99; GV_BLegCDR=1.:pid=14816
+ISP|V|04:21:2023 15:30:38:829|VXML|1300|new235a|14816|1|TEL_InitTelecom|arcVXML2|INF: [7887]GV_RequestFifo(/tmp/RequestFifo.0), GV_ResponseFifo(/tmp/ResponseFifo.14816.1.2), GV_DynMgrId=0:pid=14816
+ISP|V|04:21:2023 15:30:38:831|RES|3106|new235a|14658|1|readFromDynMgr|ArcIPResp|[from 1691] Received 8 bytes from DM. msg={op:111,c#:1,pid:14816,ref:0,pw:0,dnis:,ani:,data:}
+ISP|D|04:21:2023 15:30:38:831|RES|3504|new235a|14658|1|application_instance_manager|ArcIPResp|Add instance for program (arcVXML2), resource <1>,. Max instance=60. Current instance=1, 0.
+ISP|V|04:21:2023 15:30:38:831|RES|3117|new235a|14658|1|processRESOP_VXML_PID|ArcIPResp|{5799, from 1711] port=1 pid=14816
+ISP|V|04:21:2023 15:30:38:831|RES|3480|new235a|14658|1|processRESOP_VXML_PID|ArcIPResp|{5804, from 1711] setting APPL_STATUS, STATUS_BUSY
+ISP|V|04:21:2023 15:30:38:836|VXML|1300|new235a|14816|1|initializeSharedMemory|arcVXML2|INF: [7746]shmat =  0x2ac9656c4000:pid=14816
+ISP|D|04:21:2023 15:30:38:846|VXML|1300|new235a|14816|1|TEL_InitTelecom|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:6,c#:1,pid:14816,ref:1,pw:0,fifo:/tmp/ResponseFifo.14816.1.2}:pid=14816
+ISP|V|04:21:2023 15:30:38:856|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:6(DMOP_INITTELECOM),c#:1,pid:14816,ref:1,pw:0}
+ISP|V|04:21:2023 15:30:38:856|DYN|1300|new235a|14735|1|process_DMOP_INITTELECOM|ArcIPDynMgr|INF: [14388]Processing {op:6,c#:1,pid:14816,ref:1,pw:0. dropCallThreadId=0
+ISP|V|04:21:2023 15:30:38:856|DYN|1300|new235a|14735|1|process_DMOP_INITTELECOM|ArcIPDynMgr|INF: [14500]gCall[zCall].audioCodecString=711r
+ISP|V|04:21:2023 15:30:38:856|DYN|1300|new235a|14735|1|process_DMOP_INITTELECOM|ArcIPDynMgr|INF: [457][14535] writing op:6 to mm shared mem.
+ISP|D|04:21:2023 15:30:38:871|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:6(DMOP_INITTELECOM),call:1,ref:1,pid:14816
+ISP|V|04:21:2023 15:30:38:871|DYN|1300|new235a|14758|1|process_DMOP_INITTELECOM|ArcSipMediaMgr|INF: [21112]Processing {op:6,c#:1,pid:14816,ref:1,pw:0}.
+ISP|V|04:21:2023 15:30:38:871|DYN|1300|new235a|14758|1|process_DMOP_INITTELECOM|ArcSipMediaMgr|INF: [21267]ANNEXB=104, gCall[zCall].audioCodecString=(711r)
+ISP|V|04:21:2023 15:30:38:871|DYN|1300|new235a|14758|1|changeCallState|ArcSipMediaMgr|INF: [2128][21304] Setting callState to 0.
+ISP|D|04:21:2023 15:30:38:871|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:38:871|DYN|1300|new235a|14758|1|process_DMOP_INITTELECOM|ArcSipMediaMgr|INF: [2547]Calling line(21306) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:6,call:1,ref:1,pid:14816,rtc:0,data:14735 [cs=0]
+ISP|D|04:21:2023 15:30:38:871|VXML|1300|new235a|14816|1|TEL_InitTelecom|arcVXML2|INF: [7293]Received 256 bytes. msg={op:6,c#:1,pid:14816,ref:1,pw:0,rc:0,data:14735}:pid=14816
+ISP|V|04:21:2023 15:30:38:871|VXML|1300|new235a|14816|1|TEL_InitTelecom|arcVXML2|INF: [188]After setting GV_AppCallNum1=1.:pid=14816
+ISP|V|04:21:2023 15:30:38:871|VXML|1300|new235a|14816|1|VXItelBeginSession|arcVXML2|INF: [559]TEL_InitTelecom=0 appPidShm=-1:pid=14816
+ISP|V|04:21:2023 15:30:38:871|VXML|1449|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [2035]Before switch for index=54:pid=14816
+ISP|D|04:21:2023 15:30:38:881|VXML|1300|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:25,c#:1,pid:14816,ref:2,pw:0}:pid=14816
+ISP|V|04:21:2023 15:30:38:888|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:25(DMOP_GETGLOBALSTRING),c#:1,pid:14816,ref:2,pw:0}
+ISP|V|04:21:2023 15:30:38:888|DYN|1300|new235a|14735|1|process_DMOP_GETGLOBALSTRING|ArcIPDynMgr|INF: [14665]process_DMOP_GETGLOBALSTRING [$TEL_TRANSFER_AAI]
+ISP|D|04:21:2023 15:30:38:888|DYN|1424|new235a|14735|-1|arc_kill|ArcIPDynMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:38:888|DYN|1300|new235a|14735|1|process_DMOP_GETGLOBALSTRING|ArcIPDynMgr|INF: [4772][14714] 256 = write(/tmp/ResponseFifo.14816.1.2, [op=25, rtc=0, cs=18]);
+ISP|D|04:21:2023 15:30:38:888|VXML|1300|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [7293]Received 256 bytes. msg={op:25,c#:1,pid:14816,ref:2,pw:0,rc:0,data:UNDEFINED}:pid=14816
+ISP|V|04:21:2023 15:30:38:888|VXML|1449|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [2035]Before switch for index=6:pid=14816
+ISP|V|04:21:2023 15:30:38:888|VXML|1300|new235a|14816|1|VXItelBeginSession|arcVXML2|INF: [606]No $APP_TO_APP_INFO was set.:pid=14816
+ISP|D|04:21:2023 15:30:38:888|VXML|1300|new235a|14816|1|TEL_AnswerCall|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:8,c#:1,pid:14816,ref:3,pw:0,rings:1}:pid=14816
+ISP|V|04:21:2023 15:30:38:889|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:8(DMOP_ANSWERCALL),c#:1,pid:14816,ref:3,pw:0}
+ISP|V|04:21:2023 15:30:38:889|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [6629]Processing {op:8,c#:1,pid:14816,ref:3,pw:0,numRings:1}
+ISP|V|04:21:2023 15:30:38:889|DYN|1|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [6632]Calling eXosip_call_send_answer(); earlyMedia is set to 0.
+ISP|D|04:21:2023 15:30:38:889|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|WRN: [6667]gInboundEarlyMedia=0
+ISP|V|04:21:2023 15:30:38:889|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [6918]Sending SIP Message 200 OK.
+ISP|V|04:21:2023 15:30:38:889|DYN|1|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [6961] 0 = eXosip_call_send_answer
+ISP|V|04:21:2023 15:30:38:931|DYN|1300|new235a|14735|1|arc_get_global_headers|ArcIPDynMgr|INF: [1047]gCall[1].remoteAgent:(0:0).  UUI_Encoding = HEX (default).
+ISP|V|04:21:2023 15:30:38:931|DYN|1300|new235a|14735|1|arc_get_global_headers|ArcIPDynMgr|INF: [1047]gCall[1].remoteAgent:(0:0).  UUI_Encoding = HEX (default).
+ISP|V|04:21:2023 15:30:38:931|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [21102]eXosip event  Call(3) Dialog(4) type(17) (ACK received!)
+ISP|V|04:21:2023 15:30:38:931|DYN|1300|new235a|14735|1|main|ArcIPDynMgr|INF: [25451]eXosip event EXOSIP_CALL_ACK.
+ISP|V|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [7204]Calling notifyMediaMgr with data(110^5064^10502^101^102^0^12.1.1.29), opcode=42.
+ISP|V|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [457][7209] writing op:42 to mm shared mem.
+ISP|V|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [7226]Calling notifyMediaMgr with data(110^5064^10502^101^101^0^12.1.1.29), opcode=42.
+ISP|V|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [457][7231] writing op:42 to mm shared mem.
+ISP|V|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [7240]Calling notifyMediaMgr with opcode=8.
+ISP|V|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [457][7245] writing op:8 to mm shared mem.
+ISP|V|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|addToTimerList|ArcIPDynMgr|INF: [4133][7261] Added to timerList (op=4, port=1, data1=14816, data2=-1, op2=8)
+ISP|D|04:21:2023 15:30:38:940|DYN|1300|new235a|14735|1|answerCallThread|ArcIPDynMgr|INF: [7265]Registering MP_OPCODE_END_CALL with timerThread GV_CallDuration=3000
+ISP|D|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:42(DMOP_RTPDETAILS),call:1,ref:3,pid:14816
+ISP|V|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|process_DMOP_RTPDETAILS|ArcSipMediaMgr|INF: [19700]Processing {op:42,c#:1,pid:14816,ref:3,pw:0}.
+ISP|V|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|process_DMOP_RTPDETAILS|ArcSipMediaMgr|INF: [19712]Got data=110^5064^10502^101^102^0^12.1.1.29, gCall[zCall].full_duplex=102, gCall[zCall].isG729AnnexB=104, YES=103, NO=104.
+ISP|V|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|process_DMOP_RTPDETAILS|ArcSipMediaMgr|INF: [19791]Calling startOutputThread().
+ISP|V|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|startInputThread|ArcSipMediaMgr|INF: [19153]Remote rtp:[12.1.1.29:5064] local rtp:[10502] telephone payload type:[101] codec Type:[0].
+ISP|V|04:21:2023 15:30:38:952|DYN|1|new235a|14758|1|startInputThread|ArcSipMediaMgr|INF: [19468]playBackIncrement is set to 8000 ( 160 * 1000 / 20 ).
+ISP|V|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|startInputThread|ArcSipMediaMgr|INF: [19586]CallProgress not set.
+ISP|D|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:42(DMOP_RTPDETAILS),call:1,ref:3,pid:14816
+ISP|V|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|process_DMOP_RTPDETAILS|ArcSipMediaMgr|INF: [19700]Processing {op:42,c#:1,pid:14816,ref:3,pw:0}.
+ISP|V|04:21:2023 15:30:38:952|DYN|1300|new235a|14758|1|process_DMOP_RTPDETAILS|ArcSipMediaMgr|INF: [19712]Got data=110^5064^10502^101^101^0^12.1.1.29, gCall[zCall].full_duplex=101, gCall[zCall].isG729AnnexB=104, YES=103, NO=104.
+ISP|V|04:21:2023 15:30:38:953|DYN|1300|new235a|14758|1|process_DMOP_RTPDETAILS|ArcSipMediaMgr|INF: [19781]Calling startOutputThread().
+ISP|V|04:21:2023 15:30:38:953|DYN|1300|new235a|14758|1|startOutputThread|ArcSipMediaMgr|INF: [18798]Remote rtp:[12.1.1.29:<5064>], local rtp:[10502], telephone payload type:[101], codec Type:[0].
+ISP|V|04:21:2023 15:30:38:953|DYN|1300|new235a|14758|1|startOutputThread|ArcSipMediaMgr|INF: [18825]Calling rtp_session_set_remote_addr() with rtp_session=0x2b37b0000ef0, remoteRtpIp=12.1.1.29, remoteRtpPort=5064.
+ISP|V|04:21:2023 15:30:38:953|DYN|1|new235a|14758|1|startOutputThread|ArcSipMediaMgr|INF: [19035]playBackIncrement is set to 8000 ( 160 * 1000 / 20 ).
+ISP|D|04:21:2023 15:30:38:953|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:8(DMOP_ANSWERCALL),call:1,ref:3,pid:14816
+ISP|V|04:21:2023 15:30:38:953|DYN|1300|new235a|14758|1|process_DMOP_ANSWERCALL|ArcSipMediaMgr|INF: [20471]Processing {op:8,c#:1,pid:14816,ref:3,pw:0}.
+ISP|D|04:21:2023 15:30:38:953|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:38:953|DYN|1300|new235a|14758|1|process_DMOP_ANSWERCALL|ArcSipMediaMgr|INF: [2547]Calling line(20520) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:8,call:1,ref:3,pid:14816,rtc:0,data:AUDIO_CODEC=711r [cs=0]
+ISP|D|04:21:2023 15:30:38:953|VXML|1300|new235a|14816|1|TEL_AnswerCall|arcVXML2|INF: [7293]Received 256 bytes. msg={op:8,c#:1,pid:14816,ref:3,pw:0,rc:0,data:AUDIO_CODEC=711r}:pid=14816
+ISP|V|04:21:2023 15:30:38:953|VXML|1300|new235a|14816|1|parseAnswerCallMessageResponse|arcVXML2|INF: [8961]GV_Audio_Codec=1; AUDIO_CODEC=711r.:pid=14816
+CDR|N|04:21:2023 15:30:38:953|TEL|20010|new235a|14816|1|TEL_AnswerCall|arcVXML2|new235a-PORT1-0421202315303880:SC:arcVXML2:dan:777:0421202315303895::
+ISP|V|04:21:2023 15:30:38:954|VXML|1449|new235a|14816|1|TEL_SetGlobalString|arcVXML2|INF: [1234]valueLen=30:pid=14816
+ISP|V|04:21:2023 15:30:38:963|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:38:963|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9205][15098] Opening silenceFile (silence.wav).
+ISP|D|04:21:2023 15:30:38:964|VXML|1300|new235a|14816|1|TEL_SetGlobalString|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:24,c#:1,pid:14816,ref:4,pw:0}:pid=14816
+ISP|V|04:21:2023 15:30:38:971|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:24(DMOP_SETGLOBALSTRING),c#:1,pid:14816,ref:4,pw:0}
+ISP|V|04:21:2023 15:30:38:971|DYN|1300|new235a|14735|1|process_DMOP_SETGLOBALSTRING|ArcIPDynMgr|INF: [457][15318] writing op:24 to mm shared mem.
+ISP|D|04:21:2023 15:30:38:974|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:24(DMOP_SETGLOBALSTRING),call:1,ref:4,pid:14816
+ISP|V|04:21:2023 15:30:38:974|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBALSTRING|ArcSipMediaMgr|INF: [23511]Got ($CALL_CDR) with value (new235a-PORT1-0421202315303880).
+ISP|V|04:21:2023 15:30:38:974|DYN|2300|new235a|14758|1|process_DMOP_SETGLOBALSTRING|ArcSipMediaMgr|INF: [23761]Setting callCDR to [new235a-PORT1-0421202315303880].
+ISP|D|04:21:2023 15:30:38:974|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:38:974|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBALSTRING|ArcSipMediaMgr|INF: [2547]Calling line(23784) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:24,call:1,ref:4,pid:14816,rtc:0,data: [cs=0]
+ISP|D|04:21:2023 15:30:38:974|VXML|1300|new235a|14816|1|TEL_SetGlobalString|arcVXML2|INF: [7293]Received 256 bytes. msg={op:24,c#:1,pid:14816,ref:4,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:38:974|VXML|1300|new235a|14816|1|VXItelBeginSession|arcVXML2|INF: [620]TEL_AnswerTelecom=0:pid=14816
+ISP|V|04:21:2023 15:30:38:974|VXML|1449|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [2035]Before switch for index=18:pid=14816
+ISP|D|04:21:2023 15:30:38:984|VXML|1300|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:25,c#:1,pid:14816,ref:5,pw:0}:pid=14816
+ISP|V|04:21:2023 15:30:38:992|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:25(DMOP_GETGLOBALSTRING),c#:1,pid:14816,ref:5,pw:0}
+ISP|V|04:21:2023 15:30:38:992|DYN|1300|new235a|14735|1|process_DMOP_GETGLOBALSTRING|ArcIPDynMgr|INF: [14665]process_DMOP_GETGLOBALSTRING [$INBOUND_CALL_PARM]
+ISP|V|04:21:2023 15:30:38:992|DYN|1300|new235a|14735|1|process_DMOP_GETGLOBALSTRING|ArcIPDynMgr|INF: [14904]Writing INBOUND_CALL_PARAM = (ANI=dan&DNIS=777&OCN=&RDN=&AUDIO_CODEC=711r&FRAME_RATE=-1&CALL_TYPE=Voice-Only&AUDIO_SAMPLING_RATE=8000&PRESENT_RESTRICT=0).
+ISP|D|04:21:2023 15:30:38:992|DYN|1424|new235a|14735|-1|arc_kill|ArcIPDynMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:38:992|DYN|1300|new235a|14735|1|process_DMOP_GETGLOBALSTRING|ArcIPDynMgr|INF: [4772][14921] 256 = write(/tmp/ResponseFifo.14816.1.2, [op=25, rtc=0, cs=19]);
+ISP|D|04:21:2023 15:30:38:992|VXML|1300|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [7293]Received 256 bytes. msg={op:25,c#:1,pid:14816,ref:5,pw:0,rc:0,data:/tmp/inboundCallParm.14816.1}:pid=14816
+ISP|V|04:21:2023 15:30:38:992|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=/tmp/inboundCallParm.14816.1.:pid=14816
+ISP|V|04:21:2023 15:30:38:992|VXML|1449|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [2035]Before switch for index=17:pid=14816
+ISP|V|04:21:2023 15:30:38:993|VXML|1420|new235a|14816|1|TEL_GetGlobalString|arcVXML2|INF: [2130]$CALL_CDR_KEY = new235a-PORT1-0421202315303880:pid=14816
+ISP|V|04:21:2023 15:30:38:993|VXML|1300|new235a|14816|1|VXItelBeginSession|arcVXML2|INF: [678]inboundCallParameters=ANI=dan&DNIS=777&OCN=&RDN=&AUDIO_CODEC=711r&FRAME_RATE=-1&CALL_TYPE=Voice-Only&AUDIO_SAMPLING_RATE=8000&PRESENT_RESTRICT=0, cdr=new235a-PORT1-0421202315303880:pid=14816
+ISP|D|04:21:2023 15:30:39:003|VXML|1300|new235a|14816|1|TEL_SetGlobal|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:26,c#:1,pid:14816,ref:7,pw:0,name:($SKIP_TIME_IN_SECONDS),value:3}:pid=14816
+ISP|V|04:21:2023 15:30:39:003|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:26(DMOP_SETGLOBAL),c#:1,pid:14816,ref:7,pw:0}
+ISP|V|04:21:2023 15:30:39:003|DYN|1300|new235a|14735|1|process_DMOP_SETGLOBAL|ArcIPDynMgr|INF: [15027]process_DMOP_SETGLOBAL [$SKIP_TIME_IN_SECONDS=3]
+ISP|V|04:21:2023 15:30:39:004|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16912] writing op:26 to mm shared mem.
+ISP|D|04:21:2023 15:30:39:014|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:26(DMOP_SETGLOBAL),call:1,ref:7,pid:14816
+ISP|V|04:21:2023 15:30:39:014|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBAL|ArcSipMediaMgr|INF: [23130]process_DMOP_SETGLOBAL [$SKIP_TIME_IN_SECONDS=3]
+ISP|D|04:21:2023 15:30:39:014|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:39:014|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBAL|ArcSipMediaMgr|INF: [2547]Calling line(23275) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:26,call:1,ref:7,pid:14816,rtc:0,data: [cs=0]
+ISP|D|04:21:2023 15:30:39:014|VXML|1300|new235a|14816|1|TEL_SetGlobal|arcVXML2|INF: [7293]Received 256 bytes. msg={op:26,c#:1,pid:14816,ref:7,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [1874]Allocated URL (/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml):pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|VXIpromptBeginSession|arcVXML2|INF: [556]VXIpromptBeginSession:pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|VXIrecBeginSession|arcVXML2|INF: [592]VXIrecBeginSession:pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|VXIrecBeginSession|arcVXML2|INF: [613]REC_LANGUAGE is not set in script:pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|VXIrecBeginSession|arcVXML2|INF: [630]Calling TEL_SRInit zCall=1:pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [15306]AppCallNum = 1, InitCalled=1:pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1350|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [24011]Defaulting fifo directory to /tmp.  :pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [24025]GV_SRFifo(/tmp/to.mrcpClient2.fifo) MrcpVersion(2):pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [24043]Successfully opened mrcpClient fifo (/tmp/to.mrcpClient2.fifo):pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [15352]Calling sendRequestToSRClient:pid=14816
+ISP|V|04:21:2023 15:30:39:015|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo). msg={op:56,c#:1,pid:14816,ref:8,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:015|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(0), capacity(10000), msg={op:56,c#:1,pid:14816,ref:8,pw:0}
+ISP|V|04:21:2023 15:30:39:015|SRC|3000|new235a|14677|1|processInit|mrcpClient2|INF: [readerThread.cpp:802:thd-14728] Processing {op:56,c#:1,pid:14816,ref:8,pw:0,resourceFile:(/tmp/ResponseFifo.14816.1.2),appName:(arcVXML2)}
+ISP|V|04:21:2023 15:30:39:015|SRC|3000|new235a|14677|1|processInit|mrcpClient2|INF: [readerThread.cpp:903:thd-14728] App response fifo is (/tmp/ResponseFifo.14816.1.2)
+ISP|V|04:21:2023 15:30:39:015|SRC|3000|new235a|14677|1|MrcpThread::start|mrcpClient2|INF: [mrcpThread.cpp:1416:thd-14728] Locked
+ISP|V|04:21:2023 15:30:39:016|SRC|3000|new235a|14677|1|MrcpThread::start|mrcpClient2|INF: [mrcpThread.cpp:1474:thd-14728] Successfully created thread id [47510774777600,47510774777600] 
+ISP|V|04:21:2023 15:30:39:016|SRC|3000|new235a|14677|1|MrcpThread::start|mrcpClient2|INF: [mrcpThread.cpp:1486:thd-14728] Unlocked
+ISP|V|04:21:2023 15:30:39:036|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 56 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:036|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 56.
+ISP|V|04:21:2023 15:30:39:036|SRC|3000|new235a|14677|1|processSrInit|mrcpClient2|INF: [mrcpThread.cpp:322:thd-16326] Processing {op:56,c#:1,pid:14816,ref:8,pw:0}
+ISP|V|04:21:2023 15:30:39:036|SRC|3000|new235a|14677|1|openChannelToDynMgr|mrcpClient2|INF: [mrcpThread.cpp:1278:thd-16326] Successfully opened dynmgr fifo (/tmp/RequestFifo.0).  fd=11.
+ISP|V|04:21:2023 15:30:39:036|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:375:thd-16326] [220] Calling openAppResponseFifo with port number 1.
+ISP|V|04:21:2023 15:30:39:036|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:375:thd-16326] [261] Successfully opened application response fifo (/tmp/ResponseFifo.14816.1.2).  fd=12
+ISP|V|04:21:2023 15:30:39:036|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:375:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:56,c#:1,pid:14816,ref:8,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:036|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [7293]Received 256 bytes. msg={op:56,c#:1,pid:14816,ref:8,pw:0,rc:0,data:0}:pid=14816
+ISP|V|04:21:2023 15:30:39:036|VXML|1350|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [24011]Defaulting fifo directory to /tmp.  :pid=14816
+ISP|V|04:21:2023 15:30:39:036|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [24025]GV_SRFifo(/tmp/to.mrcpClient2.fifo.0) MrcpVersion(2):pid=14816
+ISP|V|04:21:2023 15:30:39:036|VXML|1300|new235a|14816|1|TEL_SRInit|arcVXML2|INF: [24043]Successfully opened mrcpClient fifo (/tmp/to.mrcpClient2.fifo.0):pid=14816
+ISP|V|04:21:2023 15:30:39:036|VXML|1300|new235a|14816|1|TEL_SRReserveResource|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:61,c#:1,pid:14816,ref:9,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:037|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:61,c#:1,pid:14816,ref:9,pw:0}
+ISP|V|04:21:2023 15:30:39:037|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 61 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:046|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 61.
+ISP|V|04:21:2023 15:30:39:046|SRC|3000|new235a|14677|1|processSrReserveResource|mrcpClient2|INF: [mrcpThread.cpp:400:thd-16326] Processing {op:61,c#:1,pid:14816,ref:9,pw:0}
+ISP|V|04:21:2023 15:30:39:046|SRC|3000|new235a|14677|1|srGetResource|mrcpClient2|INF: [SRCommon.cpp:132:thd-16326] numURIs=2;  i=0
+ISP|V|04:21:2023 15:30:39:046|SRC|3000|new235a|14677|1|getUriInfo|mrcpClient2|INF: [MrcpInitialize.cpp:573:thd-16326] Retrieved UriInfo[0].(1, 0, 10.0.10.160, sip:10.0.10.160:5070)
+ISP|V|04:21:2023 15:30:39:047|SRC|3000|new235a|14677|1|srGetResource|mrcpClient2|INF: [SRCommon.cpp:139:thd-16326] Retrieved URI=(0,-1,sip:10.0.10.160:5070,10.0.10.160)
+ISP|V|04:21:2023 15:30:39:047|SRC|3000|new235a|14677|1|getRtpInfo|mrcpClient2|INF: [SRCommon.cpp:2191:thd-16326] Successfully opened config file (/home/arc/.ISP/Telecom/Exec/.mrcpRtpDetails.1) for reading.
+ISP|V|04:21:2023 15:30:39:047|SRC|3000|new235a|14677|-1|createSdpOffer|mrcpClient2|INF: [SRCommon.cpp:336:thd-16326] localIp:(10.0.10.236) voiceCodec=0, zCodecStr=pcmu/8000
+ISP|V|04:21:2023 15:30:39:048|SRC|3000|new235a|14677|1|send_sip_invite|mrcpClient2|INF: [SRCommon.cpp:539:thd-16326] Sending INVITE string to to MRCP Server: (INVITE sip:10.0.10.160:5070 SIP/2.0
+Via: SIP/2.0/TCP 10.0.10.236:5020;rport;branch=z9hG4bK1406026502
+From: <sip:1@10.0.10.236>;tag=1265712394
+To: <sip:10.0.10.160:5070>
+Call-ID: 990733100
+CSeq: 20 INVITE
+Contact: <sip:1@10.0.10.236:5020;transport=TCP>
+Content-Type: application/sdp
+Max-Forwards: 70
+User-Agent: eXosip/4.1.0
+Subject: send INVITE
+Content-Length:   306
+
+v=0
+o=arc 123456789 2006 IN IP4 10.0.10.236
+s=SIP Ca
+ISP|V|04:21:2023 15:30:39:048|SRC|3000|new235a|14677|1|setInviteSent|mrcpClient2|INF: [SRPort.cpp:291:thd-16326] inviteSent set to 1.
+ISP|V|04:21:2023 15:30:39:048|SRC|3000|new235a|14677|1|send_sip_invite|mrcpClient2|INF: [SRCommon.cpp:605:thd-16326] Successfully sent SIP INVITE.  CallId=1
+ISP|V|04:21:2023 15:30:39:048|SRC|3000|new235a|14677|1|srGetResource|mrcpClient2|INF: [SRCommon.cpp:192:thd-16326] Successfully sent sip INVITE to server.  Now wait for the response.
+ISP|V|04:21:2023 15:30:39:052|DYN|1300|new235a|14758|1|inputThread|ArcSipMediaMgr|INF: [14094]PendingInputRequests=0; setting action to ACTION_WAIT.
+ISP|V|04:21:2023 15:30:39:052|DYN|1300|new235a|14758|1|inputThread|ArcSipMediaMgr|INF: [14688]PendingInputRequests=0; actionId=(ACTION_WAIT:3), opcode=0.
+ISP|V|04:21:2023 15:30:39:333|DYN|1300|new235a|14758|1|recordFile_X|ArcSipMediaMgr|INF: [7155][14693] Setting streamStarted to 1.
+ISP|V|04:21:2023 15:30:39:618|SRC|3000|new235a|14677|1|sipThreadFunc|mrcpClient2|INF: [sipThread.cpp:244:thd-14727] Received server event [10:Remote phone has answered!]; callCid=1, callDid=2
+ISP|V|04:21:2023 15:30:39:618|SRC|3000|new235a|14677|1|setInviteSent|mrcpClient2|INF: [SRPort.cpp:291:thd-14727] inviteSent set to 0.
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:537:thd-14727] [1, 2] pos=0, mrcpPort = (51470), media=(application) numberOfPort=((null)), protocol=(TCP/MRCPv2)
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [connection:new]
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [setup:passive]
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [channel:507074@speechrecog]
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [cmid:1]
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:537:thd-14727] [1, 2] pos=1, mrcpPort = (3336), media=(audio) numberOfPort=((null)), protocol=(RTP/AVP)
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:570:thd-14727] [1, 2] codec/payload=(0)
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:570:thd-14727] [1, 2] codec/payload=(101)
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [rtpmap:0 PCMU/8000]
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [rtpmap:101 telephone-event/8000]
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [fmtp:101 0-15]
+ISP|V|04:21:2023 15:30:39:639|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [recvonly:(null)]
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|processCallAnswered|mrcpClient2|INF: [sipThread.cpp:589:thd-14727] [1, 2] attribute content = [mid:1]
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|srGetResource|mrcpClient2|INF: [SRCommon.cpp:239:thd-16326] Retrieved Server port (51470)
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|build_tcp_connection|mrcpClient2|INF: [SRCommon.cpp:2384:thd-16326] hostname = 10.0.10.160, serverPort=51470
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|build_tcp_connection|mrcpClient2|INF: [SRCommon.cpp:2423:thd-16326] Nonblocking connect() to MRCP Server succeeded. [-1, 115]
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|build_tcp_connection|mrcpClient2|INF: [SRCommon.cpp:2446:thd-16326] Connection to MRCP Server succeeded.
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|-1|setUriInfo|mrcpClient2|INF: [MrcpInitialize.cpp:170:thd-16326] Setting UriInfo(1, 0, -1, -1)
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|enableServer|mrcpClient2|INF: [MrcpInitialize.cpp:143:thd-16326] [from 265] MRCP SR Server (sip:10.0.10.160:5070) is enabled.
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|srGetResource|mrcpClient2|INF: [SRCommon.cpp:266:thd-16326] Successfully reserved a license (mrcp port=51470, socketfd=14).
+ISP|V|04:21:2023 15:30:39:640|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:443:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:61,c#:1,pid:14816,ref:9,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:640|VXML|1300|new235a|14816|1|TEL_SRReserveResource|arcVXML2|INF: [7293]Received 256 bytes. msg={op:61,c#:1,pid:14816,ref:9,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:641|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:10,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:641|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:10,pw:0}
+ISP|V|04:21:2023 15:30:39:641|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:650|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:39:651|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:10,pw:0}
+ISP|V|04:21:2023 15:30:39:651|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:259:thd-16326] Received SR_LANGUAGE:en-US
+ISP|V|04:21:2023 15:30:39:651|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:10,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:651|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:10,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [1985]Setting regular session variables <ANI:d> <DNIS:7> <CDRKEY::new235a-PORT1-0421202315303880> <INBOUND:ANI=dan&DNIS=777&OCN=&RDN=&AUDIO_CODEC=711r&FRAME_RATE=-1&CALL_TYPE=Voice-Only&AUDIO_SAMPLING_RATE=8000&PRESENT_RESTRICT=0>:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [2002]Setting regular session variable <AAI:UNDEFINED>:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [2005]aai<UNDEFINED>:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [2010]Setting regular session variable to undefined:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [2028]Setting regular session variables <connection.remote.uri:dan> <connection.local.uri:777>:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [2130]Calling Run with finalUrl=/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml
+:pid=14816
+ISP|D|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|-1|Run|arcVXML2|INF: [688]VXI::Run(/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml):pid=14816
+ISP|D|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXI::RunDocumentLoop|arcVXML2|INF: [827]Entering Document loop.:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXI::RunDocumentLoop|arcVXML2|INF: [845]Loading platform defaults.:pid=14816
+ISP|V|04:21:2023 15:30:39:651|VXML|-1|new235a|14816|1|VXI::AttemptDocumentLoad|arcVXML2|INF: [2250]Calling FetchDocument uri=./schema/schema/defaults.xml:pid=14816
+ISP|V|04:21:2023 15:30:39:654|VXML|-1|new235a|14816|1|VXI::AttemptDocumentLoad|arcVXML2|INF: [2269]After FetchDocument uri=./schema/schema/defaults.xml:pid=14816
+ISP|V|04:21:2023 15:30:39:654|VXML|-1|new235a|14816|1|PushExecutionContext|arcVXML2|INF: [2126]PushExecutionContext - stackDepth:0/50.:pid=14816
+ISP|V|04:21:2023 15:30:39:655|VXML|-1|new235a|14816|1|PushExecutionContext|arcVXML2|INF: [2151]PushExecutionContext - session variables initialized.:pid=14816
+ISP|V|04:21:2023 15:30:39:655|VXML|-1|new235a|14816|1|PushExecutionContext|arcVXML2|INF: [2188]PushExecutionContext - platform defaults initialized.:pid=14816
+ISP|V|04:21:2023 15:30:39:655|VXML|-1|new235a|14816|1|VXI::RunDocumentLoop|arcVXML2|INF: [885]Loading initial document.:pid=14816
+ISP|D|04:21:2023 15:30:39:655|VXML|-1|new235a|14816|1|PerformTransition|arcVXML2|INF: [1659]VXI::PerformTransition to (/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml).:pid=14816
+ISP|V|04:21:2023 15:30:39:655|VXML|-1|new235a|14816|1|PerformTransition|arcVXML2|INF: [1777]FetchAudioDelay=2s.:pid=14816
+ISP|V|04:21:2023 15:30:39:656|VXML|-1|new235a|14816|1|PerformTransition|arcVXML2|INF: [1807]FetchAudioMinimum=5s.:pid=14816
+ISP|V|04:21:2023 15:30:39:656|VXML|-1|new235a|14816|1|PerformTransition|arcVXML2|INF: [1841]Calling AttemptDocumentLoad for uri(/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml).:pid=14816
+ISP|V|04:21:2023 15:30:39:656|VXML|-1|new235a|14816|1|VXI::AttemptDocumentLoad|arcVXML2|INF: [2250]Calling FetchDocument uri=/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml:pid=14816
+ISP|V|04:21:2023 15:30:39:656|VXML|-1|new235a|14816|1|VXI::AttemptDocumentLoad|arcVXML2|INF: [2269]After FetchDocument uri=/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|-1|new235a|14816|1|PerformTransition|arcVXML2|INF: [1846]After AttemptDocumentLoad for uri (/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml).:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|-1|new235a|14816|1|PerformTransition|arcVXML2|INF: [1852]yCurrentTime-yStartTime=0, yIntfetchaudioDelay=2000:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|-1|new235a|14816|1|FindDialog|arcVXML2|INF: [2061]VXI::FindDialog():pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|-1|new235a|14816|1|VXI::RunDocumentLoop|arcVXML2|INF: [923]Document transition (/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml):pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|-1|new235a|14816|1|InstallDocument|arcVXML2|INF: [994]InstallDocument(documentURI:[/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml] appURI[]):pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|-1|new235a|14816|1|InstallDocument|arcVXML2|INF: [1010]Calling LoadGrammars 1.:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [756]VXIrecLoadGrammarFromString:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [774]REC_LANGUAGE is set with xmllang=en-US:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [778]yStrSRLang=en-US:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [1086]Calling TEL_SRSetParameter with yStrSrgsGramName=0x2ac978037040:pid=14816
+ISP|V|04:21:2023 15:30:39:657|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:11,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:658|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:11,pw:0}
+ISP|V|04:21:2023 15:30:39:658|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:661|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:39:661|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:11,pw:0}
+ISP|V|04:21:2023 15:30:39:661|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:259:thd-16326] Received SR_LANGUAGE:en-US
+ISP|V|04:21:2023 15:30:39:661|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:11,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:661|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:11,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:661|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:12,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:661|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:12,pw:0}
+ISP|V|04:21:2023 15:30:39:661|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:671|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:39:671|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:12,pw:0}
+ISP|V|04:21:2023 15:30:39:671|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:224:thd-16326] Successfully set SR_GRAMMAR_NAME to (0x2ac978037040).
+ISP|V|04:21:2023 15:30:39:671|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:12,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:671|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:12,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:671|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [15632]calling sendRequestToSRClient with lMsg.grammarFile=/home/arc/.ISP/Telecom/Exec/vxi/LoadGrammar.14816.1.13.:pid=14816
+ISP|V|04:21:2023 15:30:39:672|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:58,c#:1,pid:14816,ref:13,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:672|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:58,c#:1,pid:14816,ref:13,pw:0}
+ISP|V|04:21:2023 15:30:39:672|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 58 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:681|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 58.
+ISP|V|04:21:2023 15:30:39:681|SRC|3000|new235a|14677|1|SRLoadGrammar|mrcpClient2|INF: [SRLoadGrammar.cpp:96:thd-16326] Processing SRLoadGrammar for grammar (/home/arc/.ISP/Telecom/Exec/vxi/LoadGrammar.14816.1.13).
+ISP|V|04:21:2023 15:30:39:682|SRC|3000|new235a|14677|1|SRLoadGrammar|mrcpClient2|INF: [SRLoadGrammar.cpp:145:thd-16326] Processing grammar: [0x2ac978037040:<?xml version="1.0"?><grammar xmlns="http://www.w3.org/2001/06/grammar" version="1.0" mode="voice" root="N10031" tag-format="semantics-ms/1.0" xml:lang="en-US" xml:base="file://home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml"><rule id="N10031" scope="public"><one-of><item><tag>$.value="Atlanta";</tag> Atlanta </item><item><tag>$.value="Chicago";</tag> Chicago </item></one-of></rule></grammar>]; gSrPort[1].IsGrammarAfterVAD()=0.
+ISP|V|04:21:2023 15:30:39:682|SRC|3000|new235a|14677|1|srLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:711:thd-16326] Grammar (type=0:0x2ac978037040:<?xml version="1.0"?><grammar xmlns="http://www.w3.org/2001/06/grammar" version="1.0" mode="voice" root="N10031" tag-format="semantics-ms/1.0" xml:lang="en-US" xml:base="file://home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml"><rule id="N10031" scope="public"><one-of><item><tag>$.value="Atlanta";</tag> Atlanta </item><item><tag>$.value="Chicago";</tag> Chicago </item></one-of></rule></grammar>) loaded in memory.
+ISP|V|04:21:2023 15:30:39:682|SRC|3000|new235a|14677|1|sLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:791:thd-16326] Creating DEFINE-GRAMMAR message.
+ISP|V|04:21:2023 15:30:39:682|SRC|3000|new235a|14677|1|writeData|mrcpClient2|INF: [SRCommon.cpp:1661:thd-16326] Wrote (MRCP/2.0 589 DEFINE-GRAMMAR 0
+Channel-Identifier:507074@speechrecog
+Content-Type:application/srgs+xml
+speech-language:en-US
+Content-Id:0x2ac978037040
+Content-Length:395
+Weight:1.000000
+
+<?xml version="1.0"?><grammar xmlns="http://www.w3.org/2001/06/grammar" version="1.0" mode="voice" root="N10031" tag-format="semantics-ms/1.0" xml:lang="en-US" xml:base="file://home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml"><rule id="N10031" scope="public"><one-of><item><t
+ISP|V|04:21:2023 15:30:39:694|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1037:thd-16326] Read 99 bytes:(MRCP/2.0 99 0 200 COMPLETE
+Channel-Identifier:507074@speechrecog
+Completion-Cause:000 success
+
+)
+ISP|V|04:21:2023 15:30:39:694|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1155:thd-16326] Response parsed: requestId(0) statusCode:(200) RequestState:(COMPLETE)
+ISP|V|04:21:2023 15:30:39:694|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:502:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:58,c#:1,pid:14816,ref:13,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:694|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [7293]Received 256 bytes. msg={op:58,c#:1,pid:14816,ref:13,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:695|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=/home/arc/.ISP/Telecom/Exec/vxi/LoadGrammar.14816.1.13.:pid=14816
+ISP|V|04:21:2023 15:30:39:695|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [1128]TEL_SRLoadGrammar returned yRc=0:pid=14816
+ISP|V|04:21:2023 15:30:39:699|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [1223]TEL_SRSetParameter successful. Returning VXIrec_RESULT_SUCCESS:pid=14816
+ISP|V|04:21:2023 15:30:39:709|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml' xml:lang='en'>
+			 Please say Atlanta or Chicago
+   		</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:709|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml' xml:lang='en'>
+				  Got a no input. Please try again.
+			</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:709|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml' xml:lang='en'>
+				  Got a no match. Please try again.
+	</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:709|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml' xml:lang='en'>
+		
+		After Release Resource
+			
+ 	</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:709|VXML|-1|new235a|14816|1|InstallDocument|arcVXML2|INF: [1037]Calling LoadGrammars 2.:pid=14816
+ISP|V|04:21:2023 15:30:39:709|VXML|-1|new235a|14816|1|InstallDocument|arcVXML2|INF: [1070]Calling LoadGrammars 3.:pid=14816
+ISP|V|04:21:2023 15:30:39:710|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromURI|arcVXML2|INF: [1282]REC_LANGUAGE is not set in script:pid=14816
+ISP|V|04:21:2023 15:30:39:710|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromURI|arcVXML2|WRN: [1446]Loading mssGram=/home/arc/.ISP/Telecom/Exec/vxi/en-US/arcMasterBlock_MSS.grxml.:pid=14816
+ISP|V|04:21:2023 15:30:39:710|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [756]VXIrecLoadGrammarFromString:pid=14816
+ISP|V|04:21:2023 15:30:39:710|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [785]REC_LANGUAGE is not set in script:pid=14816
+ISP|V|04:21:2023 15:30:39:710|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [807]No Grammar weight, setting defaul weight to 1.0:pid=14816
+ISP|V|04:21:2023 15:30:39:710|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [1086]Calling TEL_SRSetParameter with yStrSrgsGramName=0x2ac9780ac290:pid=14816
+ISP|V|04:21:2023 15:30:39:710|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:14,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:710|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:14,pw:0}
+ISP|V|04:21:2023 15:30:39:710|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:715|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:39:715|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:14,pw:0}
+ISP|V|04:21:2023 15:30:39:715|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:259:thd-16326] Received SR_LANGUAGE:en-US
+ISP|V|04:21:2023 15:30:39:715|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:14,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:715|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:14,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:715|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:15,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:715|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:15,pw:0}
+ISP|V|04:21:2023 15:30:39:715|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:725|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:39:725|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:15,pw:0}
+ISP|V|04:21:2023 15:30:39:725|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:224:thd-16326] Successfully set SR_GRAMMAR_NAME to (0x2ac9780ac290).
+ISP|V|04:21:2023 15:30:39:725|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:15,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:725|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:15,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:725|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [15632]calling sendRequestToSRClient with lMsg.grammarFile=/home/arc/.ISP/Telecom/Exec/vxi/LoadGrammar.14816.1.16.:pid=14816
+ISP|V|04:21:2023 15:30:39:725|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:58,c#:1,pid:14816,ref:16,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:725|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:58,c#:1,pid:14816,ref:16,pw:0}
+ISP|V|04:21:2023 15:30:39:726|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 58 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:735|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 58.
+ISP|V|04:21:2023 15:30:39:735|SRC|3000|new235a|14677|1|SRLoadGrammar|mrcpClient2|INF: [SRLoadGrammar.cpp:96:thd-16326] Processing SRLoadGrammar for grammar (/home/arc/.ISP/Telecom/Exec/vxi/LoadGrammar.14816.1.16).
+ISP|V|04:21:2023 15:30:39:735|SRC|3000|new235a|14677|1|SRLoadGrammar|mrcpClient2|INF: [SRLoadGrammar.cpp:145:thd-16326] Processing grammar: [0x2ac9780ac290:<?xml version= "1.0"?><!-- arcMasterBlock_MSS --><grammar xml:lang = "en-US" xmlns = "http://www.w3.org/2001/06/grammar" version = "1.0" root = "arcMasterBlock_MSS" tag-format="semantics-ms/1.0">    <rule id = "arcMasterBlock_MSS" scope = "public">        <one-of>            <item>				<tag>$.value='arcBuiltinExit'</tag>				exit			</item>            <item>				<tag>$.value='arcBuiltinHelp'</tag>					help			</item>            	<item>		
+ISP|V|04:21:2023 15:30:39:736|SRC|3000|new235a|14677|1|srLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:694:thd-16326] yGrammarName (0x2ac9780ac290) is already loaded
+ISP|V|04:21:2023 15:30:39:736|SRC|3000|new235a|14677|1|srLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:711:thd-16326] Grammar (type=0:0x2ac9780ac290:<?xml version= "1.0"?><!-- arcMasterBlock_MSS --><grammar xml:lang = "en-US" xmlns = "http://www.w3.org/2001/06/grammar" version = "1.0" root = "arcMasterBlock_MSS" tag-format="semantics-ms/1.0">    <rule id = "arcMasterBlock_MSS" scope = "public">        <one-of>            <item>				<tag>$.value='arcBuiltinExit'</tag>				exit			</item>            <item>				<tag>$.value='arcBuiltinHelp'</tag>					help			</item>            	<item>					<tag>$.
+ISP|V|04:21:2023 15:30:39:736|SRC|3000|new235a|14677|1|sLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:791:thd-16326] Creating DEFINE-GRAMMAR message.
+ISP|V|04:21:2023 15:30:39:736|SRC|3000|new235a|14677|1|writeData|mrcpClient2|INF: [SRCommon.cpp:1661:thd-16326] Wrote (MRCP/2.0 805 DEFINE-GRAMMAR 0
+Channel-Identifier:507074@speechrecog
+Content-Type:application/srgs+xml
+speech-language:en-US
+Content-Id:0x2ac9780ac290
+Content-Length:611
+Weight:1.000000
+
+<?xml version= "1.0"?><!-- arcMasterBlock_MSS --><grammar xml:lang = "en-US" xmlns = "http://www.w3.org/2001/06/grammar" version = "1.0" root = "arcMasterBlock_MSS" tag-format="semantics-ms/1.0">    <rule id = "arcMasterBlock_MSS" scope = "public">        <one-of>           
+ISP|V|04:21:2023 15:30:39:748|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1037:thd-16326] Read 99 bytes:(MRCP/2.0 99 0 200 COMPLETE
+Channel-Identifier:507074@speechrecog
+Completion-Cause:000 success
+
+)
+ISP|V|04:21:2023 15:30:39:748|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1155:thd-16326] Response parsed: requestId(0) statusCode:(200) RequestState:(COMPLETE)
+ISP|V|04:21:2023 15:30:39:748|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:502:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:58,c#:1,pid:14816,ref:16,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:748|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [7293]Received 256 bytes. msg={op:58,c#:1,pid:14816,ref:16,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:748|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=/home/arc/.ISP/Telecom/Exec/vxi/LoadGrammar.14816.1.16.:pid=14816
+ISP|V|04:21:2023 15:30:39:749|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [1128]TEL_SRLoadGrammar returned yRc=0:pid=14816
+ISP|V|04:21:2023 15:30:39:751|VXML|1300|new235a|14816|1|VXIrecLoadGrammarFromString|arcVXML2|INF: [1223]TEL_SRSetParameter successful. Returning VXIrec_RESULT_SUCCESS:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>
+      A serious error has occured.  Exiting. </speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>Context specific help is unavailable.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>Sorry, I didn't hear you.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>I didn't hear you that time either.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>I just can't hear you.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>Sorry, I didn't understand you.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>I still don't understand.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>Please say it one last time.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>I'm sorry. I just can't understand your 
+         response.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>Max speech time out has occured.  Exiting.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|1300|new235a|14816|1|VXIpromptPrefetch|arcVXML2|INF: [1114]myVal = <?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='' xml:lang='en'>An application error occured.  Exiting.</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:772|VXML|-1|new235a|14816|1|VXI::RunDocumentLoop|arcVXML2|INF: [900]RunDocumentLoop - new document.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|RunInnerLoop|arcVXML2|INF: [2498]Setting playingPrompts to true.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|RunInnerLoop|arcVXML2|INF: [2530]disablePromptsOnce was false, changing playingPrompts to true.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|RunInnerLoop|arcVXML2|INF: [2547]Setting playingPrompts to true.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|FormInit|arcVXML2|INF: [2746]FormInit.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|FormInit|arcVXML2|INF: [2755]universalGrammars=2 rc=0 val=all.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|var_element|arcVXML2|INF: [3643]var_element(recognition). expr():pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|FormInit|arcVXML2|INF: [2908]FormInit - Done.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|RunInnerLoop|arcVXML2|INF: [2564]Calling DoInnerJump:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|DoInnerJump|arcVXML2|INF: [2971]DoInnterJump().:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|DoInnerJump|arcVXML2|INF: [3057]Checking condition().:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|RunInnerLoop|arcVXML2|INF: [2530]disablePromptsOnce was false, changing playingPrompts to true.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|CollectPhase|arcVXML2|INF: [5258]Inside CollectPhase:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|CollectPhase|arcVXML2|INF: [5268]isSrResourceAvailable=1.:pid=14816
+ISP|D|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|field_element|arcVXML2|INF: [6123]Field_element.:pid=14816
+ISP|V|04:21:2023 15:30:39:773|VXML|-1|new235a|14816|1|field_element|arcVXML2|INF: [6155]universalGrammars=2 rc=0 val=all.:pid=14816
+ISP|V|04:21:2023 15:30:39:774|VXML|-1|new235a|14816|1|queue_prompts|arcVXML2|INF: [8102]queue_prompts.:pid=14816
+ISP|V|04:21:2023 15:30:39:774|VXML|-1|new235a|14816|1|queue_prompts|arcVXML2|INF: [8185]VXI::queue_prompts - playing.:pid=14816
+ISP|V|04:21:2023 15:30:39:774|VXML|1300|new235a|14816|1|VXIpromptQueue|arcVXML2|INF: [1297]After setting GV_TTS_Encoding=UTF-8.:pid=14816
+ISP|V|04:21:2023 15:30:39:774|VXML|1300|new235a|14816|1|VXIpromptQueue|arcVXML2|INF: [1368]Queuing TTS: bargein=true, bargeintype=speech, ssml=<?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml' xml:lang='en'>
+			 Please say Atlanta or Chicago
+   		</speak>:pid=14816
+ISP|V|04:21:2023 15:30:39:774|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:17,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:39:774|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:17,pw:0}
+ISP|V|04:21:2023 15:30:39:774|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:39:779|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:39:779|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:17,pw:0}
+ISP|V|04:21:2023 15:30:39:779|SRC|2400|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:273:thd-16326] Received RECOGNITION_MODE:speech
+ISP|V|04:21:2023 15:30:39:779|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:17,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:17,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=1.0, attributeNodeName=version:pid=14816
+ISP|V|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml, attributeNodeName=xml:base:pid=14816
+ISP|V|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=en, attributeNodeName=xml:lang:pid=14816
+ISP|V|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3078]After setting GV_TTS_Language=en:pid=14816
+ISP|V|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=http://www.w3.org/2001/10/synthesis, attributeNodeName=xmlns:pid=14816
+ISP|V|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|SsmlParser::traverseNode|arcVXML2|INF: [2461]NodeValueChar is 
+			 Please say Atlanta or Chicago
+   		.:pid=14816
+ISP|V|04:21:2023 15:30:39:779|VXML|1300|new235a|14816|1|addPromptSegment|arcVXML2|INF: [2340]Added Segment type=0, data=
+			 Please say Atlanta or Chicago
+   		, alt=0, level=2:pid=14816
+ISP|V|04:21:2023 15:30:39:780|VXML|1300|new235a|14816|1|getNextTtsFileName|arcVXML2|INF: [252]CacheDirTts=/tmp/VXML2/arcCache/1/tts:pid=14816
+ISP|D|04:21:2023 15:30:39:780|VXML|1300|new235a|14816|1|VXIpromptQueue|arcVXML2|INF: [1514]Calling TEL_SpeakTTS with NextTtsFile=/tmp/VXML2/arcCache/1/tts/tts_1_1.wav.64p, value=
+			 Please say Atlanta or Chicago
+   		:pid=14816
+ISP|V|04:21:2023 15:30:39:780|VXML|1350|new235a|14816|1|TEL_SpeakTTS|arcVXML2|INF: [12742]Inside TEL_SpeakTTS with syncOption=132:pid=14816
+ISP|V|04:21:2023 15:30:39:780|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24061]got_fifodir=0:pid=14816
+ISP|V|04:21:2023 15:30:39:780|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24069]got_fifodir=0, GV_AppCallNum1=1:pid=14816
+ISP|V|04:21:2023 15:30:39:780|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24074]got_fifodir=0, GV_AppCallNum1=1, ttsClientId=0:pid=14816
+ISP|V|04:21:2023 15:30:39:780|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24081]got_fifodir=1, GV_AppCallNum1=1, ttsClientId=0, fifo_dir=/tmp/tts.fifo.0:pid=14816
+ISP|V|04:21:2023 15:30:39:780|VXML|1300|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24112]Sent 800 bytes to (/tmp/tts.fifo.0). msg={op:1,c#:1,pid:14816,ref:18,sync=132,encoding=UTF-8^data=
+			 Please say Atlanta or Chicago
+   		:pid=14816
+ISP|V|04:21:2023 15:30:40:370|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:115(DMOP_SPEAKMRCPTTS),c#:1,pid:14816,ref:18,pw:0}
+ISP|V|04:21:2023 15:30:40:370|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16351] writing op:115 to mm shared mem.
+ISP|D|04:21:2023 15:30:40:385|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:115(DMOP_SPEAKMRCPTTS),call:1,ref:18,pid:14816
+ISP|V|04:21:2023 15:30:40:385|DYN|1300|new235a|14758|1|addToSpeakList:mrcpTTS|ArcSipMediaMgr|INF: [3217]Set first SpeakList SpeakId to 1360610; resource=(10.0.10.160|12002|12003|101|0|1360610). id=1360610 &gCall[1].pFirstSpeak->msgSpeakTts=2952797764
+ISP|D|04:21:2023 15:30:40:385|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:40:385|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [2311]Calling line(26781) fd(202 / 202), 256 = write(/tmp/ttsResult.1.fifo) op:115,call:1,ref:18,pid:14816,rtc=0,data:18^0 [cs=0]
+ISP|V|04:21:2023 15:30:40:385|VXML|1420|new235a|14816|1|getMRCPResult|arcVXML2|INF: [13839]Received TTS Result port:1,op:115,pid=14816,appRef=18,returnCode=0,message=(18^0).:pid=14816
+ISP|V|04:21:2023 15:30:40:385|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=/tmp/ttsResult.1.fifo.:pid=14816
+ISP|V|04:21:2023 15:30:40:385|VXML|1300|new235a|14816|1|VXIpromptQueue|arcVXML2|INF: [1859]Returning VXIprompt_RESULT_SUCCESS:pid=14816
+ISP|V|04:21:2023 15:30:40:386|VXML|-1|new235a|14816|1|field_element|arcVXML2|INF: [6216]Calling DisableAllGrammars.:pid=14816
+ISP|V|04:21:2023 15:30:40:386|VXML|-1|new235a|14816|1|field_element|arcVXML2|INF: [6232]Field_element: Activating grammars for form(frm1) item(f1):pid=14816
+ISP|V|04:21:2023 15:30:40:386|VXML|-1|new235a|14816|1|DoRecognition|arcVXML2|INF: [7092]DoRecognition.:pid=14816
+ISP|V|04:21:2023 15:30:40:386|VXML|-1|new235a|14816|1|DoRecognition|arcVXML2|INF: [7134]Enabling grammars.:pid=14816
+ISP|V|04:21:2023 15:30:40:386|VXML|1300|new235a|14816|1|VXIrecActivateGrammar|arcVXML2|INF: [1790]Activating grammar (0x2ac978037040):pid=14816
+ISP|V|04:21:2023 15:30:40:386|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [15632]calling sendRequestToSRClient with lMsg.grammarFile=0x2ac978037040.:pid=14816
+ISP|V|04:21:2023 15:30:40:386|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:58,c#:1,pid:14816,ref:19,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:386|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:58,c#:1,pid:14816,ref:19,pw:0}
+ISP|V|04:21:2023 15:30:40:386|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 58 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:388|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 58.
+ISP|V|04:21:2023 15:30:40:388|SRC|3000|new235a|14677|1|srLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:653:thd-16326] Activating Grammar (type=3:0x2ac978037040:) loaded in memory.
+ISP|V|04:21:2023 15:30:40:388|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:502:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:58,c#:1,pid:14816,ref:19,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:389|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [7293]Received 256 bytes. msg={op:58,c#:1,pid:14816,ref:19,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:389|VXML|1300|new235a|14816|1|VXIrecActivateGrammar|arcVXML2|INF: [1790]Activating grammar (0x2ac9780ac290):pid=14816
+ISP|V|04:21:2023 15:30:40:389|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [15632]calling sendRequestToSRClient with lMsg.grammarFile=0x2ac9780ac290.:pid=14816
+ISP|V|04:21:2023 15:30:40:389|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:58,c#:1,pid:14816,ref:20,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:389|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:58,c#:1,pid:14816,ref:20,pw:0}
+ISP|V|04:21:2023 15:30:40:389|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 58 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:399|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 58.
+ISP|V|04:21:2023 15:30:40:399|SRC|3000|new235a|14677|1|srLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:653:thd-16326] Activating Grammar (type=3:0x2ac9780ac290:) loaded in memory.
+ISP|V|04:21:2023 15:30:40:399|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:502:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:58,c#:1,pid:14816,ref:20,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:399|VXML|1300|new235a|14816|1|TEL_SRLoadGrammar|arcVXML2|INF: [7293]Received 256 bytes. msg={op:58,c#:1,pid:14816,ref:20,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:399|VXML|-1|new235a|14816|1|do_recognition|arcVXML2|INF: [7185]Property timeout = 3000, Prompt timeout = -1:pid=14816
+ISP|V|04:21:2023 15:30:40:399|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:21,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:399|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:21,pw:0}
+ISP|V|04:21:2023 15:30:40:399|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:409|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:409|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:21,pw:0}
+ISP|V|04:21:2023 15:30:40:409|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:332:thd-16326] Received HIDE_DTMF:0 (false). Recognition results will be logged.
+ISP|V|04:21:2023 15:30:40:409|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:21,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:409|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:21,pw:0,rc:0,data:}:pid=14816
+ISP|D|04:21:2023 15:30:40:419|VXML|1300|new235a|14816|1|TEL_SetGlobal|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:26,c#:1,pid:14816,ref:22,pw:0,name:($HIDE_DTMF),value:0}:pid=14816
+ISP|V|04:21:2023 15:30:40:421|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:26(DMOP_SETGLOBAL),c#:1,pid:14816,ref:22,pw:0}
+ISP|V|04:21:2023 15:30:40:421|DYN|1300|new235a|14735|1|process_DMOP_SETGLOBAL|ArcIPDynMgr|INF: [15027]process_DMOP_SETGLOBAL [$HIDE_DTMF=0]
+ISP|V|04:21:2023 15:30:40:421|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16912] writing op:26 to mm shared mem.
+ISP|D|04:21:2023 15:30:40:426|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:26(DMOP_SETGLOBAL),call:1,ref:22,pid:14816
+ISP|V|04:21:2023 15:30:40:426|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBAL|ArcSipMediaMgr|INF: [23130]process_DMOP_SETGLOBAL [$HIDE_DTMF=0]
+ISP|D|04:21:2023 15:30:40:427|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:40:427|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBAL|ArcSipMediaMgr|INF: [2547]Calling line(23275) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:26,call:1,ref:22,pid:14816,rtc:0,data: [cs=0]
+ISP|D|04:21:2023 15:30:40:427|VXML|1300|new235a|14816|1|TEL_SetGlobal|arcVXML2|INF: [7293]Received 256 bytes. msg={op:26,c#:1,pid:14816,ref:22,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:427|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:23,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:427|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:23,pw:0}
+ISP|V|04:21:2023 15:30:40:427|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:430|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:430|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:23,pw:0}
+ISP|V|04:21:2023 15:30:40:430|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:332:thd-16326] Received HIDE_DTMF:0 (false). Recognition results will be logged.
+ISP|V|04:21:2023 15:30:40:430|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:23,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:430|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:23,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:430|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2402]VXIrecRecognize REC_LANGUAGE is not set in script:pid=14816
+ISP|V|04:21:2023 15:30:40:430|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2447]REC_RECORDUTTERANCE is not specified:pid=14816
+ISP|V|04:21:2023 15:30:40:430|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2469]REC_RECORDUTTERANCETYPE is not specified:pid=14816
+ISP|V|04:21:2023 15:30:40:430|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2486]arcParallelChannelThreadArgs[1].dtmfTermChar=(:pid=14816
+ISP|V|04:21:2023 15:30:40:430|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2496]termChar is #:pid=14816
+ISP|D|04:21:2023 15:30:40:440|VXML|1300|new235a|14816|1|TEL_SetGlobal|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:26,c#:1,pid:14816,ref:24,pw:0,name:($RECORD_TERM_CHAR),value:35}:pid=14816
+ISP|V|04:21:2023 15:30:40:442|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:26(DMOP_SETGLOBAL),c#:1,pid:14816,ref:24,pw:0}
+ISP|V|04:21:2023 15:30:40:443|DYN|1300|new235a|14735|1|process_DMOP_SETGLOBAL|ArcIPDynMgr|INF: [15027]process_DMOP_SETGLOBAL [$RECORD_TERM_CHAR=35]
+ISP|V|04:21:2023 15:30:40:443|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16912] writing op:26 to mm shared mem.
+ISP|D|04:21:2023 15:30:40:447|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:26(DMOP_SETGLOBAL),call:1,ref:24,pid:14816
+ISP|V|04:21:2023 15:30:40:447|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBAL|ArcSipMediaMgr|INF: [23130]process_DMOP_SETGLOBAL [$RECORD_TERM_CHAR=35]
+ISP|V|04:21:2023 15:30:40:447|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBAL|ArcSipMediaMgr|INF: [23200]After setting GV_RecordTermChar to 35.
+ISP|D|04:21:2023 15:30:40:447|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:40:447|DYN|1300|new235a|14758|1|process_DMOP_SETGLOBAL|ArcSipMediaMgr|INF: [2547]Calling line(23275) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:26,call:1,ref:24,pid:14816,rtc:0,data: [cs=0]
+ISP|D|04:21:2023 15:30:40:447|VXML|1300|new235a|14816|1|TEL_SetGlobal|arcVXML2|INF: [7293]Received 256 bytes. msg={op:26,c#:1,pid:14816,ref:24,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:447|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2503]Sending termChar # to backend:pid=14816
+ISP|V|04:21:2023 15:30:40:447|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:25,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:448|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:25,pw:0}
+ISP|V|04:21:2023 15:30:40:448|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:450|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:450|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:25,pw:0}
+ISP|V|04:21:2023 15:30:40:450|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:322:thd-16326] Received TERM_CHAR:#
+ISP|V|04:21:2023 15:30:40:450|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:25,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:450|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:25,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:450|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2547]arcParallelChannelThreadArgs[1].dtmfInterDigitTimeout=(-1).:pid=14816
+ISP|V|04:21:2023 15:30:40:450|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2600]interdigittimeout=2000 :pid=14816
+ISP|V|04:21:2023 15:30:40:450|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:26,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:450|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:26,pw:0}
+ISP|V|04:21:2023 15:30:40:450|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:460|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:460|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:26,pw:0}
+ISP|V|04:21:2023 15:30:40:460|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:301:thd-16326] Received INTERDIGIT_TIMEOUT:2000
+ISP|V|04:21:2023 15:30:40:460|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:26,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:460|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:26,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:461|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2612]arcParallelChannelThreadArgs[1].sensitivityLevel=-1.000000:pid=14816
+ISP|V|04:21:2023 15:30:40:461|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:27,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:461|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:27,pw:0}
+ISP|V|04:21:2023 15:30:40:461|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:471|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:471|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:27,pw:0}
+ISP|V|04:21:2023 15:30:40:471|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:266:thd-16326] Received SENSITIVITY_LEVEL:0.5
+ISP|V|04:21:2023 15:30:40:471|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:27,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:471|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:27,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:471|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2635]arcParallelChannelThreadArgs[1].confidenceThreshold=(-1).:pid=14816
+ISP|V|04:21:2023 15:30:40:471|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:28,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:471|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:28,pw:0}
+ISP|V|04:21:2023 15:30:40:471|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:481|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:481|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:28,pw:0}
+ISP|V|04:21:2023 15:30:40:481|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:280:thd-16326] Received CONFIDENCE_LEVEL:0.5
+ISP|V|04:21:2023 15:30:40:481|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:28,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:481|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:28,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:481|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2653]arcParallelChannelThreadArgs[1].speedVsAccuracy=(-1).:pid=14816
+ISP|V|04:21:2023 15:30:40:481|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:29,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:481|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:29,pw:0}
+ISP|V|04:21:2023 15:30:40:481|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:491|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:491|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:29,pw:0}
+ISP|V|04:21:2023 15:30:40:491|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:287:thd-16326] Received SPEED_ACCURACY:0.5
+ISP|V|04:21:2023 15:30:40:491|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:29,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:491|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:29,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:491|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2689]Invalid property bargeintype=speech, only hotword is supported.:pid=14816
+ISP|V|04:21:2023 15:30:40:492|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:30,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:492|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:30,pw:0}
+ISP|V|04:21:2023 15:30:40:492|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:501|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:502|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:30,pw:0}
+ISP|V|04:21:2023 15:30:40:502|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:294:thd-16326] Received MAX_N_BEST:1
+ISP|V|04:21:2023 15:30:40:502|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:30,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:502|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:30,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:502|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2708]arcParallelChannelThreadArgs[1].dtmfTermTimeout=(-1).:pid=14816
+ISP|V|04:21:2023 15:30:40:502|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2716]termtimeout=7000 :pid=14816
+ISP|V|04:21:2023 15:30:40:502|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:31,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:502|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:31,pw:0}
+ISP|V|04:21:2023 15:30:40:502|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:512|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:512|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:31,pw:0}
+ISP|V|04:21:2023 15:30:40:512|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:315:thd-16326] Received TERMDIGIT_TIMEOUT:7000
+ISP|V|04:21:2023 15:30:40:512|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:31,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:512|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:31,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:512|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2765]COMPLETE_TIMEOUT=5000 :pid=14816
+ISP|V|04:21:2023 15:30:40:512|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2795]INCOMPLETE_TIMEOUT=3000 :pid=14816
+ISP|V|04:21:2023 15:30:40:512|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2803]Sending INCOMPLETE_TIMEOUT=3000 to backend:pid=14816
+ISP|V|04:21:2023 15:30:40:512|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:32,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:512|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:32,pw:0}
+ISP|V|04:21:2023 15:30:40:512|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:522|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:522|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:32,pw:0}
+ISP|V|04:21:2023 15:30:40:522|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:308:thd-16326] Received INCOMPLETE_TIMEOUT:3000
+ISP|V|04:21:2023 15:30:40:522|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:32,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:522|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:32,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:522|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2835]maxspeechtimeout is not specified taking default maxspeechtimeout=20000:pid=14816
+ISP|d|04:21:2023 15:30:40:522|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2859]yLeadSilence=3000, yTrailSilence=5000, yTotalTime=20000  calling TEL_SRRecognize:pid=14816
+ISP|V|04:21:2023 15:30:40:522|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:33,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:523|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:33,pw:0}
+ISP|V|04:21:2023 15:30:40:523|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:533|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:40:533|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:33,pw:0}
+ISP|V|04:21:2023 15:30:40:533|SRC|3000|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:259:thd-16326] Received SR_LANGUAGE:en-US
+ISP|V|04:21:2023 15:30:40:533|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:33,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:40:533|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:33,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:40:553|VXML|1300|new235a|14816|1|TEL_SRRecognizeV2|arcVXML2|INF: [22035]Google SR is NOT enabled.:pid=14816
+ISP|V|04:21:2023 15:30:40:554|VXML|1300|new235a|14816|1|TEL_SRRecognizeV2|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:59,c#:1,pid:14816,ref:34,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:40:554|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:59,c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:40:554|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 59 to request queue for port 1.
+ISP|V|04:21:2023 15:30:40:563|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 59.
+ISP|V|04:21:2023 15:30:40:563|SRC|3000|new235a|14677|-1|processSrRecognizeV2|mrcpClient2|INF: [mrcpThread.cpp:526:thd-16326] {op:59,c#:1,pid:14816,ref:34,pw:0,party:72,bargein:103,total_time:20000,lead:3000,trail:5000,beep:(),intr:0,token:606630501,numAlt:1281315411,res()}
+ISP|V|04:21:2023 15:30:40:563|SRC|3000|new235a|14677|1|processSrRecognizeV2|mrcpClient2|INF: [mrcpThread.cpp:567:thd-16326] Calling SRRecognizeV2...
+ISP|V|04:21:2023 15:30:40:564|SRC|3000|new235a|14677|1|setTelSRInitCalled|mrcpClient2|INF: [SRPort.cpp:543:thd-16326] Set isRecognitionARecord to 0 [true=1, false=0].
+ISP|V|04:21:2023 15:30:40:564|SRC|3000|new235a|14677|1|writeData|mrcpClient2|INF: [SRCommon.cpp:1661:thd-16326] Wrote (MRCP/2.0 537 RECOGNIZE 1
+Channel-Identifier:507074@speechrecog
+Content-Type:text/uri-list
+Start-Input-Timers:false
+No-Input-Timeout:3000
+Recognition-Timeout:20000
+Speech-Complete-Timeout:5000
+Speech-Incomplete-Timeout:3000
+DTMF-Term-Timeout:7000
+DTMF-Term-Char:#
+DTMF-Interdigit-Timeout:2000
+Cancel-If-Queue:false
+speech-language:en-US
+Sensitivity-Level:0.5
+Recognition-Mode:speech
+Confidence-Threshold:0.5
+Speed-Vs-Accuracy:0.5
+n-best-list-length:1
+C
+ISP|V|04:21:2023 15:30:40:568|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1037:thd-16326] Read 72 bytes:(MRCP/2.0 72 1 200 IN-PROGRESS
+Channel-Identifier:507074@speechrecog
+
+)
+ISP|V|04:21:2023 15:30:40:568|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1155:thd-16326] Response parsed: requestId(1) statusCode:(200) RequestState:(IN-PROGRESS)
+ISP|V|04:21:2023 15:30:40:568|SRC|3000|new235a|14677|1|SRRecognizeV2|mrcpClient2|INF: [SRRecognizeV2.cpp:341:thd-16326] 0 = processMRCPRequest()
+ISP|V|04:21:2023 15:30:40:568|SRC|3000|new235a|14677|1|SRRecognizeV2|mrcpClient2|INF: [SRRecognizeV2.cpp:379:thd-16326] Recogition successfully initiated with the MRCP Server.  callAcitve()=1  IsDisconnectReceived()=0 IsStopProcessingRecognition()=0
+ISP|V|04:21:2023 15:30:40:569|SRC|3000|new235a|14677|1|sendSRRecognizeToDM|mrcpClient2|INF: [mrcpThread.cpp:1346:thd-16326] ARCGS: This is NOT a Google Grammar.
+ISP|V|04:21:2023 15:30:40:569|SRC|3000|new235a|14677|1|sendSRRecognizeToDM|mrcpClient2|INF: [SRCommon.cpp:1801:thd-16326] Sent 256 bytes to dynmgr fifo. msg={op:100,c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:40:569|SRC|3000|new235a|14677|1|SRRecognizeV2|mrcpClient2|INF: [SRRecognizeV2.cpp:427:thd-16326] Entering Loop.
+ISP|V|04:21:2023 15:30:40:574|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:100(DMOP_SRRECOGNIZEFROMCLIENT),c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:40:575|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16992] writing op:100 to mm shared mem.
+ISP|D|04:21:2023 15:30:40:588|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:100(DMOP_SRRECOGNIZEFROMCLIENT),call:1,ref:34,pid:14816
+ISP|V|04:21:2023 15:30:40:588|DYN|1300|new235a|14758|1|process_DMOP_SRRECOGNIZEFROMCLIENT|ArcSipMediaMgr|INF: [24616]MRCP::Setting yPayloadType to 101.
+ISP|V|04:21:2023 15:30:40:588|DYN|1300|new235a|14758|1|process_DMOP_SRRECOGNIZEFROMCLIENT|ArcSipMediaMgr|INF: [24704]MRCP::Setting yPayloadType to 101.
+ISP|V|04:21:2023 15:30:40:588|DYN|1300|new235a|14758|1|process_DMOP_SRRECOGNIZEFROMCLIENT|ArcSipMediaMgr|INF: [24712]lastRecUtteranceFile=().
+ISP|V|04:21:2023 15:30:40:588|DYN|1300|new235a|14758|1|process_DMOP_SRRECOGNIZEFROMCLIENT|ArcSipMediaMgr|INF: [24767]Setting pendingInputRequests to 1.
+ISP|V|04:21:2023 15:30:40:589|DYN|1300|new235a|14758|1|process_DMOP_SRRECOGNIZEFROMCLIENT|ArcSipMediaMgr|INF: [24784]ARCGS: NOT Calling sendRequestToGoogleSRFifo
+ISP|V|04:21:2023 15:30:40:592|DYN|1300|new235a|14758|1|inputThread|ArcSipMediaMgr|INF: [14102]PendingInputRequests=1; setting action to ACTION_CONTINUE.
+ISP|V|04:21:2023 15:30:40:593|DYN|1300|new235a|14758|1|inputThread|ArcSipMediaMgr|INF: [14726]PendingInputRequests=1; actionId=(ACTION_CONTINUE:2); opcode=100;  DMOP_SRRECOGNIZEFROMCLIENT=100.
+ISP|V|04:21:2023 15:30:40:593|DYN|1300|new235a|14758|1|recordFile_X|ArcSipMediaMgr|INF: [7435][14750] Speak list is not empty, playing list; interruptOption = 28.
+ISP|V|04:21:2023 15:30:40:593|DYN|1300|new235a|14758|-1|printSpeakList|ArcSipMediaMgr|INF: [14989]count = 1, zpList->msgSpeak.file=/tmp/VXML2/arcCache/1/tts/tts_1_1.wav.64p, zpList->msgSpeak.appRef=18, opcode=115 interruptOption=28
+ISP|V|04:21:2023 15:30:40:593|DYN|1300|new235a|14758|1|addToSpeakList|ArcSipMediaMgr|INF: [3155][from 7464] added to speakList, [0x9499128]
+ISP|V|04:21:2023 15:30:40:604|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9445][15098] pendingOutputRequests > 0.
+ISP|V|04:21:2023 15:30:40:604|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9626][15098] Returning from speakFile_X.
+ISP|V|04:21:2023 15:30:40:604|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15100]Returned from speakFile_X(). rc=4 ACTION_GET_NEXT_REQUEST=4
+ISP|V|04:21:2023 15:30:40:614|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15176]PLAY START
+ISP|V|04:21:2023 15:30:40:614|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3644]Copying speakList pFirstSpeak=0x2952796944
+ISP|V|04:21:2023 15:30:40:614|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=0, pTemp->isMTtsPresent=1, pTemp->msgMTtsSpeakId=1360610
+ISP|V|04:21:2023 15:30:40:614|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=1, pTemp->isMTtsPresent=0, pTemp->msgMTtsSpeakId=0
+ISP|V|04:21:2023 15:30:40:614|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15197]pFirstSpeak - just copied to pSpeakList=0x3087009984
+ISP|V|04:21:2023 15:30:40:614|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3644]Copying speakList pFirstSpeak=0x2952796944
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=0, pTemp->isMTtsPresent=1, pTemp->msgMTtsSpeakId=1360610
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=1, pTemp->isMTtsPresent=0, pTemp->msgMTtsSpeakId=0
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15704]Calling speakFile_X(); appRef=18, audioFileName=/tmp/VXML2/arcCache/1/tts/tts_1_1.wav.64p, size=-1, opcode=115, interruptOption=28.
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9644][15716] gCall[1].currentOpcode=115.
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|WRN: [29414]Processing  DMOP_SPEAKMRCPTTS:(115).  mrcpServer(10.0.10.160) mrcpRtpPort(12002) mrcpRtcpPort(12003) yPayloadType(101) yCodecType(0) speakId(1360610) deleteFile(10953).
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|sendMsgToTTSClient|ArcSipMediaMgr|INF: [1853]ttsFd = -1
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|openTTSClientRequestFifo|ArcSipMediaMgr|INF: [1924]Successfully opened ttsClient fifo (/tmp/tts.fifo.0).  fd=201
+ISP|V|04:21:2023 15:30:40:615|DYN|1300|new235a|14758|1|sendMsgToTTSClient|ArcSipMediaMgr|INF: [1877]Sent 800 bytes to ttsClient. fd=201 msg={op:116,c#:1,pid:14816,ref:34,sync=0,1360610}
+ISP|N|04:21:2023 15:30:41:443|RES|3119|new235a|14658|-1|check_kill_app|ArcIPResp|arcRTRClient has stopped. pid=15612. Restarting.
+ISP|D|04:21:2023 15:30:41:443|RES|3148|new235a|14658|-1|StartUpRTRClient|ArcIPResp|arcRTRClient started. pid=16376.
+ISP|V|04:21:2023 15:30:43:119|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:118(DMOP_TTS_COMPLETE_SUCCESS),c#:1,pid:14816,ref:18,pw:0}
+ISP|V|04:21:2023 15:30:43:119|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16351] writing op:118 to mm shared mem.
+ISP|D|04:21:2023 15:30:43:138|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:118(DMOP_TTS_COMPLETE_SUCCESS),call:1,ref:18,pid:14816
+ISP|V|04:21:2023 15:30:43:138|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26930]Received 118: Set gCall[1].finishTTSSpeakAndExit to 1.
+ISP|V|04:21:2023 15:30:43:143|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:163|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:184|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:204|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:224|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:243|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:263|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:284|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:304|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:324|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:43:344|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29728]finishTTSSpeakAndExit == 1, recieved packet of size 0 ttsZeroSizeCount=1.
+ISP|V|04:21:2023 15:30:43:363|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29728]finishTTSSpeakAndExit == 1, recieved packet of size 0 ttsZeroSizeCount=2.
+ISP|V|04:21:2023 15:30:43:383|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29722]finishTTSSpeakAndExit == 1, recieved packet of size 0 getting next tts.
+ISP|V|04:21:2023 15:30:43:383|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29728]finishTTSSpeakAndExit == 1, recieved packet of size 0 ttsZeroSizeCount=3.
+ISP|V|04:21:2023 15:30:43:403|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9920][15716] zFileName=(), setting isBeepActive to 0.
+ISP|D|04:21:2023 15:30:43:403|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [10241][15716] Returning from speakFile_X().
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15730]Returned from speakFile_X().
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15817]pSpeakList->msgPlayMedia.audioLooping=0, pSpeakList->audioLooping=0.
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15704]Calling speakFile_X(); appRef=34, audioFileName=, size=-1, opcode=1, interruptOption=0.
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9644][15724] gCall[1].currentOpcode=115.
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|sendMsgToSRClient|ArcSipMediaMgr|INF: [1838]From [9741]: Wrote op:101 to mrcpClient2.
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9773][15724] Returning from speakFile_X.
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15730]Returned from speakFile_X().
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15817]pSpeakList->msgPlayMedia.audioLooping=0, pSpeakList->audioLooping=0.
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15847]Setting isBeepActive to 0.
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15850]PLAY END
+ISP|V|04:21:2023 15:30:43:404|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15891]googleStreamingSR:0, googleBarginDidOccur:0, googleRecordIsActive:0
+ISP|V|04:21:2023 15:30:43:404|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:101,c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:43:404|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:471:thd-14728] Received opCode DMOP_SRPROMPTEND(101) request.  No longer playing phrases.
+ISP|V|04:21:2023 15:30:43:404|SRC|3000|new235a|14677|1|writeData|mrcpClient2|INF: [SRCommon.cpp:1661:thd-16326] Wrote (MRCP/2.0 75 START-INPUT-TIMERS 2
+Channel-Identifier:507074@speechrecog
+
+) to socket fd 14: 75 bytes.
+ISP|V|04:21:2023 15:30:43:406|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1037:thd-16326] Read 99 bytes:(MRCP/2.0 99 2 200 COMPLETE
+Channel-Identifier:507074@speechrecog
+Completion-Cause:000 success
+
+)
+ISP|V|04:21:2023 15:30:43:407|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1155:thd-16326] Response parsed: requestId(2) statusCode:(200) RequestState:(COMPLETE)
+ISP|V|04:21:2023 15:30:43:407|SRC|3000|new235a|14677|1|sStartTheMrcpServerTimers|mrcpClient2|INF: [SRRecognizeV2.cpp:2035:thd-16326] MRCP response: rc=0; completionCode=0; statusCode=200; serverState=COMPLETE.
+ISP|V|04:21:2023 15:30:43:407|SRC|3000|new235a|14677|1|SRRecognizeV2|mrcpClient2|INF: [SRRecognizeV2.cpp:516:thd-16326] Continuing after starting timers.
+ISP|V|04:21:2023 15:30:43:414|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:43:414|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9205][15098] Opening silenceFile (silence.wav).
+ISP|V|04:21:2023 15:30:44:053|RES|3560|new235a|14658|-1|main|ArcIPResp|[677] Last OCS port used 0.  tran_proc_num=48
+ISP|V|04:21:2023 15:30:44:472|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1037:thd-16326] Read 103 bytes:(MRCP/2.0 103 START-OF-INPUT 1 IN-PROGRESS
+Channel-Identifier:507074@speechrecog
+Input-Type:speech
+
+)
+ISP|d|04:21:2023 15:30:44:472|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1178:thd-16326] received event(START-OF-INPUT).
+ISP|V|04:21:2023 15:30:44:472|SRC|3000|new235a|14677|1|sCheckForMrcpEvent|mrcpClient2|INF: [SRRecognizeV2.cpp:2072:thd-16326] MRCP event response: rc=1; eventName=(START-OF-INPUT), completionCause=0; statusCode=-1; serverState=(IN-PROGRESS).
+ISP|V|04:21:2023 15:30:44:472|SRC|3000|new235a|14677|1|sendSpeechDetected|mrcpClient2|INF: [SRCommon.cpp:1801:thd-16326] Sent 256 bytes to dynmgr fifo. msg={op:104,c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:44:473|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:104(DMOP_SPEECHDETECTED),c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:44:473|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16983] writing op:104 to mm shared mem.
+ISP|D|04:21:2023 15:30:44:484|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:104(DMOP_SPEECHDETECTED),call:1,ref:34,pid:14816
+ISP|V|04:21:2023 15:30:44:484|DYN|1300|new235a|14758|1|process_DMOP_SPEECHDETECTED|ArcSipMediaMgr|INF: [24084]Got process_DMOP_SPEECHDETECTED setting utteranceTime2(1682105444), milliSecs=0.
+ISP|V|04:21:2023 15:30:47:677|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1037:thd-16326] Read 402 bytes:(MRCP/2.0 402 RECOGNITION-COMPLETE 1 COMPLETE
+Channel-Identifier:507074@speechrecog
+Completion-Cause:000 success
+Content-Type:application/nlsml+xml
+Content-Length:229
+
+<?xml version="1.0" ?><result  grammar="session:0x2ac978037040" ><interpretation  grammar="session:0x2ac978037040"  confidence="0.7079602"><input mode="speech">Chicago</input><instance>Chicago</instance></interpretation></result>)
+ISP|d|04:21:2023 15:30:47:677|SRC|3000|new235a|14677|1|readMrcpSocket|mrcpClient2|INF: [SRCommon.cpp:1178:thd-16326] received event(RECOGNITION-COMPLETE).
+ISP|V|04:21:2023 15:30:47:677|SRC|3000|new235a|14677|1|sCheckForMrcpEvent|mrcpClient2|INF: [SRRecognizeV2.cpp:2072:thd-16326] MRCP event response: rc=1; eventName=(RECOGNITION-COMPLETE), completionCause=0; statusCode=-1; serverState=(COMPLETE).
+ISP|V|04:21:2023 15:30:47:677|SRC|3000|new235a|14677|1|stopCollectingSpeech|mrcpClient2|INF: [SRCommon.cpp:1801:thd-16326] Sent 256 bytes to dynmgr fifo. msg={op:3,c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:47:677|SRC|3000|new235a|14677|1|SRRecognizeV2|mrcpClient2|INF: [SRRecognizeV2.cpp:566:thd-16326] Out of Loop.
+ISP|V|04:21:2023 15:30:47:677|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:875:thd-16326] Recognition successfully received results. (<?xml version="1.0" ?><result  grammar="session:0x2ac978037040" ><interpretation  grammar="session:0x2ac978037040"  confidence="0.7079602"><input mode="speech">Chicago</input><instance>Chicago</instance></interpretation></result>)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:903:thd-16326] Completed loading results.
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:915:thd-16326] result:confidence:(70)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:918:thd-16326] result:numInstanceChildren:(0)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:922:thd-16326] result:resultGrammar:(0x2ac978037040)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:925:thd-16326] result:inputMode:(speech)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:928:thd-16326] result:literalTimings:()
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:934:thd-16326] result:inputValue:(Chicago)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:937:thd-16326] result:instance:(Chicago)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:940:thd-16326] result:numResults:(1)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|sLoadAllResults|mrcpClient2|INF: [SRRecognizeV2.cpp:957:thd-16326] result:xmlResult:(<?xml version="1.0" ?><result  grammar="session:0x2ac978037040" ><interpretation  grammar="session:0x2ac978037040"  confidence="0.7079602"><input mode="speech">Chicago</input><instance>Chicago</instance></interpretation></result>)
+ISP|V|04:21:2023 15:30:47:680|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:701:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:59,c#:1,pid:14816,ref:34,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:47:680|VXML|1300|new235a|14816|1|TEL_SRRecognizeV2|arcVXML2|INF: [7293]Received 256 bytes. msg={op:59,c#:1,pid:14816,ref:34,pw:0,rc:0,data:1^}:pid=14816
+ISP|V|04:21:2023 15:30:47:680|VXML|1300|new235a|14816|1|TEL_SRRecognizeV2|arcVXML2|INF: [22072]resourceNames=, response.message=1^:pid=14816
+ISP|V|04:21:2023 15:30:47:680|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [2887]TEL_SRRecognizeV2() returned 0; resourceNames=:pid=14816
+ISP|V|04:21:2023 15:30:47:682|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:3(STOP_ACTIVITY),c#:1,pid:14816,ref:34,pw:0}
+ISP|V|04:21:2023 15:30:47:682|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16471] writing op:3 to mm shared mem.
+ISP|D|04:21:2023 15:30:47:690|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:18,c#:1,pid:14816,ref:35,pw:0,opr:3,port:1}:pid=14816
+ISP|V|04:21:2023 15:30:47:693|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:18(DMOP_PORTOPEATION),c#:1,pid:14816,ref:35,pw:0}
+ISP|V|04:21:2023 15:30:47:693|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16975] writing op:18 to mm shared mem.
+ISP|D|04:21:2023 15:30:47:696|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:3(STOP_ACTIVITY),call:1,ref:34,pid:14816
+ISP|V|04:21:2023 15:30:47:696|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26861]Setting pendingInputRequests to 1.
+ISP|V|04:21:2023 15:30:47:697|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26868]Calling clearPlayList.
+ISP|V|04:21:2023 15:30:47:697|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26879]pendingOutputRequests=1
+ISP|D|04:21:2023 15:30:47:697|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:18(DMOP_PORTOPERATION),call:1,ref:35,pid:14816
+ISP|V|04:21:2023 15:30:47:697|DYN|1300|new235a|14758|1|process_DMOP_PORTOPERATION|ArcSipMediaMgr|INF: [22967]Got STOP_ACTIVITY, sendingSilencePackets=1, pendingOutputRequests=1.
+ISP|D|04:21:2023 15:30:47:697|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:47:697|DYN|1300|new235a|14758|1|process_DMOP_PORTOPERATION|ArcSipMediaMgr|INF: [2547]Calling line(23060) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:18,call:1,ref:35,pid:14816,rtc:0,data:0 [cs=0]
+ISP|D|04:21:2023 15:30:47:697|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7293]Received 256 bytes. msg={op:18,c#:1,pid:14816,ref:35,pw:0,rc:0,data:0}:pid=14816
+ISP|V|04:21:2023 15:30:47:697|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [3201]yRecUtteranceFile is .:pid=14816
+ISP|V|04:21:2023 15:30:47:697|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammars|arcVXML2|INF: [15914]Unloading all grammars.:pid=14816
+ISP|V|04:21:2023 15:30:47:697|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammars|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:63,c#:1,pid:14816,ref:36,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:47:697|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:63,c#:1,pid:14816,ref:36,pw:0}
+ISP|V|04:21:2023 15:30:47:697|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 63 to request queue for port 1.
+ISP|V|04:21:2023 15:30:47:700|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 63.
+ISP|V|04:21:2023 15:30:47:700|SRC|3000|new235a|14677|-1|processSrUnloadGrammars|mrcpClient2|INF: [mrcpThread.cpp:785:thd-16326] {op:63,c#:1,pid:14816,ref:36,pw:0}
+ISP|V|04:21:2023 15:30:47:700|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:809:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:63,c#:1,pid:14816,ref:36,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:47:700|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammars|arcVXML2|INF: [7293]Received 256 bytes. msg={op:63,c#:1,pid:14816,ref:36,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:47:700|VXML|1300|new235a|14816|1|TEL_SRGetXMLResult|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:64,c#:1,pid:14816,ref:37,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:47:701|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:64,c#:1,pid:14816,ref:37,pw:0}
+ISP|V|04:21:2023 15:30:47:701|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 64 to request queue for port 1.
+ISP|V|04:21:2023 15:30:47:704|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9445][15098] pendingOutputRequests > 0.
+ISP|V|04:21:2023 15:30:47:704|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9626][15098] Returning from speakFile_X.
+ISP|V|04:21:2023 15:30:47:704|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15100]Returned from speakFile_X(). rc=4 ACTION_GET_NEXT_REQUEST=4
+ISP|V|04:21:2023 15:30:47:710|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 64.
+ISP|V|04:21:2023 15:30:47:710|SRC|3000|new235a|14677|-1|processSrGetXMLResult|mrcpClient2|INF: [mrcpThread.cpp:876:thd-16326] Processing {op:64,c#:1,pid:14816,ref:37,pw:0,filename:(/tmp/VXML2/arcCache/1/xmlResults/xml_1_1.xml)}
+ISP|V|04:21:2023 15:30:47:711|SRC|3000|new235a|14677|1|SRGetXMLResult|mrcpClient2|INF: [SRGetXMLResult.cpp:139:thd-16326] Successfully wrote 229 bytes (<?xml version="1.0" ?><result  grammar="session:0x2ac978037040" ><interpretation  grammar="session:0x2ac978037040"  confidence="0.7079602"><input mode="speech">Chicago</input><instance>Chicago</instance></interpretation></result>) to /tmp/VXML2/arcCache/1/xmlResults/xml_1_1.xml.
+ISP|V|04:21:2023 15:30:47:711|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:899:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:64,c#:1,pid:14816,ref:37,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:47:711|VXML|1300|new235a|14816|1|TEL_SRGetXMLResult|arcVXML2|INF: [7293]Received 256 bytes. msg={op:64,c#:1,pid:14816,ref:37,pw:0,rc:0,data:ÐzÚö5+}:pid=14816
+ISP|V|04:21:2023 15:30:47:711|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammars|arcVXML2|INF: [15914]Unloading all grammars.:pid=14816
+ISP|V|04:21:2023 15:30:47:711|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammars|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:63,c#:1,pid:14816,ref:38,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:47:711|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:63,c#:1,pid:14816,ref:38,pw:0}
+ISP|V|04:21:2023 15:30:47:711|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 63 to request queue for port 1.
+ISP|V|04:21:2023 15:30:47:713|DYN|1300|new235a|14758|1|inputThread|ArcSipMediaMgr|INF: [14102]PendingInputRequests=1; setting action to ACTION_CONTINUE.
+ISP|V|04:21:2023 15:30:47:713|DYN|1300|new235a|14758|1|inputThread|ArcSipMediaMgr|INF: [14726]PendingInputRequests=1; actionId=(ACTION_CONTINUE:2); opcode=18;  DMOP_SRRECOGNIZEFROMCLIENT=100.
+ISP|V|04:21:2023 15:30:47:713|DYN|1300|new235a|14758|1|recordFile_X|ArcSipMediaMgr|INF: [7155][14837] Setting streamStarted to 1.
+ISP|V|04:21:2023 15:30:47:721|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 63.
+ISP|V|04:21:2023 15:30:47:721|SRC|3000|new235a|14677|-1|processSrUnloadGrammars|mrcpClient2|INF: [mrcpThread.cpp:785:thd-16326] {op:63,c#:1,pid:14816,ref:38,pw:0}
+ISP|V|04:21:2023 15:30:47:721|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:809:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:63,c#:1,pid:14816,ref:38,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:47:721|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammars|arcVXML2|INF: [7293]Received 256 bytes. msg={op:63,c#:1,pid:14816,ref:38,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:47:721|VXML|1300|new235a|14816|1|checkGoogleResult|arcVXML2|INF: [2070]MS recognition: returning googleresult(len=229:<?xml version="1.0" ?><result  grammar="session:0x2ac978037040" ><interpretation  grammar="session:0x2ac978037040"  confidence="0.7079602"><input mode="speech">Chicago</input><instance>Chicago</instance></interpretation></result>) :pid=14816
+ISP|V|04:21:2023 15:30:47:721|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [3442]Grammar Result File(/tmp/VXML2/arcCache/1/xmlResults/xml_1_1.xml) :pid=14816
+ISP|V|04:21:2023 15:30:47:721|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [3488]nlsmlresult.length() = 229 :pid=14816
+ISP|V|04:21:2023 15:30:47:721|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [3494]ARCGSR: inserting google result <<?xml version="1.0" ?><result  grammar="session:0x2ac978037040" ><interpretation  grammar="session:0x2ac978037040"  confidence="0.7079602"><input mode="speech">Chicago</input><instance>Chicago</instance></interpretation></result>> of len(229) into mrcp result.:pid=14816
+ISP|V|04:21:2023 15:30:47:721|VXML|1300|new235a|14816|1|VXIrecRecognize|arcVXML2|INF: [3511]ARCGSR: yGoogleRc > 0 but MRCP result did not have expected <input>...</input> result.:pid=14816
+ISP|V|04:21:2023 15:30:47:722|VXML|-1|new235a|14816|1|do_recognition|arcVXML2|INF: [7226]Processing Recognition Result.:pid=14816
+ISP|D|04:21:2023 15:30:47:722|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7285]ProcessRecognitionResult universalGrammars=2:pid=14816
+ISP|V|04:21:2023 15:30:47:722|VXML|1300|new235a|14816|1|VXIrecGetMatchedGrammar|arcVXML2|INF: [3619]Grammar Name Is (0x2ac978037040):pid=14816
+ISP|V|04:21:2023 15:30:47:722|VXML|1300|new235a|14816|1|VXIrecGetMatchedGrammar|arcVXML2|INF: [3651]Found matching grammar, returning VXIrec_RESULT_SUCCESS:pid=14816
+ISP|V|04:21:2023 15:30:47:722|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7382]Resetting the timeout value to -1 on success.:pid=14816
+ISP|V|04:21:2023 15:30:47:722|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7444]ProcessRecognitionResult - no utterance.:pid=14816
+ISP|V|04:21:2023 15:30:47:722|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7447]ProcessRecognitionResult - setting recording to undefined.:pid=14816
+ISP|V|04:21:2023 15:30:47:722|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7450]ProcessRecognitionResult - setting recordingsize to undefined.:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7453]ProcessRecognitionResult - setting recordingduration to undefined.:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7484]ProcessRecognitionResult - setting markname to undefined.:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7531]ProcessRecognitionResult - setting utterance:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7536]ProcessRecognitionResult - setting confidence:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7540]ProcessRecognitionResult - setting inputmode:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7544]ProcessRecognitionResult - setting interpretation:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|ProcessRecognitionResult|arcVXML2|INF: [7571]ProcessRecognitionResult - have an answer.:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|RunInnerLoop|arcVXML2|INF: [2530]disablePromptsOnce was false, changing playingPrompts to true.:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|HandleRemoteMatch|arcVXML2|INF: [7750]HandleRemoteMatch:pid=14816
+ISP|V|04:21:2023 15:30:47:723|VXML|-1|new235a|14816|1|HandleRemoteMatch|arcVXML2|INF: [7777]HandleRemoteMatch - non-mixed initiative, processing (f1).:pid=14816
+ISP|D|04:21:2023 15:30:47:724|VXML|-1|new235a|14816|1|SetFieldRecordUtterance|arcVXML2|INF: [7682]Setting value of f1:pid=14816
+ISP|D|04:21:2023 15:30:47:724|VXML|-1|new235a|14816|1|SetFieldMark|arcVXML2|INF: [7725]SetFieldMark for (f1):pid=14816
+ISP|V|04:21:2023 15:30:47:724|VXML|-1|new235a|14816|1|ProcessFilledElements|arcVXML2|INF: [7942]ProcessFilledElements - start.:pid=14816
+ISP|D|04:21:2023 15:30:47:724|VXML|-1|new235a|14816|1|execute_content|arcVXML2|INF: [3418]execute_content.:pid=14816
+ISP|V|04:21:2023 15:30:47:724|VXML|-1|new235a|14816|1|executable_prompt|arcVXML2|INF: [8218]VXI::executable_prompt - playing.:pid=14816
+ISP|V|04:21:2023 15:30:47:724|VXML|1300|new235a|14816|1|VXIpromptQueue|arcVXML2|INF: [1368]Queuing TTS: bargein=true, bargeintype=speech, ssml=<?xml version='1.0' encoding='UTF-8' ?><speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:base='/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml' xml:lang='en'>
+			  	You said 
+				Chicago</speak>:pid=14816
+ISP|V|04:21:2023 15:30:47:724|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:62,c#:1,pid:14816,ref:39,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:47:724|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:47:724|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9205][15098] Opening silenceFile (silence.wav).
+ISP|V|04:21:2023 15:30:47:724|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:62,c#:1,pid:14816,ref:39,pw:0}
+ISP|V|04:21:2023 15:30:47:724|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 62 to request queue for port 1.
+ISP|V|04:21:2023 15:30:47:731|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 62.
+ISP|V|04:21:2023 15:30:47:731|SRC|3000|new235a|14677|1|processSrSetParameter|mrcpClient2|INF: [mrcpThread.cpp:1123:thd-16326] processing {op:62,c#:1,pid:14816,ref:39,pw:0}
+ISP|V|04:21:2023 15:30:47:731|SRC|2400|new235a|14677|1|SRSetParameter|mrcpClient2|INF: [SRSetParameter.cpp:273:thd-16326] Received RECOGNITION_MODE:speech
+ISP|V|04:21:2023 15:30:47:731|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1157:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:62,c#:1,pid:14816,ref:39,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:47:731|VXML|1300|new235a|14816|1|TEL_SRSetParameter|arcVXML2|INF: [7293]Received 256 bytes. msg={op:62,c#:1,pid:14816,ref:39,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=1.0, attributeNodeName=version:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=/home/arc/.ISP/Telecom/Exec/vxi/recognizeMS.vxml, attributeNodeName=xml:base:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=en, attributeNodeName=xml:lang:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3078]After setting GV_TTS_Language=en:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|SsmlParser::executeSpeakTag|arcVXML2|INF: [3032]attributeNodeValue=http://www.w3.org/2001/10/synthesis, attributeNodeName=xmlns:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|SsmlParser::traverseNode|arcVXML2|INF: [2461]NodeValueChar is 
+			  	You said 
+				Chicago.:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|addPromptSegment|arcVXML2|INF: [2340]Added Segment type=0, data=
+			  	You said 
+				Chicago, alt=0, level=2:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|getNextTtsFileName|arcVXML2|INF: [252]CacheDirTts=/tmp/VXML2/arcCache/1/tts:pid=14816
+ISP|D|04:21:2023 15:30:47:732|VXML|1300|new235a|14816|1|VXIpromptQueue|arcVXML2|INF: [1514]Calling TEL_SpeakTTS with NextTtsFile=/tmp/VXML2/arcCache/1/tts/tts_1_2.wav.64p, value=
+			  	You said 
+				Chicago:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1350|new235a|14816|1|TEL_SpeakTTS|arcVXML2|INF: [12742]Inside TEL_SpeakTTS with syncOption=132:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24061]got_fifodir=0:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24069]got_fifodir=0, GV_AppCallNum1=1:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24074]got_fifodir=0, GV_AppCallNum1=1, ttsClientId=0:pid=14816
+ISP|V|04:21:2023 15:30:47:732|VXML|1350|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24081]got_fifodir=1, GV_AppCallNum1=1, ttsClientId=0, fifo_dir=/tmp/tts.fifo.0:pid=14816
+ISP|V|04:21:2023 15:30:47:733|VXML|1300|new235a|14816|1|sendRequestToTTSClient|arcVXML2|INF: [24112]Sent 800 bytes to (/tmp/tts.fifo.0). msg={op:1,c#:1,pid:14816,ref:40,sync=132,encoding=UTF-8^data=
+			  	You said 
+				Chicago:pid=14816
+ISP|V|04:21:2023 15:30:47:735|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:115(DMOP_SPEAKMRCPTTS),c#:1,pid:14816,ref:40,pw:0}
+ISP|V|04:21:2023 15:30:47:735|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16351] writing op:115 to mm shared mem.
+ISP|D|04:21:2023 15:30:47:738|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:115(DMOP_SPEAKMRCPTTS),call:1,ref:40,pid:14816
+ISP|V|04:21:2023 15:30:47:738|DYN|1300|new235a|14758|1|addToSpeakList:mrcpTTS|ArcSipMediaMgr|INF: [3217]Set first SpeakList SpeakId to 1734986; resource=(10.0.10.160|12002|12003|101|0|1734986). id=1734986 &gCall[1].pFirstSpeak->msgSpeakTts=2952800820
+ISP|D|04:21:2023 15:30:47:738|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:47:738|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [2311]Calling line(26781) fd(207 / 207), 256 = write(/tmp/ttsResult.1.fifo) op:115,call:1,ref:40,pid:14816,rtc=0,data:40^0 [cs=0]
+ISP|V|04:21:2023 15:30:47:738|VXML|1420|new235a|14816|1|getMRCPResult|arcVXML2|INF: [13839]Received TTS Result port:1,op:115,pid=14816,appRef=40,returnCode=0,message=(40^0).:pid=14816
+ISP|V|04:21:2023 15:30:47:738|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=/tmp/ttsResult.1.fifo.:pid=14816
+ISP|V|04:21:2023 15:30:47:738|VXML|1300|new235a|14816|1|VXIpromptQueue|arcVXML2|INF: [1859]Returning VXIprompt_RESULT_SUCCESS:pid=14816
+ISP|D|04:21:2023 15:30:47:738|VXML|-1|new235a|14816|1|execute_content|arcVXML2|INF: [3464]Returned from executable_element.:pid=14816
+ISP|D|04:21:2023 15:30:47:738|VXML|-1|new235a|14816|1|execute_content|arcVXML2|INF: [3464]Returned from executable_element.:pid=14816
+ISP|D|04:21:2023 15:30:47:738|VXML|-1|new235a|14816|1|exit_element|arcVXML2|INF: [4143]exit_element.:pid=14816
+ISP|V|04:21:2023 15:30:47:739|VXML|-1|new235a|14816|1|exit_element|arcVXML2|INF: [4190]Calling CheckLineStatus.:pid=14816
+ISP|V|04:21:2023 15:30:47:739|VXML|-1|new235a|14816|1|exit_element|arcVXML2|INF: [4195]Calling playAll.:pid=14816
+ISP|V|04:21:2023 15:30:47:739|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [600]Playing queued prompts:pid=14816
+ISP|D|04:21:2023 15:30:47:749|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:18,c#:1,pid:14816,ref:41,pw:0,opr:5,port:1}:pid=14816
+ISP|V|04:21:2023 15:30:47:756|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:18(DMOP_PORTOPEATION),c#:1,pid:14816,ref:41,pw:0}
+ISP|V|04:21:2023 15:30:47:756|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16975] writing op:18 to mm shared mem.
+ISP|D|04:21:2023 15:30:47:759|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:18(DMOP_PORTOPERATION),call:1,ref:41,pid:14816
+ISP|V|04:21:2023 15:30:47:759|DYN|1300|new235a|14758|1|getQueueStatus|ArcSipMediaMgr|INF: [22820]pFirstSpeak is Not NULL, addr=0x2952800000
+ISP|V|04:21:2023 15:30:47:759|DYN|1300|new235a|14758|1|getQueueStatus|ArcSipMediaMgr|INF: [22836]pTemp->msgSpeak.file=(/tmp/VXML2/arcCache/1/tts/tts_1_2.wav.64p)
+ISP|V|04:21:2023 15:30:47:759|DYN|1300|new235a|14758|1|getQueueStatus|ArcSipMediaMgr|INF: [22893]pBkpFirstSpeak is NULL
+ISP|D|04:21:2023 15:30:47:759|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:47:759|DYN|1300|new235a|14758|1|process_DMOP_PORTOPERATION|ArcSipMediaMgr|INF: [2547]Calling line(23060) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:18,call:1,ref:41,pid:14816,rtc:0,data:1 [cs=0]
+ISP|D|04:21:2023 15:30:47:759|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7293]Received 256 bytes. msg={op:18,c#:1,pid:14816,ref:41,pw:0,rc:0,data:1}:pid=14816
+ISP|V|04:21:2023 15:30:47:759|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [622]TEL_PortOperation, yPortStatus=1:pid=14816
+ISP|V|04:21:2023 15:30:47:759|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [633]before switch with yPortStatus=1:pid=14816
+ISP|V|04:21:2023 15:30:47:759|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [661]Calling TEL_PlayMedia: party=(72), interrupt=(28), informat=(95), outformat=(30), data=(1), sync=(129):pid=14816
+ISP|V|04:21:2023 15:30:47:759|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [25900]PlayMedia Struct vals : party=72; interruptOption=28 ;audioFileName=1 ;videoFileName= ;sync=129 ;audioInformat=95; audioOutformat=30; videoInformat=0; videoOutformat = 0 ;audioLooping = 0 ;videoLooping = 0 ;addOnCurrentPlay = 0 ;syncAudioVideo = 0 :pid=14816
+ISP|V|04:21:2023 15:30:47:759|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [25949]PlayMedia Struct vals : party=72 ; interruptOption = 28 ;audioFileName = 1 ;videoFileName =  ;sync = 129 ;audioInformat = 95 ;audioOutformat = 30 ;videoInformat = 0 ;videoOutformat = 0 ;audioLooping = 0 ;videoLooping = 0 ;addOnCurrentPlay = 0 ;syncAudioVideo = 0 :pid=14816
+ISP|V|04:21:2023 15:30:47:759|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [25964]FIRST_PARTY_PLAYBACK_CONTROL=123:pid=14816
+ISP|D|04:21:2023 15:30:47:759|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|WRN: [26818]Invalid value for audioLooping: 0. Setting value to Default = NO:pid=14816
+ISP|D|04:21:2023 15:30:47:759|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|WRN: [26861]Current syncAudioVideo = 0 either AudioFile is not present or  videoFileName is not present so syncAudioVideo to NO.:pid=14816
+ISP|V|04:21:2023 15:30:47:760|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [26122]typeAheadBuffer<>:pid=14816
+ISP|V|04:21:2023 15:30:47:770|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [26148]2 typeAheadBuffer <>:pid=14816
+ISP|V|04:21:2023 15:30:47:770|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [26230]<audioFileName =1>, lStreaming=0, zPlayMedia->sync=129:pid=14816
+ISP|V|04:21:2023 15:30:47:770|VXML|1300|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [26321]<audioFileName =1>:pid=14816
+ISP|V|04:21:2023 15:30:47:770|VXML|1300|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [26323]zPlayMedia->interruptOption=28:pid=14816
+ISP|V|04:21:2023 15:30:47:770|VXML|1300|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [26335]sync = 129:pid=14816
+ISP|D|04:21:2023 15:30:47:780|VXML|1300|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:35,c#:1,pid:14816,ref:42,pw:0}:pid=14816
+ISP|V|04:21:2023 15:30:47:788|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:35(DMOP_PLAYMEDIA),c#:1,pid:14816,ref:42,pw:0}
+ISP|V|04:21:2023 15:30:47:788|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16334] writing op:35 to mm shared mem.
+ISP|D|04:21:2023 15:30:47:800|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:35(DMOP_PLAYMEDIA),call:1,ref:42,pid:14816
+ISP|V|04:21:2023 15:30:47:800|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26077]interruptOpt=28, data=(/tmp/playmedia_14816.1.42)
+ISP|V|04:21:2023 15:30:47:800|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26087]appRef=42, lastStopActivityAppRef=34
+ISP|V|04:21:2023 15:30:47:800|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26255]lpSpeak->file=, lpSpeak->appref=42, lpSpeak->opcode=35.
+ISP|V|04:21:2023 15:30:47:800|DYN|1300|new235a|14758|1|addToSpeakList|ArcSipMediaMgr|INF: [3372]audioFileName=, interruptOption=1684368761
+ISP|V|04:21:2023 15:30:47:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9445][15098] pendingOutputRequests > 0.
+ISP|V|04:21:2023 15:30:47:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9626][15098] Returning from speakFile_X.
+ISP|V|04:21:2023 15:30:47:804|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15100]Returned from speakFile_X(). rc=4 ACTION_GET_NEXT_REQUEST=4
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15176]PLAY START
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3644]Copying speakList pFirstSpeak=0x2952800000
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=0, pTemp->isMTtsPresent=1, pTemp->msgMTtsSpeakId=1734986
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=1, pTemp->isMTtsPresent=0, pTemp->msgMTtsSpeakId=0
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15197]pFirstSpeak - just copied to pSpeakList=0x3087009984
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15211]opcode=35, interruptOption=28.
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3644]Copying speakList pFirstSpeak=0x2952800000
+ISP|V|04:21:2023 15:30:47:814|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=0, pTemp->isMTtsPresent=1, pTemp->msgMTtsSpeakId=1734986
+ISP|V|04:21:2023 15:30:47:815|DYN|1300|new235a|14758|1|copySpeakList|ArcSipMediaMgr|INF: [3648]pTemp->msgPlayMedia.audioFileName=, pTemp->isAudioPresent=1, pTemp->isMTtsPresent=0, pTemp->msgMTtsSpeakId=0
+ISP|V|04:21:2023 15:30:47:815|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15704]Calling speakFile_X(); appRef=40, audioFileName=/tmp/VXML2/arcCache/1/tts/tts_1_2.wav.64p, size=-1, opcode=115, interruptOption=28.
+ISP|V|04:21:2023 15:30:47:815|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:47:815|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9644][15716] gCall[1].currentOpcode=35.
+ISP|V|04:21:2023 15:30:47:815|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|WRN: [29414]Processing  DMOP_SPEAKMRCPTTS:(115).  mrcpServer(10.0.10.160) mrcpRtpPort(12002) mrcpRtcpPort(12003) yPayloadType(101) yCodecType(0) speakId(1734986) deleteFile(10953).
+ISP|V|04:21:2023 15:30:47:815|DYN|1300|new235a|14758|1|sendMsgToTTSClient|ArcSipMediaMgr|INF: [1853]ttsFd = 201
+ISP|V|04:21:2023 15:30:47:815|DYN|1300|new235a|14758|1|sendMsgToTTSClient|ArcSipMediaMgr|INF: [1877]Sent 800 bytes to ttsClient. fd=201 msg={op:116,c#:1,pid:14816,ref:42,sync=0,1734986}
+ISP|V|04:21:2023 15:30:50:078|RES|3560|new235a|14658|-1|main|ArcIPResp|[677] Last OCS port used 0.  tran_proc_num=48
+ISP|V|04:21:2023 15:30:50:502|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:118(DMOP_TTS_COMPLETE_SUCCESS),c#:1,pid:14816,ref:40,pw:0}
+ISP|V|04:21:2023 15:30:50:502|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16351] writing op:118 to mm shared mem.
+ISP|D|04:21:2023 15:30:50:510|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:118(DMOP_TTS_COMPLETE_SUCCESS),call:1,ref:40,pid:14816
+ISP|V|04:21:2023 15:30:50:510|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26930]Received 118: Set gCall[1].finishTTSSpeakAndExit to 1.
+ISP|V|04:21:2023 15:30:50:523|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:544|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:564|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:584|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:604|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:623|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:643|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:664|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:684|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:704|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:724|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29735]finishTTSSpeakAndExit == 1, Playing TTS packet of size=172.
+ISP|V|04:21:2023 15:30:50:743|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29728]finishTTSSpeakAndExit == 1, recieved packet of size 0 ttsZeroSizeCount=1.
+ISP|V|04:21:2023 15:30:50:763|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29728]finishTTSSpeakAndExit == 1, recieved packet of size 0 ttsZeroSizeCount=2.
+ISP|V|04:21:2023 15:30:50:784|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29722]finishTTSSpeakAndExit == 1, recieved packet of size 0 getting next tts.
+ISP|V|04:21:2023 15:30:50:784|DYN|1300|new235a|14758|1|processSpeakMrcpTTS|ArcSipMediaMgr|INF: [29728]finishTTSSpeakAndExit == 1, recieved packet of size 0 ttsZeroSizeCount=3.
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9920][15716] zFileName=(), setting isBeepActive to 0.
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9981][15716] TERM_REASON_DEV && canContinue.
+ISP|D|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [10241][15716] Returning from speakFile_X().
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15730]Returned from speakFile_X().
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15817]pSpeakList->msgPlayMedia.audioLooping=0, pSpeakList->audioLooping=0.
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15704]Calling speakFile_X(); appRef=42, audioFileName=, size=-1, opcode=35, interruptOption=1684368761.
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9644][15724] gCall[1].currentOpcode=35.
+ISP|D|04:21:2023 15:30:50:804|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [2547]Calling line(9709) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:35,call:1,ref:42,pid:14816,rtc:0,data: [cs=0]
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9773][15724] Returning from speakFile_X.
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15730]Returned from speakFile_X().
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15817]pSpeakList->msgPlayMedia.audioLooping=104, pSpeakList->audioLooping=0.
+ISP|V|04:21:2023 15:30:50:804|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15847]Setting isBeepActive to 0.
+ISP|V|04:21:2023 15:30:50:805|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15850]PLAY END
+ISP|D|04:21:2023 15:30:50:805|VXML|1300|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [7293]Received 256 bytes. msg={op:35,c#:1,pid:14816,ref:42,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:50:805|VXML|1420|new235a|14816|1|TEL_PlayMedia|arcVXML2|INF: [26275]returning from tel_PlayMedia <rc = 0> <lStreaming = 0> <sync = 129 >:pid=14816
+ISP|V|04:21:2023 15:30:50:805|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [677]After TEL_PlayMedia yRc=0:pid=14816
+ISP|V|04:21:2023 15:30:50:805|VXML|1300|new235a|14816|1|VXIpromptWait|arcVXML2|INF: [1886]VXIpromptWait:pid=14816
+ISP|V|04:21:2023 15:30:50:805|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [5816]Inside TEL_Speak with synchronous=128, data=().:pid=14816
+ISP|V|04:21:2023 15:30:50:815|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9184]Inside speakFile_X
+ISP|V|04:21:2023 15:30:50:815|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9205][15098] Opening silenceFile (silence.wav).
+ISP|D|04:21:2023 15:30:50:825|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:1,c#:1,pid:14816,ref:43,pw:0,list:0,all:0,sync:128,file:}:pid=14816
+ISP|V|04:21:2023 15:30:50:826|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:1(DMOP_SPEAK),c#:1,pid:14816,ref:43,pw:0}
+ISP|V|04:21:2023 15:30:50:826|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16394] writing op:1 to mm shared mem.
+ISP|D|04:21:2023 15:30:50:832|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:1(DMOP_SPEAK),call:1,ref:43,pid:14816
+ISP|V|04:21:2023 15:30:50:832|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26427]file=, key=, appRef=43, lastStopActivityAppRef=34.
+ISP|D|04:21:2023 15:30:50:832|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:832|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [2547]Calling line(26555) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:1,call:1,ref:43,pid:14816,rtc:0,data:TEL_Speak worked [cs=0]
+ISP|D|04:21:2023 15:30:50:832|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:832|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [2547]Calling line(26614) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:1,call:1,ref:43,pid:14816,rtc:-1,data: [cs=0]
+ISP|D|04:21:2023 15:30:50:832|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [7293]Received 256 bytes. msg={op:1,c#:1,pid:14816,ref:43,pw:0,rc:0,data:TEL_Speak worked}:pid=14816
+ISP|V|04:21:2023 15:30:50:832|VXML|1300|new235a|14816|1|VXIpromptWait|arcVXML2|INF: [1899]yRc=0:pid=14816
+ISP|V|04:21:2023 15:30:50:832|VXML|1300|new235a|14816|1|VXIpromptWait|arcVXML2|INF: [1912]Calling TEL_PortOperation:pid=14816
+ISP|D|04:21:2023 15:30:50:832|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7293]Received 256 bytes. msg={op:1,c#:1,pid:14816,ref:43,pw:0,rc:-1,data:}:pid=14816
+ISP|D|04:21:2023 15:30:50:842|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:18,c#:1,pid:14816,ref:44,pw:0,opr:4,port:1}:pid=14816
+ISP|V|04:21:2023 15:30:50:847|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:18(DMOP_PORTOPEATION),c#:1,pid:14816,ref:44,pw:0}
+ISP|V|04:21:2023 15:30:50:847|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16975] writing op:18 to mm shared mem.
+ISP|D|04:21:2023 15:30:50:852|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:18(DMOP_PORTOPERATION),call:1,ref:44,pid:14816
+ISP|D|04:21:2023 15:30:50:852|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:852|DYN|1300|new235a|14758|1|process_DMOP_PORTOPERATION|ArcSipMediaMgr|INF: [2547]Calling line(23060) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:18,call:1,ref:44,pid:14816,rtc:0,data: [cs=0]
+ISP|D|04:21:2023 15:30:50:852|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7293]Received 256 bytes. msg={op:18,c#:1,pid:14816,ref:44,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:50:852|VXML|-1|new235a|14816|1|exit_element|arcVXML2|INF: [4203]Found Exit calling FreeGrammars:pid=14816
+ISP|V|04:21:2023 15:30:50:853|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [15984]Deactivating grammarID=0x2ac978037040.:pid=14816
+ISP|V|04:21:2023 15:30:50:853|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:71,c#:1,pid:14816,ref:45,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:50:853|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:71,c#:1,pid:14816,ref:45,pw:0}
+ISP|V|04:21:2023 15:30:50:853|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 71 to request queue for port 1.
+ISP|V|04:21:2023 15:30:50:855|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 71.
+ISP|V|04:21:2023 15:30:50:855|SRC|3000|new235a|14677|-1|processSrUnloadGrammar|mrcpClient2|INF: [mrcpThread.cpp:830:thd-16326] grammarNmae(0x2ac978037040) {op:71,c#:1,pid:14816,ref:45,pw:0}
+ISP|V|04:21:2023 15:30:50:855|SRC|3000|new235a|14677|1|srUnLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:623:thd-16326] calling removeGrammarFromList yGrammarName=0x2ac978037040
+ISP|V|04:21:2023 15:30:50:855|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:854:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:71,c#:1,pid:14816,ref:45,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [7293]Received 256 bytes. msg={op:71,c#:1,pid:14816,ref:45,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [15998]rc after readResponseFromDynMgr = 0:pid=14816
+ISP|V|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [16010]rc after examineDynMgrResponse = 71:pid=14816
+ISP|V|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [16016]response.vendorErrorCode = 0:pid=14816
+ISP|V|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|VXIrecFreeGrammar|arcVXML2|INF: [1720]rc after TEL_SRUnloadGrammar = 0:pid=14816
+ISP|V|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|VXIrecFreeGrammar|arcVXML2|INF: [1738]rc after srgs.arc_srgs_unloadGrammar -1:pid=14816
+ISP|V|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [15984]Deactivating grammarID=0x2ac9780ac290.:pid=14816
+ISP|V|04:21:2023 15:30:50:856|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:71,c#:1,pid:14816,ref:46,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:50:856|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:71,c#:1,pid:14816,ref:46,pw:0}
+ISP|V|04:21:2023 15:30:50:856|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 71 to request queue for port 1.
+ISP|V|04:21:2023 15:30:50:866|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 71.
+ISP|V|04:21:2023 15:30:50:866|SRC|3000|new235a|14677|-1|processSrUnloadGrammar|mrcpClient2|INF: [mrcpThread.cpp:830:thd-16326] grammarNmae(0x2ac9780ac290) {op:71,c#:1,pid:14816,ref:46,pw:0}
+ISP|V|04:21:2023 15:30:50:866|SRC|3000|new235a|14677|1|srUnLoadGrammar|mrcpClient2|INF: [SRCommon.cpp:623:thd-16326] calling removeGrammarFromList yGrammarName=0x2ac9780ac290
+ISP|V|04:21:2023 15:30:50:866|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:854:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:71,c#:1,pid:14816,ref:46,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:50:866|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [7293]Received 256 bytes. msg={op:71,c#:1,pid:14816,ref:46,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [15998]rc after readResponseFromDynMgr = 0:pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [16010]rc after examineDynMgrResponse = 71:pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|1300|new235a|14816|1|TEL_SRUnloadGrammar|arcVXML2|INF: [16016]response.vendorErrorCode = 0:pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|1300|new235a|14816|1|VXIrecFreeGrammar|arcVXML2|INF: [1720]rc after TEL_SRUnloadGrammar = 0:pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|1300|new235a|14816|1|VXIrecFreeGrammar|arcVXML2|INF: [1738]rc after srgs.arc_srgs_unloadGrammar -1:pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|-1|new235a|14816|1|VXI::RunDocumentLoop|arcVXML2|INF: [942]Caught exception VXIException::Exit   Result = (null):pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|-1|new235a|14816|1|VXI::PopExecutionContext|arcVXML2|INF: [2204]PopExecutionContext - stackDepth:1/50.:pid=14816
+ISP|V|04:21:2023 15:30:50:866|VXML|-1|new235a|14816|1|VXI::PopExecutionContext|arcVXML2|INF: [2210]Calling FreeGrammars:pid=14816
+ISP|V|04:21:2023 15:30:50:867|VXML|-1|new235a|14816|-1|Run|arcVXML2|INF: [709]VXI::Run: Calling playAll:pid=14816
+ISP|V|04:21:2023 15:30:50:867|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [600]Playing queued prompts:pid=14816
+ISP|D|04:21:2023 15:30:50:877|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:18,c#:1,pid:14816,ref:47,pw:0,opr:5,port:1}:pid=14816
+ISP|V|04:21:2023 15:30:50:878|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:18(DMOP_PORTOPEATION),c#:1,pid:14816,ref:47,pw:0}
+ISP|V|04:21:2023 15:30:50:878|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16975] writing op:18 to mm shared mem.
+ISP|D|04:21:2023 15:30:50:893|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:18(DMOP_PORTOPERATION),call:1,ref:47,pid:14816
+ISP|V|04:21:2023 15:30:50:893|DYN|1300|new235a|14758|1|getQueueStatus|ArcSipMediaMgr|INF: [22851]pFirstSpeak is NULL
+ISP|V|04:21:2023 15:30:50:893|DYN|1300|new235a|14758|1|getQueueStatus|ArcSipMediaMgr|INF: [22893]pBkpFirstSpeak is NULL
+ISP|D|04:21:2023 15:30:50:893|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:893|DYN|1300|new235a|14758|1|process_DMOP_PORTOPERATION|ArcSipMediaMgr|INF: [2547]Calling line(23060) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:18,call:1,ref:47,pid:14816,rtc:0,data:0 [cs=0]
+ISP|D|04:21:2023 15:30:50:893|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7293]Received 256 bytes. msg={op:18,c#:1,pid:14816,ref:47,pw:0,rc:0,data:0}:pid=14816
+ISP|V|04:21:2023 15:30:50:893|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [622]TEL_PortOperation, yPortStatus=0:pid=14816
+ISP|V|04:21:2023 15:30:50:893|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [633]before switch with yPortStatus=0:pid=14816
+ISP|V|04:21:2023 15:30:50:893|VXML|1300|new235a|14816|1|VXIpromptPlay|arcVXML2|INF: [654]NoMatch from GET_QUEUE_STATUS.:pid=14816
+ISP|V|04:21:2023 15:30:50:893|VXML|1300|new235a|14816|1|VXIpromptWait|arcVXML2|INF: [1886]VXIpromptWait:pid=14816
+ISP|V|04:21:2023 15:30:50:893|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [5816]Inside TEL_Speak with synchronous=128, data=().:pid=14816
+ISP|D|04:21:2023 15:30:50:914|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:1,c#:1,pid:14816,ref:48,pw:0,list:0,all:0,sync:128,file:}:pid=14816
+ISP|V|04:21:2023 15:30:50:920|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:1(DMOP_SPEAK),c#:1,pid:14816,ref:48,pw:0}
+ISP|V|04:21:2023 15:30:50:920|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16394] writing op:1 to mm shared mem.
+ISP|D|04:21:2023 15:30:50:934|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:1(DMOP_SPEAK),call:1,ref:48,pid:14816
+ISP|V|04:21:2023 15:30:50:934|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26427]file=, key=, appRef=48, lastStopActivityAppRef=34.
+ISP|D|04:21:2023 15:30:50:934|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:934|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [2547]Calling line(26555) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:1,call:1,ref:48,pid:14816,rtc:0,data:TEL_Speak worked [cs=0]
+ISP|D|04:21:2023 15:30:50:934|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:934|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [2547]Calling line(26614) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:1,call:1,ref:48,pid:14816,rtc:-1,data: [cs=0]
+ISP|D|04:21:2023 15:30:50:934|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [7293]Received 256 bytes. msg={op:1,c#:1,pid:14816,ref:48,pw:0,rc:0,data:TEL_Speak worked}:pid=14816
+ISP|V|04:21:2023 15:30:50:934|VXML|1300|new235a|14816|1|VXIpromptWait|arcVXML2|INF: [1899]yRc=0:pid=14816
+ISP|V|04:21:2023 15:30:50:934|VXML|1300|new235a|14816|1|VXIpromptWait|arcVXML2|INF: [1912]Calling TEL_PortOperation:pid=14816
+ISP|D|04:21:2023 15:30:50:934|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7293]Received 256 bytes. msg={op:1,c#:1,pid:14816,ref:48,pw:0,rc:-1,data:}:pid=14816
+ISP|D|04:21:2023 15:30:50:944|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:18,c#:1,pid:14816,ref:49,pw:0,opr:4,port:1}:pid=14816
+ISP|V|04:21:2023 15:30:50:951|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:18(DMOP_PORTOPEATION),c#:1,pid:14816,ref:49,pw:0}
+ISP|V|04:21:2023 15:30:50:951|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16975] writing op:18 to mm shared mem.
+ISP|D|04:21:2023 15:30:50:954|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:18(DMOP_PORTOPERATION),call:1,ref:49,pid:14816
+ISP|D|04:21:2023 15:30:50:954|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:954|DYN|1300|new235a|14758|1|process_DMOP_PORTOPERATION|ArcSipMediaMgr|INF: [2547]Calling line(23060) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:18,call:1,ref:49,pid:14816,rtc:0,data: [cs=0]
+ISP|D|04:21:2023 15:30:50:955|VXML|1300|new235a|14816|1|TEL_PortOperation|arcVXML2|INF: [7293]Received 256 bytes. msg={op:18,c#:1,pid:14816,ref:49,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:50:955|VXML|1300|new235a|14816|1|VXIrecEndSession|arcVXML2|INF: [699]VXIrecEndSession:pid=14816
+ISP|V|04:21:2023 15:30:50:955|VXML|1300|new235a|14816|1|VXIpromptEndSession|arcVXML2|INF: [573]VXIpromptEndSession:pid=14816
+ISP|V|04:21:2023 15:30:50:955|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [837]Calling TEL_SRReleaseResource:pid=14816
+ISP|V|04:21:2023 15:30:50:955|VXML|1300|new235a|14816|1|TEL_SRReleaseResource|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:60,c#:1,pid:14816,ref:50,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:50:955|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:60,c#:1,pid:14816,ref:50,pw:0}
+ISP|V|04:21:2023 15:30:50:955|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:549:thd-14728] Sending opcode 60 to request queue for port 1.
+ISP|V|04:21:2023 15:30:50:956|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 60.
+ISP|V|04:21:2023 15:30:50:956|SRC|3000|new235a|14677|1|processSrReleaseResource|mrcpClient2|INF: [mrcpThread.cpp:1027:thd-16326] {op:60,c#:1,pid:14816,ref:50,pw:0}
+ISP|V|04:21:2023 15:30:50:956|SRC|3000|new235a|14677|1|srReleaseResource|mrcpClient2|INF: [SRCommon.cpp:2283:thd-16326] Attempting to release a resource.
+ISP|V|04:21:2023 15:30:50:957|SRC|3000|new235a|14677|1|srReleaseResource|mrcpClient2|INF: [SRCommon.cpp:2299:thd-16326] Sending BYE for callId (1) and did (2).
+ISP|V|04:21:2023 15:30:50:957|SRC|3000|new235a|14677|1|srReleaseResource|mrcpClient2|INF: [SRCommon.cpp:2336:thd-16326] MRCP socket fd (14) is closed.
+ISP|V|04:21:2023 15:30:50:957|SRC|3000|new235a|14677|1|srReleaseResource|mrcpClient2|INF: [SRCommon.cpp:2353:thd-16326] License successfully released.
+ISP|V|04:21:2023 15:30:50:957|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:1048:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:60,c#:1,pid:14816,ref:50,pw:0,rc:0}.
+ISP|D|04:21:2023 15:30:50:957|VXML|1300|new235a|14816|1|TEL_SRReleaseResource|arcVXML2|INF: [7293]Received 256 bytes. msg={op:60,c#:1,pid:14816,ref:50,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:50:957|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [842]Calling TEL_SRExit:pid=14816
+ISP|V|04:21:2023 15:30:50:957|VXML|1300|new235a|14816|1|TEL_SRExit|arcVXML2|INF: [24165](Sent 256 bytes to (/tmp/to.mrcpClient2.fifo.0). msg={op:52,c#:1,pid:14816,ref:51,pw:0):pid=14816
+ISP|V|04:21:2023 15:30:50:957|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:431:thd-14728] Received 256 bytes. initCount(1), capacity(10000), msg={op:52,c#:1,pid:14816,ref:51,pw:0}
+ISP|V|04:21:2023 15:30:50:957|SRC|3000|new235a|14677|1|readAndProcessAppRequest|mrcpClient2|INF: [readerThread.cpp:612:thd-14728] Sending opcode 52 to request queue for port 1.
+ISP|V|04:21:2023 15:30:50:958|SRC|3000|new235a|14677|1|sipThreadFunc|mrcpClient2|INF: [sipThread.cpp:244:thd-14727] Received server event [23:2xx received for request!]; callCid=1, callDid=-1
+ISP|V|04:21:2023 15:30:50:958|SRC|3000|new235a|14677|1|sipThreadFunc|mrcpClient2|INF: [sipThread.cpp:271:thd-14727] Received EXOSIP_CALL_MESSAGE_ANSWERED server event [23, 2xx received for request!] from the server.  Ignoring.
+ISP|V|04:21:2023 15:30:50:967|SRC|3000|new235a|14677|1|mrcpThreadFunc|mrcpClient2|INF: [mrcpThread.cpp:164:thd-16326] mrcpThread received request 52.
+ISP|V|04:21:2023 15:30:50:967|SRC|3000|new235a|14677|1|processSrExit|mrcpClient2|INF: [mrcpThread.cpp:976:thd-16326] Processing {op:52,c#:1,pid:14816,ref:51,pw:0}
+ISP|V|04:21:2023 15:30:50:967|SRC|3000|new235a|14677|1|srReleaseResource|mrcpClient2|INF: [SRCommon.cpp:2277:thd-16326] License is already released (1); NOT sending BYE for callCid=0, callDid=1
+ISP|V|04:21:2023 15:30:50:967|SRC|3000|new235a|14677|1|writeResponseToApp|mrcpClient2|INF: [mrcpThread.cpp:999:thd-16326] [297] Wrote 256 bytes to (/tmp/ResponseFifo.14816.1.2). msg={op:52,c#:1,pid:14816,ref:51,pw:0,rc:0}.
+ISP|V|04:21:2023 15:30:50:967|SRC|3000|new235a|14677|1|closeAppResponseFifo|mrcpClient2|INF: [SRPort.cpp:454:thd-16326] Closed appResponseFifo fd(12) from [mrcpThread.cpp, 1003].
+ISP|V|04:21:2023 15:30:50:967|SRC|3000|new235a|14677|1|sStopThisThread|mrcpClient2|INF: [mrcpThread.cpp:1513:thd-16326] Exiting.
+ISP|D|04:21:2023 15:30:50:968|VXML|1300|new235a|14816|1|TEL_SRExit|arcVXML2|INF: [7293]Received 256 bytes. msg={op:52,c#:1,pid:14816,ref:51,pw:0,rc:0,data:}:pid=14816
+ISP|V|04:21:2023 15:30:50:968|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [850]Calling arc_srgs_exit:pid=14816
+ISP|V|04:21:2023 15:30:50:968|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [858]Calling TEL_Speak: party=(72), interrupt=(28), informat=(95), outformat=(30), data=(), sync=(129):pid=14816
+ISP|V|04:21:2023 15:30:50:968|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [5816]Inside TEL_Speak with synchronous=129, data=().:pid=14816
+ISP|V|04:21:2023 15:30:50:979|SRC|3000|new235a|14677|0|sipThreadFunc|mrcpClient2|INF: [sipThread.cpp:244:thd-14727] Received server event [29:Call Context is released!]; callCid=1, callDid=0
+ISP|D|04:21:2023 15:30:50:988|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:1,c#:1,pid:14816,ref:52,pw:0,list:0,all:0,sync:129,file:}:pid=14816
+ISP|V|04:21:2023 15:30:50:993|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:1(DMOP_SPEAK),c#:1,pid:14816,ref:52,pw:0}
+ISP|V|04:21:2023 15:30:50:993|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16394] writing op:1 to mm shared mem.
+ISP|D|04:21:2023 15:30:50:995|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:1(DMOP_SPEAK),call:1,ref:52,pid:14816
+ISP|V|04:21:2023 15:30:50:995|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [26427]file=, key=, appRef=52, lastStopActivityAppRef=34.
+ISP|D|04:21:2023 15:30:50:995|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:50:995|DYN|1300|new235a|14758|1|processAppRequest|ArcSipMediaMgr|INF: [2547]Calling line(26614) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:1,call:1,ref:52,pid:14816,rtc:-1,data: [cs=0]
+ISP|D|04:21:2023 15:30:50:995|VXML|1300|new235a|14816|1|TEL_Speak|arcVXML2|INF: [7293]Received 256 bytes. msg={op:1,c#:1,pid:14816,ref:52,pw:0,rc:-1,data:}:pid=14816
+ISP|D|04:21:2023 15:30:51:006|VXML|1300|new235a|14816|1|TEL_ExitTelecom|arcVXML2|INF: [7626]Sent 256 bytes to (/tmp/RequestFifo.0). msg={op:11,c#:1,pid:14816,ref:53,pw:0,all:0:pid=14816
+ISP|V|04:21:2023 15:30:51:014|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [15739]Received 256 bytes. msg={op:11(DMOP_DROPCALL),c#:1,pid:14816,ref:53,pw:0}
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|WRN: [6059]Set dropCallThreadId to 465463040.
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [6084]Sending SIP Message BYE.
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [6137]0 = eXosip_terminate_call(3, 4);
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [16591]Got DROPCALL notifying Media Manger
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|readAndProcessAppRequests|ArcIPDynMgr|INF: [457][16593] writing op:11 to mm shared mem.
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|dropCallThread|ArcIPDynMgr|INF: [6188]Processing {op:11,c#:1,pid:14816,ref:53,pw:0,numRings:0}. from thread 465463040
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|dropCallThread|ArcIPDynMgr|INF: [6368]Call released, notifying application.
+ISP|D|04:21:2023 15:30:51:015|DYN|1424|new235a|14735|-1|arc_kill|ArcIPDynMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:51:015|DYN|1300|new235a|14735|1|dropCallThread|ArcIPDynMgr|INF: [4772][6394] 256 = write(/tmp/ResponseFifo.14816.1.2, [op=13, rtc=0, cs=0]);
+ISP|D|04:21:2023 15:30:51:015|DYN|1601|new235a|14735|-1|dropCallThread|ArcIPDynMgr|WRN: [6509]-99 = canDynMgrExit()
+ISP|V|04:21:2023 15:30:51:015|DYN|1|new235a|14735|-1|dropCallThread|ArcIPDynMgr|INF: [6537]Exiting dropCallThread from thread 465463040
+ISP|D|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|TEL_ExitTelecom|arcVXML2|INF: [7293]Received 256 bytes. msg={op:13,c#:1,pid:14816,ref:53,pw:0,rc:0,data:BANDWIDTH=0}:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|TEL_ExitTelecom|arcVXML2|INF: [7363]got DMOP_DISCONNECT:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|TEL_ExitTelecom|arcVXML2|INF: [8295]Telling responsibility that pid=14816, callNum=1 disconnected in (TEL_ExitTelecom).:pid=14816
+CDR|N|04:21:2023 15:30:51:016|TEL|20011|new235a|14816|1|TEL_ExitTelecom|arcVXML2|new235a-PORT1-0421202315303880:EC:01:0421202315305101::
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=/tmp/ResponseFifo.14816.1.2.:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=/tmp/list.14816.1.1.:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|arc_unlink|arcVXML2|INF: [12632]Unlnking file=speaktts@14816_1..0.wav.:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [890]Calling readFieldFromSharedMemory:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [905]Got APPL_PID=14816 selfpid=14816:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [926]Writing to shared memory GV_DynMgrPid=14735, status=1:pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|1300|new235a|14816|1|VXItelEndSession|arcVXML2|INF: [8295]Telling responsibility that pid=14816, callNum=1 disconnected in (VXItelEndSession).:pid=14816
+ISP|D|04:21:2023 15:30:51:016|VXML|-1|new235a|14816|1|VXIplatformProcessDocument|arcVXML2|INF: [2170]Exiting: rc = 0, 0x(nil):pid=14816
+ISP|V|04:21:2023 15:30:51:016|VXML|-1|new235a|14816|1|ChannelThread|arcVXML2|INF: [505]Got APPL_PID=14816 selfpid=14816:pid=14816
+ISP|D|04:21:2023 15:30:51:016|VXML|-1|new235a|14816|1|ChannelThread|arcVXML2|INF: [513]Calling writeCallInfoToResp with -99 gRespFromVxml2FifoFd=9 RESP_FROM_VXML2_FIFO=/tmp/ResFromVxmlFifo.:pid=14816
+ISP|D|04:21:2023 15:30:51:016|VXML|-1|new235a|14816|1|ChannelThread|arcVXML2|INF: [546]NULL Result.:pid=14816
+ISP|D|04:21:2023 15:30:51:016|VXML|-1|new235a|14816|1|VXIplatformDestroyResources|arcVXML2|INF: [1486]Entering: 0x0x2ac9733d0c38:pid=14816
+ISP|D|04:21:2023 15:30:51:017|VXML|-1|new235a|14816|1|VXIplatformDestroyResources|arcVXML2|INF: [1545]Exiting: rc = 0:pid=14816
+ISP|D|04:21:2023 15:30:51:017|DYN|1300|new235a|14758|1|readAndProcessShmData|ArcSipMediaMgr|INF: [27467]Processing op:11(DMOP_DROPCALL),call:1,ref:53,pid:14816
+ISP|V|04:21:2023 15:30:51:017|DYN|1300|new235a|14758|1|changeCallState|ArcSipMediaMgr|INF: [2128][26886] Setting callState to 27.
+ISP|V|04:21:2023 15:30:51:017|DYN|1300|new235a|14758|1|sendMsgToTTSClient|ArcSipMediaMgr|INF: [1853]ttsFd = 201
+ISP|V|04:21:2023 15:30:51:017|DYN|1300|new235a|14758|1|sendMsgToTTSClient|ArcSipMediaMgr|INF: [1877]Sent 800 bytes to ttsClient. fd=201 msg={op:13,c#:1,pid:14816,ref:53,sync=0,notUsed}
+ISP|D|04:21:2023 15:30:51:017|DYN|1424|new235a|14758|-1|arc_kill|ArcSipMediaMgr|WRN: [620]Killing pid=14816 from ArcSipCallMgr with 0
+ISP|V|04:21:2023 15:30:51:017|DYN|1300|new235a|14758|1|process_DMOP_DROPCALL|ArcSipMediaMgr|INF: [2547]Calling line(20644) fd(198 / 198), 256 = write(/tmp/ResponseFifo.14816.1.2) op:13,call:1,ref:53,pid:14816,rtc:-3,data: [cs=27]
+ISP|V|04:21:2023 15:30:51:017|DYN|1300|new235a|14758|1|changeCallState|ArcSipMediaMgr|INF: [2128][20705] Setting callState to 27.
+ISP|V|04:21:2023 15:30:51:017|RES|3106|new235a|14658|1|readFromDynMgr|ArcIPResp|[from 1691] Received 8 bytes from DM. msg={op:111,c#:1,pid:-99,ref:0,pw:0,dnis:,ani:,data:}
+ISP|D|04:21:2023 15:30:51:017|RES|3107|new235a|14658|1|processRESOP_VXML_PID|ArcIPResp|[5778, from 1711] Negative appPid received.
+ISP|D|04:21:2023 15:30:51:017|RES|3120|new235a|14658|1|cleanupApp|ArcIPResp|[3255, from 5781] Entering cleanupApp. app_pid=14816,appl_no=1. program_name=arcVXML2
+ISP|D|04:21:2023 15:30:51:017|RES|3117|new235a|14658|1|cleanupApp|ArcIPResp|[3281, from 5781] pid=0 port=1
+ISP|D|04:21:2023 15:30:51:017|RES|3117|new235a|14658|1|cleanupApp|ArcIPResp|[3333, from 5781] pid=14735 port=1
+ISP|D|04:21:2023 15:30:51:018|RES|3504|new235a|14658|1|application_instance_manager|ArcIPResp|Delete instance for program (arcVXML2), resource <1>,. Max instance=60. Current instance=0, 1.
+ISP|V|04:21:2023 15:30:51:024|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9232][15098] Returning from speakFile_X
+ISP|V|04:21:2023 15:30:51:024|DYN|1300|new235a|14758|1|speakFile_X|ArcSipMediaMgr|INF: [9626][15098] Returning from speakFile_X.
+ISP|V|04:21:2023 15:30:51:024|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [15100]Returned from speakFile_X(). rc=-3 ACTION_GET_NEXT_REQUEST=4
+ISP|V|04:21:2023 15:30:51:024|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [16048]Calling arc_rtp_session_destroy(); rtp_session socket=9.
+ISP|V|04:21:2023 15:30:51:024|DYN|1300|new235a|14758|1|arc_rtp_session_destroy|ArcSipMediaMgr|INF: [1161]Destroying prtp_session_mrcp->rtp.socket=199.
+ISP|V|04:21:2023 15:30:51:034|DYN|1300|new235a|14758|1|inputThread|ArcSipMediaMgr|INF: [14903]Calling arc_rtp_session_destroy(); rtp_session_in socket=9.
+ISP|V|04:21:2023 15:30:51:041|DYN|1300|new235a|14735|-1|main|ArcIPDynMgr|INF: [21102]eXosip event  Call(3) Dialog(-1) type(23) (2xx received for request!)
+ISP|d|04:21:2023 15:30:51:041|DYN|1422|new235a|14735|-1|main|ArcIPDynMgr|WRN: [21435]Failed to get port for Call(3) Dialog(-1).  Ignoring event (23).
+ISP|V|04:21:2023 15:30:51:124|DYN|1300|new235a|14758|1|changeCallState|ArcSipMediaMgr|INF: [2128][16406] Setting callState to 0.
+ISP|V|04:21:2023 15:30:51:124|DYN|1300|new235a|14758|1|outputThread|ArcSipMediaMgr|INF: [16470]Calling arc_rtp_session_destroy(); rtp_session_mrcp socket=202.
+ISP|V|04:21:2023 15:30:51:211|DYN|1300|new235a|14735|1|delFromTimerList|ArcIPDynMgr|INF: [4064][17928] Deleting from timerList (op=4, port=1, data1=14816, data2=-1, op2=8)
+ISP|V|04:21:2023 15:30:56:040|RES|3560|new235a|14658|-1|main|ArcIPResp|[677] Last OCS port used 0.  tran_proc_num=48
+ISP|V|04:21:2023 15:30:56:056|DYN|1300|new235a|14735|-1|main|ArcIPDynMgr|INF: [21102]eXosip event  Call(3) Dialog(0) type(29) (Call Context is released!)
+ISP|D|04:21:2023 15:30:56:057|DYN|1300|new235a|14735|-1|main|ArcIPDynMgr|WRN: [21346]Ignoring EXOSIP_CALL_RELEASED for Call(3) Dialog(0).
+ISP|V|04:21:2023 15:31:02:065|RES|3560|new235a|14658|-1|main|ArcIPResp|[677] Last OCS port used 0.  tran_proc_num=48
+ISP|V|04:21:2023 15:31:08:098|RES|3560|new235a|14658|-1|main|ArcIPResp|[677] Last OCS port used 0.  tran_proc_num=48

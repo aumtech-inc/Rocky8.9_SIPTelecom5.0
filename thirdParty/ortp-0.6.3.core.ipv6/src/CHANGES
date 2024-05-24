@@ -1,0 +1,14 @@
+---------------------------------------------------------------------
+Update date: 03/12/2005
+
+Updated file: ortp.c
+
+Update details: 
+for(i = 0; i < 192; i++)
+    {
+        av_profile_init(&(av_profile_array_in[i]));
+        av_profile_init(&(av_profile_array_out[i]));
+    }
+
+Updated by: Deep Narsay
+---------------------------------------------------------------------

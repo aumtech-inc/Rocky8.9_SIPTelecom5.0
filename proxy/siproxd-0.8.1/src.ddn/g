@@ -1,0 +1,42 @@
+# /bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB 		\
+# 	-DBUILDSTR="\"`cat .buildno`\"" -g3 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS		\
+# 	-o siproxd 		\
+# 	-export-dynamic		\
+# 	siproxd.o proxy.o register.o sock.o utils.o sip_utils.o sip_layer.o log.o	\
+# 	readconf.o rtpproxy.o rtpproxy_relay.o accessctl.o route_processing.o		\
+# 	security.o auth.o fwapi.o resolve.o dejitter.o plugins.o redirect_cache.o	\
+# 	../libltdl/libltdlc.la -dlopen plugin_demo.la -dlopen plugin_shortdial.la	\
+# 	-dlopen plugin_logcall.la -dlopen plugin_defaulttarget.la		\
+# 	-dlopen plugin_fix_bogus_via.la -dlopen plugin_stun.la -dlopen plugin_prefix.la		\
+# 	-dlopen plugin_regex.la		\
+# 	-lresolv -lresolv -losipparser2 -losip2		\
+# 	-L/home/devmaul/isp2.2/SIPTelecom3.3/proxy/siproxd-0.8.1/libosip2_303/lib		\
+# 	-L /home/devmaul/isp2.2/SIPTelecom3.3/Common/lib		\
+# 	-lISPUtil -lISPLog -lloglite -larcSNMP 
+
+gcc -D_GNU_SOURCE -DLTDL_CONVLIB 		\
+	-DBUILDSTR="\"`cat .buildno`\"" -g3 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS		\
+	-o siproxd 		\
+	-export-dynamic		\
+	siproxd.o proxy.o register.o sock.o utils.o sip_utils.o sip_layer.o log.o	\
+	readconf.o rtpproxy.o rtpproxy_relay.o accessctl.o route_processing.o		\
+	security.o auth.o fwapi.o resolve.o dejitter.o plugins.o redirect_cache.o	\
+	-lresolv -lresolv -losipparser2 -losip2		\
+	-lplugin_shortdial.a		\
+	-lplugin_logcall.a		\
+	-lplugin_demo.a		\
+	-lplugin_fix_bogus_via.a		\
+	-lplugin_defaulttarget.a		\
+	-lplugin_stun.a		\
+	-lplugin_prefix.a		\
+	-lplugin_regex.a		\
+	-L/home/devmaul/isp2.2/SIPTelecom3.3/proxy/siproxd-0.8.1/libosip2_303/lib		\
+	-L/home/devmaul/isp2.2/SIPTelecom3.3/proxy/siproxd-0.8.1/src/.libs		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/Common/lib		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/SNMP/lib		\
+	-lISPUtil -lISPLog -lloglite -larcSNMP 
+
+#	../libltdl/libltdlc.la -dlopen plugin_demo.la -dlopen plugin_shortdial.la	\
+#	-dlopen plugin_logcall.la -dlopen plugin_defaulttarget.la		\
+#	-dlopen plugin_fix_bogus_via.la -dlopen plugin_stun.la -dlopen plugin_prefix.la		\
+#	-dlopen plugin_regex.la		\

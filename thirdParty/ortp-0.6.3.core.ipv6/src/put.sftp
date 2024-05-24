@@ -1,0 +1,7 @@
+user arc arc123
+binary
+hash
+cd .ISP/Telecom/Exec
+lcd .libs
+mput libortp*so*
+quit

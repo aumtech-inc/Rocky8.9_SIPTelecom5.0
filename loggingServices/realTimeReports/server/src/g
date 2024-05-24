@@ -1,0 +1,10 @@
+echo "Building arcRTRServer ..."
+
+gcc -ggdb3 -o arcRTRServer 
+	/home/dan/isp2.2/SIPTelecom3.6/Common/Log/log_routines.o		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/server/include 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/Common/include		\
+	arcRTRServer.c 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/lib	\
+	-L /home/dan/isp2.2/SIPTelecom3.6/Common/lib		\
+	-lrtrsServer -lgaUtils -lISPLog -lloglite

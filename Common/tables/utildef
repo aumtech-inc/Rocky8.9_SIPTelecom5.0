@@ -1,0 +1,15 @@
+# -----------------------------------------------------------------------------
+# Program:	utildef
+# Purpose:	GUI definition file for global utilities.
+# Author:	Aumtech, Inc.
+# Date:		06/29/99
+#
+# DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE.
+# -----------------------------------------------------------------------------
+#
+
+[Utilities]
+Current LogParams
+
+[Misc]
+Current LogParams=Global/.Utilities/Current_LogParams

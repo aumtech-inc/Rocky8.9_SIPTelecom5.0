@@ -1,0 +1,1779 @@
+/******************************************************************************
+
+Copyright (c) 1988-2007 Macrovision Europe Ltd. and/or Macrovision Corporation. All Rights Reserved.
+	This software has been provided pursuant to a License Agreement
+	containing restrictions on its use.  This software contains
+	valuable trade secrets and proprietary information of 
+	Macrovision Corporation and is protected by law.  It may 
+	not be copied or distributed in any form or medium, disclosed 
+	to third parties, reverse engineered or used in any manner not 
+	provided for in said License Agreement except with the prior 
+	written authorization from Macrovision Corporation.
+****************************************************************************/
+#define LM_PUBKEYS 	3
+#define LM_MAXPUBKEYSIZ 40
+
+typedef struct _pubkeyinfo {
+		    int pubkeysize[LM_PUBKEYS];
+		    unsigned char pubkey[LM_PUBKEYS][LM_MAXPUBKEYSIZ];
+		    int (*pubkey_fptr)();
+		    int strength;
+		    int sign_level;
+} LM_VENDORCODE_PUBKEYINFO;
+#define LM_MAXSIGNS 	4   /* SIGN=, SIGN2=, SIGN3=, SIGN4= */
+
+
+typedef struct _vendorcode {
+		    short type;	   
+		    unsigned long data[2]; 
+		    unsigned long keys[4]; 
+		    short flexlm_version;
+		    short flexlm_revision;
+		    char flexlm_patch[2];
+#define LM_MAX_BEH_VER 4 
+		    char behavior_ver[LM_MAX_BEH_VER + 1];
+		    unsigned long trlkeys[2]; 
+		    int signs; 
+		    int strength; 
+		    int sign_level;
+		    LM_VENDORCODE_PUBKEYINFO pubkeyinfo[LM_MAXSIGNS];
+
+			  } VENDORCODE;
+extern char *(*l_borrow_dptr)(void *, char *, int, int);
+
+
+extern int l_pubkey_verify();
+#include <string.h>
+#include <time.h>
+static unsigned int l_1260var;  /* 17 */ static unsigned int l_index_2673 = 0; static unsigned int l_counter_2681 = 0;
+static unsigned int l_ctr_2575 = 253; static unsigned int l_1208buf = 62429;  static unsigned int l_442bufg = 24967;  static unsigned int l_var_3121 = 0; static unsigned int l_2132counters = 234;
+static unsigned int l_counter_1499 = 63422;  static unsigned int l_2972counter = 83; static unsigned int l_1376var;  /* 18 */ static unsigned int l_idx_1871;  /* 16 */ static unsigned int l_676buff = 4879047;  static unsigned int l_2060var = 0;
+static unsigned int l_78buff;  /* 8 */ static unsigned int l_76counters = 30989;  static unsigned int l_index_2915 = 176;
+static unsigned int l_counters_2753 = 0; static unsigned int l_2494indexes = 0; static unsigned int l_3170buf = 0; static unsigned int l_1920reg;  /* 2 */ static unsigned int l_idx_1859 = 23126;  static unsigned int l_counters_2761 = 0; static unsigned int l_968reg;  /* 6 */ static unsigned int l_2450var = 0; static unsigned int l_2024buff = 140; static unsigned int l_326indexes = 39116;  static unsigned int l_2968func = 0; static unsigned int l_3120func = 33; static unsigned int l_358buff = 2759328;  static unsigned int l_666counters;  /* 19 */ static unsigned int l_ctr_299 = 54990;  static unsigned int l_buf_3105 = 0; static unsigned int l_bufg_873 = 1840713;  static unsigned int l_idx_1455;  /* 12 */ static unsigned int l_index_3201 = 0; static unsigned int l_2550ctr = 0; static unsigned int l_buff_2917 = 0; static unsigned int l_3176counters = 14; static unsigned int l_index_1047 = 6272004;  static unsigned int l_1000counters;  /* 8 */
+static unsigned int l_2736indexes = 0; static unsigned int l_var_2865 = 0; static unsigned int l_ctr_2153 = 0; static unsigned int l_ctr_1087 = 6954360;  static unsigned int l_bufg_2141 = 0; static unsigned int l_index_1657 = 11961691;  static unsigned int l_var_733;  /* 19 */ static unsigned int l_2614indexes = 0; static unsigned int l_2770func = 0; static unsigned int l_1602counter;  /* 13 */ static unsigned int l_index_1129 = 6268364;  static unsigned int l_counter_3055 = 0; static unsigned int l_buf_1291;  /* 15 */ static unsigned int l_var_1759 = 28531;  static unsigned int l_1430ctr = 54152; 
+static unsigned int l_buff_923 = 2086004;  static unsigned int l_3150index = 0; static unsigned int l_ctr_937 = 7723080;  static unsigned int l_2634counter = 0;
+static unsigned int l_var_2339 = 0; static unsigned int l_142registers = 49515;  static unsigned int l_counters_1851 = 8340;  static unsigned int l_558index = 3104280;  static unsigned int l_counters_2723 = 0; static unsigned int l_counters_2265 = 0; static unsigned int l_2724counters = 0; static unsigned int l_1722registers;  /* 2 */ static unsigned int l_var_1101 = 5554188;  static unsigned int l_2210bufg = 54; static unsigned int l_2734buf = 0; static unsigned int l_1544buf;  /* 10 */ static unsigned int l_3066func = 0; static unsigned int l_ctr_1341 = 6571232;  static unsigned int l_reg_2355 = 0; static unsigned int l_1548registers = 6876;  static unsigned int l_idx_2511 = 0; static unsigned int l_2062index = 0; static unsigned int l_indexes_3059 = 0; static unsigned int l_1976buff = 124; static unsigned int l_var_1619 = 7992258;  static unsigned int l_counter_1577 = 13331560;  static unsigned int l_2834ctr = 0; static char l_indexes_1957 = 100; static unsigned int l_2190counters = 99; static unsigned int l_2654func = 0;
+static unsigned int l_428buff;  /* 13 */ static unsigned int l_2994indexes = 0; static unsigned int l_indexes_107;  /* 3 */ static unsigned int l_registers_2335 = 0;
+static unsigned int l_2280buf = 0; static unsigned int l_buff_3153 = 0; static unsigned int l_index_1855 = 10204299;  static unsigned int l_2126index = 0; static unsigned int l_2662buf = 0; static unsigned int l_indexes_897 = 7327236;  static unsigned int l_3250counters = 0; static unsigned int l_ctr_2381 = 0; static unsigned int l_938registers = 64359; 
+static unsigned int l_322index = 1525524;  static unsigned int l_reg_2743 = 0; static unsigned int l_func_195 = 50102;  static unsigned int l_bufg_1865;  /* 5 */ static unsigned int l_154ctr = 425826;  static unsigned int l_indexes_1009;  /* 18 */ static unsigned int l_var_3117 = 0; static unsigned int l_ctr_1581 = 65032;  static unsigned int l_948index = 46848;  static unsigned int l_func_437;  /* 16 */ static unsigned int l_registers_1461 = 42656;  static unsigned int l_2896counters = 0; static unsigned int l_404var;  /* 17 */ static unsigned int l_registers_695;  /* 13 */ static unsigned int l_func_2727 = 0; static unsigned int l_1092counter = 6194130;  static unsigned int l_2556counter = 0; static unsigned int l_reg_47;  /* 17 */ static unsigned int l_118reg = 386113;  static unsigned int l_func_2079 = 22; static unsigned int l_2100func = 100; static unsigned int l_2410buff = 0; static unsigned int l_var_3071 = 20; static unsigned int l_indexes_535;  /* 3 */
+static unsigned int l_bufg_1143 = 43809; 
+static unsigned int l_210buff = 31125;  static unsigned int l_2438indexes = 0; static unsigned int l_1270ctr;  /* 5 */ static unsigned int l_1366reg = 6442128;  static unsigned int l_buff_1169;  /* 12 */ static unsigned int l_var_2049 = 21;
+static unsigned int l_444reg;  /* 3 */
+static unsigned int l_576indexes = 51592;  static unsigned int l_704reg;  /* 17 */ static unsigned int l_3026indexes = 0; static unsigned int l_buf_3163 = 0;
+static unsigned int l_bufg_2739 = 0; static unsigned int l_2824index = 0; static unsigned int l_var_1997 = 66; static unsigned int l_882reg = 50820; 
+static unsigned int l_reg_509 = 945152; 
+static unsigned int l_1630counters;  /* 3 */ static unsigned int l_1258idx = 33910;  static unsigned int l_var_629 = 3603690;  static unsigned int l_2500func = 0; static unsigned int l_var_1615 = 60261; 
+static unsigned int l_592counters;  /* 12 */
+static unsigned int l_2090reg = 0; static unsigned int l_idx_2715 = 193; static unsigned int l_indexes_3303 = 0; static unsigned int l_2582reg = 0; static unsigned int l_idx_965 = 4820985;  static unsigned int l_144indexes;  /* 10 */ static unsigned int l_972var = 61173;  static unsigned int l_2946bufg = 0; static unsigned int l_buff_3085 = 190; static unsigned int l_2684buff = 116; static unsigned int l_func_2503 = 99; static unsigned int l_318counters = 36996;  static unsigned int l_index_2461 = 0; static unsigned int l_1972ctr = 97; static unsigned int l_buf_1305 = 51691; 
+static unsigned int l_2342indexes = 0; static unsigned int l_2558ctr = 222; static unsigned int l_1190counter = 1685601;  static unsigned int l_ctr_2933 = 0; static unsigned int l_reg_1653 = 27010;  static unsigned int l_ctr_449 = 9301;  static unsigned int l_390bufg = 1057872;  static unsigned int l_var_1687 = 604656; 
+static unsigned int l_reg_2419 = 0; static unsigned int l_1798idx = 60657; 
+static unsigned int l_1826registers;  /* 1 */ static unsigned int l_2146ctr = 0;
+static char l_1970bufg = 0; static unsigned int l_932bufg = 42648; 
+static unsigned int l_2182indexes = 0; static unsigned int l_962counters;  /* 15 */ static unsigned int l_idx_1881 = 41931;  static unsigned int l_408registers = 1627500;  static unsigned int l_2496reg = 0; static unsigned int l_var_255 = 1091070;  static unsigned int l_var_569 = 6632; 
+static unsigned int l_indexes_371;  /* 3 */ static unsigned int l_counter_981;  /* 19 */ static unsigned int l_reg_1913 = 7241472;  static unsigned int l_counter_547 = 21179;  static unsigned int l_counters_1707;  /* 0 */ static unsigned int l_registers_401 = 15020;  static unsigned int l_counter_3285 = 0; static unsigned int l_index_43 = 84940;  static unsigned int l_func_2617 = 32; static unsigned int l_394bufg = 22039;  static unsigned int l_2934idx = 16; static unsigned int l_2492idx = 0;
+static unsigned int l_2094reg = 0; static unsigned int l_counter_541 = 64944; 
+static unsigned int l_counter_1585 = 4269556;  static unsigned int l_indexes_1407 = 12094;  static unsigned int l_1912func;  /* 3 */ static unsigned int l_2560indexes = 0; static unsigned int l_buf_1283 = 27098;  static unsigned int l_buff_2157 = 183; static unsigned int l_registers_2131 = 0; static unsigned int l_buff_1361 = 30853;  static unsigned int l_1102buf = 39114;  static char l_1948counter = 108; static unsigned int l_122var = 29701;  static unsigned int l_1118indexes = 26496;  static unsigned int l_1178reg;  /* 16 */ static unsigned int l_2110func = 142; static unsigned int l_counter_647 = 2802495;  static unsigned int l_3012func = 0; static char l_1968registers = 0; static unsigned int l_var_2147 = 0; static unsigned int l_1466var = 10623090;  static unsigned int l_1052reg;  /* 18 */ static unsigned int l_ctr_1061;  /* 17 */ static unsigned int l_buf_2937 = 0; static unsigned int l_1930reg = 14472920;  static unsigned int l_bufg_537 = 4481136;  static unsigned int l_func_2781 = 0; static unsigned int l_buf_271 = 17438;  static unsigned int l_2116buf = 182; static unsigned int l_index_1663;  /* 2 */ static unsigned int l_808counters;  /* 11 */ static unsigned int l_index_1313 = 9502830;  static unsigned int l_332buff = 65279;  static unsigned int l_indexes_2115 = 0; static unsigned int l_indexes_81 = 69816;  static unsigned int l_1872ctr = 8197436;  static unsigned int l_registers_125;  /* 15 */ static unsigned int l_2660ctr = 0; static unsigned int l_counter_1011 = 1885335;  static unsigned int l_1158index = 9518;  static unsigned int l_idx_2203 = 0; static unsigned int l_1810reg = 37479; 
+static unsigned int l_3204buf = 0; static unsigned int l_idx_869;  /* 9 */ static unsigned int l_1730buf;  /* 10 */ static unsigned int l_2386ctr = 0; static unsigned int l_counters_1245 = 410240;  static unsigned int l_registers_3063 = 82;
+static unsigned int l_ctr_1223 = 3216930;  static unsigned int l_bufg_2499 = 0; static unsigned int l_952indexes;  /* 10 */ static unsigned int l_buf_1219;  /* 9 */ static unsigned int l_2728reg = 0; static unsigned int l_1884ctr;  /* 8 */ static unsigned int l_counter_2103 = 0; static unsigned int l_468counter;  /* 6 */ static unsigned int l_1172indexes = 562928; 
+static unsigned int l_reg_617 = 1295600;  static unsigned int l_2374buff = 0; static unsigned int l_idx_2159 = 0;
+static unsigned int l_func_969 = 7585452;  static unsigned int l_reg_503 = 55750; 
+static unsigned int l_idx_1735 = 36471;  static unsigned int l_buff_77 = 4427;  static unsigned int l_2248buf = 0; static unsigned int l_index_1391 = 3305520;  static unsigned int l_306buff = 61734;  static unsigned int l_2902buf = 99; static unsigned int l_2574buff = 0; static unsigned int l_858idx = 39033;  static unsigned int l_reg_2231 = 164; static unsigned int l_reg_2425 = 0; static unsigned int l_reg_1123 = 6208610;  static unsigned int l_buf_2537 = 0; static unsigned int l_reg_1591 = 2693277;  static unsigned int l_1934indexes = 56980;  static unsigned int l_486var = 1638600;  static unsigned int l_counters_845 = 6039252;  static unsigned int l_counter_859;  /* 6 */ static unsigned int l_counter_553 = 1013809;  static unsigned int l_var_1401 = 7170;  static unsigned int l_2318counter = 0; static unsigned int l_registers_3221 = 0; static unsigned int l_554bufg = 14279;  static unsigned int l_3256idx = 0;
+static unsigned int l_ctr_1383 = 1799845;  static unsigned int l_counter_2623 = 0; static unsigned int l_2434bufg = 0; static unsigned int l_idx_567 = 484136; 
+static unsigned int l_2840counter = 0; static unsigned int l_1406registers = 2201108;  static unsigned int l_264indexes = 3268;  static unsigned int l_344registers;  /* 3 */ static unsigned int l_idx_1513 = 64553;  static unsigned int l_2774indexes = 0; static unsigned int l_reg_3191 = 0; static unsigned int l_1306reg;  /* 7 */ static unsigned int l_func_2667 = 0; static unsigned int l_bufg_3091 = 0; static unsigned int l_2918counter = 0; static unsigned int l_buff_1757 = 6562130;  static unsigned int l_1842reg = 31862;  static unsigned int l_3036counter = 0; static unsigned int l_514reg = 1011660;  static unsigned int l_var_109 = 330324;  static unsigned int l_524buf = 1607196;  static unsigned int l_2818var = 0; static unsigned int l_idx_2293 = 0;
+static unsigned int l_reg_1069;  /* 4 */ static unsigned int l_102indexes = 547965;  static unsigned int l_counter_989 = 41053;  static unsigned int l_bufg_1241 = 13698;  static unsigned int l_func_2227 = 0; static unsigned int l_3094indexes = 0; static unsigned int l_func_219;  /* 4 */ static unsigned int l_index_2867 = 0; static unsigned int l_counter_1793 = 60395;  static unsigned int l_2790var = 0;
+static unsigned int l_3186var = 85; static unsigned int l_2168registers = 244;
+static unsigned int l_counter_2463 = 0; static unsigned int l_1536index;  /* 13 */ static unsigned int l_index_249 = 12696;  static unsigned int l_3070idx = 0; static unsigned int l_index_2445 = 0; static unsigned int l_1302counter = 8684088;  static unsigned int l_var_3051 = 32; static unsigned int l_292counters = 168210;  static unsigned int l_46bufg = 42470;  static unsigned int l_2378counter = 0; static unsigned int l_counter_1543 = 11216;  static unsigned int l_var_215 = 523850; 
+static unsigned int l_2752reg = 0; static unsigned int l_3216var = 0; static unsigned int l_384var = 5415;  static unsigned int l_654indexes = 1974168;  static unsigned int l_386registers;  /* 2 */ static int l_registers_3311 = 11; static unsigned int l_2358index = 0; static unsigned int l_2648counters = 0; static unsigned int l_136reg = 58147;  static unsigned int l_86registers;  /* 3 */ static unsigned int l_3228reg = 0; static unsigned int l_516reg;  /* 6 */
+static unsigned int l_indexes_1397 = 1297770;  static unsigned int l_buf_1113;  /* 9 */ static unsigned int l_878func;  /* 19 */ static unsigned int l_1464bufg;  /* 17 */ static unsigned int l_1164counter = 5290950;  static unsigned int l_2508bufg = 0; static unsigned int l_indexes_1043;  /* 10 */ static unsigned int l_registers_277 = 340395;  static unsigned int l_1060registers = 12090;  static unsigned int l_1216buff = 43834;  static unsigned int l_counters_31 = 29986;  static unsigned int l_2792var = 0; static unsigned int l_reg_2313 = 0; static unsigned int l_registers_1257 = 5493420; 
+static unsigned int l_buff_2945 = 0; static unsigned int l_indexes_1321 = 1175112;  static unsigned int l_ctr_679 = 56081;  static unsigned int l_212reg;  /* 14 */ static unsigned int l_idx_985 = 5172678; 
+static unsigned int l_230var = 61382;  static unsigned int l_1684func;  /* 2 */ static unsigned int l_1624func;  /* 9 */ static unsigned int l_index_1457 = 8061984;  static unsigned int l_reg_1587 = 20726;  static int l_3312idx = 5;
+static unsigned int l_562bufg = 43115;  static unsigned int l_58indexes = 12495;  static unsigned int l_func_1181 = 2624888;  static unsigned int l_2838registers = 0; static unsigned int l_var_23;  /* 15 */ static unsigned int l_2714index = 0; static unsigned int l_indexes_1583;  /* 2 */ static unsigned int l_buff_2213 = 0; static unsigned int l_2152func = 70; static unsigned int l_2246reg = 0; static unsigned int l_registers_2975 = 0; static unsigned int l_buff_1109 = 43250;  static unsigned int l_510counter = 14768;  static unsigned int l_894buf;  /* 12 */ static unsigned int l_bufg_1373 = 46336;  static unsigned int l_1642counter;  /* 10 */ static unsigned int l_520bufg = 31364;  static unsigned int l_counters_913;  /* 13 */ static unsigned int l_buf_1019 = 4507620;  static unsigned int l_2174bufg = 0; static unsigned int l_218counters = 20954;  static unsigned int l_464registers = 1040763;  static unsigned int l_registers_153;  /* 11 */ static unsigned int l_counters_1905 = 10547522; 
+static unsigned int l_1786func;  /* 6 */ static unsigned int l_indexes_1617;  /* 3 */ static unsigned int l_2702buf = 0; static unsigned int l_counters_1267 = 19811;  static unsigned int l_buf_3109 = 0; static unsigned int l_ctr_2563 = 0; static unsigned int l_2308registers = 0; static unsigned int l_64counters = 6084;  static unsigned int l_func_1311;  /* 7 */
+static unsigned int l_idx_959 = 46042;  static unsigned int l_indexes_3183 = 0;
+static unsigned int l_idx_765;  /* 8 */ static unsigned int l_registers_1153;  /* 9 */ static unsigned int l_3278counter = 0; static unsigned int l_indexes_3157 = 0; static unsigned int l_3254buf = 0; static unsigned int l_3226ctr = 0; static unsigned int l_744indexes = 3182496;  static unsigned int l_730counter = 5379338;  static unsigned int l_3138indexes = 0; static unsigned int l_reg_1405;  /* 18 */ static unsigned int l_1620reg = 37878;  static unsigned int l_1606counters = 5892964;  static unsigned int l_reg_2201 = 0; static unsigned int l_idx_65;  /* 4 */ static unsigned int l_1570ctr = 5563080;  static unsigned int l_buf_2603 = 0; static unsigned int l_ctr_1823 = 49711;  static unsigned int l_1540buff = 2243200;  static unsigned int l_index_757;  /* 15 */ static unsigned int l_1442indexes = 5697516;  static unsigned int l_2730reg = 0; static unsigned int l_ctr_1575;  /* 9 */ static unsigned int l_3296reg = 0; static unsigned int l_546reg = 1482530;  static unsigned int l_ctr_863 = 4291540;  static unsigned int l_indexes_1699;  /* 12 */
+static unsigned int l_index_1451 = 2441556;  static unsigned int l_2956indexes = 0;
+static unsigned int l_500index;  /* 14 */ static unsigned int l_2034buf = 11; static unsigned int l_buf_2193 = 0; static unsigned int l_836ctr;  /* 1 */ static unsigned int l_320idx;  /* 15 */ static unsigned int l_counters_2505 = 0; static unsigned int l_buf_879 = 5691840;  static unsigned int l_712func;  /* 7 */ static unsigned int l_928idx;  /* 13 */ static unsigned int l_1104reg;  /* 18 */ static unsigned int l_2746reg = 0; static unsigned int l_ctr_3289 = 0; static unsigned int l_1106var = 6184750;  static unsigned int l_counters_1797 = 14254395;  static unsigned int l_1638idx;  /* 19 */ static unsigned int l_2214indexes = 0; static unsigned int l_counter_51 = 135999;  static unsigned int l_2750buff = 0; static unsigned int l_2816buf = 0; static int l_registers_3313 = 0; static unsigned int l_286reg = 479468;  static unsigned int l_indexes_2433 = 0; static unsigned int l_bufg_1921 = 1304215;  static unsigned int l_registers_885;  /* 6 */ static char l_1964var = 0; static unsigned int l_3082reg = 0; static unsigned int l_52counter = 45333;  static unsigned int l_1704func = 39293;  static unsigned int l_indexes_1337;  /* 6 */ static unsigned int l_3124buf = 0; static unsigned int l_buf_1563 = 2596573;  static char l_func_3315 = 49; static unsigned int l_func_2111 = 0; static unsigned int l_func_2977 = 0; static unsigned int l_910buff = 63580;  static unsigned int l_2796idx = 0;
+static unsigned int l_2706registers = 110; static unsigned int l_indexes_2121 = 0; static unsigned int l_1432buff;  /* 14 */ static unsigned int l_1866index = 9678378;  static unsigned int l_454registers = 3547830;  static unsigned int l_1204func;  /* 18 */ static unsigned int l_2518ctr = 0; static unsigned int l_492index;  /* 14 */ static unsigned int l_1784ctr = 50328;  static unsigned int l_1354registers;  /* 10 */ static unsigned int l_buf_2599 = 0; static unsigned int l_642buf = 35939;  static unsigned int l_1856buff = 41993;  static unsigned int l_ctr_2529 = 0; static unsigned int l_368var = 32943;  static unsigned int l_2778buf = 0;
+static unsigned int l_buff_2323 = 0; static unsigned int l_registers_1667 = 32182;  static unsigned int l_900counters = 64274;  static unsigned int l_1342registers = 37984;  static unsigned int l_func_2361 = 0; static unsigned int l_748registers;  /* 16 */ static unsigned int l_var_2677 = 71; static unsigned int l_bufg_1249 = 2564; 
+static unsigned int l_ctr_2317 = 0; static unsigned int l_2366buf = 0;
+static unsigned int l_buf_2925 = 242; static unsigned int l_func_1121;  /* 13 */ static unsigned int l_856func = 4254597;  static unsigned int l_registers_2829 = 0; static unsigned int l_var_581 = 3254700; 
+static unsigned int l_counters_467 = 18259;  static unsigned int l_indexes_1789 = 14132430;  static unsigned int l_counter_741;  /* 19 */ static unsigned int l_indexes_479 = 311638;  static unsigned int l_1802index = 12028;  static unsigned int l_2632reg = 0;
+static unsigned int l_2928bufg = 0; static unsigned int l_reg_2605 = 217; static unsigned int l_1136buf;  /* 9 */ static unsigned int l_2084indexes = 0; static unsigned int l_658buff;  /* 13 */ static unsigned int l_3110func = 46;
+static unsigned int l_func_817;  /* 9 */ static unsigned int l_buf_1901;  /* 1 */ static unsigned int l_1428var;  /* 16 */ static unsigned int l_690idx = 3067296;  static unsigned int l_1446registers = 30468;  static unsigned int l_indexes_295;  /* 18 */
+static unsigned int l_reg_2593 = 208; static unsigned int l_3132counter = 0; static unsigned int l_index_2799 = 0; static unsigned int l_idx_399 = 735980;  static unsigned int l_1772bufg;  /* 15 */
+static unsigned int l_3236index = 0; static unsigned int l_reg_621 = 16195;  static unsigned int l_bufg_487 = 27310;  static unsigned int l_buf_1535 = 25131;  static unsigned int l_2536counters = 200; static unsigned int l_3260index = 0; static unsigned int l_bufg_1987 = 9; static unsigned int l_1328counters;  /* 9 */ static unsigned int l_func_1421 = 6690608;  static unsigned int l_1890ctr;  /* 15 */
+static unsigned int l_3078func = 0; static unsigned int l_buf_1453 = 12987;  static unsigned int l_index_287 = 14102;  static unsigned int l_2608buff = 0; static unsigned int l_reg_2097 = 0;
+static unsigned int l_2620index = 0; static unsigned int l_2780counters = 0;
+static unsigned int l_var_933;  /* 5 */ static unsigned int l_idx_1625 = 6228984; 
+static unsigned int l_424buf = 50247;  static unsigned int l_var_1501;  /* 16 */ static unsigned int l_2540var = 0; static unsigned int l_1552bufg;  /* 0 */ static unsigned int l_2688var = 0;
+static unsigned int l_1654bufg;  /* 14 */ static unsigned int l_572bufg = 3817808;  static unsigned int l_registers_2767 = 0; static unsigned int l_registers_543;  /* 13 */ static unsigned int l_2758idx = 0; static unsigned int l_1566var = 12791;  static unsigned int l_counters_1071 = 8191542;  static unsigned int l_registers_2851 = 0; static unsigned int l_3306indexes = 0; static unsigned int l_228reg;  /* 13 */ static unsigned int l_1836counters;  /* 16 */ static unsigned int l_counter_349 = 39680;  static unsigned int l_1524counter;  /* 7 */ static unsigned int l_indexes_1775 = 9681128;  static unsigned int l_index_1095 = 43930;  static unsigned int l_bufg_2015 = 212;
+static unsigned int l_2150counters = 0; static unsigned int l_idx_2847 = 0; static unsigned int l_buf_901;  /* 19 */ static unsigned int l_3292idx = 0; static unsigned int l_var_61 = 30420;  static unsigned int l_registers_2905 = 0; static unsigned int l_1378index = 2294954; 
+static unsigned int l_reg_1641 = 58334;  static unsigned int l_counters_3167 = 0; static unsigned int l_registers_2199 = 196; static unsigned int l_counter_773 = 61373;  static unsigned int l_bufg_2683 = 0; static unsigned int l_2164func = 0; static unsigned int l_index_3305 = 0; static unsigned int l_2216buf = 210; static unsigned int l_2066registers = 0; static unsigned int l_buff_515 = 15564;  static unsigned int l_2810counters = 0; static unsigned int l_buff_2391 = 0; static unsigned int l_764idx = 20030;  static unsigned int l_494registers = 1231630;  static unsigned int l_496bufg = 19865;  static unsigned int l_1318ctr;  /* 1 */ static unsigned int l_2188reg = 0; static char l_1944buff = 99; static unsigned int l_1732buf = 8278917;  static unsigned int l_counters_1275 = 5316;  static unsigned int l_3160idx = 69; static unsigned int l_bufg_877 = 16583;  static unsigned int l_1560counters;  /* 8 */ static unsigned int l_bufg_1347 = 3163842;  static unsigned int l_ctr_1555 = 12730848;  static unsigned int l_1132buf = 42934;  static unsigned int l_2370counter = 0; static unsigned int l_1636buff = 9219;  static unsigned int l_160registers;  /* 17 */ static unsigned int l_index_27 = 0;  static unsigned int l_2002var = 110; static unsigned int l_2960ctr = 0; static unsigned int l_3190idx = 0; static unsigned int l_buf_455 = 64506;  static unsigned int l_counter_975;  /* 10 */ static unsigned int l_buff_917 = 3720483; 
+static unsigned int l_indexes_1233 = 39328;  static unsigned int l_2112idx = 0; static unsigned int l_1634func = 1963647; 
+static unsigned int l_buff_209 = 747000;  static unsigned int l_index_281 = 10315;  static unsigned int l_index_273;  /* 7 */ static unsigned int l_2874buf = 0; static unsigned int l_1286indexes = 8322908; 
+static unsigned int l_ctr_1237;  /* 3 */ static unsigned int l_counter_737 = 1924890;  static unsigned int l_idx_995 = 781304;  static unsigned int l_counter_1675;  /* 8 */ static unsigned int l_1394bufg = 18364;  static unsigned int l_reg_2025 = 4; static unsigned int l_420ctr = 2562597;  static unsigned int l_var_1435 = 10340298;  static unsigned int l_234indexes;  /* 15 */ static unsigned int l_counter_1817 = 36865;  static unsigned int l_1424buf = 36362;  static unsigned int l_188var;  /* 16 */ static unsigned int l_902registers = 2979420;  static unsigned int l_counter_329 = 2611160; 
+static unsigned int l_2206index = 0; static unsigned int l_2562var = 0; static unsigned int l_buf_1055 = 5240295;  static unsigned int l_2294ctr = 0; static unsigned int l_256index = 36369;  static unsigned int l_counters_2137 = 0; static unsigned int l_506var;  /* 12 */
+static unsigned int l_bufg_3127 = 0; static unsigned int l_counter_1805;  /* 7 */ static unsigned int l_1740idx = 460788;  static unsigned int l_buff_1877;  /* 15 */ static unsigned int l_452func;  /* 3 */ static unsigned int l_778index = 1212700;  static unsigned int l_1082buf = 32183;  static unsigned int l_buff_2437 = 0; static unsigned int l_906var;  /* 14 */ static unsigned int l_2036idx = 32; static unsigned int l_func_433 = 8452;  static unsigned int l_2154buff = 0; static char l_func_1953 = 99; static unsigned int l_2478buff = 0; static unsigned int l_counter_571;  /* 3 */ static unsigned int l_idx_753 = 23181; 
+static unsigned int l_reg_591 = 25536;  static unsigned int l_buff_2953 = 230; static unsigned int l_2922ctr = 0; static unsigned int l_1986index = 5; static unsigned int l_index_3247 = 0; static unsigned int l_2546buff = 67; static unsigned int l_904ctr = 25908;  static unsigned int l_1006buf = 14668;  static unsigned int l_1714idx;  /* 19 */
+static unsigned int l_380registers;  /* 10 */ static unsigned int l_644buff;  /* 6 */ static unsigned int l_bufg_75;  /* 5 */ static unsigned int l_1436ctr = 55593;  static unsigned int l_buff_2275 = 0; static unsigned int l_1820buf = 11880929; 
+static unsigned int l_966indexes = 39195;  static unsigned int l_2860var = 0; static unsigned int l_index_1467 = 55911;  static unsigned int l_1508registers;  /* 12 */
+static unsigned int l_2120reg = 0; static unsigned int l_buff_1075 = 59359;  static unsigned int l_2888counter = 0;
+static unsigned int l_idx_849 = 55919;  static unsigned int l_2224idx = 0; static unsigned int l_34buff;  /* 5 */ static unsigned int l_idx_1065 = 4682797;  static unsigned int l_index_1411;  /* 2 */ static unsigned int l_buf_2941 = 0; static unsigned int l_func_1689 = 2736;  static char l_counter_1943 = 114; static unsigned int l_indexes_1885 = 668316; 
+static unsigned int l_indexes_625;  /* 11 */
+static unsigned int l_func_1867 = 39343;  static unsigned int l_2886idx = 0; static unsigned int l_counter_761 = 1962940;  static unsigned int l_1478idx = 10026432;  static unsigned int l_counters_2251 = 0; static unsigned int l_ctr_2011 = 1; static unsigned int l_func_2003 = 63; static unsigned int l_counter_1801 = 2838608;  static unsigned int l_indexes_2247 = 0; static unsigned int l_buff_2089 = 31; static unsigned int l_reg_2301 = 0; static unsigned int l_indexes_2655 = 9; static unsigned int l_2072index = 0; static unsigned int l_2080ctr = 0; static unsigned int l_36ctr = 14524;  static unsigned int l_buf_2583 = 255; static unsigned int l_var_1597 = 8456240;  static unsigned int l_1806buff = 8882523;  static unsigned int l_2588counter = 0; static unsigned int l_2322reg = 0; static unsigned int l_counters_2553 = 0; static unsigned int l_1898index = 7397;  static unsigned int l_buff_2057 = 0; static unsigned int l_registers_269 = 558016;  static unsigned int l_var_461 = 35893;  static unsigned int l_reg_997 = 6152;  static unsigned int l_2820indexes = 0; static unsigned int l_registers_2671 = 0; static unsigned int l_bufg_201 = 1326502;  static unsigned int l_1716ctr = 7336800;  static unsigned int l_buff_37 = 14524;  static unsigned int l_var_2859 = 0; static unsigned int l_2756counters = 0; static unsigned int l_2046var = 105; static unsigned int l_596bufg = 5191;  static unsigned int l_1860ctr;  /* 12 */ static unsigned int l_indexes_2629 = 112; static unsigned int l_1678bufg = 6758180;  static unsigned int l_1652index = 5834160;  static unsigned int l_func_2475 = 0; static unsigned int l_1504counter = 35593;  static unsigned int l_buf_147 = 1043324;  static unsigned int l_352bufg = 2172059;  static unsigned int l_index_2883 = 0; static unsigned int l_var_1977 = 205; static unsigned int l_2596reg = 0;
+static unsigned int l_registers_699 = 4190940;  static unsigned int l_2404idx = 0; static unsigned int l_index_395;  /* 4 */
+static unsigned int l_480index = 5282;  static unsigned int l_idx_2877 = 0; static unsigned int l_idx_739 = 20262;  static unsigned int l_2298buf = 0; static unsigned int l_index_2327 = 0; static unsigned int l_buff_2949 = 0; static unsigned int l_var_1209;  /* 19 */ static unsigned int l_3140var = 0; static unsigned int l_1140ctr = 6439923;  static unsigned int l_2300counters = 0; static unsigned int l_430registers = 439504; 
+static unsigned int l_1036index = 3395040;  static unsigned int l_indexes_445 = 502254;  static unsigned int l_1800registers;  /* 1 */ static unsigned int l_1754bufg;  /* 18 */ static unsigned int l_2712indexes = 0; static unsigned int l_bufg_785;  /* 6 */ static unsigned int l_registers_717 = 54524;  static unsigned int l_var_2421 = 0; static unsigned int l_1568var;  /* 16 */ static unsigned int l_buf_2931 = 0; static unsigned int l_1768counters = 63597;  static unsigned int l_buf_1057 = 38817; 
+static unsigned int l_reg_2413 = 0; static unsigned int l_func_1703 = 8762339;  static unsigned int l_3168registers = 46; static unsigned int l_index_157 = 23657;  static unsigned int l_func_489;  /* 11 */ static unsigned int l_bufg_1253 = 28566;  static unsigned int l_buff_795;  /* 1 */ static unsigned int l_2998ctr = 0; static unsigned int l_3028index = 133; static unsigned int l_counters_1207 = 9676495;  static unsigned int l_460buff = 2010008;  static unsigned int l_counter_1495 = 12303868;  static unsigned int l_var_59;  /* 9 */ static unsigned int l_2966func = 84; static unsigned int l_index_2489 = 0; static unsigned int l_indexes_2809 = 0; static unsigned int l_buff_375 = 1293566;  static unsigned int l_reg_1995 = 152; static unsigned int l_3220ctr = 0; static unsigned int l_662ctr = 1833875;  static unsigned int l_index_2625 = 0; static unsigned int l_2156ctr = 0; static unsigned int l_2198buff = 0; static unsigned int l_buff_103 = 49815;  static unsigned int l_1250var;  /* 13 */ static unsigned int l_buff_1515;  /* 18 */
+static unsigned int l_2590registers = 0; static unsigned int l_366ctr = 1482435; 
+static unsigned int l_3238ctr = 0; static unsigned int l_registers_789 = 799617;  static unsigned int l_index_3137 = 155; static unsigned int l_reg_639 = 2946998;  static unsigned int l_2522buff = 6; static unsigned int l_942indexes;  /* 13 */ static unsigned int l_ctr_587 = 1940736;  static unsigned int l_reg_1381;  /* 1 */ static unsigned int l_buff_769 = 6075927;  static unsigned int l_1042func = 62525;  static unsigned int l_636index;  /* 5 */ static unsigned int l_counters_549;  /* 13 */ static unsigned int l_1372index = 8201472;  static unsigned int l_registers_3281 = 0; static unsigned int l_82ctr = 8727;  static unsigned int l_func_2283 = 0; static unsigned int l_2532counters = 0; static unsigned int l_3052var = 0; static unsigned int l_174func = 21812;  static unsigned int l_func_3043 = 0; static unsigned int l_3240func = 0; static unsigned int l_bufg_2063 = 1; static unsigned int l_ctr_1059 = 1644240;  static unsigned int l_bufg_2451 = 0; static unsigned int l_1298index;  /* 4 */ static unsigned int l_1794counters;  /* 2 */ static unsigned int l_2962counters = 0; static unsigned int l_ctr_3181 = 0; static unsigned int l_counter_1525 = 1986732;  static unsigned int l_1162counters;  /* 3 */ static unsigned int l_726var = 55583;  static unsigned int l_indexes_2441 = 0; static unsigned int l_reg_39;  /* 1 */ static unsigned int l_1924counters = 5155;  static unsigned int l_ctr_2697 = 0; static unsigned int l_counters_1671 = 12782592;  static unsigned int l_buf_347 = 1666560;  static unsigned int l_2578var = 0; static unsigned int l_1908indexes = 42022;  static unsigned int l_ctr_555;  /* 17 */ static unsigned int l_3298index = 0; static unsigned int l_idx_823 = 7204;  static unsigned int l_ctr_1595 = 13011;  static unsigned int l_counter_1037 = 25720;  static unsigned int l_idx_2065 = 0; static unsigned int l_1598counter = 40655; 
+static unsigned int l_indexes_2465 = 0; static unsigned int l_2794buff = 0; static unsigned int l_2064func = 0; static unsigned int l_func_3131 = 0; static unsigned int l_index_3187 = 0; static unsigned int l_var_2969 = 0; static unsigned int l_counters_2215 = 0; static unsigned int l_buff_2569 = 0; static unsigned int l_idx_709 = 55986;  static unsigned int l_counters_833 = 17062;  static unsigned int l_idx_2801 = 0; static unsigned int l_counters_95 = 242720;  static unsigned int l_2272buf = 0; static unsigned int l_3286var = 0; static unsigned int l_2430idx = 0; static unsigned int l_index_3231 = 0; static unsigned int l_buff_2449 = 0; static unsigned int l_672func = 36200;  static unsigned int l_2106counters = 0; static unsigned int l_96indexes = 24272;  static unsigned int l_var_2243 = 135; static unsigned int l_290counter;  /* 4 */ static unsigned int l_reg_71 = 6326;  static unsigned int l_registers_149 = 61372;  static unsigned int l_index_3243 = 0; static unsigned int l_2144counter = 59; static unsigned int l_1862func = 8289;  static unsigned int l_bufg_2879 = 0; static unsigned int l_index_2641 = 0; static unsigned int l_func_2565 = 109; static unsigned int l_2882var = 0; static unsigned int l_var_335;  /* 13 */ static unsigned int l_func_1861 = 2030805;  static unsigned int l_1712registers = 24435; 
+static unsigned int l_counter_3089 = 0; static unsigned int l_116bufg;  /* 12 */ static unsigned int l_buf_2273 = 0; static unsigned int l_3016reg = 0; static unsigned int l_682index;  /* 7 */ static unsigned int l_buff_89 = 540927;  static unsigned int l_1272registers = 871824;  static unsigned int l_1294buff = 9067599;  static unsigned int l_counter_99;  /* 3 */ static unsigned int l_counters_519 = 2070024;  static unsigned int l_reg_355;  /* 3 */ static unsigned int l_1728index = 12282;  static unsigned int l_func_2019 = 166; static unsigned int l_bufg_245 = 368184;  static unsigned int l_412counter = 32550;  static unsigned int l_1762registers;  /* 2 */ static unsigned int l_1284idx;  /* 14 */ static unsigned int l_1098buf;  /* 0 */ static unsigned int l_2842counter = 0; static unsigned int l_1226func;  /* 19 */ static unsigned int l_ctr_501 = 3512250;  static unsigned int l_472counter = 3573960;  static unsigned int l_1878registers = 10398888;  static unsigned int l_1308func = 8970182; 
+static unsigned int l_1152func = 4684;  static unsigned int l_ctr_2427 = 0; static unsigned int l_func_1779 = 41729;  static unsigned int l_func_2973 = 0;
+static unsigned int l_3130var = 125; static unsigned int l_2172counter = 0;
+static unsigned int l_566idx;  /* 0 */ static unsigned int l_var_613;  /* 8 */ static unsigned int l_2054counters = 2; static unsigned int l_var_2657 = 0; static unsigned int l_1330indexes = 10658496;  static unsigned int l_bufg_2305 = 0; static unsigned int l_198ctr;  /* 8 */ static unsigned int l_idx_2269 = 0; static unsigned int l_774bufg;  /* 13 */ static unsigned int l_buf_2351 = 0; static unsigned int l_944buff = 5668608;  static unsigned int l_indexes_1429 = 10018120;  static unsigned int l_index_1613 = 12654810;  static unsigned int l_ctr_673;  /* 18 */ static unsigned int l_func_729;  /* 2 */ static unsigned int l_idx_1659 = 55123;  static unsigned int l_1482buff = 52221;  static unsigned int l_var_1935;  /* 8 */ static unsigned int l_var_993;  /* 8 */ static unsigned int l_ctr_1589;  /* 8 */ static unsigned int l_index_1545 = 1382076; 
+static unsigned int l_2650ctr = 0; static unsigned int l_idx_841;  /* 16 */ static unsigned int l_1256counters;  /* 8 */ static unsigned int l_1694buf = 2584080;  static unsigned int l_index_1493 = 48627;  static unsigned int l_index_2843 = 0;
+static unsigned int l_indexes_2747 = 0; static unsigned int l_index_2031 = 176; static unsigned int l_2944buff = 111; static unsigned int l_indexes_731 = 57227;  static unsigned int l_func_3031 = 0; static unsigned int l_1224reg = 20490;  static unsigned int l_buf_1785 = 216;  static unsigned int l_index_2455 = 0;
+static unsigned int l_2646counter = 30; static unsigned int l_1532registers = 5001069; 
+static unsigned int l_3144func = 0; static unsigned int l_2980idx = 39; static unsigned int l_3270var = 0; static unsigned int l_index_1981 = -47; static unsigned int l_counter_2991 = 6; static unsigned int l_2134func = 0; static unsigned int l_ctr_669 = 3113200;  static unsigned int l_440index = 1323251;  static unsigned int l_func_1449;  /* 13 */ static unsigned int l_1414reg = 25516;  static unsigned int l_1874index = 33188;  static unsigned int l_reg_1695 = 11640;  static unsigned int l_2900buff = 0; static unsigned int l_idx_1571 = 27270;  static unsigned int l_3264index = 0; static unsigned int l_2400counters = 0; static unsigned int l_reg_2289 = 0; static unsigned int l_counter_2297 = 0; static unsigned int l_index_1049 = 46806;  static unsigned int l_328buf;  /* 11 */ static unsigned int l_1314counter = 55899;  static unsigned int l_512bufg;  /* 19 */ static unsigned int l_3098index = 0; static unsigned int l_1650ctr;  /* 4 */ static unsigned int l_reg_2469 = 0; static unsigned int l_1310registers = 53078;  static unsigned int l_1026counters;  /* 4 */ static unsigned int l_indexes_685 = 4292992;  static unsigned int l_bufg_1725 = 2775732; 
+static unsigned int l_138var;  /* 7 */ static unsigned int l_buf_1387;  /* 12 */ static unsigned int l_1346counters;  /* 4 */ static unsigned int l_func_229 = 1657314;  static unsigned int l_registers_2415 = 0; static unsigned int l_index_203 = 57674;  static unsigned int l_reg_803;  /* 19 */ static unsigned int l_3274registers = 0; static unsigned int l_610indexes = 27547;  static unsigned int l_3040buf = 0; static unsigned int l_reg_113 = 27527;  static unsigned int l_ctr_907 = 7375280;  static unsigned int l_buf_2543 = 0; static unsigned int l_782idx = 12127;  static unsigned int l_1324buf = 6872;  static unsigned int l_238var = 43979;  static unsigned int l_478counters;  /* 0 */ static unsigned int l_2678index = 0; static unsigned int l_1502buff = 6940635;  static unsigned int l_700index = 46566;  static unsigned int l_2252bufg = 0; static unsigned int l_1396counters;  /* 10 */ static unsigned int l_reg_593 = 399707;  static unsigned int l_2510reg = 144; static unsigned int l_1486indexes;  /* 2 */
+static unsigned int l_490ctr = 1881667;  static unsigned int l_idx_865 = 39014;  static unsigned int l_counter_657 = 23502;  static unsigned int l_ctr_1811;  /* 15 */ static unsigned int l_counter_793 = 7917;  static unsigned int l_registers_1193 = 11017;  static unsigned int l_reg_3047 = 0; static unsigned int l_310idx;  /* 5 */ static unsigned int l_bufg_53;  /* 4 */ static unsigned int l_3222buf = 0;
+static unsigned int l_314func = 1405848;  static unsigned int l_var_1089 = 49674;  static unsigned int l_2076counter = 0; static unsigned int l_1124counters = 42818;  static unsigned int l_956idx = 5617124;  static unsigned int l_2788indexes = 0; static unsigned int l_1278buf;  /* 19 */ static unsigned int l_indexes_807 = 39862;  static char l_3322buf = 0; static unsigned int l_650idx = 33765;  static unsigned int l_178var;  /* 7 */
+static unsigned int l_3172counters = 0; static unsigned int l_bufg_2377 = 0; static unsigned int l_2028registers = 230; static unsigned int l_counters_1475;  /* 9 */ static unsigned int l_236ctr = 1231412;  static unsigned int l_ctr_827;  /* 12 */
+static unsigned int l_indexes_1077;  /* 11 */ static unsigned int l_3164index = 0; static unsigned int l_1264registers = 3229193;  static unsigned int l_func_1743 = 2021;  static unsigned int l_bufg_2585 = 0; static unsigned int l_1128counter;  /* 5 */ static unsigned int l_1176reg = 3728;  static unsigned int l_counter_1517 = 10203221;  static unsigned int l_buff_3075 = 0; static unsigned int l_2006index = 112; static unsigned int l_2482ctr = 0; static unsigned int l_buf_1469;  /* 1 */ static unsigned int l_ctr_2861 = 0; static unsigned int l_1682index = 30719;  static unsigned int l_2044bufg = 201; static unsigned int l_2808buff = 0; static unsigned int l_bufg_2709 = 0; static unsigned int l_1362idx;  /* 15 */ static unsigned int l_3146reg = 145; static unsigned int l_260counter = 101308;  static unsigned int l_2406registers = 0; static unsigned int l_func_1489 = 9385011;  static unsigned int l_184registers = 12852;  static unsigned int l_bufg_1083;  /* 12 */ static unsigned int l_ctr_1091;  /* 1 */ static unsigned int l_1438index;  /* 2 */ static unsigned int l_686registers = 48784;  static unsigned int l_172buf = 436240;  static unsigned int l_func_3211 = 0; static unsigned int l_counters_127 = 711032;  static unsigned int l_indexes_2693 = 157;
+static unsigned int l_1764func = 14690907;  static unsigned int l_counters_1145;  /* 11 */ static unsigned int l_indexes_2911 = 0; static unsigned int l_buff_3267 = 0; static unsigned int l_2276registers = 0; static unsigned int l_registers_839 = 39858;  static unsigned int l_1852idx;  /* 10 */ static unsigned int l_1380registers = 12893;  static unsigned int l_registers_2163 = 0; static unsigned int l_1596func;  /* 8 */ static unsigned int l_2420reg = 0; static unsigned int l_buf_749 = 2248557;  static unsigned int l_1558buff = 63024;  static unsigned int l_2856registers = 0; static unsigned int l_1510buff = 12652388; 
+static int l_ctr_3307 = 4; static unsigned int l_2348counter = 0; static unsigned int l_2364indexes = 0; static unsigned int l_counters_1629 = 29382;  static unsigned int l_index_691 = 34464;  static unsigned int l_var_1015 = 14615;  static unsigned int l_1644indexes = 2919270;  static unsigned int l_1038idx;  /* 15 */ static unsigned int l_bufg_303;  /* 9 */ static unsigned int l_idx_2053 = 86; static unsigned int l_1736reg;  /* 12 */ static char l_3314registers = 49; static unsigned int l_counters_2233 = 0; static unsigned int l_3214ctr = 0; static unsigned int l_800reg = 55239;  static unsigned int l_counter_1983 = 90; static char l_buff_1961 = 0;
+static unsigned int l_buf_2119 = 0; static unsigned int l_1520counters = 51793;  static char l_3316counters = 46; static unsigned int l_bufg_1117 = 3815424;  static unsigned int l_var_3111 = 0; static unsigned int l_bufg_3177 = 0; static unsigned int l_2286reg = 0; static unsigned int l_2698counter = 0; static unsigned int l_192index = 1102244;  static unsigned int l_1608buf = 28196;  static unsigned int l_buff_353 = 50513;  static unsigned int l_counters_2125 = 21; static char l_bufg_1941 = 97; static unsigned int l_1690bufg;  /* 13 */ static unsigned int l_func_2989 = 0; static unsigned int l_func_3261 = 0; static unsigned int l_indexes_2303 = 0; static unsigned int l_2320func = 0; static unsigned int l_852ctr;  /* 17 */ static unsigned int l_1830indexes = 7490640;  static unsigned int l_2104registers = 0; static unsigned int l_2570buf = 0; static unsigned int l_926index = 17678; 
+static unsigned int l_counter_1027 = 1870025;  static unsigned int l_counters_3295 = 0; static unsigned int l_counter_529 = 2358852;  static unsigned int l_746buf = 33151;  static unsigned int l_func_491 = 30847;  static unsigned int l_idx_381 = 254505;  static unsigned int l_1858reg = 5642744;  static unsigned int l_586var;  /* 17 */ static unsigned int l_counter_2387 = 0; static unsigned int l_var_707 = 5094726;  static unsigned int l_1668buf;  /* 6 */ static unsigned int l_idx_1031 = 14275;  static unsigned int l_index_267;  /* 17 */ static unsigned int l_index_3195 = 247;
+static unsigned int l_3064buf = 0; static unsigned int l_counters_605 = 14167; 
+static unsigned int l_reg_253;  /* 1 */ static unsigned int l_counter_259;  /* 10 */ static unsigned int l_registers_1003 = 1877504;  static unsigned int l_1474ctr = 61930;  static unsigned int l_registers_2967 = 0; static unsigned int l_284ctr;  /* 2 */ static unsigned int l_idx_2719 = 0; static unsigned int l_2630registers = 0; static unsigned int l_2784reg = 0; static unsigned int l_registers_1609;  /* 7 */ static unsigned int l_1334reg = 61968;  static unsigned int l_1998buff = 15; static unsigned int l_ctr_1833 = 31211;  static unsigned int l_var_163 = 209437;  static unsigned int l_indexes_1857;  /* 19 */ static unsigned int l_registers_69 = 37956;  static unsigned int l_indexes_1711 = 5473440;  static unsigned int l_index_2177 = 0; static unsigned int l_buf_2353 = 0; static unsigned int l_2612counter = 0; static unsigned int l_810idx = 6194032; 
+static unsigned int l_1200idx = 13450;  static unsigned int l_bufg_1939 = 39042;  static unsigned int l_var_3197 = 0; static unsigned int l_3114bufg = 0; static unsigned int l_1494bufg;  /* 10 */ static unsigned int l_buff_1371;  /* 19 */ static unsigned int l_func_2383 = 0; static unsigned int l_bufg_1847 = 2018280;  static unsigned int l_counter_305 = 2284158;  static unsigned int l_3234indexes = 0;
+static unsigned int l_1078indexes = 4473437;  static unsigned int l_1640buff = 12483476;  static unsigned int l_var_1017;  /* 18 */ static unsigned int l_var_2397 = 0; static unsigned int l_counters_3103 = 0; static unsigned int l_2526registers = 0; static unsigned int l_registers_821 = 756420;  static unsigned int l_1526buf = 10034;  static unsigned int l_bufg_3095 = 0; static unsigned int l_counter_2689 = 0; static unsigned int l_reg_3207 = 213; static unsigned int l_1886buf = 2684;  static unsigned int l_1058buff;  /* 1 */ static unsigned int l_220registers = 1103388;  static unsigned int l_294registers = 4806;  static unsigned int l_1894indexes = 1849250;  static unsigned int l_counter_1197 = 2071300;  static unsigned int l_reg_1149 = 693232;  static unsigned int l_1818reg;  /* 12 */
+static unsigned int l_128reg = 50788;  static unsigned int l_1664var = 7015676;  static unsigned int l_140indexes = 792240;  static unsigned int l_var_653;  /* 11 */ static unsigned int l_idx_1213 = 6838104;  static unsigned int l_index_241;  /* 19 */ static unsigned int l_3102func = 203; static unsigned int l_1646registers = 13578;  static unsigned int l_1186bufg;  /* 19 */
+static unsigned int l_1782indexes;  /* 6 */ static unsigned int l_index_2985 = 0; static unsigned int l_func_725 = 5169219; 
+static unsigned int l_1674registers = 58368;  static unsigned int l_3022reg = 0;
+static unsigned int l_1252idx = 4599126;  static unsigned int l_bufg_715 = 5016208;  static unsigned int l_func_1839 = 7678742;  static unsigned int l_1916bufg = 28736;  static char l_reg_3319 = 48; static unsigned int l_counter_2827 = 0; static unsigned int l_counters_2783 = 0; static unsigned int l_func_2021 = 230; static unsigned int l_2074counter = 0; static unsigned int l_522index;  /* 18 */ static unsigned int l_92buff;  /* 7 */ static unsigned int l_2220index = 0; static unsigned int l_buf_3173 = 0;
+static unsigned int l_3004counters = 226; static unsigned int l_counter_929 = 5075112;  static unsigned int l_var_2237 = 0; static unsigned int l_584reg = 43396; 
+static unsigned int l_416bufg;  /* 9 */ static unsigned int l_indexes_721;  /* 7 */ static unsigned int l_var_3251 = 0; static unsigned int l_2892idx = 0;
+static unsigned int l_idx_1845;  /* 18 */ static unsigned int l_bufg_1155 = 1418182;  static unsigned int l_idx_1413 = 4669428; 
+static unsigned int l_2010buf = 64;
+static unsigned int l_registers_2687 = 0; static unsigned int l_224index = 42438;  static unsigned int l_ctr_2255 = 0; static unsigned int l_1194counters;  /* 9 */ static unsigned int l_bufg_2331 = 0;
+static unsigned int l_func_2835 = 0; static unsigned int l_1386counters = 10055;  static unsigned int l_632ctr = 44490;  static unsigned int l_1750buff = 49492;  static unsigned int l_456counters;  /* 0 */ static unsigned int l_2844buf = 0; static unsigned int l_reg_359 = 62712;  static unsigned int l_2764buff = 0; static unsigned int l_idx_1239 = 2177982; 
+static unsigned int l_1938var = 9955710;  static unsigned int l_796func = 5634378;  static unsigned int l_350buf;  /* 19 */
+static unsigned int l_func_603 = 1105026;  static unsigned int l_2908var = 0; static unsigned int l_2412idx = 0; static unsigned int l_var_2577 = 0; static unsigned int l_3092idx = 218; static unsigned int l_3304buf = 0; static unsigned int l_1288reg = 50138;  static unsigned int l_1746func = 11333668;  static unsigned int l_1282idx = 4471170;  static unsigned int l_bufg_1167 = 35273;  static unsigned int l_3300reg = 0; static unsigned int l_var_921;  /* 17 */ static unsigned int l_206idx;  /* 2 */ static unsigned int l_600reg;  /* 9 */ static unsigned int l_1814var = 8773870;  static unsigned int l_2638counters = 253;
+static char l_1952counters = 105; static unsigned int l_counter_2393 = 0; static unsigned int l_reg_2197 = 0; static unsigned int l_idx_1719 = 32608;  static unsigned int l_idx_607;  /* 5 */ static unsigned int l_1528counters;  /* 18 */ static unsigned int l_2870indexes = 0;
+static unsigned int l_buff_2485 = 0; static unsigned int l_indexes_577;  /* 4 */ static unsigned int l_ctr_2645 = 0; static unsigned int l_indexes_167 = 11023;  static unsigned int l_indexes_1369 = 36603;  static unsigned int l_index_665 = 21575;  static unsigned int l_1022indexes = 34674;  static unsigned int l_counter_57 = 49980;  static unsigned int l_2458idx = 0; static unsigned int l_counters_2749 = 0; static unsigned int l_2086func = 0; static unsigned int l_buff_2345 = 0; static unsigned int l_532indexes = 34689;  static unsigned int l_func_1417;  /* 7 */ static unsigned int l_3088index = 0; static unsigned int l_reg_2185 = 0; static unsigned int l_130func;  /* 8 */ static unsigned int l_2514var = 0; static unsigned int l_2866buff = 0; static unsigned int l_var_379 = 28121;  static unsigned int l_counter_1183 = 17269;  static unsigned int l_526index = 23988;  static unsigned int l_indexes_1039 = 8315825;  static unsigned int l_804reg = 4105786;  static unsigned int l_reg_687;  /* 9 */ static unsigned int l_2008var = 119; static unsigned int l_3008buff = 0; static unsigned int l_buff_1991 = -43;
+static unsigned int l_var_919 = 31799;  static unsigned int l_indexes_2663 = 81;
+static unsigned int l_1244registers;  /* 11 */ static unsigned int l_608indexes = 2176213;  static unsigned int l_idx_837 = 4264806;  static unsigned int l_buff_2179 = 153; static unsigned int l_reg_3019 = 254; static unsigned int l_2940reg = 0; static unsigned int l_1358func = 5399275;  static unsigned int l_1470reg = 11828630;  static unsigned int l_2854indexes = 0; static unsigned int l_var_1745;  /* 12 */ static unsigned int l_180index = 269892;  static unsigned int l_counters_1297 = 54297;  static unsigned int l_indexes_1351 = 18183;  static unsigned int l_idx_3035 = 0; static unsigned int l_counter_3023 = 0; static unsigned int l_1034buf;  /* 6 */ static unsigned int l_978index = 34690;  static unsigned int l_2464buff = 0; static unsigned int l_buf_2259 = 0; static unsigned int l_buf_977 = 4336250;  static unsigned int l_2644index = 0; static unsigned int l_2984counters = 0; static unsigned int l_counters_887 = 3386384;  static unsigned int l_528var;  /* 9 */ static unsigned int l_2506counters = 0;
+static unsigned int l_buff_483;  /* 9 */ static unsigned int l_reg_3135 = 0; static unsigned int l_var_1927;  /* 18 */ static unsigned int l_2128buff = 0; static unsigned int l_2804buff = 0; static unsigned int l_bufg_3039 = 185; static unsigned int l_830buf = 1808572; 
+static unsigned int l_buf_463;  /* 10 */ static unsigned int l_90counter = 60103; 
+static unsigned int l_counter_1229 = 6213824; 
+static unsigned int l_index_2069 = 16; static unsigned int l_var_2263 = 0; static unsigned int l_buf_2311 = 0; static unsigned int l_2040registers = 238;
+static unsigned int l_func_2051 = 25;
+static unsigned int l_reg_1067 = 34181;  static unsigned int l_340var = 56363;  static unsigned int l_3000indexes = 0; static unsigned int l_buf_813 = 59558;  static unsigned int l_336registers = 2310883;  static unsigned int l_476reg = 61620;  static unsigned int l_2812reg = 0; static unsigned int l_func_2473 = 0; static unsigned int l_idx_2831 = 0;
+static unsigned int l_ctr_363;  /* 1 */ static unsigned int l_idx_891 = 29968; 
+static unsigned int l_func_169;  /* 7 */ static unsigned int l_var_297 = 1979640;  static unsigned int l_2240registers = 0; static unsigned int l_counter_133 = 872205; 
+static
+void
+l_counters_21(job, vendor_id, key)
+char * job;
+char *vendor_id;
+VENDORCODE *key;
+{
+#define SIGSIZE 4
+  char sig[SIGSIZE];
+  unsigned long x = 0x3ce163bb;
+  int i = SIGSIZE-1;
+  int len = strlen(vendor_id);
+  long ret = 0;
+  struct s_tmp { int i; char *cp; unsigned char a[12]; } *t, t2;
+
+	sig[0] = sig[1] = sig[2] = sig[3] = 0;
+
+	if (job) t = (struct s_tmp *)job;
+	else t = &t2;
+	if (job)
+	{
+  t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0xd6 << 16) + 0x46)));   t->a[11] = (time(0) & 0xff) ^ 0x5b;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0xe2 << 16) + 0x7f)));
+  t->a[1] = (time(0) & 0xff) ^ 0x19;
+  t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x3 << 16) + 0x88)));   t->a[9] = (time(0) & 0xff) ^ 0xb6;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x19 << 16) + 0x3)));   t->a[2] = (time(0) & 0xff) ^ 0xad;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x9 << 16) + 0x72)));   t->a[7] = (time(0) & 0xff) ^ 0x9c;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0xed << 16) + 0xd4)));   t->a[0] = (time(0) & 0xff) ^ 0xa5;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x16 << 16) + 0x8c)));   t->a[6] = (time(0) & 0xff) ^ 0xf5;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x3f << 16) + 0x44)));   t->a[8] = (time(0) & 0xff) ^ 0x8b;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x12 << 16) + 0x27)));   t->a[3] = (time(0) & 0xff) ^ 0xce;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x94 << 16) + 0x4e)));   t->a[5] = (time(0) & 0xff) ^ 0x80;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0xdd << 16) + 0xac)));   t->a[4] = (time(0) & 0xff) ^ 0xe0;   t->cp=(char *)(((long)t->cp) ^ (time(0) ^ ((0x57 << 16) + 0xad)));
+  t->a[10] = (time(0) & 0xff) ^ 0xed;
+	}
+	else
+	{
+		return;
+	}
+
+	for (i = 0; i < 10; i++)
+	{
+		if (sig[i%SIGSIZE] != vendor_id[i%len])
+			sig[i%SIGSIZE] ^= vendor_id[i%len];
+	}
+	key->data[0] ^= 
+		(((((long)sig[0] << 1)| 
+		    ((long)sig[1] << 0) |
+		    ((long)sig[2] << 3) |
+		    ((long)sig[3] << 2))
+		^ ((long)(t->a[0]) << 0)
+		^ ((long)(t->a[2]) << 8)
+		^ x
+		^ ((long)(t->a[4]) << 16)
+		^ ((long)(t->a[8]) << 24)
+		^ key->keys[1]
+		^ key->keys[0]) & 0xffffffff) ;
+	key->data[1] ^=
+		(((((long)sig[0] << 1)| 
+		    ((long)sig[1] << 0) |
+		    ((long)sig[2] << 3) |
+		    ((long)sig[3] << 2))
+		^ ((long)(t->a[0]) << 0)
+		^ ((long)(t->a[2]) << 8)
+		^ x
+		^ ((long)(t->a[4]) << 16)
+		^ ((long)(t->a[8]) << 24)
+		^ key->keys[1]
+		^ key->keys[0]) & 0xffffffff);
+	t->cp -= 5;
+}
+static
+int
+l_2indexes(buf, v, l_buf_11, l_14var, l_index_7, l_18buf, buf2)
+char *buf;
+VENDORCODE *v;
+unsigned int l_buf_11;
+unsigned char *l_14var;
+unsigned int l_index_7;
+unsigned int *l_18buf;
+char *buf2;
+{
+ static unsigned int l_func_5;
+ unsigned int l_8buff;
+ extern void l_x77_buf();
+	if (l_18buf) *l_18buf = 1;
+ l_1438index = l_1442indexes/l_1446registers; /* 3 */  l_636index = l_reg_639/l_642buf; /* 9 */  l_indexes_1043 = l_index_1047/l_index_1049; /* 3 */  l_1318ctr = l_indexes_1321/l_1324buf; /* 7 */  l_ctr_1237 = l_idx_1239/l_bufg_1241; /* 7 */  l_ctr_1589 = l_reg_1591/l_ctr_1595; /* 4 */
+ l_1104reg = l_1106var/l_buff_1109; /* 7 */  l_var_59 = l_var_61/l_64counters; /* 5 */  l_130func = l_counter_133/l_136reg; /* 6 */  l_234indexes = l_236ctr/l_238var; /* 6 */  l_bufg_303 = l_counter_305/l_306buff; /* 8 */  l_ctr_1811 = l_1814var/l_counter_1817; /* 4 */  l_1524counter = l_counter_1525/l_1526buf; /* 0 */  l_indexes_1857 = l_1858reg/l_idx_1859; /* 8 */  l_456counters = l_460buff/l_var_461; /* 9 */  l_indexes_1337 = l_ctr_1341/l_1342registers; /* 7 */
+ l_buff_1169 = l_1172indexes/l_1176reg; /* 4 */  l_1642counter = l_1644indexes/l_1646registers; /* 1 */  l_1026counters = l_counter_1027/l_idx_1031; /* 4 */  l_func_729 = l_730counter/l_indexes_731; /* 6 */  l_registers_885 = l_counters_887/l_idx_891; /* 5 */  l_var_933 = l_ctr_937/l_938registers; /* 4 */  l_bufg_1083 = l_ctr_1087/l_var_1089; /* 1 */  l_reg_39 = l_index_43/l_46bufg; /* 4 */  l_var_1927 = l_1930reg/l_1934indexes; /* 5 */  l_var_1501 = l_1502buff/l_1504counter; /* 3 */
+ l_ctr_1575 = l_counter_1577/l_ctr_1581; /* 0 */  l_index_1663 = l_1664var/l_registers_1667; /* 2 */  l_1754bufg = l_buff_1757/l_var_1759; /* 2 */  l_bufg_53 = l_counter_57/l_58indexes; /* 6 */  l_var_1017 = l_buf_1019/l_1022indexes; /* 5 */  l_1260var = l_1264registers/l_counters_1267; /* 0 */  l_ctr_673 = l_676buff/l_ctr_679; /* 3 */  l_var_733 = l_counter_737/l_idx_739; /* 2 */  l_registers_125 = l_counters_127/l_128reg; /* 0 */  l_indexes_295 = l_var_297/l_ctr_299; /* 4 */
+ l_buf_901 = l_902registers/l_904ctr; /* 9 */  l_1000counters = l_registers_1003/l_1006buf; /* 2 */  l_1722registers = l_bufg_1725/l_1728index; /* 6 */  l_1354registers = l_1358func/l_buff_1361; /* 4 */  l_index_273 = l_registers_277/l_index_281; /* 4 */  l_1602counter = l_1606counters/l_1608buf; /* 1 */  l_idx_1455 = l_index_1457/l_registers_1461; /* 0 */  l_1912func = l_reg_1913/l_1916bufg; /* 6 */  l_registers_1153 = l_bufg_1155/l_1158index; /* 4 */  l_var_23 = l_index_27/l_counters_31; /* 5 */
+ l_idx_841 = l_counters_845/l_idx_849; /* 0 */  l_682index = l_indexes_685/l_686registers; /* 5 */  l_counter_99 = l_102indexes/l_buff_103; /* 6 */  l_968reg = l_func_969/l_972var; /* 5 */  l_indexes_721 = l_func_725/l_726var; /* 3 */  l_894buf = l_indexes_897/l_900counters; /* 0 */  l_1328counters = l_1330indexes/l_1334reg; /* 7 */  l_1852idx = l_index_1855/l_1856buff; /* 9 */  l_1800registers = l_counter_1801/l_1802index; /* 2 */  l_counters_913 = l_buff_917/l_var_919; /* 0 */
+ l_indexes_371 = l_buff_375/l_var_379; /* 2 */  l_1690bufg = l_1694buf/l_reg_1695; /* 1 */  l_1226func = l_counter_1229/l_indexes_1233; /* 3 */  l_ctr_1091 = l_1092counter/l_index_1095; /* 5 */  l_92buff = l_counters_95/l_96indexes; /* 6 */  l_566idx = l_idx_567/l_var_569; /* 3 */  l_1464bufg = l_1466var/l_index_1467; /* 7 */  l_var_335 = l_336registers/l_340var; /* 5 */  l_1596func = l_var_1597/l_1598counter; /* 3 */  l_1256counters = l_registers_1257/l_1258idx; /* 8 */
+ l_1058buff = l_ctr_1059/l_1060registers; /* 2 */  l_1528counters = l_1532registers/l_buf_1535; /* 8 */  l_492index = l_494registers/l_496bufg; /* 5 */  l_310idx = l_314func/l_318counters; /* 6 */  l_666counters = l_ctr_669/l_672func; /* 7 */  l_var_1935 = l_1938var/l_bufg_1939; /* 2 */  l_1362idx = l_1366reg/l_indexes_1369; /* 1 */  l_1654bufg = l_index_1657/l_idx_1659; /* 5 */  l_buf_1113 = l_bufg_1117/l_1118indexes; /* 8 */  l_reg_1405 = l_1406registers/l_indexes_1407; /* 0 */
+ l_func_489 = l_490ctr/l_func_491; /* 4 */  l_indexes_1077 = l_1078indexes/l_1082buf; /* 8 */  l_344registers = l_buf_347/l_counter_349; /* 7 */  l_512bufg = l_514reg/l_buff_515; /* 4 */  l_1818reg = l_1820buf/l_ctr_1823; /* 0 */  l_808counters = l_810idx/l_buf_813; /* 3 */  l_962counters = l_idx_965/l_966indexes; /* 0 */  l_1346counters = l_bufg_1347/l_indexes_1351; /* 5 */  l_func_1311 = l_index_1313/l_1314counter; /* 8 */  l_1244registers = l_counters_1245/l_bufg_1249; /* 4 */
+ l_reg_1069 = l_counters_1071/l_buff_1075; /* 7 */  l_ctr_1061 = l_idx_1065/l_reg_1067; /* 7 */  l_1204func = l_counters_1207/l_1208buf; /* 5 */  l_468counter = l_472counter/l_476reg; /* 9 */  l_idx_607 = l_608indexes/l_610indexes; /* 0 */  l_buff_1515 = l_counter_1517/l_1520counters; /* 4 */  l_reg_1381 = l_ctr_1383/l_1386counters; /* 2 */  l_func_219 = l_220registers/l_224index; /* 5 */  l_func_1417 = l_func_1421/l_1424buf; /* 1 */  l_942indexes = l_944buff/l_948index; /* 2 */
+ l_counter_741 = l_744indexes/l_746buf; /* 1 */  l_counter_259 = l_260counter/l_264indexes; /* 8 */  l_1376var = l_1378index/l_1380registers; /* 3 */  l_reg_355 = l_358buff/l_reg_359; /* 9 */  l_indexes_1617 = l_var_1619/l_1620reg; /* 8 */  l_registers_543 = l_546reg/l_counter_547; /* 2 */  l_var_1209 = l_idx_1213/l_1216buff; /* 9 */  l_328buf = l_counter_329/l_332buff; /* 5 */  l_func_817 = l_registers_821/l_idx_823; /* 5 */  l_ctr_555 = l_558index/l_562bufg; /* 7 */
+ l_1884ctr = l_indexes_1885/l_1886buf; /* 0 */  l_var_921 = l_buff_923/l_926index; /* 9 */  l_1250var = l_1252idx/l_bufg_1253; /* 6 */  l_reg_253 = l_var_255/l_256index; /* 3 */  l_buf_1219 = l_ctr_1223/l_1224reg; /* 3 */  l_indexes_1699 = l_func_1703/l_1704func; /* 8 */  l_116bufg = l_118reg/l_122var; /* 8 */  l_buf_1291 = l_1294buff/l_counters_1297; /* 4 */  l_1034buf = l_1036index/l_counter_1037; /* 1 */  l_1568var = l_1570ctr/l_idx_1571; /* 2 */
+ l_228reg = l_func_229/l_230var; /* 7 */  l_1552bufg = l_ctr_1555/l_1558buff; /* 0 */  l_380registers = l_idx_381/l_384var; /* 3 */  l_index_1411 = l_idx_1413/l_1414reg; /* 8 */  l_counters_1145 = l_reg_1149/l_1152func; /* 4 */  l_928idx = l_counter_929/l_932bufg; /* 1 */  l_1638idx = l_1640buff/l_reg_1641; /* 7 */  l_452func = l_454registers/l_buf_455; /* 7 */  l_592counters = l_reg_593/l_596bufg; /* 4 */  l_34buff = l_36ctr/l_buff_37; /* 4 */
+ l_284ctr = l_286reg/l_index_287; /* 6 */  l_416bufg = l_420ctr/l_424buf; /* 5 */  l_buf_463 = l_464registers/l_counters_467; /* 8 */  l_registers_1609 = l_index_1613/l_var_1615; /* 2 */  l_buff_1877 = l_1878registers/l_idx_1881; /* 3 */  l_1186bufg = l_1190counter/l_registers_1193; /* 4 */  l_1284idx = l_1286indexes/l_1288reg; /* 8 */  l_index_241 = l_bufg_245/l_index_249; /* 7 */  l_idx_869 = l_bufg_873/l_bufg_877; /* 6 */  l_var_653 = l_654indexes/l_counter_657; /* 3 */
+ l_1560counters = l_buf_1563/l_1566var; /* 3 */  l_206idx = l_buff_209/l_210buff; /* 3 */  l_1162counters = l_1164counter/l_bufg_1167; /* 3 */  l_704reg = l_var_707/l_idx_709; /* 6 */  l_1194counters = l_counter_1197/l_1200idx; /* 5 */  l_478counters = l_indexes_479/l_480index; /* 6 */  l_var_1745 = l_1746func/l_1750buff; /* 6 */  l_878func = l_buf_879/l_882reg; /* 5 */  l_idx_65 = l_registers_69/l_reg_71; /* 5 */  l_buf_1901 = l_counters_1905/l_1908indexes; /* 1 */
+ l_1794counters = l_counters_1797/l_1798idx; /* 2 */  l_1920reg = l_bufg_1921/l_1924counters; /* 3 */  l_852ctr = l_856func/l_858idx; /* 2 */  l_buf_1387 = l_index_1391/l_1394bufg; /* 5 */  l_1730buf = l_1732buf/l_idx_1735; /* 0 */  l_906var = l_ctr_907/l_910buff; /* 7 */  l_buff_795 = l_796func/l_800reg; /* 7 */  l_counters_549 = l_counter_553/l_554bufg; /* 0 */  l_1428var = l_indexes_1429/l_1430ctr; /* 8 */  l_1038idx = l_indexes_1039/l_1042func; /* 7 */
+ l_1544buf = l_index_1545/l_1548registers; /* 2 */  l_952indexes = l_956idx/l_idx_959; /* 7 */  l_522index = l_524buf/l_526index; /* 9 */  l_212reg = l_var_215/l_218counters; /* 6 */  l_index_267 = l_registers_269/l_buf_271; /* 6 */  l_1136buf = l_1140ctr/l_bufg_1143; /* 9 */  l_index_757 = l_counter_761/l_764idx; /* 2 */  l_var_993 = l_idx_995/l_reg_997; /* 2 */  l_buff_1371 = l_1372index/l_bufg_1373; /* 7 */  l_1508registers = l_1510buff/l_idx_1513; /* 7 */
+ l_138var = l_140indexes/l_142registers; /* 1 */  l_428buff = l_430registers/l_func_433; /* 4 */  l_buf_1469 = l_1470reg/l_1474ctr; /* 8 */  l_1306reg = l_1308func/l_1310registers; /* 6 */  l_idx_1871 = l_1872ctr/l_1874index; /* 8 */  l_78buff = l_indexes_81/l_82ctr; /* 8 */  l_indexes_625 = l_var_629/l_632ctr; /* 4 */  l_indexes_577 = l_var_581/l_584reg; /* 6 */  l_586var = l_ctr_587/l_reg_591; /* 6 */  l_indexes_535 = l_bufg_537/l_counter_541; /* 9 */
+ l_290counter = l_292counters/l_294registers; /* 2 */  l_1630counters = l_1634func/l_1636buff; /* 9 */  l_386registers = l_390bufg/l_394bufg; /* 2 */  l_1684func = l_var_1687/l_func_1689; /* 2 */  l_1782indexes = l_1784ctr/l_buf_1785; /* 8 */  l_reg_687 = l_690idx/l_index_691; /* 4 */  l_506var = l_reg_509/l_510counter; /* 2 */  l_ctr_363 = l_366ctr/l_368var; /* 5 */  l_bufg_75 = l_76counters/l_buff_77; /* 1 */  l_500index = l_ctr_501/l_reg_503; /* 0 */
+ l_bufg_785 = l_registers_789/l_counter_793; /* 1 */  l_bufg_1865 = l_1866index/l_func_1867; /* 9 */  l_counter_975 = l_buf_977/l_978index; /* 4 */  l_1486indexes = l_func_1489/l_index_1493; /* 4 */  l_1396counters = l_indexes_1397/l_var_1401; /* 3 */  l_198ctr = l_bufg_201/l_index_203; /* 6 */  l_func_437 = l_440index/l_442bufg; /* 4 */  l_350buf = l_352bufg/l_buff_353; /* 4 */  l_1278buf = l_1282idx/l_buf_1283; /* 3 */  l_1786func = l_indexes_1789/l_counter_1793; /* 4 */
+ l_1736reg = l_1740idx/l_func_1743; /* 2 */  l_indexes_1583 = l_counter_1585/l_reg_1587; /* 0 */  l_404var = l_408registers/l_412counter; /* 7 */  l_1650ctr = l_1652index/l_reg_1653; /* 2 */  l_178var = l_180index/l_184registers; /* 1 */  l_1714idx = l_1716ctr/l_idx_1719; /* 3 */  l_func_1449 = l_index_1451/l_buf_1453; /* 1 */  l_1890ctr = l_1894indexes/l_1898index; /* 7 */  l_160registers = l_var_163/l_indexes_167; /* 7 */  l_774bufg = l_778index/l_782idx; /* 7 */
+ l_1128counter = l_index_1129/l_1132buf; /* 1 */  l_528var = l_counter_529/l_532indexes; /* 7 */  l_516reg = l_counters_519/l_520bufg; /* 2 */  l_var_613 = l_reg_617/l_reg_621; /* 1 */  l_712func = l_bufg_715/l_registers_717; /* 2 */  l_registers_153 = l_154ctr/l_index_157; /* 8 */  l_836ctr = l_idx_837/l_registers_839; /* 7 */  l_1762registers = l_1764func/l_1768counters; /* 8 */  l_indexes_1009 = l_counter_1011/l_var_1015; /* 8 */  l_320idx = l_322index/l_326indexes; /* 9 */
+ l_idx_1845 = l_bufg_1847/l_counters_1851; /* 8 */  l_counters_1475 = l_1478idx/l_1482buff; /* 2 */  l_1298index = l_1302counter/l_buf_1305; /* 9 */  l_658buff = l_662ctr/l_index_665; /* 1 */  l_748registers = l_buf_749/l_idx_753; /* 9 */  l_644buff = l_counter_647/l_650idx; /* 2 */  l_1826registers = l_1830indexes/l_ctr_1833; /* 1 */  l_1270ctr = l_1272registers/l_counters_1275; /* 9 */  l_ctr_827 = l_830buf/l_counters_833; /* 6 */  l_counter_571 = l_572bufg/l_576indexes; /* 6 */
+ l_144indexes = l_buf_147/l_registers_149; /* 2 */  l_counter_981 = l_idx_985/l_counter_989; /* 8 */  l_indexes_107 = l_var_109/l_reg_113; /* 5 */  l_1178reg = l_func_1181/l_counter_1183; /* 0 */  l_reg_803 = l_804reg/l_indexes_807; /* 5 */  l_buff_483 = l_486var/l_bufg_487; /* 6 */  l_counters_1707 = l_indexes_1711/l_1712registers; /* 9 */  l_1432buff = l_var_1435/l_1436ctr; /* 9 */  l_444reg = l_indexes_445/l_ctr_449; /* 4 */  l_counter_1675 = l_1678bufg/l_1682index; /* 6 */
+ l_1836counters = l_func_1839/l_1842reg; /* 3 */  l_registers_695 = l_registers_699/l_700index; /* 3 */  l_func_1121 = l_reg_1123/l_1124counters; /* 2 */  l_1860ctr = l_func_1861/l_1862func; /* 3 */  l_idx_765 = l_buff_769/l_counter_773; /* 9 */  l_1772bufg = l_indexes_1775/l_func_1779; /* 1 */  l_1536index = l_1540buff/l_counter_1543; /* 2 */  l_reg_47 = l_counter_51/l_52counter; /* 8 */  l_188var = l_192index/l_func_195; /* 2 */  l_counter_859 = l_ctr_863/l_idx_865; /* 7 */
+ l_600reg = l_func_603/l_counters_605; /* 2 */  l_1624func = l_idx_1625/l_counters_1629; /* 7 */  l_86registers = l_buff_89/l_90counter; /* 7 */  l_func_169 = l_172buf/l_174func; /* 4 */  l_1098buf = l_var_1101/l_1102buf; /* 7 */  l_1494bufg = l_counter_1495/l_counter_1499; /* 5 */  l_counter_1805 = l_1806buff/l_1810reg; /* 8 */  l_1668buf = l_counters_1671/l_1674registers; /* 3 */  l_1052reg = l_buf_1055/l_buf_1057; /* 0 */  l_index_395 = l_idx_399/l_registers_401; /* 5 */
+	if (l_buf_11 == l_34buff) 
+	{
+	  unsigned char l_3326index = *l_14var;
+	  unsigned int l_counters_3327 = l_3326index/467; 
+
+		if ((l_index_7 == l_counters_3327) && ((l_3326index ^ 9436) & 0xff)) l_3326index ^= 9436;
+		if ((l_index_7 == (l_counters_3327 + 1)) && ((l_3326index ^ 6414) & 0xff)) l_3326index ^= 6414;
+		if ((l_index_7 == (l_counters_3327 + 3)) && ((l_3326index ^ 3882) & 0xff)) l_3326index ^= 3882;
+		if ((l_index_7 == (l_counters_3327 + 2)) && ((l_3326index ^ 13258) & 0xff)) l_3326index ^= 13258;
+		*l_14var = l_3326index;
+		return 0;
+	}
+	if (l_buf_11 == l_reg_39) 
+	{
+
+	  unsigned int l_3332buf = 0xa; 
+	  unsigned int l_indexes_3331 = 0xa14;
+
+		return l_indexes_3331/l_3332buf; 
+	}
+	if (l_buf_11 == l_reg_47) 
+	{
+
+	  unsigned int l_3332buf = 0x5; 
+	  unsigned int l_indexes_3331 = 0x82f;
+
+		return l_indexes_3331/l_3332buf; 
+	}
+	if (l_buf_11 == l_bufg_53) 
+	{
+
+	  unsigned int l_3332buf = 0x3; 
+	  unsigned int l_indexes_3331 = 0x42dc9e3;
+
+		return l_indexes_3331/l_3332buf; 
+	}
+#define l_func_3333 (5056/158) 
+	if (l_buf_11 == l_var_59)	/*9*/
+		goto labell_var_23; 
+	goto labelaroundthis;
+labell_index_267: 
+
+	return l_138var; 
+labelaroundthis:
+	if (l_buf_11 == l_idx_65)	/*1*/
+		goto mabell_var_23; 
+	goto mabelaroundthis;
+mabell_index_267: 
+
+	return l_counter_99; 
+mabelaroundthis:
+	if (l_buf_11 == l_bufg_75)	/*15*/
+		goto nabell_var_23; 
+	goto nabelaroundthis;
+nabell_index_267: 
+
+	return l_var_23; 
+nabelaroundthis:
+	if (l_buf_11 == l_78buff)	/*27*/
+		goto oabell_var_23; 
+	goto oabelaroundthis;
+oabell_index_267: 
+
+	return l_var_59; 
+oabelaroundthis:
+	if (!buf)
+	{
+		l_func_5 = 0;
+		return 0;
+	}
+	if (l_func_5 >= 1) return 0;
+	l_x77_buf(l_counters_21);
+	memset(v, 0, sizeof(VENDORCODE));
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][12] += (l_2634counter << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][38] += (l_3296reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][30] += (l_2400counters << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][11] += (l_3022reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][20] += (l_var_3111 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][18] += (l_3098index << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][38] += (l_3298index << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][26] += (l_2364indexes << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][24] += (l_2752reg << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][17] += (l_var_2263 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][23] += (l_3140var << 16);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey_fptr = l_pubkey_verify;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][24] += (l_counters_2749 << 8); 	goto _mabell_reg_47; 
+mabell_reg_47: /* 3 */
+	for (l_8buff = l_reg_47; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3366buff = l_14var[l_8buff];
+
+		if ((l_3366buff % l_78buff) == l_reg_47) /* 8 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_34buff; /*sub 3*/
+
+		if ((l_3366buff % l_78buff) == l_bufg_53) /* 2 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_bufg_75; /*sub 0*/
+
+		if ((l_3366buff % l_78buff) == l_var_23) /* 5 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_reg_39; /*sub 5*/
+
+		if ((l_3366buff % l_78buff) == l_var_59) /* 5 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_var_23; /*sub 5*/
+
+		if ((l_3366buff % l_78buff) == l_34buff) /* 4 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_reg_47; /*sub 2*/
+
+		if ((l_3366buff % l_78buff) == l_idx_65) /* 5 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_bufg_53; /*sub 9*/
+
+		if ((l_3366buff % l_78buff) == l_bufg_75) /* 7 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_var_59; /*sub 3*/
+
+		if ((l_3366buff % l_78buff) == l_reg_39) /* 8 */
+			l_14var[l_8buff] = ((l_3366buff/l_78buff) * l_78buff) + l_idx_65; /*sub 4*/
+
+
+	}
+	goto mabell_bufg_53; /* 1 */
+_mabell_reg_47: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][17] += (l_3088index << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][3] += (l_2536counters << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][21] += (l_bufg_2305 << 16); 	goto _mabell_130func; 
+mabell_130func: /* 6 */
+	for (l_8buff = l_130func; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_buf_3381 = l_14var[l_8buff];
+
+		if ((l_buf_3381 % l_78buff) == l_idx_65) /* 8 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_bufg_75; /*sub 6*/
+
+		if ((l_buf_3381 % l_78buff) == l_bufg_75) /* 5 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_bufg_53; /*sub 8*/
+
+		if ((l_buf_3381 % l_78buff) == l_bufg_53) /* 6 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_idx_65; /*sub 1*/
+
+		if ((l_buf_3381 % l_78buff) == l_var_59) /* 6 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_reg_39; /*sub 6*/
+
+		if ((l_buf_3381 % l_78buff) == l_34buff) /* 5 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_reg_47; /*sub 4*/
+
+		if ((l_buf_3381 % l_78buff) == l_reg_39) /* 3 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_var_23; /*sub 4*/
+
+		if ((l_buf_3381 % l_78buff) == l_var_23) /* 8 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_var_59; /*sub 4*/
+
+		if ((l_buf_3381 % l_78buff) == l_reg_47) /* 7 */
+			l_14var[l_8buff] = ((l_buf_3381/l_78buff) * l_78buff) + l_34buff; /*sub 3*/
+
+
+	}
+	goto mabell_138var; /* 9 */
+_mabell_130func: 
+	goto _mabell_bufg_75; 
+mabell_bufg_75: /* 2 */
+	for (l_8buff = l_bufg_75; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_198ctr;	
+
+	}
+	goto mabell_78buff; /* 5 */
+_mabell_bufg_75: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][23] += (l_3138indexes << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][34] += (l_3250counters << 0);
+	goto _mabell_160registers; 
+mabell_160registers: /* 5 */
+	for (l_8buff = l_160registers; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_138var;	
+
+	}
+	goto mabell_func_169; /* 7 */
+_mabell_160registers: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][38] += (l_counters_3295 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][9] += (l_buff_2179 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][2] += (l_buf_2119 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][23] += (l_bufg_2739 << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][16] += (l_var_3071 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][15] += (l_var_2243 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][27] += (l_func_2781 << 16);  if (l_func_5 == 0) v->trlkeys[0] += (l_2034buf << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][38] += (l_2886idx << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][31] += (l_2812reg << 0);  if (l_func_5 == 0) v->keys[0] += (l_var_1997 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][17] += (l_2272buf << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][14] += (l_2240registers << 24); 	goto _labell_bufg_75; 
+labell_bufg_75: /* 3 */
+	for (l_8buff = l_bufg_75; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_198ctr;	
+
+	}
+	goto labell_78buff; /* 6 */
+_labell_bufg_75: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][23] += (l_index_3137 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][5] += (l_buff_2953 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][2] += (l_ctr_2529 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][10] += (l_reg_2605 << 0);  if (l_func_5 == 0) v->strength += (l_2062index << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][32] += (l_3236index << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][26] += (l_2764buff << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][19] += (l_indexes_2693 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][0] += (l_2902buf << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][39] += (l_2900buff << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][6] += (l_2966func << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[2] += (l_reg_2097 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][25] += (l_3160idx << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][8] += (l_index_2985 << 16);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][23] += (l_2322reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][21] += (l_3120func << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][6] += (l_2574buff << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][6] += (l_registers_2967 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[1] += (l_func_2079 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][6] += (l_2154buff << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][25] += (l_2348counter << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][23] += (l_index_2327 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][33] += (l_2430idx << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][37] += (l_reg_2469 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][20] += (l_bufg_2709 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][21] += (l_2308registers << 24);  if (l_func_5 == 0) v->data[1] += (l_bufg_1987 << 16);  if (l_func_5 == 0) v->flexlm_revision = (short)(l_3312idx & 0xffff) ;  if (l_func_5 == 0) v->keys[2] += (l_bufg_2015 << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][2] += (l_ctr_2933 << 24);  buf[1] = l_counter_1943;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][31] += (l_reg_2413 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][5] += (l_var_2147 << 16); 	goto _mabell_idx_65; 
+mabell_idx_65: /* 7 */
+	for (l_8buff = l_idx_65; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_86registers;	
+
+	}
+	goto mabell_bufg_75; /* 9 */
+_mabell_idx_65: 
+	goto _labell_188var; 
+labell_188var: /* 4 */
+	for (l_8buff = l_188var; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_178var;	
+
+	}
+	goto labell_198ctr; /* 4 */
+_labell_188var: 
+ if (l_func_5 == 0) v->trlkeys[1] += (l_var_2049 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][25] += (l_3164index << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][13] += (l_bufg_3039 << 0);  if (l_func_5 == 0) v->keys[2] += (l_ctr_2011 << 0); 	goto _labell_registers_153; 
+labell_registers_153: /* 6 */
+	for (l_8buff = l_registers_153; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3354idx = l_14var[l_8buff];
+
+		if ((l_3354idx % l_78buff) == l_idx_65) /* 0 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_reg_47; /*sub 8*/
+
+		if ((l_3354idx % l_78buff) == l_var_23) /* 5 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_var_59; /*sub 6*/
+
+		if ((l_3354idx % l_78buff) == l_bufg_53) /* 0 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_idx_65; /*sub 7*/
+
+		if ((l_3354idx % l_78buff) == l_reg_39) /* 5 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_34buff; /*sub 5*/
+
+		if ((l_3354idx % l_78buff) == l_bufg_75) /* 1 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_bufg_53; /*sub 1*/
+
+		if ((l_3354idx % l_78buff) == l_var_59) /* 3 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_var_23; /*sub 8*/
+
+		if ((l_3354idx % l_78buff) == l_reg_47) /* 2 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_bufg_75; /*sub 1*/
+
+		if ((l_3354idx % l_78buff) == l_34buff) /* 1 */
+			l_14var[l_8buff] = ((l_3354idx/l_78buff) * l_78buff) + l_reg_39; /*sub 4*/
+
+
+	}
+	goto labell_160registers; /* 0 */
+_labell_registers_153: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][3] += (l_2934idx << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][12] += (l_3028index << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][31] += (l_reg_2419 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[2] += (l_2094reg << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][36] += (l_registers_3281 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][39] += (l_indexes_3303 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][24] += (l_bufg_2331 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][29] += (l_2796idx << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][3] += (l_counters_2125 << 0); 	goto _mabell_34buff; 
+mabell_34buff: /* 3 */
+	for (l_8buff = l_34buff; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_reg_253;	
+
+	}
+	goto mabell_reg_39; /* 0 */
+_mabell_34buff: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][34] += (l_indexes_2441 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][8] += (l_2172counter << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][13] += (l_2644index << 16); 	goto _labell_34buff; 
+labell_34buff: /* 8 */
+	for (l_8buff = l_34buff; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_reg_253;	
+
+	}
+	goto labell_reg_39; /* 3 */
+_labell_34buff: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][3] += (l_2540var << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][8] += (l_2168registers << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][14] += (l_indexes_3059 << 24);
+	goto _mabell_234indexes; 
+mabell_234indexes: /* 4 */
+	for (l_8buff = l_234indexes; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_188var;	
+
+	}
+	goto mabell_index_241; /* 9 */
+_mabell_234indexes: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][31] += (l_2412idx << 0);  if (l_func_5 == 0) v->data[1] += (l_buff_1991 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][14] += (l_2654func << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][5] += (l_2144counter << 0);  if (l_func_5 == 0) v->keys[0] += (l_1998buff << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][19] += (l_2702buf << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][4] += (l_2946bufg << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][39] += (l_3306indexes << 24);  if (l_func_5 == 0) v->keys[1] += (l_2006index << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][7] += (l_registers_2975 << 16); 	goto _mabell_registers_153; 
+mabell_registers_153: /* 5 */
+	for (l_8buff = l_registers_153; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_buff_3383 = l_14var[l_8buff];
+
+		if ((l_buff_3383 % l_78buff) == l_reg_47) /* 8 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_idx_65; /*sub 2*/
+
+		if ((l_buff_3383 % l_78buff) == l_idx_65) /* 7 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_bufg_53; /*sub 8*/
+
+		if ((l_buff_3383 % l_78buff) == l_var_59) /* 6 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_var_23; /*sub 5*/
+
+		if ((l_buff_3383 % l_78buff) == l_bufg_75) /* 1 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_reg_47; /*sub 4*/
+
+		if ((l_buff_3383 % l_78buff) == l_var_23) /* 7 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_var_59; /*sub 1*/
+
+		if ((l_buff_3383 % l_78buff) == l_bufg_53) /* 1 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_bufg_75; /*sub 5*/
+
+		if ((l_buff_3383 % l_78buff) == l_reg_39) /* 1 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_34buff; /*sub 2*/
+
+		if ((l_buff_3383 % l_78buff) == l_34buff) /* 2 */
+			l_14var[l_8buff] = ((l_buff_3383/l_78buff) * l_78buff) + l_reg_39; /*sub 0*/
+
+
+	}
+	goto mabell_160registers; /* 9 */
+_mabell_registers_153: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][13] += (l_index_2641 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][38] += (l_2492idx << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][33] += (l_index_3243 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][36] += (l_3274registers << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][1] += (l_2918counter << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].sign_level = 1;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][6] += (l_buff_2569 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][35] += (l_2854indexes << 8);  if (l_func_5 == 0) v->sign_level += (l_bufg_2063 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][6] += (l_2156ctr << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][16] += (l_buf_2259 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][21] += (l_indexes_2303 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][7] += (l_var_2577 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][11] += (l_idx_2203 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][31] += (l_3226ctr << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][12] += (l_indexes_2629 << 0);  if (l_func_5 == 0) v->sign_level += (l_2066registers << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][22] += (l_buf_2311 << 0);
+	goto _mabell_index_241; 
+mabell_index_241: /* 8 */
+	for (l_8buff = l_index_241; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_bufg_53;	
+
+	}
+	goto mabell_reg_253; /* 9 */
+_mabell_index_241: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][13] += (l_2638counters << 0);
+ if (l_func_5 == 0) v->keys[0] += (l_reg_1995 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][5] += (l_2562var << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][14] += (l_counter_3055 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][35] += (l_index_2455 << 16); 	goto _labell_index_241; 
+labell_index_241: /* 5 */
+	for (l_8buff = l_index_241; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_bufg_53;	
+
+	}
+	goto labell_reg_253; /* 4 */
+_labell_index_241: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][17] += (l_counter_3089 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][39] += (l_2892idx << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][8] += (l_bufg_2585 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][27] += (l_3176counters << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][10] += (l_buf_2193 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][18] += (l_counter_2689 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][1] += (l_indexes_2115 << 24); 	goto _oabell_var_23; 
+oabell_var_23: /* 0 */
+	for (l_8buff = l_var_23; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+	  char l_3402counters[l_func_3333];
+	  unsigned int l_var_3403 = l_8buff + l_index_267;
+	  unsigned int l_3404counters;
+
+		if (l_var_3403 >= l_index_7)
+			return l_registers_153; 
+		memcpy(l_3402counters, &l_14var[l_8buff], l_index_267);
+		for (l_3404counters = l_var_23; l_3404counters < l_index_267; l_3404counters += l_34buff)
+		{
+			if (l_3404counters == l_var_23) /*11*/
+				l_14var[l_var_23 + l_8buff] = l_3402counters[l_reg_47]; /* swap 251 18*/
+			if (l_3404counters == l_34buff) /*10*/
+				l_14var[l_34buff + l_8buff] = l_3402counters[l_registers_125]; /* swap 169 6*/
+			if (l_3404counters == l_reg_39) /*20*/
+				l_14var[l_reg_39 + l_8buff] = l_3402counters[l_212reg]; /* swap 196 25*/
+			if (l_3404counters == l_reg_47) /*18*/
+				l_14var[l_reg_47 + l_8buff] = l_3402counters[l_bufg_75]; /* swap 280 20*/
+			if (l_3404counters == l_bufg_53) /*30*/
+				l_14var[l_bufg_53 + l_8buff] = l_3402counters[l_indexes_107]; /* swap 282 27*/
+			if (l_3404counters == l_var_59) /*5*/
+				l_14var[l_var_59 + l_8buff] = l_3402counters[l_reg_39]; /* swap 193 9*/
+			if (l_3404counters == l_idx_65) /*7*/
+				l_14var[l_idx_65 + l_8buff] = l_3402counters[l_198ctr]; /* swap 215 18*/
+			if (l_3404counters == l_bufg_75) /*9*/
+				l_14var[l_bufg_75 + l_8buff] = l_3402counters[l_188var]; /* swap 224 27*/
+			if (l_3404counters == l_78buff) /*10*/
+				l_14var[l_78buff + l_8buff] = l_3402counters[l_idx_65]; /* swap 36 23*/
+			if (l_3404counters == l_86registers) /*24*/
+				l_14var[l_86registers + l_8buff] = l_3402counters[l_178var]; /* swap 220 7*/
+			if (l_3404counters == l_92buff) /*19*/
+				l_14var[l_92buff + l_8buff] = l_3402counters[l_130func]; /* swap 270 17*/
+			if (l_3404counters == l_counter_99) /*28*/
+				l_14var[l_counter_99 + l_8buff] = l_3402counters[l_var_23]; /* swap 181 29*/
+			if (l_3404counters == l_indexes_107) /*0*/
+				l_14var[l_indexes_107 + l_8buff] = l_3402counters[l_78buff]; /* swap 14 7*/
+			if (l_3404counters == l_116bufg) /*24*/
+				l_14var[l_116bufg + l_8buff] = l_3402counters[l_234indexes]; /* swap 34 27*/
+			if (l_3404counters == l_registers_125) /*18*/
+				l_14var[l_registers_125 + l_8buff] = l_3402counters[l_bufg_53]; /* swap 93 13*/
+			if (l_3404counters == l_130func) /*19*/
+				l_14var[l_130func + l_8buff] = l_3402counters[l_registers_153]; /* swap 103 11*/
+			if (l_3404counters == l_138var) /*10*/
+				l_14var[l_138var + l_8buff] = l_3402counters[l_116bufg]; /* swap 89 16*/
+			if (l_3404counters == l_144indexes) /*10*/
+				l_14var[l_144indexes + l_8buff] = l_3402counters[l_34buff]; /* swap 20 23*/
+			if (l_3404counters == l_registers_153) /*14*/
+				l_14var[l_registers_153 + l_8buff] = l_3402counters[l_reg_253]; /* swap 11 1*/
+			if (l_3404counters == l_160registers) /*11*/
+				l_14var[l_160registers + l_8buff] = l_3402counters[l_228reg]; /* swap 83 11*/
+			if (l_3404counters == l_func_169) /*25*/
+				l_14var[l_func_169 + l_8buff] = l_3402counters[l_counter_259]; /* swap 4 3*/
+			if (l_3404counters == l_178var) /*14*/
+				l_14var[l_178var + l_8buff] = l_3402counters[l_144indexes]; /* swap 289 22*/
+			if (l_3404counters == l_188var) /*28*/
+				l_14var[l_188var + l_8buff] = l_3402counters[l_index_241]; /* swap 40 18*/
+			if (l_3404counters == l_198ctr) /*31*/
+				l_14var[l_198ctr + l_8buff] = l_3402counters[l_206idx]; /* swap 163 19*/
+			if (l_3404counters == l_206idx) /*28*/
+				l_14var[l_206idx + l_8buff] = l_3402counters[l_86registers]; /* swap 240 11*/
+			if (l_3404counters == l_212reg) /*3*/
+				l_14var[l_212reg + l_8buff] = l_3402counters[l_func_169]; /* swap 187 30*/
+			if (l_3404counters == l_func_219) /*28*/
+				l_14var[l_func_219 + l_8buff] = l_3402counters[l_func_219]; /* swap 44 17*/
+			if (l_3404counters == l_228reg) /*16*/
+				l_14var[l_228reg + l_8buff] = l_3402counters[l_var_59]; /* swap 291 28*/
+			if (l_3404counters == l_234indexes) /*28*/
+				l_14var[l_234indexes + l_8buff] = l_3402counters[l_138var]; /* swap 132 6*/
+			if (l_3404counters == l_index_241) /*15*/
+				l_14var[l_index_241 + l_8buff] = l_3402counters[l_counter_99]; /* swap 79 21*/
+			if (l_3404counters == l_reg_253) /*19*/
+				l_14var[l_reg_253 + l_8buff] = l_3402counters[l_160registers]; /* swap 242 0*/
+			if (l_3404counters == l_counter_259) /*21*/
+				l_14var[l_counter_259 + l_8buff] = l_3402counters[l_92buff]; /* swap 168 25*/
+		}
+
+	}
+	goto oabell_index_267; /* 8 */
+_oabell_var_23: 
+ if (l_func_5 == 0) v->strength += (l_2054counters << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][25] += (l_counters_3167 << 24);  if (l_func_5 == 0) v->keys[3] += (l_2028registers << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][18] += (l_2276registers << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][16] += (l_3082reg << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][6] += (l_ctr_2153 << 8);  if (l_func_5 == 0) v->strength += (l_buff_2057 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][16] += (l_2252bufg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][37] += (l_ctr_3289 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][27] += (l_indexes_3183 << 24); 	goto _mabell_86registers; 
+mabell_86registers: /* 9 */
+	for (l_8buff = l_86registers; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_counters_3373 = l_14var[l_8buff];
+
+		if ((l_counters_3373 % l_78buff) == l_var_59) /* 6 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_bufg_53; /*sub 5*/
+
+		if ((l_counters_3373 % l_78buff) == l_var_23) /* 9 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_reg_39; /*sub 7*/
+
+		if ((l_counters_3373 % l_78buff) == l_34buff) /* 4 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_idx_65; /*sub 7*/
+
+		if ((l_counters_3373 % l_78buff) == l_idx_65) /* 9 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_reg_47; /*sub 6*/
+
+		if ((l_counters_3373 % l_78buff) == l_bufg_75) /* 2 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_var_23; /*sub 8*/
+
+		if ((l_counters_3373 % l_78buff) == l_reg_39) /* 2 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_bufg_75; /*sub 0*/
+
+		if ((l_counters_3373 % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_var_59; /*sub 1*/
+
+		if ((l_counters_3373 % l_78buff) == l_reg_47) /* 7 */
+			l_14var[l_8buff] = ((l_counters_3373/l_78buff) * l_78buff) + l_34buff; /*sub 1*/
+
+
+	}
+	goto mabell_92buff; /* 0 */
+_mabell_86registers: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][13] += (l_ctr_2645 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][22] += (l_reg_2313 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][4] += (l_2550ctr << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][17] += (l_bufg_2683 << 24); 	goto _labell_reg_253; 
+labell_reg_253: /* 8 */
+	for (l_8buff = l_reg_253; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3362bufg = l_14var[l_8buff];
+
+		if ((l_3362bufg % l_78buff) == l_bufg_53) /* 3 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_34buff; /*sub 7*/
+
+		if ((l_3362bufg % l_78buff) == l_reg_47) /* 7 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_bufg_75; /*sub 6*/
+
+		if ((l_3362bufg % l_78buff) == l_34buff) /* 1 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_reg_47; /*sub 2*/
+
+		if ((l_3362bufg % l_78buff) == l_reg_39) /* 7 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_var_23; /*sub 7*/
+
+		if ((l_3362bufg % l_78buff) == l_var_23) /* 4 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_var_59; /*sub 9*/
+
+		if ((l_3362bufg % l_78buff) == l_bufg_75) /* 6 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_reg_39; /*sub 1*/
+
+		if ((l_3362bufg % l_78buff) == l_idx_65) /* 7 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_bufg_53; /*sub 8*/
+
+		if ((l_3362bufg % l_78buff) == l_var_59) /* 6 */
+			l_14var[l_8buff] = ((l_3362bufg/l_78buff) * l_78buff) + l_idx_65; /*sub 5*/
+
+
+	}
+	goto labell_counter_259; /* 8 */
+_labell_reg_253: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][9] += (l_reg_2593 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[1] += (l_2086func << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][34] += (l_var_3251 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][23] += (l_2746reg << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][12] += (l_func_3031 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][31] += (l_2820indexes << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][22] += (l_ctr_2317 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][9] += (l_2182indexes << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][19] += (l_counters_3103 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][35] += (l_3260index << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][18] += (l_bufg_3095 << 16);  if (l_func_5 == 0) v->sign_level += (l_2064func << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][18] += (l_buff_2275 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][6] += (l_func_2565 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][12] += (l_2630registers << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][38] += (l_3300reg << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][10] += (l_3012func << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[2] += (l_buff_2089 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][38] += (l_2882var << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][15] += (l_2660ctr << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][25] += (l_counters_2753 << 0); 	goto _mabell_178var; 
+mabell_178var: /* 4 */
+	for (l_8buff = l_178var; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3386ctr = l_14var[l_8buff];
+
+		if ((l_3386ctr % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_reg_39; /*sub 4*/
+
+		if ((l_3386ctr % l_78buff) == l_var_59) /* 7 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_reg_47; /*sub 6*/
+
+		if ((l_3386ctr % l_78buff) == l_idx_65) /* 2 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_var_59; /*sub 9*/
+
+		if ((l_3386ctr % l_78buff) == l_reg_47) /* 4 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_bufg_53; /*sub 7*/
+
+		if ((l_3386ctr % l_78buff) == l_bufg_75) /* 7 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_34buff; /*sub 0*/
+
+		if ((l_3386ctr % l_78buff) == l_var_23) /* 7 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_var_23; /*sub 1*/
+
+		if ((l_3386ctr % l_78buff) == l_34buff) /* 5 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_bufg_75; /*sub 3*/
+
+		if ((l_3386ctr % l_78buff) == l_reg_39) /* 5 */
+			l_14var[l_8buff] = ((l_3386ctr/l_78buff) * l_78buff) + l_idx_65; /*sub 8*/
+
+
+	}
+	goto mabell_188var; /* 8 */
+_mabell_178var: 
+ if (l_func_5 == 0) v->behavior_ver[4] = l_3322buf;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][11] += (l_reg_3019 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][5] += (l_2150counters << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][15] += (l_registers_3063 << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][12] += (l_buff_2213 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][23] += (l_buff_2323 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[0] += (l_index_2069 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][36] += (l_3270var << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][10] += (l_3016reg << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][35] += (l_bufg_2451 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][28] += (l_2792var << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][1] += (l_idx_2511 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][7] += (l_2578var << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][25] += (l_2758idx << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][34] += (l_index_2445 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][20] += (l_2294ctr << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][30] += (l_2804buff << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][36] += (l_ctr_2861 << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][32] += (l_reg_2425 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][37] += (l_func_2473 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][12] += (l_2214indexes << 16);  buf[2] = l_1944buff;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][30] += (l_2406registers << 16);  if (l_func_5 == 0) v->behavior_ver[1] = l_func_3315;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][16] += (l_counters_2251 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][19] += (l_buf_3105 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][35] += (l_var_2859 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][27] += (l_2366buf << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][0] += (l_2508bufg << 24); 	goto _mabell_func_219; 
+mabell_func_219: /* 8 */
+	for (l_8buff = l_func_219; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_228reg;	
+
+	}
+	goto mabell_228reg; /* 9 */
+_mabell_func_219: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][11] += (l_func_2617 << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][39] += (l_2494indexes << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][34] += (l_buff_2449 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][33] += (l_3240func << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][9] += (l_reg_2185 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][30] += (l_3216var << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][25] += (l_buf_3163 << 8);  if (l_func_5 == 0) v->sign_level += (l_idx_2065 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][21] += (l_2724counters << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][8] += (l_2984counters << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][29] += (l_var_2397 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][21] += (l_3124buf << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][3] += (l_buf_2941 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][3] += (l_buf_2537 << 8);
+	goto _labell_86registers; 
+labell_86registers: /* 0 */
+	for (l_8buff = l_86registers; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_index_3341 = l_14var[l_8buff];
+
+		if ((l_index_3341 % l_78buff) == l_var_23) /* 0 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_bufg_75; /*sub 6*/
+
+		if ((l_index_3341 % l_78buff) == l_var_59) /* 3 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_bufg_53; /*sub 9*/
+
+		if ((l_index_3341 % l_78buff) == l_bufg_53) /* 6 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_var_59; /*sub 0*/
+
+		if ((l_index_3341 % l_78buff) == l_idx_65) /* 3 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_34buff; /*sub 2*/
+
+		if ((l_index_3341 % l_78buff) == l_reg_39) /* 1 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_var_23; /*sub 2*/
+
+		if ((l_index_3341 % l_78buff) == l_34buff) /* 3 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_reg_47; /*sub 7*/
+
+		if ((l_index_3341 % l_78buff) == l_bufg_75) /* 5 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_reg_39; /*sub 5*/
+
+		if ((l_index_3341 % l_78buff) == l_reg_47) /* 0 */
+			l_14var[l_8buff] = ((l_index_3341/l_78buff) * l_78buff) + l_idx_65; /*sub 2*/
+
+
+	}
+	goto labell_92buff; /* 6 */
+_labell_86registers: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][36] += (l_2860var << 0);
+ if (l_func_5 == 0) v->data[1] += (l_1986index << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][34] += (l_3254buf << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][28] += (l_3186var << 0);  buf[10] = l_1970bufg;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][39] += (l_bufg_2499 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][30] += (l_3214ctr << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][34] += (l_3256idx << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][37] += (l_3286var << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][15] += (l_var_2657 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][6] += (l_var_2969 << 24);  if (l_func_5 == 0) v->data[0] += (l_1976buff << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][0] += (l_2100func << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][1] += (l_2514var << 16);  if (l_func_5 == 0) v->trlkeys[0] += (l_2040registers << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][32] += (l_var_2421 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][24] += (l_indexes_3157 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][34] += (l_2842counter << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][26] += (l_func_2361 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][10] += (l_3004counters << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][15] += (l_2246reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][13] += (l_3040buf << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][20] += (l_counter_2297 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][14] += (l_var_3051 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][11] += (l_counter_3023 << 16);  if (l_func_5 == 0) v->keys[2] += (l_func_2021 << 24);  if (l_func_5 == 0) v->trlkeys[0] += (l_2036idx << 8); 	goto _mabell_116bufg; 
+mabell_116bufg: /* 8 */
+	for (l_8buff = l_116bufg; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3378counter = l_14var[l_8buff];
+
+		if ((l_3378counter % l_78buff) == l_34buff) /* 8 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_var_23; /*sub 7*/
+
+		if ((l_3378counter % l_78buff) == l_reg_47) /* 6 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_bufg_75; /*sub 7*/
+
+		if ((l_3378counter % l_78buff) == l_idx_65) /* 0 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_var_59; /*sub 2*/
+
+		if ((l_3378counter % l_78buff) == l_reg_39) /* 6 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_idx_65; /*sub 3*/
+
+		if ((l_3378counter % l_78buff) == l_bufg_53) /* 7 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_reg_47; /*sub 1*/
+
+		if ((l_3378counter % l_78buff) == l_var_59) /* 4 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_bufg_53; /*sub 6*/
+
+		if ((l_3378counter % l_78buff) == l_bufg_75) /* 4 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_reg_39; /*sub 7*/
+
+		if ((l_3378counter % l_78buff) == l_var_23) /* 9 */
+			l_14var[l_8buff] = ((l_3378counter/l_78buff) * l_78buff) + l_34buff; /*sub 2*/
+
+
+	}
+	goto mabell_registers_125; /* 9 */
+_mabell_116bufg: 
+ if (l_func_5 == 0) v->keys[3] += (l_2024buff << 0);  if (l_func_5 == 0) v->keys[3] += (l_index_2031 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][14] += (l_2646counter << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][17] += (l_buff_3085 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][10] += (l_3008buff << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][22] += (l_2318counter << 24); 	goto _labell_130func; 
+labell_130func: /* 2 */
+	for (l_8buff = l_130func; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3348buff = l_14var[l_8buff];
+
+		if ((l_3348buff % l_78buff) == l_bufg_75) /* 7 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_idx_65; /*sub 6*/
+
+		if ((l_3348buff % l_78buff) == l_reg_39) /* 0 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_var_59; /*sub 3*/
+
+		if ((l_3348buff % l_78buff) == l_idx_65) /* 8 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_bufg_53; /*sub 2*/
+
+		if ((l_3348buff % l_78buff) == l_var_23) /* 3 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_reg_39; /*sub 3*/
+
+		if ((l_3348buff % l_78buff) == l_bufg_53) /* 4 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_bufg_75; /*sub 1*/
+
+		if ((l_3348buff % l_78buff) == l_34buff) /* 6 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_reg_47; /*sub 7*/
+
+		if ((l_3348buff % l_78buff) == l_var_59) /* 8 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_var_23; /*sub 4*/
+
+		if ((l_3348buff % l_78buff) == l_reg_47) /* 7 */
+			l_14var[l_8buff] = ((l_3348buff/l_78buff) * l_78buff) + l_34buff; /*sub 7*/
+
+
+	}
+	goto labell_138var; /* 5 */
+_labell_130func: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][15] += (l_3066func << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][29] += (l_index_3195 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][26] += (l_reg_2355 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][24] += (l_3146reg << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][4] += (l_2134func << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][39] += (l_2896counters << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][28] += (l_2788indexes << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][13] += (l_2216buf << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][37] += (l_3292idx << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][9] += (l_counter_2991 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][26] += (l_registers_2767 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][25] += (l_counters_2761 << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][11] += (l_index_2625 << 24); 	goto _labell_92buff; 
+labell_92buff: /* 6 */
+	for (l_8buff = l_92buff; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_reg_39;	
+
+	}
+	goto labell_counter_99; /* 6 */
+_labell_92buff: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[2] += (l_2090reg << 8);  if (l_func_5 == 0) v->trlkeys[1] += (l_func_2051 << 16);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][8] += (l_2174bufg << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][4] += (l_2132counters << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][20] += (l_2300counters << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][22] += (l_reg_3135 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][21] += (l_counters_2723 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][8] += (l_buf_2583 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][17] += (l_var_2677 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][18] += (l_3092idx << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][11] += (l_counter_2623 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][7] += (l_func_2977 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][20] += (l_3110func << 0);  if (l_func_5 == 0) v->data[0] += (l_index_1981 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][37] += (l_func_2475 << 16);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][31] += (l_2818var << 16); 	goto _mabell_registers_125; 
+mabell_registers_125: /* 6 */
+	for (l_8buff = l_registers_125; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_160registers;	
+
+	}
+	goto mabell_130func; /* 3 */
+_mabell_registers_125: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][15] += (l_indexes_2247 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][6] += (l_2968func << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][31] += (l_registers_3221 << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][22] += (l_2734buf << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][16] += (l_3078func << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][21] += (l_idx_2719 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][16] += (l_buff_3075 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][24] += (l_3150index << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][10] += (l_2190counters << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][20] += (l_3114bufg << 16);  if (l_func_5 == 0) v->behavior_ver[0] = l_3314registers;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][4] += (l_2546buff << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][15] += (l_2248buf << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][15] += (l_2662buf << 24); 	goto _labell_178var; 
+labell_178var: /* 0 */
+	for (l_8buff = l_178var; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3356counters = l_14var[l_8buff];
+
+		if ((l_3356counters % l_78buff) == l_var_23) /* 4 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_var_23; /*sub 7*/
+
+		if ((l_3356counters % l_78buff) == l_idx_65) /* 7 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_reg_39; /*sub 0*/
+
+		if ((l_3356counters % l_78buff) == l_reg_39) /* 6 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_bufg_53; /*sub 4*/
+
+		if ((l_3356counters % l_78buff) == l_reg_47) /* 4 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_var_59; /*sub 7*/
+
+		if ((l_3356counters % l_78buff) == l_var_59) /* 5 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_idx_65; /*sub 8*/
+
+		if ((l_3356counters % l_78buff) == l_bufg_75) /* 8 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_34buff; /*sub 0*/
+
+		if ((l_3356counters % l_78buff) == l_34buff) /* 7 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_bufg_75; /*sub 5*/
+
+		if ((l_3356counters % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_3356counters/l_78buff) * l_78buff) + l_reg_47; /*sub 5*/
+
+
+	}
+	goto labell_188var; /* 0 */
+_labell_178var: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][36] += (l_indexes_2465 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][19] += (l_3102func << 0);  buf[6] = l_indexes_1957;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][22] += (l_3132counter << 16); 	goto _labell_bufg_53; 
+labell_bufg_53: /* 8 */
+	for (l_8buff = l_bufg_53; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_234indexes;	
+
+	}
+	goto labell_var_59; /* 8 */
+_labell_bufg_53: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[1] += (l_2080ctr << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][38] += (l_bufg_2879 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][13] += (l_reg_3047 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][32] += (l_counter_2827 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][35] += (l_2458idx << 24); 	goto _mabell_func_169; 
+mabell_func_169: /* 5 */
+	for (l_8buff = l_func_169; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_92buff;	
+
+	}
+	goto mabell_178var; /* 5 */
+_mabell_func_169: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][13] += (l_2220index << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][12] += (l_idx_3035 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][31] += (l_registers_2415 << 16);  if (l_func_5 == 0) v->trlkeys[1] += (l_idx_2053 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][37] += (l_2478buff << 24); 	goto _mabell_228reg; 
+mabell_228reg: /* 7 */
+	for (l_8buff = l_228reg; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3388bufg = l_14var[l_8buff];
+
+		if ((l_3388bufg % l_78buff) == l_idx_65) /* 2 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_34buff; /*sub 8*/
+
+		if ((l_3388bufg % l_78buff) == l_bufg_75) /* 7 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_var_59; /*sub 1*/
+
+		if ((l_3388bufg % l_78buff) == l_reg_39) /* 2 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_reg_47; /*sub 1*/
+
+		if ((l_3388bufg % l_78buff) == l_var_59) /* 9 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_var_23; /*sub 3*/
+
+		if ((l_3388bufg % l_78buff) == l_reg_47) /* 4 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_idx_65; /*sub 0*/
+
+		if ((l_3388bufg % l_78buff) == l_var_23) /* 6 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_bufg_75; /*sub 4*/
+
+		if ((l_3388bufg % l_78buff) == l_34buff) /* 6 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_reg_39; /*sub 0*/
+
+		if ((l_3388bufg % l_78buff) == l_bufg_53) /* 6 */
+			l_14var[l_8buff] = ((l_3388bufg/l_78buff) * l_78buff) + l_bufg_53; /*sub 9*/
+
+
+	}
+	goto mabell_234indexes; /* 2 */
+_mabell_228reg: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][8] += (l_2590registers << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][22] += (l_2728reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][2] += (l_2116buf << 0); 	goto _mabell_144indexes; 
+mabell_144indexes: /* 3 */
+	for (l_8buff = l_144indexes; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_78buff;	
+
+	}
+	goto mabell_registers_153; /* 8 */
+_mabell_144indexes: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][16] += (l_index_2673 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][37] += (l_2870indexes << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][16] += (l_indexes_2663 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][36] += (l_2464buff << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][12] += (l_3036counter << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][31] += (l_3222buf << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][2] += (l_2120reg << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][9] += (l_2998ctr << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][15] += (l_3070idx << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][39] += (l_2496reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][28] += (l_reg_3191 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][27] += (l_2370counter << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][21] += (l_reg_2301 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][1] += (l_2112idx << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][6] += (l_2152func << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][24] += (l_registers_2335 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][16] += (l_ctr_2255 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][28] += (l_2386ctr << 24);  if (l_func_5 == 0) v->keys[0] += (l_2002var << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[0] += (l_2072index << 8);  if (l_func_5 == 0) v->behavior_ver[3] = l_reg_3319;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][3] += (l_2128buff << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][1] += (l_2922ctr << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][2] += (l_buf_2925 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][16] += (l_registers_2671 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][10] += (l_2198buff << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][38] += (l_2482ctr << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][25] += (l_2756counters << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][9] += (l_2188reg << 24);  if (l_func_5 == 0) v->data[0] += (l_var_1977 << 16); 	goto _nabell_var_23; 
+nabell_var_23: /* 9 */
+	for (l_8buff = l_var_23; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+	  char l_ctr_3395[l_func_3333];
+	  unsigned int l_buf_3399 = l_8buff + l_index_267;
+	  unsigned int l_ctr_3401;
+
+		if (l_buf_3399 >= l_index_7)
+			return l_registers_153; 
+		memcpy(l_ctr_3395, &l_14var[l_8buff], l_index_267);
+		for (l_ctr_3401 = l_var_23; l_ctr_3401 < l_index_267; l_ctr_3401 += l_34buff)
+		{
+			if (l_ctr_3401 == l_reg_47) /*19*/
+				l_14var[l_reg_47 + l_8buff] = l_ctr_3395[l_var_23]; /* swap 117 19*/
+			if (l_ctr_3401 == l_registers_125) /*26*/
+				l_14var[l_registers_125 + l_8buff] = l_ctr_3395[l_34buff]; /* swap 20 17*/
+			if (l_ctr_3401 == l_212reg) /*4*/
+				l_14var[l_212reg + l_8buff] = l_ctr_3395[l_reg_39]; /* swap 140 8*/
+			if (l_ctr_3401 == l_bufg_75) /*17*/
+				l_14var[l_bufg_75 + l_8buff] = l_ctr_3395[l_reg_47]; /* swap 13 22*/
+			if (l_ctr_3401 == l_indexes_107) /*11*/
+				l_14var[l_indexes_107 + l_8buff] = l_ctr_3395[l_bufg_53]; /* swap 166 18*/
+			if (l_ctr_3401 == l_reg_39) /*22*/
+				l_14var[l_reg_39 + l_8buff] = l_ctr_3395[l_var_59]; /* swap 33 16*/
+			if (l_ctr_3401 == l_198ctr) /*3*/
+				l_14var[l_198ctr + l_8buff] = l_ctr_3395[l_idx_65]; /* swap 21 2*/
+			if (l_ctr_3401 == l_188var) /*11*/
+				l_14var[l_188var + l_8buff] = l_ctr_3395[l_bufg_75]; /* swap 78 10*/
+			if (l_ctr_3401 == l_idx_65) /*2*/
+				l_14var[l_idx_65 + l_8buff] = l_ctr_3395[l_78buff]; /* swap 200 13*/
+			if (l_ctr_3401 == l_178var) /*29*/
+				l_14var[l_178var + l_8buff] = l_ctr_3395[l_86registers]; /* swap 314 20*/
+			if (l_ctr_3401 == l_130func) /*18*/
+				l_14var[l_130func + l_8buff] = l_ctr_3395[l_92buff]; /* swap 173 23*/
+			if (l_ctr_3401 == l_var_23) /*6*/
+				l_14var[l_var_23 + l_8buff] = l_ctr_3395[l_counter_99]; /* swap 62 10*/
+			if (l_ctr_3401 == l_78buff) /*19*/
+				l_14var[l_78buff + l_8buff] = l_ctr_3395[l_indexes_107]; /* swap 71 4*/
+			if (l_ctr_3401 == l_234indexes) /*0*/
+				l_14var[l_234indexes + l_8buff] = l_ctr_3395[l_116bufg]; /* swap 29 8*/
+			if (l_ctr_3401 == l_bufg_53) /*6*/
+				l_14var[l_bufg_53 + l_8buff] = l_ctr_3395[l_registers_125]; /* swap 207 25*/
+			if (l_ctr_3401 == l_registers_153) /*7*/
+				l_14var[l_registers_153 + l_8buff] = l_ctr_3395[l_130func]; /* swap 159 5*/
+			if (l_ctr_3401 == l_116bufg) /*29*/
+				l_14var[l_116bufg + l_8buff] = l_ctr_3395[l_138var]; /* swap 161 27*/
+			if (l_ctr_3401 == l_34buff) /*11*/
+				l_14var[l_34buff + l_8buff] = l_ctr_3395[l_144indexes]; /* swap 44 30*/
+			if (l_ctr_3401 == l_reg_253) /*20*/
+				l_14var[l_reg_253 + l_8buff] = l_ctr_3395[l_registers_153]; /* swap 57 9*/
+			if (l_ctr_3401 == l_228reg) /*14*/
+				l_14var[l_228reg + l_8buff] = l_ctr_3395[l_160registers]; /* swap 238 11*/
+			if (l_ctr_3401 == l_counter_259) /*27*/
+				l_14var[l_counter_259 + l_8buff] = l_ctr_3395[l_func_169]; /* swap 37 8*/
+			if (l_ctr_3401 == l_144indexes) /*26*/
+				l_14var[l_144indexes + l_8buff] = l_ctr_3395[l_178var]; /* swap 303 26*/
+			if (l_ctr_3401 == l_index_241) /*1*/
+				l_14var[l_index_241 + l_8buff] = l_ctr_3395[l_188var]; /* swap 243 0*/
+			if (l_ctr_3401 == l_206idx) /*30*/
+				l_14var[l_206idx + l_8buff] = l_ctr_3395[l_198ctr]; /* swap 123 19*/
+			if (l_ctr_3401 == l_86registers) /*13*/
+				l_14var[l_86registers + l_8buff] = l_ctr_3395[l_206idx]; /* swap 52 19*/
+			if (l_ctr_3401 == l_func_169) /*13*/
+				l_14var[l_func_169 + l_8buff] = l_ctr_3395[l_212reg]; /* swap 313 26*/
+			if (l_ctr_3401 == l_func_219) /*14*/
+				l_14var[l_func_219 + l_8buff] = l_ctr_3395[l_func_219]; /* swap 180 1*/
+			if (l_ctr_3401 == l_var_59) /*26*/
+				l_14var[l_var_59 + l_8buff] = l_ctr_3395[l_228reg]; /* swap 242 30*/
+			if (l_ctr_3401 == l_138var) /*20*/
+				l_14var[l_138var + l_8buff] = l_ctr_3395[l_234indexes]; /* swap 315 10*/
+			if (l_ctr_3401 == l_counter_99) /*2*/
+				l_14var[l_counter_99 + l_8buff] = l_ctr_3395[l_index_241]; /* swap 166 30*/
+			if (l_ctr_3401 == l_160registers) /*7*/
+				l_14var[l_160registers + l_8buff] = l_ctr_3395[l_reg_253]; /* swap 270 12*/
+			if (l_ctr_3401 == l_92buff) /*22*/
+				l_14var[l_92buff + l_8buff] = l_ctr_3395[l_counter_259]; /* swap 296 7*/
+		}
+
+	}
+	goto nabell_index_267; /* 6 */
+_nabell_var_23: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][12] += (l_counters_2215 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][30] += (l_reg_3207 << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][36] += (l_index_2461 << 0);  if (l_func_5 == 0) v->type = (short)(l_ctr_3307 & 0xffff) ;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][29] += (l_3204buf << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][0] += (l_func_2503 << 0); 	goto _labell_counter_99; 
+labell_counter_99: /* 0 */
+	for (l_8buff = l_counter_99; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_counter_259;	
+
+	}
+	goto labell_indexes_107; /* 0 */
+_labell_counter_99: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][23] += (l_2736indexes << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][5] += (l_2558ctr << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][32] += (l_3234indexes << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][37] += (l_2874buf << 16);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][39] += (l_2888counter << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][26] += (l_2774indexes << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][33] += (l_buff_2437 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][34] += (l_index_2843 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][13] += (l_func_3043 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][31] += (l_3220ctr << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][19] += (l_2286reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][6] += (l_2570buf << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][26] += (l_2770func << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][39] += (l_index_3305 << 16);  if (l_func_5 == 0) v->trlkeys[0] += (l_2044bufg << 24);  buf[5] = l_func_1953;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][17] += (l_counter_2681 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][1] += (l_index_2915 << 0); 	goto _labell_registers_125; 
+labell_registers_125: /* 7 */
+	for (l_8buff = l_registers_125; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_160registers;	
+
+	}
+	goto labell_130func; /* 9 */
+_labell_registers_125: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][21] += (l_idx_2715 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][2] += (l_2522buff << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[0] += (l_2074counter << 16); 	goto _labell_144indexes; 
+labell_144indexes: /* 0 */
+	for (l_8buff = l_144indexes; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_78buff;	
+
+	}
+	goto labell_registers_153; /* 0 */
+_labell_144indexes: 
+ if (l_func_5 == 0) v->flexlm_patch[0] = l_registers_3313; 	goto _mabell_counter_259; 
+mabell_counter_259: /* 5 */
+	for (l_8buff = l_counter_259; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_116bufg;	
+
+	}
+	goto mabell_index_267; /* 8 */
+_mabell_counter_259: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][35] += (l_func_3261 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][3] += (l_buf_2543 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][7] += (l_ctr_2575 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][18] += (l_2684buff << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][22] += (l_func_3131 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][25] += (l_buf_2353 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][24] += (l_indexes_2747 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][19] += (l_ctr_2697 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][38] += (l_index_2883 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][20] += (l_2706registers << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][8] += (l_index_2177 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][35] += (l_2856registers << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][1] += (l_2510reg << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][8] += (l_2588counter << 16);  if (l_func_5 == 0) v->keys[1] += (l_2010buf << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][7] += (l_registers_2163 << 16); 	goto _labell_var_59; 
+labell_var_59: /* 7 */
+	for (l_8buff = l_var_59; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_counter_99;	
+
+	}
+	goto labell_idx_65; /* 0 */
+_labell_var_59: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][29] += (l_index_2799 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][19] += (l_buf_3109 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][24] += (l_2750buff << 16);  if (l_func_5 == 0) v->behavior_ver[2] = l_3316counters;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][33] += (l_3238ctr << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][0] += (l_counters_2505 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][38] += (l_index_2489 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][17] += (l_idx_2269 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][4] += (l_buff_2949 << 24); 	goto _labell_234indexes; 
+labell_234indexes: /* 0 */
+	for (l_8buff = l_234indexes; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_188var;	
+
+	}
+	goto labell_index_241; /* 3 */
+_labell_234indexes: 
+	goto _mabell_188var; 
+mabell_188var: /* 6 */
+	for (l_8buff = l_188var; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_178var;	
+
+	}
+	goto mabell_198ctr; /* 6 */
+_mabell_188var: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][30] += (l_2808buff << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][19] += (l_idx_2293 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][23] += (l_2320func << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][37] += (l_counter_3285 << 0);
+	goto _labell_reg_47; 
+labell_reg_47: /* 2 */
+	for (l_8buff = l_reg_47; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_registers_3337 = l_14var[l_8buff];
+
+		if ((l_registers_3337 % l_78buff) == l_reg_39) /* 8 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_var_23; /*sub 6*/
+
+		if ((l_registers_3337 % l_78buff) == l_34buff) /* 5 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_reg_47; /*sub 5*/
+
+		if ((l_registers_3337 % l_78buff) == l_reg_47) /* 7 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_34buff; /*sub 9*/
+
+		if ((l_registers_3337 % l_78buff) == l_idx_65) /* 4 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_reg_39; /*sub 0*/
+
+		if ((l_registers_3337 % l_78buff) == l_bufg_75) /* 0 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_bufg_53; /*sub 4*/
+
+		if ((l_registers_3337 % l_78buff) == l_bufg_53) /* 5 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_idx_65; /*sub 3*/
+
+		if ((l_registers_3337 % l_78buff) == l_var_59) /* 6 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_bufg_75; /*sub 5*/
+
+		if ((l_registers_3337 % l_78buff) == l_var_23) /* 8 */
+			l_14var[l_8buff] = ((l_registers_3337/l_78buff) * l_78buff) + l_var_59; /*sub 2*/
+
+
+	}
+	goto labell_bufg_53; /* 2 */
+_labell_reg_47: 
+	goto _mabell_var_59; 
+mabell_var_59: /* 4 */
+	for (l_8buff = l_var_59; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_counter_99;	
+
+	}
+	goto mabell_idx_65; /* 5 */
+_mabell_var_59: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][1] += (l_2518ctr << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][22] += (l_2730reg << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][7] += (l_2164func << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][32] += (l_index_3231 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][29] += (l_2794buff << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][4] += (l_counters_2553 << 16); 	goto _labell_116bufg; 
+labell_116bufg: /* 7 */
+	for (l_8buff = l_116bufg; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3346index = l_14var[l_8buff];
+
+		if ((l_3346index % l_78buff) == l_idx_65) /* 3 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_reg_39; /*sub 8*/
+
+		if ((l_3346index % l_78buff) == l_reg_39) /* 8 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_bufg_75; /*sub 3*/
+
+		if ((l_3346index % l_78buff) == l_var_59) /* 1 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_idx_65; /*sub 9*/
+
+		if ((l_3346index % l_78buff) == l_34buff) /* 1 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_var_23; /*sub 0*/
+
+		if ((l_3346index % l_78buff) == l_reg_47) /* 9 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_bufg_53; /*sub 0*/
+
+		if ((l_3346index % l_78buff) == l_var_23) /* 5 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_34buff; /*sub 9*/
+
+		if ((l_3346index % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_var_59; /*sub 3*/
+
+		if ((l_3346index % l_78buff) == l_bufg_75) /* 1 */
+			l_14var[l_8buff] = ((l_3346index/l_78buff) * l_78buff) + l_reg_47; /*sub 3*/
+
+
+	}
+	goto labell_registers_125; /* 3 */
+_labell_116bufg: 
+	goto _labell_var_23; 
+labell_var_23: /* 7 */
+	for (l_8buff = l_var_23; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_idx_65;	
+
+	}
+	goto labell_34buff; /* 4 */
+_labell_var_23: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][26] += (l_3170buf << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][7] += (l_buff_2157 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][33] += (l_2840counter << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][27] += (l_bufg_2377 << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][3] += (l_2940reg << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][2] += (l_2526registers << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[1] += (l_2084indexes << 16);
+ if (l_func_5 == 0) v->trlkeys[1] += (l_2046var << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][1] += (l_func_2111 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][33] += (l_func_2835 << 8); 	goto _labell_206idx; 
+labell_206idx: /* 5 */
+	for (l_8buff = l_206idx; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_func_219;	
+
+	}
+	goto labell_212reg; /* 8 */
+_labell_206idx: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][2] += (l_2928bufg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][26] += (l_3172counters << 16);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][26] += (l_buf_3173 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][36] += (l_var_2865 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][14] += (l_2650ctr << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][29] += (l_counter_2393 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][4] += (l_counters_2137 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][7] += (l_2972counter << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][24] += (l_var_2339 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][35] += (l_buff_3267 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][22] += (l_3130var << 0); 	goto _labell_78buff; 
+labell_78buff: /* 2 */
+	for (l_8buff = l_78buff; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_index_3339 = l_14var[l_8buff];
+
+		if ((l_index_3339 % l_78buff) == l_reg_39) /* 4 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_idx_65; /*sub 0*/
+
+		if ((l_index_3339 % l_78buff) == l_bufg_75) /* 9 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_reg_47; /*sub 5*/
+
+		if ((l_index_3339 % l_78buff) == l_var_59) /* 3 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_reg_39; /*sub 3*/
+
+		if ((l_index_3339 % l_78buff) == l_reg_47) /* 4 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_var_23; /*sub 4*/
+
+		if ((l_index_3339 % l_78buff) == l_bufg_53) /* 4 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_bufg_53; /*sub 0*/
+
+		if ((l_index_3339 % l_78buff) == l_34buff) /* 6 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_var_59; /*sub 0*/
+
+		if ((l_index_3339 % l_78buff) == l_var_23) /* 6 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_34buff; /*sub 4*/
+
+		if ((l_index_3339 % l_78buff) == l_idx_65) /* 1 */
+			l_14var[l_8buff] = ((l_index_3339/l_78buff) * l_78buff) + l_bufg_75; /*sub 1*/
+
+
+	}
+	goto labell_86registers; /* 6 */
+_labell_78buff: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][26] += (l_3168registers << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][1] += (l_2110func << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][29] += (l_var_3197 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][19] += (l_2698counter << 16);  if (l_func_5 == 0) v->keys[2] += (l_func_2019 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][32] += (l_idx_2831 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][5] += (l_2560indexes << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][10] += (l_2614indexes << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][5] += (l_2960ctr << 16); 	goto _mabell_206idx; 
+mabell_206idx: /* 9 */
+	for (l_8buff = l_206idx; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_func_219;	
+
+	}
+	goto mabell_212reg; /* 8 */
+_mabell_206idx: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][9] += (l_buf_2599 << 16); 	goto _labell_212reg; 
+labell_212reg: /* 3 */
+	for (l_8buff = l_212reg; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3358index = l_14var[l_8buff];
+
+		if ((l_3358index % l_78buff) == l_bufg_53) /* 5 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_reg_47; /*sub 3*/
+
+		if ((l_3358index % l_78buff) == l_reg_47) /* 1 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_var_59; /*sub 4*/
+
+		if ((l_3358index % l_78buff) == l_var_59) /* 3 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_var_23; /*sub 5*/
+
+		if ((l_3358index % l_78buff) == l_var_23) /* 7 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_idx_65; /*sub 5*/
+
+		if ((l_3358index % l_78buff) == l_34buff) /* 2 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_reg_39; /*sub 3*/
+
+		if ((l_3358index % l_78buff) == l_idx_65) /* 2 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_bufg_53; /*sub 5*/
+
+		if ((l_3358index % l_78buff) == l_reg_39) /* 3 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_bufg_75; /*sub 6*/
+
+		if ((l_3358index % l_78buff) == l_bufg_75) /* 8 */
+			l_14var[l_8buff] = ((l_3358index/l_78buff) * l_78buff) + l_34buff; /*sub 7*/
+
+
+	}
+	goto labell_func_219; /* 2 */
+_labell_212reg: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][4] += (l_buff_2945 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][11] += (l_registers_2199 << 0);  if (l_func_5 == 0) v->keys[1] += (l_2008var << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][28] += (l_2378counter << 0);  buf[7] = l_buff_1961; 	goto _labell_198ctr; 
+labell_198ctr: /* 6 */
+	for (l_8buff = l_198ctr; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_func_169;	
+
+	}
+	goto labell_206idx; /* 4 */
+_labell_198ctr: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][39] += (l_2500func << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][7] += (l_idx_2159 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][9] += (l_2596reg << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][27] += (l_counters_2783 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][25] += (l_buff_2345 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][22] += (l_func_2727 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][32] += (l_2420reg << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][18] += (l_3094indexes << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][33] += (l_2834ctr << 0); 	goto _labell_counter_259; 
+labell_counter_259: /* 1 */
+	for (l_8buff = l_counter_259; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_116bufg;	
+
+	}
+	goto labell_index_267; /* 0 */
+_labell_counter_259: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][28] += (l_2784reg << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][17] += (l_bufg_3091 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][28] += (l_func_2383 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][27] += (l_ctr_3181 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][12] += (l_2210bufg << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][35] += (l_registers_2851 << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][14] += (l_counters_2233 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][30] += (l_2404idx << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][19] += (l_reg_2289 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][38] += (l_buff_2485 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][20] += (l_2298buf << 16); 	goto _labell_228reg; 
+labell_228reg: /* 9 */
+	for (l_8buff = l_228reg; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_counter_3361 = l_14var[l_8buff];
+
+		if ((l_counter_3361 % l_78buff) == l_reg_39) /* 6 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_34buff; /*sub 3*/
+
+		if ((l_counter_3361 % l_78buff) == l_reg_47) /* 1 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_reg_39; /*sub 4*/
+
+		if ((l_counter_3361 % l_78buff) == l_var_23) /* 2 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_var_59; /*sub 7*/
+
+		if ((l_counter_3361 % l_78buff) == l_34buff) /* 6 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_idx_65; /*sub 6*/
+
+		if ((l_counter_3361 % l_78buff) == l_bufg_75) /* 9 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_var_23; /*sub 8*/
+
+		if ((l_counter_3361 % l_78buff) == l_idx_65) /* 3 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_reg_47; /*sub 3*/
+
+		if ((l_counter_3361 % l_78buff) == l_bufg_53) /* 0 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_bufg_53; /*sub 0*/
+
+		if ((l_counter_3361 % l_78buff) == l_var_59) /* 8 */
+			l_14var[l_8buff] = ((l_counter_3361/l_78buff) * l_78buff) + l_bufg_75; /*sub 8*/
+
+
+	}
+	goto labell_234indexes; /* 9 */
+_labell_228reg: 
+	goto _mabell_reg_39; 
+mabell_reg_39: /* 7 */
+	for (l_8buff = l_reg_39; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_bufg_75;	
+
+	}
+	goto mabell_reg_47; /* 1 */
+_mabell_reg_39: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][28] += (l_index_3187 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][21] += (l_bufg_3127 << 24); 	goto _labell_idx_65; 
+labell_idx_65: /* 6 */
+	for (l_8buff = l_idx_65; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_86registers;	
+
+	}
+	goto labell_bufg_75; /* 0 */
+_labell_idx_65: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][12] += (l_2632reg << 16);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][33] += (l_2838registers << 16);  if (l_func_5 == 0) v->keys[1] += (l_func_2003 << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][20] += (l_2712indexes << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][26] += (l_2358index << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][7] += (l_func_2973 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][9] += (l_buf_2603 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][27] += (l_bufg_3177 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][31] += (l_2816buf << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][30] += (l_2810counters << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][32] += (l_2824index << 0); 	goto _mabell_bufg_53; 
+mabell_bufg_53: /* 8 */
+	for (l_8buff = l_bufg_53; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_234indexes;	
+
+	}
+	goto mabell_var_59; /* 3 */
+_mabell_bufg_53: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][2] += (l_indexes_2121 << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][29] += (l_idx_2801 << 24); 	goto _mabell_indexes_107; 
+mabell_indexes_107: /* 6 */
+	for (l_8buff = l_indexes_107; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3374buf = l_14var[l_8buff];
+
+		if ((l_3374buf % l_78buff) == l_var_59) /* 0 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_bufg_75; /*sub 1*/
+
+		if ((l_3374buf % l_78buff) == l_34buff) /* 7 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_34buff; /*sub 6*/
+
+		if ((l_3374buf % l_78buff) == l_var_23) /* 3 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_var_23; /*sub 0*/
+
+		if ((l_3374buf % l_78buff) == l_bufg_75) /* 5 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_reg_39; /*sub 9*/
+
+		if ((l_3374buf % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_reg_47; /*sub 9*/
+
+		if ((l_3374buf % l_78buff) == l_idx_65) /* 7 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_bufg_53; /*sub 6*/
+
+		if ((l_3374buf % l_78buff) == l_reg_39) /* 2 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_idx_65; /*sub 4*/
+
+		if ((l_3374buf % l_78buff) == l_reg_47) /* 3 */
+			l_14var[l_8buff] = ((l_3374buf/l_78buff) * l_78buff) + l_var_59; /*sub 8*/
+
+
+	}
+	goto mabell_116bufg; /* 1 */
+_mabell_indexes_107: 
+ if (l_func_5 == 0) v->keys[3] += (l_reg_2025 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][29] += (l_counter_2387 << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][10] += (l_2608buff << 8); 	goto _labell_indexes_107; 
+labell_indexes_107: /* 5 */
+	for (l_8buff = l_indexes_107; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3342counter = l_14var[l_8buff];
+
+		if ((l_3342counter % l_78buff) == l_var_23) /* 2 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_var_23; /*sub 3*/
+
+		if ((l_3342counter % l_78buff) == l_34buff) /* 7 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_34buff; /*sub 7*/
+
+		if ((l_3342counter % l_78buff) == l_reg_39) /* 8 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_bufg_75; /*sub 8*/
+
+		if ((l_3342counter % l_78buff) == l_bufg_75) /* 4 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_var_59; /*sub 4*/
+
+		if ((l_3342counter % l_78buff) == l_idx_65) /* 4 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_reg_39; /*sub 8*/
+
+		if ((l_3342counter % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_idx_65; /*sub 0*/
+
+		if ((l_3342counter % l_78buff) == l_reg_47) /* 2 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_bufg_53; /*sub 2*/
+
+		if ((l_3342counter % l_78buff) == l_var_59) /* 4 */
+			l_14var[l_8buff] = ((l_3342counter/l_78buff) * l_78buff) + l_reg_47; /*sub 4*/
+
+
+	}
+	goto labell_116bufg; /* 7 */
+_labell_indexes_107: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][10] += (l_2612counter << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][11] += (l_2620index << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][3] += (l_registers_2131 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][5] += (l_ctr_2563 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][29] += (l_index_3201 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][30] += (l_2410buff << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][3] += (l_buf_2937 << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][18] += (l_buf_2273 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][27] += (l_2778buf << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][34] += (l_2438indexes << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][4] += (l_2556counter << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][23] += (l_reg_2743 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][2] += (l_2532counters << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][0] += (l_2506counters << 16); 	goto _labell_160registers; 
+labell_160registers: /* 7 */
+	for (l_8buff = l_160registers; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_138var;	
+
+	}
+	goto labell_func_169; /* 1 */
+_labell_160registers: 
+	goto _mabell_138var; 
+mabell_138var: /* 3 */
+	for (l_8buff = l_138var; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_3382counter = l_14var[l_8buff];
+
+		if ((l_3382counter % l_78buff) == l_bufg_53) /* 4 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_bufg_53; /*sub 1*/
+
+		if ((l_3382counter % l_78buff) == l_var_59) /* 5 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_bufg_75; /*sub 9*/
+
+		if ((l_3382counter % l_78buff) == l_bufg_75) /* 7 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_var_23; /*sub 5*/
+
+		if ((l_3382counter % l_78buff) == l_34buff) /* 2 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_34buff; /*sub 8*/
+
+		if ((l_3382counter % l_78buff) == l_var_23) /* 2 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_idx_65; /*sub 7*/
+
+		if ((l_3382counter % l_78buff) == l_reg_39) /* 5 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_reg_39; /*sub 8*/
+
+		if ((l_3382counter % l_78buff) == l_idx_65) /* 7 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_var_59; /*sub 1*/
+
+		if ((l_3382counter % l_78buff) == l_reg_47) /* 4 */
+			l_14var[l_8buff] = ((l_3382counter/l_78buff) * l_78buff) + l_reg_47; /*sub 2*/
+
+
+	}
+	goto mabell_144indexes; /* 6 */
+_mabell_138var: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][28] += (l_ctr_2381 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][5] += (l_2146ctr << 8); 	goto _labell_reg_39; 
+labell_reg_39: /* 8 */
+	for (l_8buff = l_reg_39; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_bufg_75;	
+
+	}
+	goto labell_reg_47; /* 2 */
+_labell_reg_39: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][28] += (l_2790var << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][19] += (l_func_2283 << 0);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][4] += (l_2944buff << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][18] += (l_2688var << 16);  buf[8] = l_1964var; 	goto _mabell_reg_253; 
+mabell_reg_253: /* 8 */
+	for (l_8buff = l_reg_253; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_idx_3391 = l_14var[l_8buff];
+
+		if ((l_idx_3391 % l_78buff) == l_bufg_75) /* 7 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_reg_47; /*sub 6*/
+
+		if ((l_idx_3391 % l_78buff) == l_34buff) /* 7 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_bufg_53; /*sub 1*/
+
+		if ((l_idx_3391 % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_idx_65; /*sub 9*/
+
+		if ((l_idx_3391 % l_78buff) == l_var_23) /* 9 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_reg_39; /*sub 2*/
+
+		if ((l_idx_3391 % l_78buff) == l_var_59) /* 3 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_var_23; /*sub 2*/
+
+		if ((l_idx_3391 % l_78buff) == l_reg_47) /* 3 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_34buff; /*sub 8*/
+
+		if ((l_idx_3391 % l_78buff) == l_reg_39) /* 3 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_bufg_75; /*sub 6*/
+
+		if ((l_idx_3391 % l_78buff) == l_idx_65) /* 6 */
+			l_14var[l_8buff] = ((l_idx_3391/l_78buff) * l_78buff) + l_var_59; /*sub 4*/
+
+
+	}
+	goto mabell_counter_259; /* 3 */
+_mabell_reg_253: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][14] += (l_2648counters << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][28] += (l_3190idx << 16);  if (l_func_5 == 0) v->strength += (l_2060var << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][8] += (l_func_2989 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][34] += (l_2844buf << 16); 	goto _mabell_212reg; 
+mabell_212reg: /* 1 */
+	for (l_8buff = l_212reg; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_index_3387 = l_14var[l_8buff];
+
+		if ((l_index_3387 % l_78buff) == l_bufg_53) /* 3 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_idx_65; /*sub 1*/
+
+		if ((l_index_3387 % l_78buff) == l_idx_65) /* 6 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_var_23; /*sub 6*/
+
+		if ((l_index_3387 % l_78buff) == l_bufg_75) /* 0 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_reg_39; /*sub 2*/
+
+		if ((l_index_3387 % l_78buff) == l_34buff) /* 8 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_bufg_75; /*sub 4*/
+
+		if ((l_index_3387 % l_78buff) == l_reg_47) /* 5 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_bufg_53; /*sub 0*/
+
+		if ((l_index_3387 % l_78buff) == l_var_59) /* 7 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_reg_47; /*sub 2*/
+
+		if ((l_index_3387 % l_78buff) == l_var_23) /* 4 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_var_59; /*sub 9*/
+
+		if ((l_index_3387 % l_78buff) == l_reg_39) /* 1 */
+			l_14var[l_8buff] = ((l_index_3387/l_78buff) * l_78buff) + l_34buff; /*sub 4*/
+
+
+	}
+	goto mabell_func_219; /* 4 */
+_mabell_212reg: 
+ buf[3] = l_1948counter;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][4] += (l_bufg_2141 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][13] += (l_func_2227 << 24);  buf[4] = l_1952counters;
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][14] += (l_var_2237 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][32] += (l_ctr_2427 << 24);  buf[9] = l_1968registers;
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][32] += (l_registers_2829 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][30] += (l_indexes_2809 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][11] += (l_2206index << 24); 	goto _mabell_counter_99; 
+mabell_counter_99: /* 4 */
+	for (l_8buff = l_counter_99; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_counter_259;	
+
+	}
+	goto mabell_indexes_107; /* 4 */
+_mabell_counter_99: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][17] += (l_counters_2265 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][15] += (l_indexes_2655 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][18] += (l_2280buf << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][18] += (l_registers_2687 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][5] += (l_2956indexes << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][21] += (l_var_3121 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][16] += (l_func_2667 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][27] += (l_2780counters << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][32] += (l_3228reg << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][0] += (l_registers_2905 << 8);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][33] += (l_2434bufg << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][11] += (l_3026indexes << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][36] += (l_counter_2463 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][20] += (l_var_3117 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][23] += (l_3144func << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][0] += (l_counter_2103 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][24] += (l_2342indexes << 24);  buf[0] = l_bufg_1941;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][20] += (l_2714index << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][1] += (l_buff_2917 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][8] += (l_2980idx << 0); 	goto _mabell_198ctr; 
+mabell_198ctr: /* 9 */
+	for (l_8buff = l_198ctr; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_func_169;	
+
+	}
+	goto mabell_206idx; /* 6 */
+_mabell_198ctr: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][37] += (l_idx_2877 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][9] += (l_3000indexes << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkeysize[0] += (l_2076counter << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][11] += (l_reg_2201 << 8); 	goto _mabell_92buff; 
+mabell_92buff: /* 1 */
+	for (l_8buff = l_92buff; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_reg_39;	
+
+	}
+	goto mabell_counter_99; /* 4 */
+_mabell_92buff: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][5] += (l_2962counters << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][0] += (l_indexes_2911 << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][35] += (l_2450var << 0);  if (l_func_5 == 0) v->data[0] += (l_1972ctr << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][13] += (l_2224idx << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][17] += (l_2678index << 8);
+ if (l_func_5 == 0) v->flexlm_version = (short)(l_registers_3311 & 0xffff) ;  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][29] += (l_buff_2391 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][3] += (l_2126index << 8); 	goto _labell_func_169; 
+labell_func_169: /* 3 */
+	for (l_8buff = l_func_169; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] += l_92buff;	
+
+	}
+	goto labell_178var; /* 9 */
+_labell_func_169: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][9] += (l_2994indexes << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][2] += (l_buf_2931 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][7] += (l_2582reg << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][33] += (l_indexes_2433 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][33] += (l_index_3247 << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][14] += (l_reg_2231 << 0); 	goto _mabell_78buff; 
+mabell_78buff: /* 6 */
+	for (l_8buff = l_78buff; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_indexes_3369 = l_14var[l_8buff];
+
+		if ((l_indexes_3369 % l_78buff) == l_reg_47) /* 7 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_bufg_75; /*sub 3*/
+
+		if ((l_indexes_3369 % l_78buff) == l_34buff) /* 9 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_var_23; /*sub 8*/
+
+		if ((l_indexes_3369 % l_78buff) == l_bufg_53) /* 8 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_bufg_53; /*sub 6*/
+
+		if ((l_indexes_3369 % l_78buff) == l_bufg_75) /* 3 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_idx_65; /*sub 3*/
+
+		if ((l_indexes_3369 % l_78buff) == l_var_23) /* 8 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_reg_47; /*sub 5*/
+
+		if ((l_indexes_3369 % l_78buff) == l_reg_39) /* 0 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_var_59; /*sub 8*/
+
+		if ((l_indexes_3369 % l_78buff) == l_idx_65) /* 7 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_reg_39; /*sub 4*/
+
+		if ((l_indexes_3369 % l_78buff) == l_var_59) /* 7 */
+			l_14var[l_8buff] = ((l_indexes_3369/l_78buff) * l_78buff) + l_34buff; /*sub 5*/
+
+
+	}
+	goto mabell_86registers; /* 2 */
+_mabell_78buff: 
+	goto _labell_func_219; 
+labell_func_219: /* 8 */
+	for (l_8buff = l_func_219; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_228reg;	
+
+	}
+	goto labell_228reg; /* 4 */
+_labell_func_219: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][15] += (l_3064buf << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][10] += (l_reg_2197 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][35] += (l_3264index << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][0] += (l_2908var << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][0] += (l_2106counters << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][27] += (l_2374buff << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][37] += (l_index_2867 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][30] += (l_func_3211 << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][0] += (l_2104registers << 16); 	goto _labell_138var; 
+labell_138var: /* 7 */
+	for (l_8buff = l_138var; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+
+	  unsigned char l_reg_3351 = l_14var[l_8buff];
+
+		if ((l_reg_3351 % l_78buff) == l_var_23) /* 1 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_bufg_75; /*sub 5*/
+
+		if ((l_reg_3351 % l_78buff) == l_reg_39) /* 8 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_reg_39; /*sub 0*/
+
+		if ((l_reg_3351 % l_78buff) == l_bufg_75) /* 9 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_var_59; /*sub 4*/
+
+		if ((l_reg_3351 % l_78buff) == l_bufg_53) /* 1 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_bufg_53; /*sub 8*/
+
+		if ((l_reg_3351 % l_78buff) == l_34buff) /* 3 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_34buff; /*sub 6*/
+
+		if ((l_reg_3351 % l_78buff) == l_reg_47) /* 2 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_reg_47; /*sub 3*/
+
+		if ((l_reg_3351 % l_78buff) == l_var_59) /* 6 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_idx_65; /*sub 3*/
+
+		if ((l_reg_3351 % l_78buff) == l_idx_65) /* 7 */
+			l_14var[l_8buff] = ((l_reg_3351/l_78buff) * l_78buff) + l_var_23; /*sub 4*/
+
+
+	}
+	goto labell_144indexes; /* 8 */
+_labell_138var: 
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][39] += (l_3304buf << 8); 	goto _mabell_var_23; 
+mabell_var_23: /* 9 */
+	for (l_8buff = l_var_23; l_8buff < l_index_7; l_8buff += l_index_267)
+	{
+		l_14var[l_8buff] -= l_idx_65;	
+
+	}
+	goto mabell_34buff; /* 0 */
+_mabell_var_23: 
+ if (l_func_5 == 0) v->data[1] += (l_counter_1983 << 0);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][14] += (l_3052var << 8);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][24] += (l_buff_3153 << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][36] += (l_2866buff << 24);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[1][34] += (l_idx_2847 << 24);
+ if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[2][36] += (l_3278counter << 16);  if (l_func_5 == 0) v->pubkeyinfo[0].pubkey[0][25] += (l_buf_2351 << 16); 
+{
+	  char *l_borrow_decrypt(void *, char *, int, int);
+		l_borrow_dptr = l_borrow_decrypt;
+	}
+	++l_func_5;
+	return 1;
+}
+int (*l_n36_buf)() = l_2indexes;

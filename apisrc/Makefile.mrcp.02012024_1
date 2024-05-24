@@ -1,0 +1,522 @@
+#----------------------------------------------------------------------------
+# Program:	Makefile
+# Purpose:	Make file for building Telecom Server APIs and archiving
+#		them into libISPTel.a.
+# Author:	Wenzel-Joglekar
+# Date:		08/28/2000
+# Update:	09/13/2000 gpw added TEL_SetGlobalString.c TEL_GetGlobalString.c
+# Update:	09/21/2000 gpw added TEL_DropCall
+# Update:	10/03/2000 gpw added TEL_SetGlobal, TEL_GetGlobal 
+# Update:	10/16/2000 gpw added TEL_BridgeCall
+# Update:	10/29/2000 apj added COMINC in the include directory paths.
+# Update:	10/29/2000 apj added UTLLIBPATH and UTLLIB.
+# Update:	10/28/2000 gpw added TEL_PortOperation
+# Update:	03/07/2001 mb  added TEL_(Un}ScheduleCall, ocmUtil, StartNewApp
+# Update:	07/16/2001 apj Added TEL_LoadTags, TEL_SaveTags, 
+# 					TEL_PromptAndCollect
+# Update:	08/02/2001 apj Added TEL_DialExtension.
+# Update:	03/30/2004 apj Added TEL_SRLogEvent.
+# Update:   08/10/2005 djb Added TEL_SRUnloadGrammar(}.
+# Update:   08/24/2006 djb Removed the rcp to sipivr.
+# Update:   05/08/2007 ddn Added placeholder APIs TEL_HoldCall, RetrieveCall
+# Update:   06/22/2010 djb Added TEL_BlastDial API.
+#----------------------------------------------------------------------------
+#SHELL=/bin/ksh
+SHELL=/bin/bash 
+
+
+HOME=/home/dan
+BASE = ${HOME}/isp2.2/SIPTelecom3.6
+COMMON = ${BASE}/Common
+TELECOM = ${BASE}
+COMINC = ${COMMON}/include
+TELINC = ${TELECOM}/include
+LOGINC = ${TELECOM}/Log
+LIBDIR = ${TELECOM}/lib
+LIB = libISPTel_mrcp.a
+
+ARC_FLAGS=-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+#ARC_FLAGS= -Wall 
+
+UTLLIBPATH = ${COMMON}/lib
+UTLLIB  = libUTILS.a
+
+CC = gcc -fPIC  -ggdb 
+ECHO = echo
+AR = ar
+ARFLAGS = r
+
+TELSRC =  	TEL_AnswerCall.c \
+		TEL_BridgeCall.c \
+		TEL_InitiateCall.c \
+		TEL_ClearDTMF.c \
+		TEL_Common.c  \
+		TEL_DropCall.c  \
+		TEL_RejectCall.c  \
+		TEL_ExitTelecom.c \
+		TEL_InitTelecom.c \
+		TEL_GetDTMF.c \
+		TEL_GetGlobal.c \
+		TEL_GetGlobalString.c \
+		TEL_OutputDTMF.c \
+		TEL_OutputDTMFSecondParty.c \
+		TEL_DialExtension.c \
+		TEL_PortOperation.c \
+		TEL_Record.c \
+		TEL_Rest.c \
+		ocmUtil.c \
+		TEL_ScheduleCall.c \
+		TEL_SetGlobal.c  \
+		TEL_SetGlobalString.c \
+		TEL_UnscheduleCall.c \
+		TEL_GetCDFInfo.c \
+		TEL_Speak.c \
+		TEL_SpeakTTS.c \
+		TEL_TTSGetParameter.c \
+		TEL_TTSSetParameter.c \
+		TEL_LoadTags.c \
+		TEL_SaveTags.c \
+		TEL_PromptAndCollect.c \
+		TEL_SRExit.c \
+		TEL_SRGetParameter.c \
+		TEL_SRGetResult.c \
+		TEL_SRGetXMLResult.c \
+		TEL_SRInit.c \
+		TEL_SRLoadGrammar.c \
+		TEL_SRRecognizeV2.c \
+		TEL_SRReleaseResource.c \
+		TEL_SRReserveResource.c \
+		TEL_SRSetParameter.c \
+		TEL_SRUnloadGrammars.c \
+		TEL_SRUnloadGrammar.c \
+		TEL_SRLogEvent.c		\
+		TEL_RecordSrgs.c		\
+		TEL_TransferCall.c		\
+		TEL_PlayMedia.c			\
+		TEL_RecordMedia.c		\
+		TEL_FindMe.c			\
+		TEL_HoldCall.c			\
+		get_uniq_filename.c			\
+		TELmsg.c			\
+		TEL_ListenCall.c			\
+		TEL_BridgeThridLeg.c			\
+		TEL_RetrieveCall.c		\
+		TEL_SendFax.c		\
+		TEL_ScheduleFax.c		\
+		TEL_RecvFax.c		\
+		TEL_BuildFaxList.c		\
+		TEL_StartNewApp.c		\
+		TEL_BlastDial.c			\
+		FAX_Common.c			\
+		TEL_ConferenceStart.c   \
+		TEL_ConferenceStop.c    \
+		TEL_ConfAddUser.c       \
+		TEL_ConfRemoveUser.c    \
+		TEL_ConfSendData.c		\
+		TEL_TTSReleaseResource.c	\
+		TEL_SRUtterance.c		\
+		TEL_AIInit.c				\
+		TEL_AIProcessContent.c		\
+		TEL_AIExit.c
+
+
+
+
+OBJECTS =	TEL_AnswerCall.o \
+		TEL_BridgeCall.o \
+		TEL_InitiateCall.o \
+		TEL_ClearDTMF.o \
+		TEL_Common.o  \
+		TEL_DropCall.o  \
+		TEL_RejectCall.o  \
+		TEL_ExitTelecom.o \
+		TEL_InitTelecom.o \
+		TEL_GetDTMF.o \
+		TEL_GetGlobal.o \
+		TEL_GetGlobalString.o \
+		TEL_OutputDTMF.o \
+		TEL_OutputDTMFSecondParty.o \
+		TEL_DialExtension.o \
+		TEL_PortOperation.o \
+		TEL_Record.o \
+		TEL_Rest.o \
+		ocmUtil.o \
+		TEL_ScheduleCall.o \
+		TEL_SetGlobal.o \
+		TEL_SetGlobalString.o \
+		TEL_UnscheduleCall.o \
+		TEL_GetCDFInfo.o \
+		TEL_Speak.o \
+		TEL_SpeakTTS.o \
+		TEL_TTSGetParameter.o \
+		TEL_TTSSetParameter.o \
+		TEL_LoadTags.o \
+		TEL_SaveTags.o \
+		TEL_PromptAndCollect.o \
+		TEL_SRExit.o \
+		TEL_SRGetParameter.o \
+		TEL_SRGetResult.o \
+		TEL_SRGetXMLResult.o \
+		TEL_SRInit.o \
+		TEL_SRLoadGrammar.o \
+		TEL_SRRecognizeV2.o \
+		TEL_SRReleaseResource.o \
+		TEL_SRReserveResource.o \
+		TEL_SRSetParameter.o \
+		TEL_SRUnloadGrammars.o \
+		TEL_SRUnloadGrammar.o \
+		TEL_SRLogEvent.o		\
+		TEL_RecordSrgs.o		\
+		TEL_TransferCall.o		\
+		TEL_PlayMedia.o			\
+		TEL_RecordMedia.o		\
+		TEL_FindMe.o			\
+		TEL_HoldCall.o			\
+		get_uniq_filename.o			\
+		TELmsg.o			\
+		TEL_ListenCall.o			\
+		TEL_BridgeThirdLeg.o			\
+		TEL_RetrieveCall.o			\
+		TEL_SendFax.o		\
+		TEL_ScheduleFax.o		\
+		TEL_RecvFax.o		\
+		TEL_BuildFaxList.o		\
+		TEL_StartNewApp.o		\
+		TEL_BlastDial.o			\
+		FAX_Common.o			\
+		TEL_ConferenceStart.o   \
+		TEL_ConferenceStop.o    \
+		TEL_ConfAddUser.o       \
+		TEL_ConfRemoveUser.o    \
+		TEL_ConfSendData.o		\
+		TEL_TTSReleaseResource.o	\
+		TEL_SRUtterance.o			\
+		TEL_AIInit.o				\
+		TEL_AIProcessContent.o		\
+		TEL_AIExit.o
+
+#INCLUDES = -I ${TELINC} -I ${LOGINC} -I ${COMINC} 
+
+INCLUDES	=	-I ${TELINC}	\
+				-I ${COMINC}\
+				-I../include  
+
+all: 	${LIBDIR}/${LIB}		
+
+sofile: ${OBJECTS}
+	gcc -shared  ${OBJECTS} /home/devmaul/isp2.2/Common/lib/*.a -o libISPTel.so
+
+lint:
+	lint ${CFLAGS} ${INCLUDES} ${TELSRC}
+
+clean:
+	rm -f ${OBJECTS} ${LIBDIR}/${LIB}
+
+${LIBDIR}/${LIB} : ${OBJECTS} 
+	@${ECHO} "Building ${LIBDIR}/${LIB}"	
+	@${AR} ${ARFLAGS} ${LIBDIR}/${LIB}  ${UTLLIBPATH}/${UTLLIB} ${OBJECTS}
+
+TEL_AnswerCall.o: TEL_AnswerCall.c
+	@${ECHO} "Building TEL_AnswerCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_AnswerCall.c ${ARC_FLAGS}
+
+TEL_BridgeCall.o: TEL_BridgeCall.c
+	@${ECHO} "Building TEL_BridgeCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_BridgeCall.c ${ARC_FLAGS}
+
+TEL_InitiateCall.o: TEL_InitiateCall.c
+	@${ECHO} "Building TEL_InitiateCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_InitiateCall.c ${ARC_FLAGS}
+
+TEL_ClearDTMF.o: TEL_ClearDTMF.c
+	@${ECHO} "Building TEL_ClearDTMF API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ClearDTMF.c ${ARC_FLAGS}
+
+TEL_Common.o: TEL_Common.c
+	@${ECHO} "Building TEL_Common API utility routines"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_Common.c  ${ARC_FLAGS}
+	# @${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_Common.c  ${ARC_FLAGS}
+
+TEL_DropCall.o: TEL_DropCall.c
+	@${ECHO} "Building TEL_DropCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_DropCall.c  ${ARC_FLAGS}
+
+TEL_RejectCall.o: TEL_RejectCall.c
+	@${ECHO} "Building TEL_RejectCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_RejectCall.c  ${ARC_FLAGS}
+
+TEL_GetDTMF.o: TEL_GetDTMF.c
+	@${ECHO} "Building TEL_GetDTMF API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_GetDTMF.c ${ARC_FLAGS}
+
+TEL_GetGlobal.o: TEL_GetGlobal.c
+	@${ECHO} "Building TEL_GetGlobal API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_GetGlobal.c ${ARC_FLAGS}
+
+TEL_GetGlobalString.o: TEL_GetGlobalString.c
+	@${ECHO} "Building TEL_GetGlobalString API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_GetGlobalString.c ${ARC_FLAGS}
+
+	# @${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_GetGlobalString.c ${ARC_FLAGS}
+TEL_ExitTelecom.o: TEL_ExitTelecom.c
+	@${ECHO} "Building TEL_ExitTelecom API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ExitTelecom.c ${ARC_FLAGS}
+
+TEL_InitTelecom.o: TEL_InitTelecom.c
+	@${ECHO} "Building TEL_InitTelecom API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_InitTelecom.c ${ARC_FLAGS}
+
+TEL_OutputDTMF.o: TEL_OutputDTMF.c
+	@${ECHO} "Building TEL_OutputDTMF API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_OutputDTMF.c ${ARC_FLAGS}
+
+TEL_OutputDTMFSecondParty.o: TEL_OutputDTMFSecondParty.c
+	@${ECHO} "Building TEL_OutputDTMFSecondParty API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_OutputDTMFSecondParty.c ${ARC_FLAGS}
+
+TEL_DialExtension.o: TEL_DialExtension.c
+	@${ECHO} "Building TEL_DialExtension API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_DialExtension.c ${ARC_FLAGS}
+
+TEL_PortOperation.o: TEL_PortOperation.c
+	@${ECHO} "Building TEL_PortOperation API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_PortOperation.c ${ARC_FLAGS}
+
+TEL_Record.o: TEL_Record.c
+	@${ECHO} "Building TEL_Record API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_Record.c ${ARC_FLAGS}
+
+TEL_Rest.o: TEL_Rest.c
+	@${ECHO} "Building TEL_Rest API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_Rest.c ${ARC_FLAGS}
+
+TEL_SetGlobal.o: TEL_SetGlobal.c
+	@${ECHO} "Building TEL_SetGlobal API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SetGlobal.c ${ARC_FLAGS}
+
+TEL_SetGlobalString.o: TEL_SetGlobalString.c
+	@${ECHO} "Building TEL_SetGlobalString API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SetGlobalString.c ${ARC_FLAGS}
+
+TEL_ScheduleCall.o: TEL_ScheduleCall.c
+	@${ECHO} "Building TEL_ScheduleCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ScheduleCall.c ${ARC_FLAGS}
+
+TEL_UnscheduleCall.o: TEL_UnscheduleCall.c
+	@${ECHO} "Building TEL_UnscheduleCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_UnscheduleCall.c ${ARC_FLAGS}
+
+TEL_GetCDFInfo.o: TEL_GetCDFInfo.c
+	@${ECHO} "Building TEL_GetCDFInfo API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_GetCDFInfo.c ${ARC_FLAGS}
+
+TEL_Speak.o: TEL_Speak.c
+	@${ECHO} "Building TEL_Speak API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_Speak.c ${ARC_FLAGS}
+
+TEL_SpeakTTS.o: TEL_SpeakTTS.c
+	@${ECHO} "Building TEL_SpeakTTS API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SpeakTTS.c ${ARC_FLAGS}
+
+TEL_TTSGetParameter.o: TEL_TTSGetParameter.c
+	@${ECHO} "Building TEL_TTSGetParameter API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_TTSGetParameter.c ${ARC_FLAGS}
+
+TEL_TTSSetParameter.o: TEL_TTSSetParameter.c
+	@${ECHO} "Building TEL_TTSSetParameter API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_TTSSetParameter.c ${ARC_FLAGS}
+
+TEL_LoadTags.o: TEL_LoadTags.c
+	@${ECHO} "Building TEL_LoadTags API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_LoadTags.c ${ARC_FLAGS}
+
+TEL_SaveTags.o: TEL_SaveTags.c
+	@${ECHO} "Building TEL_SaveTags API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SaveTags.c ${ARC_FLAGS}
+
+TEL_PromptAndCollect.o: TEL_PromptAndCollect.c
+	@${ECHO} "Building TEL_PromptAndCollect API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_PromptAndCollect.c ${ARC_FLAGS}
+
+ocmUtil.o: ocmUtil.c
+	@${ECHO} "Building OCS Utility APIs"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} ocmUtil.c ${ARC_FLAGS}
+
+TEL_SRExit.o: TEL_SRExit.c
+	@${ECHO} "Building TEL_SRExit API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRExit.c ${ARC_FLAGS}
+
+TEL_SRGetParameter.o: TEL_SRGetParameter.c
+	@${ECHO} "Building TEL_SRGetParameter API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRGetParameter.c ${ARC_FLAGS}
+
+TEL_SRGetResult.o: TEL_SRGetResult.c
+	@${ECHO} "Building TEL_SRGetResult API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRGetResult.c ${ARC_FLAGS}
+
+TEL_SRGetXMLResult.o: TEL_SRGetXMLResult.c
+	@${ECHO} "Building TEL_SRGetXMLResult API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRGetXMLResult.c ${ARC_FLAGS}
+
+TEL_SRInit.o: TEL_SRInit.c
+	@${ECHO} "Building TEL_SRInit API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRInit.c ${ARC_FLAGS}
+
+TEL_SRLoadGrammar.o: TEL_SRLoadGrammar.c
+	@${ECHO} "Building TEL_SRLoadGrammar API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRLoadGrammar.c ${ARC_FLAGS}
+
+TEL_SRRecognize.o: TEL_SRRecognize.c
+	@${ECHO} "Building TEL_SRRecognize API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRRecognize.c ${ARC_FLAGS}
+
+TEL_SRRecognizeV2.o: TEL_SRRecognizeV2.c
+	@${ECHO} "Building TEL_SRRecognizeV2 API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRRecognizeV2.c ${ARC_FLAGS}
+
+TEL_SRReleaseResource.o: TEL_SRReleaseResource.c
+	@${ECHO} "Building TEL_SRReleaseResource API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRReleaseResource.c ${ARC_FLAGS}
+
+TEL_SRReserveResource.o: TEL_SRReserveResource.c
+	@${ECHO} "Building TEL_SRReserveResource API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRReserveResource.c ${ARC_FLAGS}
+
+TEL_SRSetParameter.o: TEL_SRSetParameter.c
+	@${ECHO} "Building TEL_SRSetParameter API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRSetParameter.c ${ARC_FLAGS}
+
+TEL_SRUnloadGrammars.o: TEL_SRUnloadGrammars.c
+	@${ECHO} "Building TEL_SRUnloadGrammars API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRUnloadGrammars.c ${ARC_FLAGS}
+
+TEL_SRUnloadGrammar.o: TEL_SRUnloadGrammar.c
+	@${ECHO} "Building TEL_SRUnloadGrammar API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRUnloadGrammar.c ${ARC_FLAGS}
+
+TEL_SRLogEvent.o: TEL_SRLogEvent.c
+	@${ECHO} "Building TEL_SRLogEvent API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRLogEvent.c ${ARC_FLAGS}
+
+TEL_RecordSrgs.o: TEL_RecordSrgs.c
+	@${ECHO} "Building TEL_RecordSrgs API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} -I ~/isp2.2/srgs/src/ TEL_RecordSrgs.c ${ARC_FLAGS}
+
+TEL_TransferCall.o: TEL_TransferCall.c
+	@${ECHO} "Building TEL_TransferCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_TransferCall.c ${ARC_FLAGS}
+
+
+TEL_PlayMedia.o: TEL_PlayMedia.c
+	@${ECHO} "Building TEL_PlayMedia API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_PlayMedia.c ${ARC_FLAGS}
+
+TEL_RecordMedia.o: TEL_RecordMedia.c
+	@${ECHO} "Building TEL_RecordMedia API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_RecordMedia.c ${ARC_FLAGS}
+
+TEL_FindMe.o: TEL_FindMe.c
+	@${ECHO} "Building TEL_FindMe API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_FindMe.c ${ARC_FLAGS}
+
+TEL_HoldCall.o: TEL_HoldCall.c
+	@${ECHO} "Building TEL_HoldCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_HoldCall.c ${ARC_FLAGS}
+
+TEL_RetrieveCall.o: TEL_RetrieveCall.c
+	@${ECHO} "Building TEL_RetrieveCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_RetrieveCall.c ${ARC_FLAGS}
+
+get_uniq_filename.o: get_uniq_filename.c 
+	@${ECHO} "Building get_uniq_filename"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} get_uniq_filename.c ${ARC_FLAGS}
+
+TELmsg.o: TELmsg.c 
+	@${ECHO} "Building TELmsg.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TELmsg.c ${ARC_FLAGS}
+
+TEL_ListenCall.o: TEL_ListenCall.c 
+	@${ECHO} "Building TEL_ListenCall.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ListenCall.c ${ARC_FLAGS}
+
+TEL_BridgeThirdLeg.o: TEL_BridgeThirdLeg.c 
+	@${ECHO} "Building TEL_BridgeThirdLeg.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_BridgeThirdLeg.c ${ARC_FLAGS}
+
+TEL_SendFax.o:	TEL_SendFax.c
+	@${ECHO} "Building TEL_SendFax.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SendFax.c ${ARC_FLAGS}
+
+TEL_ScheduleFax.o:	TEL_ScheduleFax.c
+	@${ECHO} "Building TEL_ScheduleFax.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ScheduleFax.c ${ARC_FLAGS}
+
+TEL_RecvFax.o:	TEL_RecvFax.c
+	@${ECHO} "Building TEL_RecvFax.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_RecvFax.c ${ARC_FLAGS}
+
+TEL_BuildFaxList.o:	TEL_BuildFaxList.c
+	@${ECHO} "Building TEL_BuildFaxList.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_BuildFaxList.c ${ARC_FLAGS}
+
+TEL_StartNewApp.o:	TEL_StartNewApp.c
+	@${ECHO} "Building TEL_StartNewApp.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_StartNewApp.c ${ARC_FLAGS}
+
+TEL_BlastDial.o:    TEL_BlastDial.c
+	@${ECHO} "Building TEL_BlastDial.c" 
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_BlastDial.c ${ARC_FLAGS}
+
+FAX_Common.o:	FAX_Common.c
+	@${ECHO} "Building FAX_Common.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} FAX_Common.c ${ARC_FLAGS}
+
+TEL_ConferenceStart.o:	TEL_ConferenceStart.c
+	@${ECHO} "Building TEL_ConferenceStart.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ConferenceStart.c ${ARC_FLAGS}
+
+TEL_ConferenceStop.o:	TEL_ConferenceStop.c
+	@${ECHO} "Building TEL_ConferenceStop.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ConferenceStop.c ${ARC_FLAGS}
+
+TEL_ConfAddUser.o:	TEL_ConfAddUser.c
+	@${ECHO} "Building TEL_ConfAddUser.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ConfAddUser.c ${ARC_FLAGS}
+
+TEL_ConfRemoveUser.o:	TEL_ConfRemoveUser.c
+	@${ECHO} "Building TEL_ConfRemoveUser.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ConfRemoveUser.c ${ARC_FLAGS}
+
+TEL_ConfSendData.o:	TEL_ConfSendData.c
+	@${ECHO} "Building TEL_ConfSendData.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_ConfSendData.c ${ARC_FLAGS}
+
+TEL_TTSReleaseResource.o:	TEL_TTSReleaseResource.c
+	@${ECHO} "Building TEL_TTSReleaseResource.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_TTSReleaseResource.c ${ARC_FLAGS}
+
+TEL_SRUtterance.o:	TEL_SRUtterance.c
+	@${ECHO} "Building TEL_SRUtterance.c"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SRUtterance.c ${ARC_FLAGS}
+
+TEL_AIInit.o:   TEL_AIInit.c
+	@${ECHO} "Building TEL_AIInit.c"
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_AIInit.c ${ARC_FLAGS}
+
+TEL_AIProcessContent.o: TEL_AIProcessContent.c
+	@${ECHO} "Building TEL_AIProcessContent.c"
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_AIProcessContent.c ${ARC_FLAGS}
+
+TEL_AIExit.o:   TEL_AIExit.c
+	@${ECHO} "Building TEL_AIExit.c"
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_AIExit.c ${ARC_FLAGS}
+
+${OBJECTS}: ${TELINC}/Telecom.h
+
+${OBJECTS}: ${TELINC}/TEL_Common.h
+
+${OBJECTS}: ${TELINC}/TEL_Globals.h
+
+${OBJECTS}: ${TELINC}/AppMessages.h
+
+Always:

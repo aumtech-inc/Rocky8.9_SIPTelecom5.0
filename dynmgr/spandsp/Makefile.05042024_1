@@ -1,0 +1,65 @@
+CC=gcc
+COPTS= -Wall -ggdb -std=c99 -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable
+CINCS= -I./ -I../../include -I /home/dan/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6/src
+CLIBS= -lpthread  -lspandsp -L../../lib  -lm 
+OBJ= arc_tones_ringbuff.o 
+CDEFS= 
+#CDEFS= -DTONES_DEBUG -DDECODER_DEBUG
+TESTDRIVERS= fax test_driver conf udptl
+OBJECTS=\
+    arc_tones_ringbuff.c\
+    arc_audio_frame.c\
+    arc_decode.c\
+    arc_encode.c\
+    arc_small_conference.c\
+    arc_conference_frames.c\
+    arc_fax_session.c\
+    arc_udptl.c\
+    clock_sync.c\
+
+
+all: object
+
+#	$(CC) $(COPTS) $(CINCS) $(CLIBS) $(CDEFS) -DMAIN -o test_driver  arc_tones_ringbuff.c 
+
+clean:
+	rm -f *.o  *.a 
+
+#	rm -f test_driver *.o  *.a *.so  core.* $(TESTDRIVERS)
+
+indent:
+	indent -br -nut -i3 -l160 *.c *.h && rm *.*~ 
+
+object:
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_tones_ringbuff.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_audio_frame.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_decode.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_encode.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_small_conference.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_conference_frames.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_fax_session.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_udptl.c  
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c clock_sync.c  
+	ar -cr libarctones.a *.o 
+
+conf:
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -c arc_small_conference.c  
+
+testconf:
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) -DMAIN -o conf  arc_small_conference.c ./libarctones.a 
+
+tones:
+	$(CC) $(COPTS) $(CINCS) $(CDEFS) $(CLIBS) -DMAIN -o tones  arc_tones_ringbuff.c 
+
+fax: 
+	$(CC) $(COPTS) $(CINCS) $(CLIBS) $(CDEFS) -DMAIN -o fax arc_fax_session.c arc_udptl.o 
+
+udptl:
+	$(CC) $(COPTS) $(CINCS) $(CLIBS) $(CDEFS) -DMAIN -o udptl arc_udptl.c  
+
+#install:
+#	install -m 0644 libarctones.a ../ && cp *.h ../ 
+
+
+
+

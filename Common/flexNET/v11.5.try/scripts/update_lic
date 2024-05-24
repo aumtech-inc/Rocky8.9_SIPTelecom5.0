@@ -1,0 +1,57 @@
+#-----------------------------------------------------------------------------
+# Program:	update_lic
+# Purpose:	To update the date on a licence without changing any features
+#		or any of the comment lines.
+# Author:	George Wenzel
+# Date:		08/24/99
+# Update:	10/26/2000 gpw copied from bert and updated for Linux environ.
+#-----------------------------------------------------------------------------
+
+print_license_file()
+{
+	echo 
+	echo "Would you like to print the license file now? [y/n]"
+	read answer
+	if [ "$answer" = "Y" -o "$answer" = "y" -o "$answer" = "yes" \
+		-o "$answer" = "YES" -o "$answer" = "Yes" ]
+	then
+		rlp $LICENSE_FILE
+	fi
+}
+
+encrypt_license()
+{
+	if [ "$1" != "" ]
+	then
+		infile=$1
+	else
+		echo -n "Input file: "
+		read infile
+	fi
+	
+	if [ "$2" != "" ]
+	then
+		LICENSE_FILE=$2
+	else
+		echo -n "Output file: "
+		read LICENSE_FILE
+	fi
+		
+
+	COMMAND="$EXEC_DIR/lmcrypt -i $infile -o $LICENSE_FILE"
+	echo $COMMAND
+	$COMMAND
+	echo 
+	echo "The following license is found in $LICENSE_FILE:"
+	cat $LICENSE_FILE
+}
+
+#-----------------------------------------------------------------------------
+# main
+#-----------------------------------------------------------------------------
+EXEC_DIR=/home/dev/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3
+
+encrypt_license $1 $2
+echo "Done."
+# print_license_file
+

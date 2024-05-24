@@ -1,0 +1,69 @@
+#-------------------------------------------------------------------------------# File:     Makefile
+# Author:   Aumtech, Inc.
+# Update: djb 06/28/2006	Created the file
+#-------------------------------------------------------------------------------
+include ../Make.def.eXosip4.1
+
+CC=g++ -ggdb  -Wno-write-strings
+
+SRCS = mrcpClient2.cpp mrcpCommon2.cpp SRPort.cpp
+SRCS += sipThread.cpp readerThread.cpp mrcpThread.cpp
+SRCS +=  mrcp2_HeaderList.cpp  mrcp2_Request.cpp mrcp2_Event.cpp \
+         mrcp2_Response.cpp mrcp2_parser_utils.cpp MrcpInitialize.cpp	\
+
+SRCS_MGR = mrcpTTSClient2Mgr.c
+
+INCPATHS = 	\
+    -I ${MRCP_HOME}/include \
+    -I ${MRCP_HOME}/include/parser \
+    -I ${SVID_HOME}/include     \
+    -I ${SVID_HOME}/Common/include      \
+    -I ${SVID_HOME}/thirdParty/libosip2-4.1.0/include \
+    -I ${SVID_HOME}/thirdParty/libeXosip2-4.1.0/include
+
+LIBPATHS =   \
+    -L ${MRCP_LIB}  \
+    -L ${SVID_HOME}/lib  \
+    -L ${SVID_HOME}/Common/lib  \
+    -L ${SVID_HOME}/thirdParty/libosip2-4.1.0/src/osipparser2/.libs     \
+    -L ${SVID_HOME}/thirdParty/libosip2-4.1.0/src/osip2/.libs           \
+    -L ${SVID_HOME}/thirdParty/libeXosip2-4.1.0/src/.libs       \
+    -L ${SVID_HOME}/thirdParty/xerces-c-src_2_8_0/lib		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/openssl-1.0.2k     \
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/c-ares-1.9.1/.libs
+
+
+LIBS =    \
+       -lTTS_mrcpV2_eXosip4.1 	\
+  	   -lISPUtil -lISPLog -lcrypto	\
+       -leXosip2 -losipparser2 -losip2 -lssl -lcares -lpthread
+
+MRCPCLIENT2	= ${MRCP_HOME}/bin/ttsClient.mrcp.eXosip4.1
+
+MRCPTTSCLIENT2MGR  = ${MRCP_HOME}/bin/mrcpTTSClient2Mgr
+
+CPPFLAGS += ${INCPATHS} -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+
+OBJ = $(SRCS:.cpp=.o)
+
+all: ${MRCPCLIENT2} ${MRCPTTSCLIENT2MGR}
+
+.cpp.o: ${SRCS}
+#	g++ -ggdb -DENABLE_TRACE -c $< ${INCPATHS}
+	$(CC) -DEXOSIP_4 -DOSIP_MT -c $< ${INCPATHS}
+
+${MRCPCLIENT2}: ${OBJ} ${SR_LIB}
+	$(CC) -DEXOSIP_4  -DOSIP_MT -o $@ ${OBJ} ${LIBPATHS} ${LIBS} -Wall
+
+${MRCPTTSCLIENT2MGR}: ${SRCS_MGR}
+	gcc -Wno-implicit-function-declaration  -ggdb -o ${MRCPTTSCLIENT2MGR} ${SRCS_MGR}		\
+    	-L ${SVID_HOME}/Common/lib  \
+		-lISPUtil -lISPLog 
+
+
+${SR_LIB}:
+	( cd ${MRCP_HOME}/apisrc; make )
+
+clean:
+	rm -rf *.o ${MRCPCLIENT2} ${MRCPTTSCLIENT2MGR}
+

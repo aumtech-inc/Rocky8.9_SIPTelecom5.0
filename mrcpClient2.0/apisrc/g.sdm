@@ -1,0 +1,14 @@
+echo "Compiling parseResult.cpp"
+g++ -ggdb -DSDM -DOSIP_MT -g3 -c parseResult.cpp 		\
+	-I /home/devmaul/isp2.2/mrcpClient2.0/include 		\
+	-I /home/devmaul/isp2.2/DTelecom/DM3/include 		\
+	-I /home/devmaul/isp2.2/Common/include 		\
+	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc 		\
+	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/framework 		\
+	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include 		\
+	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/sax 		\
+	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/util 		\
+	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/dom/deprecated 		\
+	-I /home/devmaul/include/osip2 		\
+	-I /home/devmaul/include/osipparser2 		\
+	-I /home/devmaul/include/eXosip2

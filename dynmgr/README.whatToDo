@@ -1,0 +1,10 @@
+
+BT-33 - CI - INTERNAL IVR Testing - port missing in reply from OPTIONS request 
+	/home/dev/isp2.2/SIPTelecom3.6/thirdParty/libeXosip2-4.1.0/src - 4-15-2020
+
+BT-37 - Deleware - $SIP_FROM (call-id) does not work for bridge; only for transfer
+	/home/dev/isp2.2/SIPTelecom3.6/dynmgr/ArcSipCallMgr.c
+
+
+BT-38 - double DTMF
+

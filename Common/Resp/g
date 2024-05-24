@@ -1,0 +1,23 @@
+echo "Building isp_baseresp"	
+gcc -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -o isp_baseresp isp_baseresp.c portActive.c      \
+        -I .        \
+        -I /home/dan/isp2.2/SIPTelecom3.6/include       \
+        -I /home/dan/isp2.2/SIPTelecom3.6/Common/include        \
+        -L /home/dan/isp2.2/SIPTelecom3.6/Common/lib            \
+        -L /home/dan/isp2.2/SIPTelecom3.6/lib       \
+        -L /home/dan/isp2.2/SNMP/lib        \
+    -L /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3/lib            \
+    -L /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3            \
+    -L /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3/activation/lib             \
+    -L /home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/lib   					\
+		-larcLicenseV11.5 -llmgr_pic -lcrvs_pic -lsb_pic -lnoact_pic			\
+		-lISPCDR  -lRULES -lUTILS -lISPUtil -lISPLog -lTELLog -lloglite -lgaUtils
+echo "Building isp_stopresp"	
+gcc -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -o isp_stopresp isp_stopresp.c \
+        -I .        \
+        -I /home/dan/isp2.2/SIPTelecom3.6/include       \
+        -I /home/dan/isp2.2/SIPTelecom3.6/Common/include        \
+        -L /home/dan/isp2.2/SIPTelecom3.6/Common/lib            \
+        -L /home/dan/isp2.2/SIPTelecom3.6/lib       \
+        -L /home/dan/isp2.2/SNMP/lib        \
+            -lISPCDR -lRULES -lUTILS -lISPUtil -lISPLog -lTELLog -lloglite -lgaUtils

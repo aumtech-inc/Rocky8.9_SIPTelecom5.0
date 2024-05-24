@@ -1,0 +1,7 @@
+if [ $# -ne 1 ]
+then
+	echo "Usage: $0 <string>"
+	exit
+fi
+set -x
+find . -name \*.h -exec grep "$1" {} \; -print

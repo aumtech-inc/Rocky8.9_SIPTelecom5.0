@@ -1,0 +1,244 @@
+#--------------------------------------------------------------------------------------------------
+# Program:      .TEL.cfg
+# Purpose:      IP Telecom Services parameter configuration file.
+# Author:       Aumtech,Inc.
+# Date:         2007/02/15
+#
+# Refer to the SIP Operations Guide for a description of each parameter.
+#--------------------------------------------------------------------------------------------------
+[Settings]
+MultipleResponsibilies=ON
+PortsPerResponsibility=144
+ServiceType=TEL
+DefaultLanguage=NONE
+AutoStart=OFF
+AutoStop=OFF
+NetServices=OFF
+AlarmHandler=OFF
+TTS_MRCP=ON
+TTS_Server_Host=0.0.0.0
+TTS_Server_Port_Speechify=5555
+CTI_Services=OFF                                               
+MrcpVersion=2.0
+PercentInboundAllowed=100
+
+[IP]
+DefaultGateway=0.0.0.0
+SIP_RFC2833Payload=96
+SIP_InterDigitDuration=60
+SIP_Port=5060
+# SIP_OutoundProxy=0.0.0.0
+# Debug_Modules=FILE_IO,AUDIO,SR,SIP,RTP,CALL,MEMORY,DEBUG,STACK8
+SIP_HostIP=0.0.0.0
+SIP_RtpStartPort=10500
+SIP_CacheDir=.
+#SIP_PreferredCodec Values: PCMU, PCMA, G729
+SIP_PreferredCodec=PCMU
+#PRACKMethod=[Disabled]|Supported|Required
+PRACKMethod=Disabled
+SIP_SymmetricRtp=1
+#SIP_SDPIP=0.0.0.0
+
+################################################
+#
+# IMS related [SIP] features !! Must be included under [SIP] section
+#
+################################################
+#
+# SIP Feature: SIP Session Expiry Header Example
+#
+# EnableSessionExpiry=ON                # default is off
+# MinimumSessionExpiry=3600             # sets the minimum value in seconds, 0 by default
+#
+# SIP Feature: SIP Signaled Digits Example
+#
+# SignaledDigits=ON                     # Turns Feature on or off
+# SignaledDigitsMinimumDuration=1500    # Minumum Duration for detected DTMF length in ms
+#
+# SIP Feature: ENUM or e.164 lookup Example
+#
+# EnableEnum=ON                         # Turns on ENUM lookups on outbound calling
+# EnumTLD=aumtechinc.com                #
+#
+################################################
+#
+#  IPv6 Settings
+#
+######################################################
+#
+# To Turn On IPv6 Binding in the SIP and RTP stacks 
+#
+# Under the SIP section of .TEL.cfg: 
+#  <example only>
+#
+#  [SIP]
+#  EnableIPv6=ON
+#  BindAddress=fe80::213:d3ff:fecd:d6d6%eth0
+#  BindInterface=eth0
+#  BindPort=5060
+#
+# Under the IP section of .TEL.cfg:
+#  <example only>
+#
+#  [IP]
+#  SIP_HostIP=fe80::213:d3ff:fecd:d6d6%eth0
+#  SIP_HostIf=eth0
+#
+######################################################
+
+
+[SIP]
+BindAddress=0.0.0.0
+BindPort=5060
+Transport=udp
+SipRedirection=OFF
+SipProxy=OFF
+FromUri=username@example.com
+#OutboundProxy=0.0.0.0
+PreferredCodec=PCMU
+RTPStartPort=10500
+CacheDir=.
+RFC2833Payload=96
+InterdigitDuration=60
+OutputDtmf=RFC_2833
+SIP_From=arc@aumtechinc.com
+SipOutOfLicenseResponse=503
+UUI_Encoding=HEX
+UserToUserPrefix=
+MinimumSessionExpires=90
+SessionExpires=1800
+SendKeepAlive=ON
+SaveHeaders=user-agent,refer-to,referred-by,remote-party-id,user-to-user,aumtech-last-header
+
+################################################
+#
+# SIP Feature: Inbound Registration Example
+#
+# This is only used for the standalone redirector,
+# not for general use with a host running the platform
+#
+# [InboundRegistrationInfo0] # Can be InboundRegistrationInfo[0-99], the numeric value is insignificant, it only differentiates one from another
+# FromIP=11.0.11.58          # IP is significant: it is used for authentication
+# Username=1000              # Username is significant and is used for authentication
+# ID=1000                    # Placeholder value, not currently used for inbound authentication
+# Password=password          # Placeholder value, not currently used for inbound authentication
+# Interval=120               # Interval for expiry, also sets Expires tag in reply to successful REGISTRATION
+#
+################################################
+#
+# SIP Feature: SIP Registration Example
+#
+# This allows our platform to provide "presence" in networks that support SIP registrars or proxies
+#
+# It also is a container for storing authentication information for other password challenge
+# authentication sequences, I.E. Subscriptions, etc.
+#
+# [SIPAuthenticationInfo0]   # Can be SipAuthenticationInfo[0-99], the numeric value is insignificant, it only differentiates one from another
+# Username=1001              # Username to use
+# ID=1001                    # ID can be different than username, check with setting in registrar
+# Password=password          # Password to use
+# Realm=aumtechinc.com       # Realm for authentication
+# ProxyIP=11.0.0.198         # Host to register to
+# ProxyPort=5070             # Destination Port
+# Route=169.0.0.l            # Host to use as Hop to get to registrar
+# Transport=udp              # Transport to use, this should match Transport in [SIP] Section
+# RegistrationInterval=200   # Initial Interval to use, in all successful cases we will follow the Expires: header in the reply set by the remote end
+#
+################################################
+#
+# SIP Feature: Outbound Subscriptions
+# 
+# This feature can be used to create and monitor events triggered by remote SIP Servers/Proxies/Gateways
+#
+# [SIPSubscriptionInfo0]     # Can be [SipSubscriptionInfo[0-99], the numeric value is insignificant, it only differentiates one from another
+# Username=1000              # Username for "From:" header
+# Transport=udp              # Transport to use
+# ToIP=11.0.0.92             # IP of host to subscribe to
+# ToPort=5060                # Port of host to subscribe to
+# Route=11.0.0.93            # Use this ip as a hop <ip address: portno> no port assumes 5060
+# Event=message-summary      # Event to use, this one show MWI or Message Waiting Indication 
+# SubscriptionInterval=1200  # Initial interval for refresh
+#
+################################################
+
+
+##########################################################
+#
+# Inband Tone detection settings 
+# 
+#
+#
+###########################################################
+
+[InbandAudioDetection]
+ToneThreshold=337517660160.00
+ToneThresholdDifference=5000.0
+AnsweringDetectionNoiseThresh=350.0
+AnsweringMachineThresh=2500
+AnsweringTrailSilenceTrigger=1500
+AnsweringOverallTimeout=2500
+ToneDetectionDebugging=ON
+TrailSilenceNoiseThresh=250.0
+AnsweringLeadingAudioTrim=250
+HumanAnsweringThresh=0
+
+SIP_MaxCallDuration=-1
+SIP_VFUDuration=0
+SIP_RecycleBase=10000
+SIP_RecycleDelta=1000
+#-------------------------------------------------------------------------------
+# Sip_RecycleTimeOut Recycle timeout in Seconds, Default is 120 Seconds 
+#-------------------------------------------------------------------------------
+SIP_RecycleTimeOut=180
+SIP_BeepDuration=0
+SIP_TrailSilenceDetection=0
+SIP_InboundEarlyMedia=0
+
+[RedirectorRoutingRules]
+UseRoutingTable=On
+UnavailableDestAction=Route
+
+
+[CODEC_AMR]
+Index=0
+
+[CODEC_G729]
+annexb=NO
+
+[SIP_RETCODE_MAPPING]
+508=51
+600=51
+486=51
+480=51
+604=51
+408=50
+403=52
+503=52
+606=52
+484=52
+404=52
+500=21
+
+[FAX]
+FaxDebug=OFF
+T30FaxStationId="AumtechFaxStationID"
+T30HeaderInfo="AumtechHeaderInfo"
+T30ErrorCorrection=Off
+T38Enabled=On
+T38Transport=udptl
+T38ErrorCorrectionMode=2
+T38ErrorCorrectionSpan=3
+T38ErrorCorrectionEntries=3
+T38MaxBitRate=14400
+T38PacketInterval=1
+T38FaxFillBitRemoval=0
+T38FaxVersion=0
+T38FaxTranscodingMMR=0
+T38FaxTranscodingJBIG=0
+#T38FaxRateManagement=LocalTCF
+T38FaxRateManagement=transferredTCF
+T38FaxMaxBufferSize=2000
+T38FaxMaxDatagram=512
+UdptlStartPort=17500
+UdptlEndPort=18000
+SendFaxTone=1

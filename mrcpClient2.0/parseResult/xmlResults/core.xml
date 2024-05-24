@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<result  grammar="session:0x8790e30" >
+<interpretation  grammar="session:0x8790e30"  confidence="0.8282177">
+	<input mode="speech" >3</input>
+	<instance>3</instance>
+</interpretation>
+</result>

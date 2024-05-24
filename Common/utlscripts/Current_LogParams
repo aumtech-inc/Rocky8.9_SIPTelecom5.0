@@ -1,0 +1,33 @@
+#------------------------------------------------------------------------------
+# Program:	Current_LogParms
+# Purpose: 	Show the Global configuration file from the last 
+#		Start_Telecom command.
+#		This assumes the Start_Telecom script saved a temp file.
+# Author:	Steve Copeland
+# Date:		07/06/96
+# Update:	02/09/96 G. Wenzel added this header
+# Update:	06/11/96 S. Agate  removed reference to ISP.
+
+# Copyright (c) 1996, AT&T Network Systems Information Services Platform (ISP)
+# All Rights Reserved.
+#
+# This is an unpublished work of AT&T which is protected under
+# the copyright laws of the United States and a trade secret
+# of ISP. It may not be used, copied, disclosed or transferred
+# other than in accordance with the written permission of ISP.
+#
+#-------------------------------------------------------------------------------
+#
+echo "\t\tCURRENT LOG CONFIGURATION PARAMETERS"
+echo "\t\t------------------------------------\n"
+if [ -f /tmp/.Global.cfg ]
+then
+	cat /tmp/.Global.cfg
+else
+   	echo "\n\t\tThis Service has not been started today."
+   	echo "\t\tNo current logging information available.\n"
+fi
+
+echo "\nPress <Enter>"
+read ANYTHING
+exit 0

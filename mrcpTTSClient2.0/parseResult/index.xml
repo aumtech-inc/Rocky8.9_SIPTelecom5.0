@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+This is a template for  XML file. This XML has basic tags when a conference is initialized.
+-->
+
+<result grammar="session:testgrammar@speechworks.com">
+
+	<interpretation grammar="session:testgrammar@speechworks.com" confidence="98">
+  		<input mode="speech" timestamp-start="2000-04-03T0:00:00" timestamp-end="2000-04-03T0:00:01.5">One</input>
+		<instance>1</instance>
+	</interpretation>
+	
+</result>

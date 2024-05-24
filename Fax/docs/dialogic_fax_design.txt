@@ -1,0 +1,566 @@
+
+djb								05-28-99
+
+			Dialogic Fax (VFX) Design Document
+
+TEL_SetFaxTextDefaults(
+	char * textDescFile	/* name of a file containing name/value
+				   pairs of the new default description for
+				   sending out text files and from memory. */
+	)
+
+When faxing out text files or text data from memory, the description
+of the ascii data to be transmitted can be modified.  This includes
+such things as font, margins, pagelengths, etc.
+
+This API allows these settings to be modified.  It receives, as
+a parameter, a file containing name=value pairs to be altered.
+
+Once this API is called, the settings are set for all ascii data being
+faxed out.  For example, if a fax list, which is comprised of 
+three text files, is being fax out, all three text files will
+have the same settings.
+
+If the file contains any invalid values, a warning message is logged
+stating the invalid values and the current setting to be used.  The 
+setting will remain whatever it was previously set to.
+
+To reset the text setting back to the defaults, pass a NULL value
+as textDescFile.  
+
+The settings are:
+
+TEXT_WIDTH: width of text image (pixels per line)
+	Valid values:	WIDTH_1728	1728 pixels per line	(default)
+			WIDTH_2048	2048 pixels per line
+			WIDTH_2432	2432 pixels per line
+
+TEXT_RESOLUTION: 
+	Valid values:	RES_LOW	(default)
+			RES_HIGH
+
+TEXT_PAGELENGTH:
+	Valid values:	>=55	when TEXT_UNITS field is TEXT_ONE_TENTH_INCHES
+			>=140	when TEXT_UNITS field is TEXT_MM
+			>=513	when TEXT_UNITS field is TEXT_SCAN_LINES
+				(default is 110, or 11 inches)
+
+TEXT_TOPMARGIN:
+	Valid values:	>=0	(default is .2 inches)
+
+TEXT_BOTMARGIN:
+	Valid values:	>=0	(default is .2 inches)
+
+TEXT_LEFTMARGIN:
+	Valid values:	>=0	(default is .3 inches)
+
+TEXT_RIGHTMARGIN:
+	Valid values:	>=0	(default is .3 inches)
+	
+TEXT_LINESPACING:
+	Valid values:	LS_SINGLE	single space between lines (default)
+			LS_DOUBLE	double space between lines
+			LS_TRIPLE	triple space between lines
+			LS_8LPI		8 lines per inch
+			LS_6LPI		6 lines per inch
+			LS_4LPI		4 lines per inch
+			LS_3LPI		3 lines per inch
+			LS_2_4LPI	2.4 lines per inch
+
+TEXT_FONT:
+	Valid values:	FONT_6LPI   normal 6 lpi, 10 cpi, helvetica (default)
+			FONT_8LPI   compressed 8 lpi, 17 cpi, helvetica 
+
+TEXT_UNITS:
+	Valid values:	UNITS_ONE_TENTH_INCHES	(default)
+			UNITS_MM	
+			UNITS_SCAN_LINES	
+
+Comments in the file are allowed, provided the first character of the
+line is a pound sign (#).
+
+Note that a text description file need not contain each and every setting.
+For example, if only changing a the font to a compressed 8 lpi is
+desired, the contents of the file would be
+	#
+	# Sample config file to change from normal 6lpi to compresed 8lpi
+	#
+	TEXT_FONT=FONT_8LPI
+
+Return Codes:
+	0	TEL_SUCCESS
+	-1	TEL_FAILURE
+	-3	TEL_DISCONNECTED
+
+detailed design
+	- external variables are defined in TEL_SendFax(), which contains
+	  the settings.  When TEL_SetFaxTextDefaults() is called, it
+	  simply reads the file, parses the name=value pairs, and
+	  sets the entries.  If the file contains any invalid values, a
+	  warning message is logged stating the invalid values and the
+	  current setting to be used.  The setting will remain whatever it was
+	  previously set to.
+	- passing a null value will cause all the values to be reset to
+	  the defaults
+
+
+TEL_RecvFax( 
+	char * fax_file,	/* name of the received fax file */
+	int * num_pages,	/* number of pages received */
+	char * prompt_phrase	/* phrase to speak to caller */
+	)
+
+fax_file - full, partial, or relative pathname of the tiff file that
+	   will contain the actual fax file received.
+	   If fax_file is just a file name and not a path, the
+	   received tiff file is assumed to be in the current
+	   directory.  
+
+num_pages - the number of pages received.
+
+prompt_phrase - the file name of the phrase to play before
+		receiving the fax, such as
+		"Please press the start button.".  If this
+		parameter is NULL,  then no phrase is played.
+		The phrase file can be a full, partial, or
+		relative pathname of the phrase to be spoken.
+	   	If it is just a file name and not a path, the
+		phrase file is assumed to be in the current
+		directory.
+
+Note:  If the received file already exists before the API call, it
+       will be overwritten.  It is the programmer's responsibility to
+       copy or otherwise protect the files before issuing this API call.
+
+Return Codes:
+	0	TEL_SUCCESS
+	-1	TEL_FAILURE
+	-3	TEL_DISCONNECTED
+
+    detailed design
+	- verifies GV_InitCalled, checks for disconnect, then verifies the
+	  pathname of the to-be received fax file
+	- if prompt_phrase is not accessable, a message is logged, and 
+	  processing of the fax continues.  Otherwise, the prompt_phrase is
+	  spoken.  If there is an error speaking the phrase
+	  (TEL_SpeakPhraseFile()), HNDL_RETURN() handles the error (the
+	  API returns).
+	- a call is then made to the resource manager to obtain a fax resource.
+	  To make this call, it uses the type of 'FAX' and subtype of 
+	  'VFX'.  These must be defined in the $TELECOM/Tables/resource.cfg.
+	  If a fax resource is not obtained, a message is logged and a '-1'
+	  (TEL_FAILURE) is returned.
+	- Once a fax resource is obtained, the API then opens the fax channel
+	  (fx_open()), sets up the routing between the network and fax 
+	  timeslots, and initializes the channel to receive a
+	  fax (fx_initstat()).
+	- The fax is then received.  If the fx_rcvfax() call failed, a message
+	  is logged, routing re-established between the network and voice
+	  timeslots, fax channel closed, the fax resource is freed, and a
+	  '-1' (TEL_FAILURE) is returned.  If the fx_rcvfax() is successful,
+	  routing is re-established between the network and voice
+          timeslots, fax channel closed, the fax resource is freed, and a
+	  '0' is returned.  Note that 0 (TEL_SUCCESS) is always returned 
+	  after a successfully receiving a fax.  This means that if any of
+	  the cleanup/closing routines fail (i.e. free_resource(), 
+	  re-establish routing, etc.), the message is logged, but 0 is
+	  still returned.
+	  
+
+TEL_SendFax( 
+	int    file_type,	/* indicator of the content of the file */
+	char * fax_data,	/* name of list file, fax file, or 
+				   character buffer to fax out */
+	char * prompt_phrase,	/* phrase to speak to caller */
+	)
+
+	file_type indicates the type of file.  Valid values are TIF,
+	TEXT, LIST, or MEM.
+
+	If file_type is LIST, then the fax_data must be a valid list file.
+	See TEL_BuildFaxList() for details of a list file.  TIF and TEXT
+	specify entire tiff and text files respectively.  To specify sending
+	specific pages of a tiff file, rather than the entire file, 
+	TEL_BuildFaxList() must first be called to generate that list file,
+	then TEL_SendFax can be called with the LIST option.
+	If the value of file_type is MEM, then fax_data is to point to a
+	character buffer containing ascii text.
+
+	The fax_data parameter either specifies the full or relative
+	pathname of the file to be faxed (or a list file), or a pointer to
+	a character buffer (for MEM).  If only a filename is given
+	(i.e., no path is specified) the file is assumed to be in the
+	current directory.
+
+	prompt_phrase - the file name of the phrase to play before
+			receiving the fax, such as
+			"Please press the start button.".  If this
+			parameter is NULL,  then no phrase is played.
+			The phrase file can be a full, partial, or
+			relative pathname of the phrase to be spoken.
+		   	If it is just a file name and not a path, the
+			received tiff file is assumed to be in the current
+			directory.
+
+Return Codes:
+	0	TEL_SUCCESS
+	-1	TEL_FAILURE
+	-3	TEL_DISCONNECTED
+
+    detailed design
+	- validates the file_type parameter, verifies GV_InitCalled,
+	  checks for disconnect, then verifies the pathname of the to-be-
+	  sent fax file, if file_type != MEM
+	- if prompt_phrase is not accessable, a message is logged, and 
+	  processing of the fax continues.  Otherwise, the prompt_phrase is
+	  spoken.  If there is an error speaking the phrase
+	  (TEL_SpeakPhraseFile()), HNDL_RETURN() handles the error (the
+	  API returns).
+	- a call is then made to the resource manager to obtain a fax resource.
+	  To make this call, it uses the type of 'FAX' and subtype of 
+	  'VFX'.  These must be defined in the $TELECOM/Tables/resource.cfg.
+	  If a fax resource is not obtained, a message is logged and a '-1'
+	  (TEL_FAILURE) is returned.
+	- Once a fax resource is obtained, the API then opens the fax channel
+	  (fx_open()), sets up the routing between the network and fax 
+	  timeslots, and initializes the channel to send a
+	  fax (fx_initstat()).
+	- The field values of faxTextSettings are passed in the iott
+	  structure for all fax data sent out with either TEXT of MEM.
+	  The fax is then set up and sent.
+	  TEXT or TIF file_type options:
+		A file open() is performed on the contents of the fax_data
+		parameter (in this case, it is the name of text or tiff file),
+		which is to be placed in the iott structure, which is then
+		passed to fx_sendfax(). Other elements (termination, etc)
+		of the iott structure are then populated accordingly, and
+		the fax is sent out.  The file descriptor is then closed.
+	  MEM file_type option:
+		A file open() is currently being performed on /etc/hosts
+		(this can be changed), which is then placed in the iott
+		structure to fax out.  (In order to fax anything using
+		Dialogic VFX fax, an open file descriptor must be passed.
+		In the case of faxing from memory, it is not needed; however,
+		there still must be on open file descriptor, or it won't 
+		work.  This is a dialogic bug and I have called it in.)
+		passed to fx_sendfax().  Other elements (termination, etc),
+		of the iott structure are then populated accordingly, and
+		the fax is sent out.  The file descriptor is then closed.
+	  LIST file_type option:
+		Three arrays are defined: the first is an array of iott
+		structures, the second is an array of listItemFields
+		(fields within a list file), and the third is an array of
+		file pointers (each item must have an open file descriptor
+		before it can be faxed).  The size of each of these
+		arrays is MAX_FAX_ITEMS (currently set to 100).  Each item
+		to be faxed out must have an iott element defined.
+
+		The list file is first read, populating the listItemFields
+		array.  For every file specified in a list file which
+		is not found, the log message  "Fax content file %s
+		referenced in list file %s not available.  [%d,%s]" is written.
+		Similar error checking is performed on file_type and eject_page 
+		fields.  Every error/inconsistancy is logged for the entire
+		file.  Any validation error occurance will generate a
+		failure and no fax will be sent.
+
+		The iott array is then set up to send out the fax.  This
+		consists of opening each fax content file and assigning it 
+		in the iott array and setting up termination, merge-page
+		or page-advancement, etc.
+
+		Once this is performed, the fax is sent out, and all 
+		open file pointer to fax content files are closed.
+
+		For faxing out under any of the file_types, if fx_sendfax()
+		fails, an error message is then logged, routing re-estlablished
+		between the network and voice timeslots, fax channel closed,
+		the fax resource is freed, and a '-1' is returned.  If
+		the fx_sendfax() is successful, routing is re-established
+		between the network and voice timeslots, fax channel
+		closed, the fax resource is freed, and a '0' is returned.
+		Note that 0 (TEL_SUCCESS) is always returned after a
+		successfully sending a fax.  This means that if any of
+		the cleanup/closing routines fail (i.e. free_resource(), 
+		re-establish routing, etc.), the message is logged, but 0 is
+		still returned.
+	  
+	When faxing out text data, both from memory and files, the 
+	characteristics of how the text will look can now be altered.
+	TEL_SendFax() uses three external variables (gvWidth, gvResolution,
+	and gvAsciiData) which control this.  Before faxing out any 
+	ASCII data, the io_width and io_resln fields of the dialogic
+	iott structure as assigned to gvWidth and gvResolution, and the
+	io_datap field is assigned to gvAsciiData.  These values are 
+	initialized to the appropriate defaults.  See TEL_SetFaxDefaults()
+	API for details modifying the text image.
+
+
+TEL_BuildFaxList( 
+	int operation, 		/* operation to be performed */
+	char * list_file,	/* name of the list file */
+	char * fax_file,	/* name of the file with fax content */
+	int   file_type,	/* type of the file with fax content */
+	int    start_page,	/* starting page number to begin faxing - for 
+				   tiff files only */
+	int    number_of_pages	/* number of pages, beginning with start_page
+				   to fax - for tiff files only */
+	char * comment, 	/* a comment to be added to the line */		
+	int eject_page,		/* should the page be ejected after this file */
+	char *forFutureUse	/* reserved for future use; ignored */
+)
+
+operation indicates whether the list_file should be appended to or overwritten
+	to. The possible values are APPEND (0) and OVERWRITE (1).  For APPEND,
+	the fax_file is appended to the list file.  For OVERWRITE, the 
+	list_file is overwritten with the fax_file being the first line 
+	in the new list_file.
+
+list_file is the name of the list file. It can be a full or relative pathname.
+fax_file is the name of the file containing the content to be faxed out.
+	It can be a full or relative pathname.
+
+file_type indicates the type of file.  Valid values are TIFF, and TEXT. 
+	A value of LIST is NOT supported.  
+
+start_page is the starting page of the tiff file to begin sending.  This is
+	not zero-based.  A value of zero indicates that the entire tiff file
+	is to be sent.  If the start_page is less than zero, a
+	warning message is logged, and the entire file will be sent.
+	If file_type == TEXT, a zero is used as a placeholder since it will
+	be ignored.
+
+number_of_pages is the number of pages sent from a tiff file, beginning with
+	start_page.  If the start_page == 0, this will be ignored.  If this
+	value is set to zero, all remaining pages will be sent.  If the
+	value passed is less than zero, a warning
+	message is logged, and all remaining pages will be sent beginning
+	at start_page. 
+	If file_type == TEXT, a zero is used as a placeholder since it will
+	be ignored.
+
+comment is a string that is added to the line for documentation purposes.
+
+eject_page indicates whether or not the physical page in the fax machine 
+	should be ejected after this file is sent.  The possible values
+	are DONT_EJECT_PAGE (0) and EJECT_PAGE (1).
+
+Return Codes:
+	0	TEL_SUCCESS
+	-1	TEL_FAILURE
+	-3	TEL_DISCONNECTED
+
+Example 1 : Constructing a list for a two page letter. The first page contains
+	the company logo, followed by text. The second page contains all
+	text
+
+
+BuildFaxList(1, "/usr/local/list", "/fax/header.tif", TIF, 1, 1 "logo", 0)
+BuildFaxList(0, "/usr/local/list", "/fax/letter1", TEXT, , 0, 0, 
+						"body of letter, p1", 1)
+ 
+The resulting list file will look like
+ 
+/fax/header.tif |TIF |1|1|0|logo
+/fax/letter1    |TEXT|0|0|1|body of letter, p1
+
+Example 2 : Constructing a list for a multi page letter. The first page contains
+	the a text header.  The subsequent pages contains all pages of a
+	tiff file beginning at page 2.
+
+BuildFaxList(1, "/usr/local/list", "/fax/header.txt", TEXT, , 0, 0, 
+						"body of letter, p1", 1)
+BuildFaxList(0, "/usr/local/list", "/fax/body.tif", TIFF, 2, 0, 
+						"body of letter, p2", 1)
+ 
+The resulting list file will look like
+ 
+/fax/header.txt |TEXT|0|0|1|header information
+/fax/body.tif   |TIFF|2|0|0|body of letter, p1
+
+
+TEL_ScheduleFax( 
+	int file_type,		/* type of the file with fax content */
+	int fax_file,		/* name of the file with fax content, or list */
+	int phone_format,	/* Phone # format: NAMERICAN or NONE */
+	char * fax_phone_no, 	/* phone number of the fax machine */		
+	char * delivery_time, 	/* Format YYMMDDHHMMSS, HHMMSS, HHMM, HH */
+	int try_count, 		/* Number of times to attempt to send the fax */
+	int delete_flag, 	/* Whether to delete DELETE_ON_SUCCESS (1) or
+				   not RETAIN_ON_SUCCESSS (2) after
+				   a successful faxout */		
+	int  fail_on_busy	/* Whether to treat busy as a failed call.
+				   0 - default, 1=yes, 2=no */
+	int  retry_seconds	/* Number of seconds to wait before retry 
+				   0 - default, >0 number of seconds */
+	char * log_data, 	/* Data to log in CEV record. Max 150 char. */
+)
+
+NOTE: Values for default, yes, no are 0, 1, 2, respectively.
+
+This API will function like the API defined in the "Fax Operations and
+API Guide for Linkon". Please refer to that document for guidance.
+
+The file_type replaces the "source" parameter.  It can be TIF, TEXT, LIST.
+
+There is no fax_home_phrase parameter in the Dialogic version.
+
+fail_on_busy is a new parameter. It can be used to override the default 
+value from the fax config file used by FaxServer.
+
+retry_seconds is a new parameter. It can be used to override the default 
+value from the fax config file used by FaxServer.
+
+If any file specified in a list file is not present, then this API
+will return a -1(TEL_FAILURE). A message should be written saying 
+"Fax content file %s referenced in list file %s not available. errno=%d".
+This message should be written for EVERY content file that is not found.
+
+Example 1: Default values take for fail_on_busy and retry_seconds
+
+ScheduleFax(LIST, "my.list", NONE, "5551212", "0", 3, "1", 
+						0, 0, "log message" 
+
+In the above call, fail_on_busy is 0 (default) so the value is taken from
+the Fax config file. Here it is assumed to be "yes" in the config file.
+Also, retry_seconds is 0 (default) so the value is taken from the Fax 
+config file.  Here it is assumed to be 630 seconds. 
+
+The following entry is written in the header file:
+
+# Send LIST my.list to 5551212. 1st try: immediately. Tries: 3. 
+# Delete copy on success. Fail on busy. Retry seconds: 630. 
+LIST my.list 5551212 0 3 1 1 7 0 0
+log message
+
+Example 2: Non-default values taken for fail_on_busy and retry_seconds
+
+ScheduleFax(LIST, "my.list", NAMERICAN, "5551212", "1230", 6, "2", 
+							1, 300, "log message" 
+
+In the above call, fail_on_busy is 1 (yes) so the value is taken from
+this API parameter.  Also, retry_seconds is 300 so the value is taken from 
+this API parameter.
+
+The following entry is written in the header file:
+
+# Send LIST my.list to 9085551212. 1st try: 1230. Tries: 6. 
+# Don't delete copy on success. Fail on busy. Retry seconds: 300. 
+LIST my.list 5551212 1230 6 2 1 8 0 0
+log message
+
+Return codes 0 , -1
+
+
+Handling of the New ScheduleFax parameters
+
+The new parameters in ScheduleFax should be handled much the same way that
+retry_count is currently handled.  That is, if the default is specified,
+write the value from the FaxServer.cfg file into the header, otherwise
+write the value specified by the API parameter.
+
+switch (fail_on_busy)
+	case 0: /* default */
+		write value from FaxServer.cfg to header file
+	case 1: /* yes */ 
+		write 1 into header file 
+	case 2: /* no */
+		write 2 into header file
+	default: /* unknown value */
+		error, return bad parameter
+	
+switch (retry_seconds)
+	if retry_seconds = 0
+		write value from FaxServer.cfg to header file
+	else
+	if retry_seconds > 0
+		write retry_seconds to header file
+	else
+		error, return bad parameter
+
+Changes to the Fax Configuration File
+
+For Dialogic faxing, the Fax Configuration file (FaxServer.cfg) format must 
+change slightly.  It should look like:
+
+#FaxServer.cfg - Configuration file for ispFaxMgr and FaxServer
+# line 1: base fax dir		line 2: Seconds Fax manager waits 4 call
+# line 3: default tries		line 4: default fail on busy (1=yes, 2=no)
+# line 5: default retry seconds	
+/home/isp/.ISP/Telecom/Fax
+30
+3
+1
+600
+
+Note: The get_fax_config() function is called by ScheduleFax, FaxServer,
+and fax_special.c will have to adjust accordingly:
+
+WAS:
+get_fax_config(base_dir, &timeout_value, %low_auto, &high_auto,
+	  &default_tries, &fail_on_busy, &retry_interval);
+
+SHOULD BE: 
+get_fax_config(base_dir, &timeout_value,
+	  &default_tries, &default_fail_on_busy, &default_retry_interval);
+
+Better yet, this call can be rewritten to take a pointer to a structure.
+
+Changes to Fax Spool Area 
+
+The Fax Spool Area is the directory structure into which scheduled faxes are
+copied so that they can be faxed out at the appropriate date and time.  The
+fax spool area is described in detail on page 21 of the "Fax Services API 
+Guide".  There is one minor change for Dialogic:
+
+The YYMMDDHHMMSS.pid created under the faxfile directory will no longer be
+the actual file to be faxed out, but it will be the name of a DIRECTORY which
+contains the files to be faxed out, along with the corresponding list file.  
+
+For example, suppose a list file, george.lst, is scheduled at 14:01:02 on 
+Jan 13, 1998, from an application whose pid is 145, and the contents of 
+george.lst are:
+
+			/home/isp/gpw/xx01.tif|tif|1
+			/home/isp/gpw/xx02.txt|txt|1
+			/home/isp/gpw/xx03.txt|txt|1
+
+The following files would appear in the fax spool directory
+
+	/home/isp/fax/work/header/980113040102.145
+	/home/isp/fax/work/faxfile/980113040102.145/george.lst
+	/home/isp/fax/work/faxfile/980113040102.145/xx01.tif
+	/home/isp/fax/work/faxfile/980113040102.145/xx02.txt
+	/home/isp/fax/work/faxfile/980113040102.145/xx03.txt
+
+NOTE:  	The george.lst file in the fax spool area will not be the same 
+	george.lst file that the application originally scheduled, but it
+	must point to the correct set of files corresponding to those that
+	were copied into the fax spool area. In addition, it should show
+	the contents of the ORIGINAL george.lst file.
+
+	Specifically, /home/isp/fax/work/faxfile/980113040102.145/george.lst
+	should look like:
+
+	#	/home/isp/gpw/xx01.tif|tif|1
+	#	/home/isp/gpw/xx02.txt|txt|1
+	#	/home/isp/gpw/xx03.txt|txt|1
+		xx01.tif|tif|1
+		xx02.txt|txt|1
+		xx03.txt|txt|1
+
+Note: 	Throughout the above example it is assumed that the first line 
+	in FaxServer.cfg (the fax spool base directory) is "/home/isp/fax".
+
+The rules for copying sent or failed faxes to the sent or errors subdirectories
+under the fax spool area remain unchanged. These are described in the manual.
+Of course, now you need to move an entire subdirectory under the faxfile
+directory rather than just a single file.  (Since the directory is guaranteed
+to be on the same file system, this can probably be done with a rename.)
+
+Error Processing
+
+If any error occurs, make sure the error message shows ALL the 
+information available, including parameters, Unix errno's, and vendor error
+codes.
+

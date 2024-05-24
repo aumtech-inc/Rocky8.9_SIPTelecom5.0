@@ -1,0 +1,29 @@
+
+
+CC = gcc 
+
+
+SOURCES=\
+conv.c\
+UTL_accessories.c\
+UTL_AddToFile.c\
+UTL_BusinessHours.c\
+UTL_Common.c\
+UTL_CopyFile.c\
+UTL_CreateFile.c\
+UTL_DeleteFile.c\
+UTL_GetField.c\
+UTL_LogMessage.c\
+UTL_SendToMonitor.c\
+UTL_Substring.c\
+x.c\
+
+INCLUDES=-I../../include/ 
+
+
+
+all: $(SOURCES) 
+	$(CC) $(INCLUDES) -c -Wall  $^ 
+
+lib:
+	ar -cru 

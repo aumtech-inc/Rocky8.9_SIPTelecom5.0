@@ -1,0 +1,14 @@
+# -----------------------------------------------------------------------------
+# Program:      Parameters.def
+# Purpose:      GUI definition file for global configuration parameters.
+# Author:       Aumtech, Inc.
+# Date:         09/01/99
+#
+# DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE.
+# -----------------------------------------------------------------------------
+
+[Configuration]
+Global Configuration
+
+[Misc]
+Global Configuration=Global/Tables/Global.def

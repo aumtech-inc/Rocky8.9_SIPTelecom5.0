@@ -1,0 +1,359 @@
+#!/bin/ksh
+#---------------------------------------------------------------------------
+# Program:	install_arcML
+# Purpose:	Script to install Aumtech's Multiple Language
+#           Services package for Linux.
+# Author:	Aumtech, Inc.
+# Update:	01/28/02 djb	Created the file.
+#---------------------------------------------------------------------------
+Chgrp()
+{
+	# Change group -  Disabled because we don't force a specific group
+	chgrp "$1" "$2"
+}
+
+Makedir()
+{
+	dir="$1"
+	permissions="$2"
+	owner="$3"
+	group="$4"
+
+	if [ ! -d $dir ]; then
+		mkdir -p $dir
+	fi
+	chmod $permissions $dir
+	chown $owner $dir
+	Chgrp $group $dir
+}
+
+Echo()
+{
+	echo "$1" 
+}
+
+Beep()
+{
+#	echo "\007" 
+	:
+}
+
+# This routine addes the appropriate include lines to sendToMonitor.dat
+AddTo_sendToMonitor()
+{
+	BASE=sendToMonitor
+	FILE=$ISPBASE/Global/Tables/sendToMonitor.dat
+
+	if [ ! -f $FILE ]
+	then
+		>$FILE
+	fi
+
+	for SUFFIX in $*
+	do
+		rm -f /tmp/$$
+		INSERT=${BASE}_${SUFFIX}.dat
+#debug		CMD="grep $INSERT $FILE | grep ^include > /tmp/$$"
+#debug		echo CMD=$CMD
+		grep $INSERT $FILE | grep \^include > /tmp/$$
+		if [ -s /tmp/$$ ]
+		then
+			# It's already there. Do nothing.
+			:
+		else
+			Echo "Adding $INSERT to $FILE"
+			Echo "include $INSERT" >> $FILE
+		fi
+	done	
+	rm -f /tmp/$$
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the script of the same name on SCO
+#-------------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null 2>/dev/null
+	then
+		echo "You must be root to install ARC Multiple Language Services. "
+		echo "Installation aborted."
+		exit 3
+	fi
+	
+	clear
+	
+	if tail -1 $PKGINFO 2>/dev/null | grep "INSTALL" | grep -v grep >/dev/null 2>/dev/null  
+	then
+		Beep
+		echo "ERROR: ARC ML Services appears to be already installed."
+		show_pkginfo 
+		Echo "Installation aborted."
+		exit 3
+	fi
+		
+	echo
+	echo
+	echo -n "Enter the user id under which Telecom Services is installed [default: arc] : "
+	read USER_ID
+	if [ "$USER_ID" = "" ]
+	then
+       		USER_ID=arc
+	fi
+
+	# Check to see if $USER_ID user exists, has home dir, and kshell
+	if grep "^$USER_ID:" /etc/passwd > /tmp/$USER_ID.$$
+	then
+		if [ ! -d /home/$USER_ID ]
+		then
+			Beep
+echo "ERROR: User id '$USER_ID' doesn't have home directory '/home/$USER_ID'."
+echo "Please set home directory for '$USER_ID' to '/home/$USER_ID'."
+			echo "Installation aborted."
+			exit 3
+		fi
+		if grep "ksh" /tmp/$USER_ID.$$ >/dev/null
+		then
+			rm /tmp/$USER_ID.$$
+		else
+			Beep
+echo "ERROR: User id '$USER_ID' does not have 'ksh' as its default shell."
+echo "Please make 'ksh' the default shell or install under another user."
+			echo "Installation aborted."
+			rm /tmp/$USER_ID.$$
+			exit 3
+		fi
+	else
+		echo "ERROR: $USER_ID does not exist on the system."
+		echo "Please create userid '$USER_ID' with home directory '/home/$USER_ID' and default shell 'ksh'."
+		echo "Installation aborted."
+		exit 3
+	fi
+} 
+
+#---------------------------------------------------------------------------
+# Copy file utility used by the Prototype function.
+#-----------------------------------------------------------------------------
+C()
+{
+	to="$1"
+	from="$2"
+	permissions="$3"
+	owner="$4"
+	group="$5"
+
+	cp $from $to
+	chmod $permissions $to
+	chown $owner $to
+	Chgrp $group $to
+}
+	
+#-------------------------------------------------------------------------------
+# This is the equivalent to the Prototype script for Unix
+#-------------------------------------------------------------------------------
+prototype()
+{
+U=$USER_ID
+G=$GROUP
+H=/home/$USER_ID
+Makedir $H/ISP 									0755 $U $G
+Makedir $H/.ISP									0755 $U $G
+Makedir $H/.ISP/Telecom							0755 $U $G
+Makedir $H/.ISP/Telecom/phrases					0755 $U $G
+Makedir $H/.ISP/Telecom/phrases/LANG33			0755 $U $G
+Makedir $H/.ISP/Telecom/phrases/LANG133			0755 $U $G
+Makedir $H/.ISP/Telecom/phrases/appPhrases33	0755 $U $G
+Makedir $H/.ISP/Telecom/phrases/LANG34			0755 $U $G
+Makedir $H/.ISP/Telecom/phrases/LANG134			0755 $U $G
+Makedir $H/.ISP/Telecom/phrases/appPhrases34	0755 $U $G
+Makedir $H/.ISP/Telecom/Applications 			0755 $U $G
+Makedir $H/.ISP/Telecom/Applications/lib 		0755 $U $G
+Makedir $H/.ISP/Telecom/Applications/include 	0755 $U $G
+Makedir $H/.ISP/Telecom/bin						0755 $U $G
+Makedir $H/.ISP/Telecom/doc						0755 $U $G
+Makedir /tmp/no									0755 $U $G
+Makedir /tmp/global								0755 $U $G
+
+C /home/$U/.ISP/Telecom/Applications/lib/libarcML.a $TEMP/libarcML.a 0644 $U $G
+C /home/$U/.ISP/Telecom/Applications/include/arcML.h $TEMP/arcML.h   0644 $U $G
+
+#
+C /home/$U/.ISP/Telecom/phrases/LANG33/LANG33.tar.Z $TEMP/LANG33.tar.Z 0644 $U $G
+C /home/$U/.ISP/Telecom/phrases/LANG133/LANG133.tar.Z $TEMP/LANG133.tar.Z 0644 $U $G
+C /home/$U/.ISP/Telecom/phrases/appPhrases33/appPhrases33.tar.Z $TEMP/appPhrases33.tar.Z 0644 $U $G
+
+C /home/$U/.ISP/Telecom/phrases/LANG34/LANG34.tar.Z $TEMP/LANG34.tar.Z 0644 $U $G
+C /home/$U/.ISP/Telecom/phrases/LANG134/LANG134.tar.Z $TEMP/LANG134.tar.Z 0644 $U $G
+C /home/$U/.ISP/Telecom/phrases/appPhrases34/appPhrases34.tar.Z $TEMP/appPhrases34.tar.Z 0644 $U $G
+
+C /home/$U/.ISP/Telecom/bin/remove_arcML     	$TEMP/remove_arcML 0744 root $G
+C /home/$U/.ISP/Telecom/doc/install_arcML.readme $TEMP/install_arcML.readme 0644 $U $G
+C /home/$U/.ISP/Telecom/doc/arcML_releaseNotes.1.1.txt $TEMP/arcML_releaseNotes.1.1.txt 0644 $U $G
+} # prototype
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+Process_phrases()
+{
+
+HERE=`pwd`;
+T_PHRASE_DIR=$ISPBASE/Telecom/phrases
+PHRASE_DIR=$T_PHRASE_DIR/$1
+mkdir -p $PHRASE_DIR 1>/dev/null 2>&1
+cd $PHRASE_DIR
+
+if [ $ttype = "IP" ]
+then
+	extension="wav"
+else
+	extension="32a"
+fi
+
+COUNT=`find . -name "*.$extension" -exec ls -1 {} \; |wc -l`
+if [ $COUNT -gt 1 ]
+then
+	echo -n "Overwrite existing $2 phrases? ([y]/n) "
+	read answer
+	if [ "$answer" = "y" -o "$answer" = "Y" ]
+	then
+		answer="y"
+	else
+		answer="n"
+	fi
+	if [ "$answer" = "y" ]
+ 	then
+                # Make sure you are in $PHRASE_DIR here!
+		Echo "Uncompressing system phrases in $PHRASE_DIR"
+		cd $T_PHRASE_DIR
+		uncompress $PHRASE_DIR/$1.tar.Z
+		tar -xvf $PHRASE_DIR/$1.tar *.$extension *.phr 2>/dev/null 1>&2
+		if [ "$extension" = "wav" ]
+		then
+			if [ -f $1/$1_wav.phr ]
+			then
+				# cp $1/$1_wav.phr $1/$1.phr
+				C $1/$1.phr $1/$1_wav.phr 
+			fi
+		fi
+	else
+		Echo "New system phrases remain in $PHRASE_DIR/$1.tar.Z"
+	fi
+else
+        # Make sure you are in $PHRASE_DIR here!
+	Echo "Uncompressing phrases in $PHRASE_DIR"
+	cd $T_PHRASE_DIR
+	uncompress $PHRASE_DIR/$1.tar.Z 
+	tar -xvf $PHRASE_DIR/$1.tar *.$extension *.phr 2>/dev/null 1>&2
+	if [ "$extension" = "wav" ]
+	then
+		if [ -f $1/$1_wav.phr ]
+		then
+			C $1/$1_wav.phr $1/$1_wav.phr 
+			#cp $1/$1_wav.phr $1/$1.phr
+		fi
+	fi
+fi
+cd $HERE
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the most of the Postinstall script on SCO
+#-------------------------------------------------------------------------------
+postinstall()
+{
+	Echo "`date` postinstall script begins..."
+	
+#	if [ ! -d /home/$USER_ID/.ISP/Global ]
+#	then
+#	 	Echo "ln -s /home/$USER_ID/ISP /home/$USER_ID/.ISP/Global"
+#	 	ln -s /home/$USER_ID/ISP /home/$USER_ID/.ISP/Global
+#		chown	$USER_ID /home/$USER_ID/ISP
+#		Chgrp	$GROUP   /home/$USER_ID/ISP
+#		chown  	$USER_ID /home/$USER_ID/.ISP/Global
+#		Chgrp  	$GROUP   /home/$USER_ID/.ISP/Global
+#	fi
+#	
+	ttype="PSTN"
+	if [ -f /home/.arcIPTEL.pkginfo ]
+	then
+		status="`tail -n 3 /home/.arcIPTEL.pkginfo | grep ^STATUS |   \
+			cut -d':' -f2 | awk '{ print $1 }'`"
+		if [ "$status" = "INSTALLED" ]
+		then
+			ttype="IP"
+		fi
+	fi
+
+
+	Process_phrases LANG33 "LANG33 (French male)"
+	Process_phrases LANG133 "LANG133 (French female)"
+	Process_phrases appPhrases33 "appPhrases33 (French app phrases)"
+
+	Process_phrases LANG34 "LANG34 (Spanish male)"
+	Process_phrases LANG134 "LANG134 (Spanish female)"
+	Process_phrases appPhrases34 "appPhrases34 (Spanish app phrases)"
+
+#	AddTo_sendToMonitor ML
+	Echo 
+	Echo "Install complete."
+	
+} # postinstall
+
+#------------------------------------------------------------------------------
+# Put the file in place that indicates what version of this product is 
+# installed and when. 
+#------------------------------------------------------------------------------
+update_pkginfo()
+{
+	STATUS=$1
+	INSTDATE=`date +"%Y %B %d %X"`
+	
+	echo "------------------------"	>> $PKGINFO
+	echo
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST" 	>> $PKGINFO
+	echo "NAME      : $NAME" 	>> $PKGINFO
+	echo "VERSION   : $VERSION" 	>> $PKGINFO
+	echo "USER      : $USER_ID"	>> $PKGINFO
+	echo "VENDOR    : $VENDOR" 	>> $PKGINFO
+	echo "DESC      : $DESC" 	>> $PKGINFO
+	echo "PSTAMP    : $PSTAMP" 	>> $PKGINFO
+	echo "INSTDATE  : $INSTDATE" 	>> $PKGINFO
+	echo "STATUS    : $STATUS" 	>> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO ...
+	tail -11 $PKGINFO
+}
+
+#------------------------------------------------------------------------------
+# main routine
+#------------------------------------------------------------------------------
+TEMP="."
+
+# Package information
+PKGINST="arcML"
+PKGINFO="/home/.$PKGINST.pkginfo"	# File that contains Unix-like pkginfo
+NAME="ARC Multiple Language Services for Linux AS 3.0"
+PACKAGE_DATE="Apr-11-2006"
+VERSION="1.1"
+PSTAMP=$VERSION.$PACKAGE_DATE
+VENDOR="Aumtech, Inc."
+DESC="The ARC Multiple Language Services package provides the speaking of numbers and currency in multiple languages."
+
+TODAY=`date +%y%m%d` 	# Used as suffix on "extra" files
+
+request
+ISPBASE=/home/$USER_ID/.ISP
+GROUP="`id -g -n $USER_ID`"
+
+Echo "Installing ARC Multiple Language Services $VERSION, please wait ... "
+
+prototype
+postinstall
+update_pkginfo INSTALLED
+Echo "Please reboot now to insure proper functioning of ARC ML Services."
+Echo "Press Enter"
+read anything

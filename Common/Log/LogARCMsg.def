@@ -1,0 +1,99 @@
+/*------------------------------------------------------------------------------
+   File Name : LogARCMsg.def
+   Purpose   : This file contains The message Ids used by the different
+		processes in the product.
+   Date	     : 05/01/00
+   Date	     : 05/09/00 Updated to account for existing products.
+   Date	     : 05/11/00 Updated to account for ResourceMgr
+   Date	     : 07/06/00 Updated to account for IN
+   Date	     : 05/17/01 Updated to account for OCSMgr
+   Date	     : 05/17/01 gpw Updated to account for VXML
+   Date	     : 06/19/01 djb Updated to account for Mimic
+  
+IN FUTURE UPDATE LINES PUT YOUR INITIALS!!!!!!!!!!!!!!!!!!! - gpw 
+
+	NOTE: TCP Services Starts it's message base at 1000. This is a
+		conflict with Telecom Services!!!!
+	NOTE: InitVendor conflicts with ResourceMgr
+-----------------------------------------------------------------------------*/
+0000-0100	Common messages (COM_ISPDEBUG, etc.)
+1000-		Telecom Services
+1000-		TCP Conflicts with Telecom Services
+
+0000-0000	./Syrinx/apisrc/TEL_ReleaseSRResource.c 0-0
+0000-0000	./Syrinx/apisrc/TEL_ReserveSRResource.c 0-0
+0000-0000	./Syrinx/apisrc/TEL_SetSRParameters.c 0-0
+
+
+		NOTE: Syrinx should probably be moved since Telecom
+			will need this message range.
+
+1500-1520	./Syrinx/utilsrc/SYRINX_libsycondx/sycondx.c 1500-1520
+1557-1587	./Syrinx/apisrc/TEL_GetSRInput.c 1557-1587
+1569-1569	./Syrinx/apisrc/TEL_GetSRParameter.c 1569-1569
+1583-1583	./Syrinx/apisrc/SR_Common.c 1583-1583
+
+1700-2000	Fax APIs and other Fax routines
+
+2000-2300	Responsibility Subsystem
+
+3120-3184	./DTelecom/dynmgrAsync/ArcTDynMgr.c 3120-3184
+3181-3192	./DTelecom/dynmgrAsync/dyn_support.c 3181-3192
+3200-3218 	./DTelecom/Common/dyn_mgr_lib.c 3200-3218
+
+3300-3311	./cti/listener/main.c 3300-3311
+
+3319-3320	./cti/server/main.c 
+3325-3325	./cti/server/ctiInit.c 3325-3325
+3326-3342	./cti/server/ctiProcessCloseReq.c 3326-3342
+3343-3350	./cti/server/ctiProcessHeartbeatReq.c 3343-3350
+3351-3364	./cti/server/ctiProcessInitDataReq.c 3351-3364
+3365-3372	./cti/server/ctiProcessOpenReq.c 3365-3372
+3373-3374	./cti/server/ctiReadMsgHeader.c 3373-3374
+3377-3399	./cti/server/ctiSendCallClearedEvent.c 3377-3399
+3401-3403	./cti/server/ctiSendConferencedEvent.c 3401-3403
+3404-3423	./cti/server/ctiSendDeliveredEvent.c 3404-3423
+3425-3428	./cti/server/ctiSendFailureEvent.c 3425-3428
+3429-3446	./cti/server/ctiSendOriginatedEvent.c 3429-3446
+3447-3461	./cti/server/ctiSendRouteRequestEvent.c 3447-3461, 3598-3598 
+3459-3460	./cti/server/ctiWriteMsgElement.c 3459-3460
+3465-3469	./cti/server/ctiProcessRouteEnd.c 3465-3469, 3595-3597
+3470-3484	./cti/server/ctiProcessRouteSelect.c 3470-3484, 3596-3597
+3486-3487	./cti/server/ctiWriteRouteEndEvent.c 3486-3487, 3594-3594
+3490-3495	./cti/server/ctiSendRouteResponse2App.c 3490-3495
+3497-3499	./cti/server/ctiSendVruStatusEvent.c 3497-3499
+3500-3506	./cti/server/ctiWriteFailureConf.c 3500-3506
+3507-3509	./cti/server/ctiWriteMsgHeader.c 3507-3509
+3510-3571	./cti/server/main.c 3510-3571, 3319-3320, 3605-3608
+3572-3593	./cti/status/main.c 3572-3593
+3575-3582	./cti/apisrc/arcCti.c 3575-3582
+3594-3594	./cti/server/ctiWriteRouteEndEvent.c
+3595-3597	./cti/server/ctiProcessRouteEnd.c 
+3596-3597	./cti/server/ctiProcessRouteSelect.c 
+3605-3608	./cti/server/main.c 
+3609-3609	./cti/server/requestMgr.c 3609-3609
+
+4000-4199	DB
+
+4200-4299	SNMP
+
+4300-4399	MIMIC
+
+4500-4599	CONFERENCING
+
+5000-		SNA
+
+6000-6199	IN
+
+7000-		ResourceMgr  THERE IS A CONFLICT HERE WITH INIT_VENDOR!!!
+
+7001-7017 	./DTelecom/Init_Vendor/Alarm_Handler.c 7001-7017
+7025-7041	./DTelecom/Init_Vendor/dialogicTrace.c 7025-7041
+7075-7085 	./DTelecom/Init_Vendor/InitVendor.c 7075-7085
+M7051-M7062 	./DTelecom/Init_Vendor/Restart_Chans.c M7051-M7062
+7100-7120 	./DTelecom/Ocs/OCSMgr.c (mpb added 05/17/01)
+
+8000-8200	VXML
+09000-		Log messages (obsolete?) In LOGmsg.h in Common/include
+
+25000-		CEV Messages

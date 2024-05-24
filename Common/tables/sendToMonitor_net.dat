@@ -1,0 +1,22 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_net.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		09/07/99
+#-----------------------------------------------------------------------------
+#
+# Network Services APIs
+4000	NET_Init
+4001	NET_SetGlobal
+4002	NET_GetCommHandle
+4003	NET_PutCommBuffer
+4004	NET_GetCommBuffer
+4005	NET_SendCommBuffer
+4006	NET_RecvCommBuffer
+4007	NET_ReleaseCommHandle
+4008	NET_SendFile
+4009	NET_Compress
+4010	NET_Crypt

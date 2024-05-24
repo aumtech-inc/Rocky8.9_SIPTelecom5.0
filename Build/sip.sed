@@ -1,0 +1,2 @@
+s/^VERSION.*$/VERSION="5.0"/
+s/^BUILD.*$/BUILD="1"/

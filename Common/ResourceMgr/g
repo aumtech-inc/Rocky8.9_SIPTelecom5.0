@@ -1,0 +1,18 @@
+echo "Building ResourceMgr.o"
+gcc	-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64		\
+	-ggdb3 -c ResourceMgr.c		\
+	-I /home/devmaul/isp2.2/Common/include	\
+	-I /home/devmaul/isp2.2/Common/flexNET/v11.5/machind
+
+echo
+echo "Linking ResourceMgr"
+gcc	-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -ggdb3		\
+	-L /home/devmaul/isp2.2/Common/lib 		\
+	-L /home/devmaul/isp2.2/Common/flexNET/v11.5/i86_re3 		\
+	-L /home/devmaul/isp2.2/Common/flexNET/v11.5/i86_re3/activation/lib 	\
+	-L /home/devmaul/isp2.2/SNMP/lib			\
+	-o ResourceMgr ResourceMgr.o		\
+	/home/devmaul/isp2.2/Common/flexNET/v11.5/i86_re3/lm_new.o 		\
+	-larcLicenseV11.5_with_handleLic -llmgr -lnoact -lcrvs -lsb -lpthread		\
+	-lrespcom -lISPUtil -lUTILS -lRULES -lgaUtils		\
+	-lISPLog -lloglite -larcSNMP -lsnmp  -lcrypto 

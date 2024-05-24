@@ -1,0 +1,94 @@
+#-----------------------------------------------------------------------------
+# Program:	LOGcleanup
+# Purpose:	This command is called from the user's crontab to remove logs 
+#		which are DAYS old, where DAYS in the LOG_RETENTION value 
+#		specified in the Global configuration file.
+# Author:	George Wenzel
+# Date:		03/21/96
+# Update:	03/21/96 G. Wenzel changed GetValue
+# Update:	03/21/96 G. Wenzel added def of GTLOGCFG in main
+# Update:	04/16/96 N. Desai added export of ISPBASE
+#-----------------------------------------------------------------------------
+
+GetValue()
+{
+        error=0
+	TempFile=/tmp/.GetValue$$
+        ${GTLOGCFG} $1 > ${TempFile} 2>&1
+        Code=$?
+        case "$Code"
+        in
+                0) ;;
+                *) error = 1;;
+        esac
+
+        if [ "$error" = "1" ]
+        then
+                echo "ERROR in Global configuration file"
+                if [ -s ${TempFile} ]
+                then
+                        if `grep LOGXXCTL ${TempFile} > /dev/null`
+                        then
+                                Echo "-----------"
+                                cat ${TempFile}
+                        fi
+                fi
+		rm -f ${TempFile} 1>/dev/null 2>&1
+                exit 1
+        fi
+
+        ConfigValue=`grep gtlogcfg ${TempFile} | awk -F'|' '{ print  $2 }' `
+	rm -f ${TempFile} 1>/dev/null 2>&1
+        return 0
+}
+
+#------------------------------------------------------------------------------	
+# main routine
+#------------------------------------------------------------------------------	
+ISPBASE=/home/$1/.ISP; export ISPBASE	# User id must be passed
+TVOXDIR=/usr/tvox			# Location for Teravox TSL files
+TELEXEC=$ISPBASE/Telecom/Exec		# Location for Teravox TSL files
+GTLOGCFG=$ISPBASE/Global/.Utilities/gtlogcfg
+
+if [ "$#" != "1" ]
+then
+	echo "Usage: $0 <user_id>"
+	exit
+fi
+
+# Get the log directory
+GetValue logfile
+LOGFILE=${ConfigValue}
+LOGDIR=`dirname $LOGFILE`
+
+# Get the number of days to retain log files
+GetValue logretention
+DAYS=`expr ${ConfigValue} - 2`
+
+if [ $DAYS -eq -1 ]
+then
+	find ${LOGDIR} -links 1 -exec rm -f {} \;
+
+#	Get rid of any Teravox log files if running Telecom
+   	if [ -d ${TVOXDIR} ]
+	then
+		find ${TVOXDIR} -name 'TSL*' -links 1 -exec rm -f {} \;
+	fi
+   	if [ -d ${TELEXEC} ]
+	then
+		find ${TELEXEC} -name 'TSL*' -links 1 -exec rm -f {} \;
+	fi
+else
+	find ${LOGDIR} -mtime +${DAYS} -links 1 -exec rm -f {} \;
+
+#	Get rid of any Teravox log files if running Telecom
+   	if [ -d ${TVOXDIR} ]
+	then
+		find ${TVOXDIR} -name 'TSL*' -mtime +${DAYS} -links 1 -exec rm -f {} \;
+	fi
+   	if [ -d ${TELEXEC} ]
+	then
+		find ${TELEXEC} -name 'TSL*' -mtime +${DAYS} -links 1 -exec rm -f {} \;
+	fi
+fi
+

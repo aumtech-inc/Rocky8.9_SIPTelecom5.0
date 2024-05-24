@@ -1,0 +1,54 @@
+# Thu Feb  7 08:34:41 EST 2013
+MR 4092 4125 4128 4135 4137 4138 4141 
+
+#Wed Jan  2 16:24:14 EST 2013
+MR 4126 
+
+#  Thu Dec 13 13:13:48 EST 2012
+MR 4102 4096 4089
+VXML: TEL_ScheduleFax
+      TEL_BuildFaxList
+
+C+VXML: TEXT and LIST support in all FAX API / Object tags
+
+#  Thu Oct  4 08:12:22 EDT 2012
+MR 3966
+MR 3791
+MR 3881
+MR 4076
+MR 4056 Broken Pipe Message
+        Added ArcSipRedirector with merged code
+
+# Fri Aug 17 08:48:37 EDT 2012 
+MR 4054 4019 4034
+Removed dmalloc linking 
+------------------------------------------------------------------------------
+Older updates:
+# Tue Jun 19 
+MR 3993 Inband DTMF Click
+
+# Wed Jun  6 09:34:34 EDT 2012
+TEL_SetGlobal("$FLUSH_DTMF_BUFFER", 0 or 1) for Level3 MR-3974
+
+# Wed May 16 10:12:11 EDT 2012
+mrcpClient sleep changed to 5
+VXI No-SR-Resource error
+
+# Mon Apr 02 2012
+MR 3917 3918
+
+# Wed Mar  7 14:53:00 EST 2012
+USER-TO-USER
+
+#Thu Feb 16 16:07:30 EST 2012
+MR 3858
+
+#Wed Feb 15 2012
+MR 3864: ArcSipRedirector: Changed SIP code from 404 to 503 
+
+#Fri Feb 10 2012
+MR 3858
+
+# Tue Jan 31 2012
+MR 3852 3837
+

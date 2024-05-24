@@ -1,0 +1,30 @@
+TEL_MLSpeakTime.c: In function `sMLSpeakTime':
+TEL_MLSpeakTime.c:134: `ret' undeclared (first use in this function)
+TEL_MLSpeakTime.c:134: (Each undeclared identifier is reported only once
+TEL_MLSpeakTime.c:134: for each function it appears in.)
+TEL_MLSpeakTime.c: In function `sSL_speak_time':
+TEL_MLSpeakTime.c:217: parse error before `zOutputFormat'
+TEL_MLSpeakTime.c:221: break statement not within loop or switch
+TEL_MLSpeakTime.c: At top level:
+TEL_MLSpeakTime.c:224: `hour_str' undeclared here (not in a function)
+TEL_MLSpeakTime.c:224: initializer element is not constant
+TEL_MLSpeakTime.c:224: warning: data definition has no type or storage class
+TEL_MLSpeakTime.c:225: `min_str' undeclared here (not in a function)
+TEL_MLSpeakTime.c:225: initializer element is not constant
+TEL_MLSpeakTime.c:225: warning: data definition has no type or storage class
+TEL_MLSpeakTime.c:227: `ret' used prior to declaration
+TEL_MLSpeakTime.c:227: `yMod' undeclared here (not in a function)
+TEL_MLSpeakTime.c:229: `zLanguage' undeclared here (not in a function)
+TEL_MLSpeakTime.c:229: initializer element is not constant
+TEL_MLSpeakTime.c:229: warning: data definition has no type or storage class
+TEL_MLSpeakTime.c:230: parse error before `switch'
+TEL_MLSpeakTime.c:284: redefinition of `ret'
+TEL_MLSpeakTime.c:227: `ret' previously defined here
+TEL_MLSpeakTime.c:284: `zParty' undeclared here (not in a function)
+TEL_MLSpeakTime.c:284: `zInterruptOption' undeclared here (not in a function)
+TEL_MLSpeakTime.c:285: `yTmpPhraseTag' undeclared here (not in a function)
+TEL_MLSpeakTime.c:285: `zSync' undeclared here (not in a function)
+TEL_MLSpeakTime.c:285: initializer element is not constant
+TEL_MLSpeakTime.c:285: warning: data definition has no type or storage class
+TEL_MLSpeakTime.c:286: parse error before `void'
+make: *** [TEL_MLSpeakTime.o] Error 1

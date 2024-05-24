@@ -1,0 +1,152 @@
+#---------------------------------------------------------------------------
+# Program:	remove_arcFAX
+# Purpose:	Script to remove an ARC Fax Services package. 
+# Author:	Aumtech, Inc.
+# Date:		03/30/2001 
+#---------------------------------------------------------------------------
+Beep()
+{
+#	echo "\007\c"
+	:
+}
+
+Echo()
+{
+	echo "$1" 
+}
+
+RemoveFrom_sendToMonitor()
+{
+	SUFFIX=$1	
+	BASE=sendToMonitor
+	FILE=$ISPBASE/Global/Tables/sendToMonitor.dat
+
+	Echo "Removing $SUFFIX entry from $FILE"
+        if [ -f $FILE ]
+        then
+                INSERT=${BASE}_${SUFFIX}.dat
+                CMD="cat $FILE | egrep -v $INSERT > $FILE.tmp"
+                cat $FILE | egrep -v "$INSERT" > $FILE.tmp
+                if [ -s $FILE.tmp ]
+                then
+                        # There was "keepable" stuff in original cron file
+                        # so move the good stuff back.
+                        mv $FILE.tmp $FILE
+                else
+                        # There was NO "keepable" stuff in original cron file
+                        # so just delete the original file & the tmp file.
+                        rm $FILE $FILE.tmp
+                fi
+        fi
+}
+
+Remove_files()
+{
+	echo "Removing ARC Fax Services files..."
+	echo " "
+	rm -f /home/$USER_ID/.ISP/Telecom/Applications/lib/libarcFAX.a
+	rm -f /home/$USER_ID/.ISP/Telecom/Applications/include/arcFAX.h
+	rm -f /home/$USER_ID/.ISP/Telecom/Tables/FaxTextDefaultsConfig.sample.txt
+	rm -f /home/$USER_ID/.ISP/Telecom/Exec/FaxServerAnalog
+	rm -f /home/$USER_ID/.ISP/Telecom/Exec/FaxServerT1
+	rm -f /home/$USER_ID/.ISP/Telecom/Exec/FaxServerE1
+	rm -f /home/$USER_ID/ISP/Tables/sendToMonitor_fax.dat
+	# Note: documents are not removed, but will be overwritten on reinstall
+
+} # Remove_files
+
+#-------------------------------------------------------------------------
+# This function asks for relevant information from the user before allowing
+# the removal to proceed. In particular, it gets the user id under which
+# Telecom Services was installed.
+#-------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null
+	then
+		echo "You must be root to remove ARC Fax Services. "
+		echo "Removal aborted."
+		exit 3
+	fi
+        
+	if  !   tail -1 $PKGINFO | grep "INSTALL" | grep -v grep >/dev/null
+        then
+                Beep
+                echo "ERROR: ARC Fax Services does not appear to be installed."
+                show_pkginfo
+                echo "Removal aborted."
+                exit 3
+        fi
+
+	if      ps -ef | grep "isp_telresp" | grep -v grep >/dev/null
+	then
+		Beep
+		echo "ERROR: Telecom Services appears to be running."
+		echo "Please stop it before proceeding."
+                echo "Removal aborted."
+                exit 3
+        fi
+
+echo
+echo -n "User id under which you installed Telecom Services $VERSION [default: arc] : "
+read USER_ID
+if [ "$USER_ID" = "" ]
+then
+	USER_ID=arc
+fi
+}
+
+update_pkginfo()
+{
+	STATUS=$1
+	REMOVEDATE=`date +"%Y %B %d %X"`
+
+	echo "--------------------------" >> $PKGINFO
+	echo 				  >> $PKGINFO
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST"       >> $PKGINFO
+	echo "VERSION   : $VERSION"       >> $PKGINFO
+	echo "USER      : $USER_ID"       >> $PKGINFO
+	echo "REMOVEDATE: $REMOVEDATE"    >> $PKGINFO
+	echo "STATUS    : $STATUS"        >> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO...
+        tail -11 $PKGINFO
+}
+
+#-----------------------------------------------------------------------------
+# main routine
+#-----------------------------------------------------------------------------
+
+# Packing information
+PKGINST="arcFAX"
+VERSION="3.1"
+PKGINFO="/home/.$PKGINST.pkginfo" 
+
+request
+
+# Note: Not using Global install utilities because this is the only question.
+echo -n "About to remove ARC Fax Services $VERSION. Are you sure? [y/n]: " 
+read answer
+if [ "$answer" = "y" -o "$answer" = "Y" -o "$answer" = "yes" -o "$answer" = "Yes" ]
+then 
+	:
+else
+	echo "Removal aborted."
+	exit 3
+fi
+                             
+Echo "`date` Removing ARC Fax Services ..."
+
+ISPBASE=/home/$USER_ID/.ISP
+
+RemoveFrom_sendToMonitor fax
+Remove_files
+update_pkginfo REMOVED
+echo 
+echo ARC Fax Services has been removed.
+echo

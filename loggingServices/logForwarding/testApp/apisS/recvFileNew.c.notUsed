@@ -1,0 +1,186 @@
+/*--------------------------------------------------------------------------
+ss_NewRecvFile(): This api receive the file specified.
+---------------------------------------------------------------------------*/
+int ss_NewRecvFile(char *destination, int fileOption)
+{
+	static char	yMod[] = "ss_NewRecvFile";
+	guint32	file_size=0L, recvdBytes = 0L, bytesRead;
+	long	recvdataBytes;
+	char	diag_mesg[256];
+	char	data[1026], response[30], result[30], srcfile[50];
+	char	fileSizeBuf[20];
+	int	rc, flags, fd;
+	struct	stat 	stat_buf;
+	short	done;
+	char	*yDataPtr;
+
+	sprintf(LAST_API, "%s", yMod);
+
+	if(GV_SsConnected == 0)
+	{
+		Write_Log(yMod, "Client disconnected");
+		return(ss_DISCONNECT);
+	}
+
+	if(destination == NULL)
+	{
+		sprintf(__log_buf, "Destination filename cannot be NULL");
+		Write_Log(yMod, __log_buf);
+        	return (ss_FAILURE);
+	}
+
+	switch(fileOption)
+	{
+		case RF_APPEND:
+			flags = O_WRONLY|O_APPEND|O_CREAT;
+			break;
+	
+		case RF_OVERWRITE:
+			flags = O_WRONLY|O_TRUNC|O_CREAT;
+			break;
+	
+		case RF_PROTECT:
+			if(access(destination, F_OK) == 0)
+			{
+				sprintf(__log_buf, 
+					"WARN: Destination file (%s) exists, "
+					"won't overwrite", destination);
+				Write_Log(yMod, __log_buf);
+				return(ss_FILE_EXISTS);
+			}
+			flags = O_WRONLY|O_CREAT;
+			break;
+
+		default:
+			sprintf(__log_buf, 
+				"Invalid file create option %d, file=(%s)",
+							fileOption,destination);
+			Write_Log(yMod, __log_buf);
+        		return (ss_FAILURE);
+	} /* switch */
+
+	memset(data, 0, sizeof(data));
+	memset(srcfile, 0, sizeof(srcfile));
+	memset(result, 0, sizeof(result));
+	memset(response, 0, sizeof(response));
+
+	rc = ss_RecvData(GV_SysTimeout, -1, data, &recvdataBytes);
+	if(rc != ss_SUCCESS)
+	{
+		sprintf(__log_buf, "No response from client, file=(%s)",
+							destination);
+		Write_Log(yMod, __log_buf);
+		return(rc);
+	}
+	getField('|', data, 1, srcfile);
+	getField('|', data, 2, result);
+	getField('|', data, 3, response);
+
+#ifdef DEBUG
+	fprintf(stderr, "srcfile  = >%s<\n", srcfile);
+	fprintf(stderr, "result   = >%s<\n", result);
+	fprintf(stderr, "response = >%s<\n", response);
+#endif
+
+	if(srcfile[0] == '\0' || result[0] == '\0' || response[0] == '\0')
+    {
+		sprintf(__log_buf, "Invalid response from client (%s)", data);
+		Write_Log(yMod, __log_buf);
+		close(fd);
+      	return(ss_FAILURE);
+    }
+	sscanf(response, "%ld", &file_size);
+
+	if (strstr(result, "OK") == NULL)
+	{
+		sprintf(__log_buf, "Receive file protocol failed, file: %s, "
+				   "reason: %s", destination,response); 
+		Write_Log(yMod, __log_buf);
+		return (ss_FAILURE);
+	}
+
+
+	if((fd = open(destination, flags, 0777)) < 0)
+	{
+		sprintf(__log_buf, 
+			"Failed to open file %s for writing, errno=%d (%s)",
+					destination, errno, strerror(errno));
+		Write_Log(yMod, __log_buf);
+       	return (ss_FAILURE);
+    }
+	if(file_size == 0)
+	{
+		close(fd);
+		if(sendSize(yMod, 0) < 0)
+		{
+			return(ss_FAILURE); 	/* msg written in sub-routine */
+		}
+		return(ss_SUCCESS);
+	}
+
+	/*
+	** Allocate the memory
+	*/
+	if((yDataPtr = (char *)malloc(file_size)) == NULL)
+	{
+		sprintf(__log_buf,
+				"Failed to malloc (%d) bytes, [%d: %s]",
+				file_size, errno, strerror(errno));
+
+		Write_Log(yMod, __log_buf);
+
+		close(fd);
+
+		return(ss_FAILURE);
+	}
+			
+	if(readSocketData(yMod, "file contents", GV_SysTimeout,
+						file_size, yDataPtr) != file_size)
+	{
+    	sprintf(__log_buf, "%s|%d|readSocketData() failed.", __FILE__, __LINE__, file_size);
+	    Write_Log(ModuleName, __log_buf);
+		close(fd);
+
+		free(yDataPtr);
+
+		return(ss_FAILURE);
+	}
+
+  	if(write(fd, yDataPtr, file_size) != file_size)
+	{
+		sprintf(__log_buf, "Failed to write data to file %s, "
+				"errno=%d, (%s)", destination, errno,strerror(errno)); 
+		Write_Log(yMod, __log_buf);
+
+		close(fd);
+
+		free(yDataPtr);
+
+      	return (ss_FAILURE);
+	}
+
+	close(fd);
+
+	free(yDataPtr);
+
+	if(stat(destination,  &stat_buf) < 0)
+	{
+		sprintf(__log_buf, "Failed to stat file %s, errno=%d (%s)",
+					destination, errno, strerror(errno));
+		Write_Log(yMod, __log_buf);
+		return(ss_FAILURE);
+	}
+
+	sprintf(fileSizeBuf, "%ld", stat_buf.st_size);
+	if((rc = ss_SendData(strlen(fileSizeBuf), fileSizeBuf)) != ss_SUCCESS)
+	{
+		sprintf(__log_buf,
+			"Failed to send file (%s) receipt confirmation",
+			destination);
+		Write_Log(yMod, __log_buf);
+		return(rc);
+	}
+
+	return (ss_SUCCESS);
+
+} /* ss_NewRecvFile */

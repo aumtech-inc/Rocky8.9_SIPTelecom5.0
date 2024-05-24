@@ -1,0 +1,187 @@
+incrementing BUILD number
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT custom_fw_module.o -MD -MP -MF ".deps/custom_fw_module.Tpo" -c -o custom_fw_module.o custom_fw_module.c; \
+	then mv -f ".deps/custom_fw_module.Tpo" ".deps/custom_fw_module.Po"; else rm -f ".deps/custom_fw_module.Tpo"; exit 1; fi
+rm -f libcustom_fw_module.a
+ar cru libcustom_fw_module.a custom_fw_module.o 
+ranlib libcustom_fw_module.a
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_demo.lo -MD -MP -MF ".deps/plugin_demo.Tpo" -c -o plugin_demo.lo plugin_demo.c; \
+	then mv -f ".deps/plugin_demo.Tpo" ".deps/plugin_demo.Plo"; else rm -f ".deps/plugin_demo.Tpo"; exit 1; fi
+mkdir .libs
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_demo.lo -MD -MP -MF .deps/plugin_demo.Tpo -c plugin_demo.c  -fPIC -DPIC -o .libs/plugin_demo.o
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_demo.lo -MD -MP -MF .deps/plugin_demo.Tpo -c plugin_demo.c -o plugin_demo.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_demo.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_demo.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_demo.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_demo.so -o .libs/plugin_demo.so
+ar cru .libs/plugin_demo.a  plugin_demo.o
+ranlib .libs/plugin_demo.a
+creating plugin_demo.la
+(cd .libs && rm -f plugin_demo.la && ln -s ../plugin_demo.la plugin_demo.la)
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_shortdial.lo -MD -MP -MF ".deps/plugin_shortdial.Tpo" -c -o plugin_shortdial.lo plugin_shortdial.c; \
+	then mv -f ".deps/plugin_shortdial.Tpo" ".deps/plugin_shortdial.Plo"; else rm -f ".deps/plugin_shortdial.Tpo"; exit 1; fi
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_shortdial.lo -MD -MP -MF .deps/plugin_shortdial.Tpo -c plugin_shortdial.c  -fPIC -DPIC -o .libs/plugin_shortdial.o
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_shortdial.lo -MD -MP -MF .deps/plugin_shortdial.Tpo -c plugin_shortdial.c -o plugin_shortdial.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_shortdial.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_shortdial.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_shortdial.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_shortdial.so -o .libs/plugin_shortdial.so
+ar cru .libs/plugin_shortdial.a  plugin_shortdial.o
+ranlib .libs/plugin_shortdial.a
+creating plugin_shortdial.la
+(cd .libs && rm -f plugin_shortdial.la && ln -s ../plugin_shortdial.la plugin_shortdial.la)
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_logcall.lo -MD -MP -MF ".deps/plugin_logcall.Tpo" -c -o plugin_logcall.lo plugin_logcall.c; \
+	then mv -f ".deps/plugin_logcall.Tpo" ".deps/plugin_logcall.Plo"; else rm -f ".deps/plugin_logcall.Tpo"; exit 1; fi
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_logcall.lo -MD -MP -MF .deps/plugin_logcall.Tpo -c plugin_logcall.c  -fPIC -DPIC -o .libs/plugin_logcall.o
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_logcall.lo -MD -MP -MF .deps/plugin_logcall.Tpo -c plugin_logcall.c -o plugin_logcall.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_logcall.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_logcall.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_logcall.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_logcall.so -o .libs/plugin_logcall.so
+ar cru .libs/plugin_logcall.a  plugin_logcall.o
+ranlib .libs/plugin_logcall.a
+creating plugin_logcall.la
+(cd .libs && rm -f plugin_logcall.la && ln -s ../plugin_logcall.la plugin_logcall.la)
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_defaulttarget.lo -MD -MP -MF ".deps/plugin_defaulttarget.Tpo" -c -o plugin_defaulttarget.lo plugin_defaulttarget.c; \
+	then mv -f ".deps/plugin_defaulttarget.Tpo" ".deps/plugin_defaulttarget.Plo"; else rm -f ".deps/plugin_defaulttarget.Tpo"; exit 1; fi
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_defaulttarget.lo -MD -MP -MF .deps/plugin_defaulttarget.Tpo -c plugin_defaulttarget.c  -fPIC -DPIC -o .libs/plugin_defaulttarget.o
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_defaulttarget.lo -MD -MP -MF .deps/plugin_defaulttarget.Tpo -c plugin_defaulttarget.c -o plugin_defaulttarget.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_defaulttarget.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_defaulttarget.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_defaulttarget.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_defaulttarget.so -o .libs/plugin_defaulttarget.so
+ar cru .libs/plugin_defaulttarget.a  plugin_defaulttarget.o
+ranlib .libs/plugin_defaulttarget.a
+creating plugin_defaulttarget.la
+(cd .libs && rm -f plugin_defaulttarget.la && ln -s ../plugin_defaulttarget.la plugin_defaulttarget.la)
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_fix_bogus_via.lo -MD -MP -MF ".deps/plugin_fix_bogus_via.Tpo" -c -o plugin_fix_bogus_via.lo plugin_fix_bogus_via.c; \
+	then mv -f ".deps/plugin_fix_bogus_via.Tpo" ".deps/plugin_fix_bogus_via.Plo"; else rm -f ".deps/plugin_fix_bogus_via.Tpo"; exit 1; fi
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_fix_bogus_via.lo -MD -MP -MF .deps/plugin_fix_bogus_via.Tpo -c plugin_fix_bogus_via.c  -fPIC -DPIC -o .libs/plugin_fix_bogus_via.o
+plugin_fix_bogus_via.c: In function 'sip_patch_topvia':
+plugin_fix_bogus_via.c:148: warning: implicit declaration of function 'free'
+plugin_fix_bogus_via.c:148: warning: incompatible implicit declaration of built-in function 'free'
+plugin_fix_bogus_via.c:155: warning: incompatible implicit declaration of built-in function 'free'
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_fix_bogus_via.lo -MD -MP -MF .deps/plugin_fix_bogus_via.Tpo -c plugin_fix_bogus_via.c -o plugin_fix_bogus_via.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_fix_bogus_via.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_fix_bogus_via.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_fix_bogus_via.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_fix_bogus_via.so -o .libs/plugin_fix_bogus_via.so
+ar cru .libs/plugin_fix_bogus_via.a  plugin_fix_bogus_via.o
+ranlib .libs/plugin_fix_bogus_via.a
+creating plugin_fix_bogus_via.la
+(cd .libs && rm -f plugin_fix_bogus_via.la && ln -s ../plugin_fix_bogus_via.la plugin_fix_bogus_via.la)
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_stun.lo -MD -MP -MF ".deps/plugin_stun.Tpo" -c -o plugin_stun.lo plugin_stun.c; \
+	then mv -f ".deps/plugin_stun.Tpo" ".deps/plugin_stun.Plo"; else rm -f ".deps/plugin_stun.Tpo"; exit 1; fi
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_stun.lo -MD -MP -MF .deps/plugin_stun.Tpo -c plugin_stun.c  -fPIC -DPIC -o .libs/plugin_stun.o
+plugin_stun.c: In function 'plugin_stun_LTX_plugin_process':
+plugin_stun.c:283: warning: implicit declaration of function 'free'
+plugin_stun.c:283: warning: incompatible implicit declaration of built-in function 'free'
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_stun.lo -MD -MP -MF .deps/plugin_stun.Tpo -c plugin_stun.c -o plugin_stun.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_stun.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_stun.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_stun.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_stun.so -o .libs/plugin_stun.so
+ar cru .libs/plugin_stun.a  plugin_stun.o
+ranlib .libs/plugin_stun.a
+creating plugin_stun.la
+(cd .libs && rm -f plugin_stun.la && ln -s ../plugin_stun.la plugin_stun.la)
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_prefix.lo -MD -MP -MF ".deps/plugin_prefix.Tpo" -c -o plugin_prefix.lo plugin_prefix.c; \
+	then mv -f ".deps/plugin_prefix.Tpo" ".deps/plugin_prefix.Plo"; else rm -f ".deps/plugin_prefix.Tpo"; exit 1; fi
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_prefix.lo -MD -MP -MF .deps/plugin_prefix.Tpo -c plugin_prefix.c  -fPIC -DPIC -o .libs/plugin_prefix.o
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_prefix.lo -MD -MP -MF .deps/plugin_prefix.Tpo -c plugin_prefix.c -o plugin_prefix.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_prefix.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_prefix.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_prefix.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_prefix.so -o .libs/plugin_prefix.so
+ar cru .libs/plugin_prefix.a  plugin_prefix.o
+ranlib .libs/plugin_prefix.a
+creating plugin_prefix.la
+(cd .libs && rm -f plugin_prefix.la && ln -s ../plugin_prefix.la plugin_prefix.la)
+if /bin/sh ../libtool --tag=CC --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_regex.lo -MD -MP -MF ".deps/plugin_regex.Tpo" -c -o plugin_regex.lo plugin_regex.c; \
+	then mv -f ".deps/plugin_regex.Tpo" ".deps/plugin_regex.Plo"; else rm -f ".deps/plugin_regex.Tpo"; exit 1; fi
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_regex.lo -MD -MP -MF .deps/plugin_regex.Tpo -c plugin_regex.c  -fPIC -DPIC -o .libs/plugin_regex.o
+ gcc -DHAVE_CONFIG_H -I. -I. -I.. -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugin_regex.lo -MD -MP -MF .deps/plugin_regex.Tpo -c plugin_regex.c -o plugin_regex.o >/dev/null 2>&1
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o plugin_regex.la -rpath /usr/local/lib/siproxd -module -avoid-version -shrext '.so' plugin_regex.lo  -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+gcc -shared  .libs/plugin_regex.o  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib -lresolv /home/dev/lib/libosipparser2.so /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -pthread -Wl,-soname -Wl,plugin_regex.so -o .libs/plugin_regex.so
+ar cru .libs/plugin_regex.a  plugin_regex.o
+ranlib .libs/plugin_regex.a
+creating plugin_regex.la
+(cd .libs && rm -f plugin_regex.la && ln -s ../plugin_regex.la plugin_regex.la)
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT siproxd.o -MD -MP -MF ".deps/siproxd.Tpo" -c -o siproxd.o siproxd.c; \
+	then mv -f ".deps/siproxd.Tpo" ".deps/siproxd.Po"; else rm -f ".deps/siproxd.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT proxy.o -MD -MP -MF ".deps/proxy.Tpo" -c -o proxy.o proxy.c; \
+	then mv -f ".deps/proxy.Tpo" ".deps/proxy.Po"; else rm -f ".deps/proxy.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT register.o -MD -MP -MF ".deps/register.Tpo" -c -o register.o register.c; \
+	then mv -f ".deps/register.Tpo" ".deps/register.Po"; else rm -f ".deps/register.Tpo"; exit 1; fi
+register.c: In function ‘register_client’:
+register.c:193: warning: unused variable ‘url2_to’
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT sock.o -MD -MP -MF ".deps/sock.Tpo" -c -o sock.o sock.c; \
+	then mv -f ".deps/sock.Tpo" ".deps/sock.Po"; else rm -f ".deps/sock.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT utils.o -MD -MP -MF ".deps/utils.Tpo" -c -o utils.o utils.c; \
+	then mv -f ".deps/utils.Tpo" ".deps/utils.Po"; else rm -f ".deps/utils.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT sip_utils.o -MD -MP -MF ".deps/sip_utils.Tpo" -c -o sip_utils.o sip_utils.c; \
+	then mv -f ".deps/sip_utils.Tpo" ".deps/sip_utils.Po"; else rm -f ".deps/sip_utils.Tpo"; exit 1; fi
+sip_utils.c: In function ‘compare_url’:
+sip_utils.c:262: warning: unused variable ‘addr2’
+sip_utils.c:262: warning: unused variable ‘addr1’
+sip_utils.c:261: warning: unused variable ‘sts2’
+sip_utils.c:261: warning: unused variable ‘sts1’
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT sip_layer.o -MD -MP -MF ".deps/sip_layer.Tpo" -c -o sip_layer.o sip_layer.c; \
+	then mv -f ".deps/sip_layer.Tpo" ".deps/sip_layer.Po"; else rm -f ".deps/sip_layer.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT log.o -MD -MP -MF ".deps/log.Tpo" -c -o log.o log.c; \
+	then mv -f ".deps/log.Tpo" ".deps/log.Po"; else rm -f ".deps/log.Tpo"; exit 1; fi
+log.c: In function ‘output_to_stderr’:
+log.c:229: warning: unused variable ‘message2’
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT readconf.o -MD -MP -MF ".deps/readconf.Tpo" -c -o readconf.o readconf.c; \
+	then mv -f ".deps/readconf.Tpo" ".deps/readconf.Po"; else rm -f ".deps/readconf.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT rtpproxy.o -MD -MP -MF ".deps/rtpproxy.Tpo" -c -o rtpproxy.o rtpproxy.c; \
+	then mv -f ".deps/rtpproxy.Tpo" ".deps/rtpproxy.Po"; else rm -f ".deps/rtpproxy.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT rtpproxy_relay.o -MD -MP -MF ".deps/rtpproxy_relay.Tpo" -c -o rtpproxy_relay.o rtpproxy_relay.c; \
+	then mv -f ".deps/rtpproxy_relay.Tpo" ".deps/rtpproxy_relay.Po"; else rm -f ".deps/rtpproxy_relay.Tpo"; exit 1; fi
+rtpproxy_relay.c: In function ‘rtp_relay_init’:
+rtpproxy_relay.c:121: warning: format ‘%i’ expects type ‘int’, but argument 4 has type ‘size_t’
+rtpproxy_relay.c:135: warning: format ‘%i’ expects type ‘int’, but argument 4 has type ‘size_t’
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT accessctl.o -MD -MP -MF ".deps/accessctl.Tpo" -c -o accessctl.o accessctl.c; \
+	then mv -f ".deps/accessctl.Tpo" ".deps/accessctl.Po"; else rm -f ".deps/accessctl.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT route_processing.o -MD -MP -MF ".deps/route_processing.Tpo" -c -o route_processing.o route_processing.c; \
+	then mv -f ".deps/route_processing.Tpo" ".deps/route_processing.Po"; else rm -f ".deps/route_processing.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT security.o -MD -MP -MF ".deps/security.Tpo" -c -o security.o security.c; \
+	then mv -f ".deps/security.Tpo" ".deps/security.Po"; else rm -f ".deps/security.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT auth.o -MD -MP -MF ".deps/auth.Tpo" -c -o auth.o auth.c; \
+	then mv -f ".deps/auth.Tpo" ".deps/auth.Po"; else rm -f ".deps/auth.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT fwapi.o -MD -MP -MF ".deps/fwapi.Tpo" -c -o fwapi.o fwapi.c; \
+	then mv -f ".deps/fwapi.Tpo" ".deps/fwapi.Po"; else rm -f ".deps/fwapi.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT resolve.o -MD -MP -MF ".deps/resolve.Tpo" -c -o resolve.o resolve.c; \
+	then mv -f ".deps/resolve.Tpo" ".deps/resolve.Po"; else rm -f ".deps/resolve.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT dejitter.o -MD -MP -MF ".deps/dejitter.Tpo" -c -o dejitter.o dejitter.c; \
+	then mv -f ".deps/dejitter.Tpo" ".deps/dejitter.Po"; else rm -f ".deps/dejitter.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT plugins.o -MD -MP -MF ".deps/plugins.Tpo" -c -o plugins.o plugins.c; \
+	then mv -f ".deps/plugins.Tpo" ".deps/plugins.Po"; else rm -f ".deps/plugins.Tpo"; exit 1; fi
+plugins.c: In function ‘load_plugins’:
+plugins.c:76: warning: implicit declaration of function ‘strcpy’
+plugins.c:76: warning: incompatible implicit declaration of built-in function ‘strcpy’
+plugins.c:77: warning: implicit declaration of function ‘strcat’
+plugins.c:77: warning: incompatible implicit declaration of built-in function ‘strcat’
+plugins.c:79: warning: incompatible implicit declaration of built-in function ‘strcpy’
+plugins.c:103: warning: implicit declaration of function ‘malloc’
+plugins.c:103: warning: incompatible implicit declaration of built-in function ‘malloc’
+plugins.c:104: warning: implicit declaration of function ‘memset’
+plugins.c:104: warning: incompatible implicit declaration of built-in function ‘memset’
+plugins.c:119: warning: implicit declaration of function ‘free’
+plugins.c:119: warning: incompatible implicit declaration of built-in function ‘free’
+plugins.c:130: warning: incompatible implicit declaration of built-in function ‘free’
+plugins.c: In function ‘unload_plugins’:
+plugins.c:260: warning: incompatible implicit declaration of built-in function ‘free’
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/include -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS -MT redirect_cache.o -MD -MP -MF ".deps/redirect_cache.Tpo" -c -o redirect_cache.o redirect_cache.c; \
+	then mv -f ".deps/redirect_cache.Tpo" ".deps/redirect_cache.Po"; else rm -f ".deps/redirect_cache.Tpo"; exit 1; fi
+/bin/sh ../libtool --tag=CC --mode=link gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR="\"`cat .buildno`\"" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS   -o siproxd -export-dynamic siproxd.o proxy.o register.o sock.o utils.o sip_utils.o sip_layer.o log.o readconf.o rtpproxy.o rtpproxy_relay.o accessctl.o route_processing.o security.o auth.o fwapi.o resolve.o dejitter.o plugins.o redirect_cache.o ../libltdl/libltdlc.la -dlopen plugin_demo.la -dlopen plugin_shortdial.la -dlopen plugin_logcall.la -dlopen plugin_defaulttarget.la -dlopen plugin_fix_bogus_via.la -dlopen plugin_stun.la -dlopen plugin_prefix.la -dlopen plugin_regex.la -lresolv -losipparser2 -losip2 -L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs -L /home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs
+rm -f .libs/siproxd.nm .libs/siproxd.nmS .libs/siproxd.nmT
+creating .libs/siproxdS.c
+
+(cd .libs && gcc  -g -O2 -c -fno-builtin "siproxdS.c")
+
+gcc -D_GNU_SOURCE -DLTDL_CONVLIB -DBUILDSTR=\"182\" -g -O2 -Wall -pthread -D_POSIX_THREAD_SAFE_FUNCTIONS 		\
+	-o .libs/siproxd
+	siproxd.o proxy.o register.o sock.o utils.o sip_utils.o sip_layer.o log.o readconf.o		\
+	rtpproxy.o rtpproxy_relay.o accessctl.o route_processing.o security.o auth.o			\
+	fwapi.o resolve.o dejitter.o plugins.o redirect_cache.o .libs/siproxdS.o 			\
+	/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs		\
+	-Wl,--export-dynamic  ../libltdl/.libs/libltdlc.a -ldl				\
+	-lresolv /home/dev/lib/libosipparser2.so		\
+	/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs/libosip2.so		\
+	-lnsl -lrt			\
+	/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs/libosipparser2.so		\
+	-L/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osip2/.libs		\
+	-L/home/dev/isp2.2/SIPTelecom3.5/proxy/siproxd-0.8.1/src  -Wl,--rpath -Wl,/home/dev/lib -Wl,--rpath -Wl,/usr/local/lib
+
+
+
+
+/home/dev/isp2.2/SIPTelecom3.5/thirdParty/libosip2-4.1.0/src/osipparser2/.libs: file not recognized: Is a directory
+collect2: ld returned 1 exit status
+make: *** [siproxd] Error 1

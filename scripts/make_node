@@ -1,0 +1,5 @@
+
+# Program: make_node
+# Purpose:	To (by hand) make the fifo that dynamic manager needs.
+
+mknod /tmp/fifo p

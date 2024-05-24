@@ -1,0 +1,1187 @@
+#------------------------------------------------------------------------------
+# Program:	Services.hlp
+# Purpose:	This is the single help file for all GUIs related to all
+#		services.
+# Author:	Nirav Desai
+# Date:		07/11/96
+# Notes: 	Single lines are dividers within a help page
+#		Double lines are dividers between help pages
+#------------------------------------------------------------------------------
+
+[Operations]
+Note: 	This menu displays only those Services that you have installed on your
+	system.
+
+Close	Leave this utility and close the Operations window.
+
+Global	This button is a placeholder for operations that span all Services.
+	Currently, there are no global operations in the system.
+
+Network	Access the Network Services Operations functions:
+	o  Start Network
+	o  Verify Network
+	o  Stop Network
+
+SNA	Access the SNA Services Operations functions:
+	o  Start SNA Gateway
+	o  Verify SNA Gateway
+	o  Stop SNA Gateway
+	o  Start SNA
+	o  Verify SNA
+	o  Stop SNA
+
+TCP	Access the TCP Services Operations functions:
+	o  Start TCP
+	o  Verify TCP
+	o  Stop TCP
+
+Telecom	Access the Telecom Services Operations functions:
+	o  Start Voice
+	o  Verify Voice
+	o  Stop Voice
+	o  Start Telecom
+	o  Verify Telecom
+	o  Stop Telecom
+_________________________________________________________________________
+_________________________________________________________________________
+[Operations:Global]
+Currently there are no operations under this service.
+_________________________________________________________________________
+_________________________________________________________________________
+[Operations:Telecom]
+This Help Screen contains help for the following buttons on the
+Telecom Operations window ...
+	o  Start Voice
+	o  Verify Voice
+	o  Stop Voice
+	o  Start Telecom
+	o  Verify Telecom
+	o  Stop Telecom
+	o  Close
+_________________________________________________________________________
+
+Start Voice
+
+Start the voice processing software which manages your voice processing boards.
+Because the Telecom Server interfaces with this software to run applications on
+the voice processing boards, you must start the voice processing software
+before you start the Telecom Server.  Upon selecting the Start Voice button,
+you will see a Terminal open with the messages:
+	Starting voice processing software...
+
+	Please enter the Superuser Password:
+
+You must enter the Superuser password to continue.
+
+Once you enter the Superuser password, the system starts the voice processing
+boards.  If the system uses Linkon's Teravox 5.0 voice processing software,
+the terminal will display messages similar to the following:
+
+	TeraVox startup utility Rel 5.0b 31 May 96
+	Using existing voice caches; no new arguments processed.
+	091757 000 | F4KLOAD FX-X000 bootstrap utility Rel 5.0b 31 May 96
+	091803 000 | F4KLOAD Soft switch summary:
+	091803 000 | F4KLOAD Line Interface:priisdn code:4
+	091803 000 | F4KLOAD     fbn:0 fmn:0 MVIP SLAVE TERM
+	091803 000 | F4KLOAD Line Interface:priisdn code:4
+	091803 000 | F4KLOAD     fbn:1 fmn:0 MVIP SLAVE NOTERM
+	091803 000 | F4KLOAD Line Interface:priisdn code:4
+	091803 000 | F4KLOAD     fbn:2 fmn:0 MVIP SLAVE NOTERM
+	091805 000 | F4KLOAD Resource modules:
+	091805 000 | F4KLOAD     Board:0 fbn:0 fmn:2 FX-4000 pid:87 chans:4 ram:400000
+	091805 000 | F4KLOAD     Serial:4000-004-516-118
+	...
+	092000 000 | F4KLOAD Load complete. Clearing from 3f0000 to 400000
+	092000 000 | F4KLOAD Begin verify of fbn:2
+	092044 000 | F4KLOAD Foundation Board 2 Verify complete
+	092049 000 | F4UPDATE FX-4000 license loader utility Rel 5.0b 31 May 96
+	092050 000 | F4UPDATE Board:0 /usr/xvox/license/02040076.C00 applied to 4 chans
+	092050 000 | F4UPDATE Board:1 /usr/xvox/license/0204006e.C00 applied to 4 chans
+	092050 000 | F4UPDATE Board:2 /usr/xvox/license/020c002b.C00 applied to 4 chans
+	092051 000 | F4UPDATE Board:3 /usr/xvox/license/02040050.C00 applied to 4 chans
+	092051 000 | F4UPDATE Board:4 /usr/xvox/license/0204003e.C00 applied to 4 chans
+	092052 000 | F4UPDATE Board:5 /usr/xvox/license/020c000f.C00 applied to 4 chans
+	092052 000 | F4KCFG FC-X000 configuration utility Rel 5.0b 31 May 96
+	TeraVox Initialization Wait Utility  Rel 5.0b 31 May 96
+	TeraVox startup complete.
+	Press <Enter> 
+
+When the Startup process is complete, the system will prompt you to press Enter.
+Once you press Enter, the Start Voice terminal disappears.
+
+For more details on this startup, check the TSLyymmdd file in the /usr/tvox
+directory.  The TSL file contains all startup and shutdown messages as well as
+error messages that occur while the system is up.
+_________________________________________________________________________
+
+Verify Voice
+
+Verify that the voice processing software is running.  If it is, you will be able
+to see which voice processes are currently running on the system.
+
+If the system contains Linkon's Teravox voice processing software, messages
+similar to the following appear:
+
+	Voice processing software processes:
+
+    	root  1138     1  0 16:18:44 ?        0:00 sstask -c 0
+    	root  1140     1  0 16:18:44 ?        0:00 sstask -c 1
+    	root  1188     1  0 16:18:47 ?        0:29 sfmgr 0 /dev/rdsk/c0t0d0sc
+
+	Listing should show 'sfmgr' and one 'sstask' per port.
+
+On a 48-port system, you should see 48 instances of sstask, each running on a
+port identified by the -c parameter.
+
+If the voice processing software is not running, the following message appears:
+
+	The Voice processing software has not been started.
+_________________________________________________________________________
+
+Stop Voice
+
+Stop the voice processing software.  Selecting this button pops a terminal which
+first prompts you to verify that you want to stop the voice processing software:
+
+	You are about to stop the Voice Processing software.
+	Are you sure (default: n) [y,n,?]
+
+If you enter 'y' to this prompt, the system will first verify that Telecom
+Services is not running.  The voice processing software cannot be stopped while
+Telecom Services is running; otherwise the Telecom Server would attempt to run
+applications on inactive voice processing boards.  Therefore, if Telecom Services
+is running when you try to Stop Voice, the following type of message appears:
+
+	Voice processing can not be stopped until Telecom Services
+	is stopped.  Please stop Telecom Services and try again.
+
+As long as Telecom Services is not running, the Stop Voice process continues.
+
+If the voice processing software is Linkon's Teravox, you will must decide
+whether or not to check the Teravox speech file (which contains the library of
+voice prompts):
+
+	Would you like to check the speech file?  (default: n) [y,n,?]
+
+Because a speech file check can last about 40 minutes for a 300MB speech file,
+you may not want to check the speech file everytime you Stop Voice; once in a
+while, say yes to the speech file check prompt.
+
+As with Start Voice, you must enter the Superuser password to complete the
+process of shutting down the voice processing software.
+_________________________________________________________________________
+
+Start Telecom
+
+Start the Telecom software.  Selecting this button pops a terminal which
+displays the various processes that are started as the Telecom Server is
+brought up.  These processes fall in the following categories:
+	o  Starting the "iview logging facility" which starts writing
+	    all log output to the location defined in 
+		ParamConfig:Global:Global Configuration:LOG_x_LOCAL_FILE
+	    on the system identified in
+		ParamConfig:Global:Global Configuration:LOG_PRIMARY_SERVER
+	    For example, if LOG_PRIMARY_SERVER is the name of your system
+	    (i.e. mysystem) and if LOG_x_LOCAL_FILE is /home/isp/.ISP/LOG/ISP
+	    then all Services will log to the file /home/isp/.ISP/LOG/ISP.cur
+	    on system "mysystem"
+	o  Starting the "iview SNMP Agent" which allows logging information
+	    to be sent to an SNMP Network Manager
+	o  Preparing all speech recognition capable channels to
+	    recognize in the default language specified in
+		ParamConfig:Telecom:Telecom Configuration:DefaultLanguage
+	o  Loading the Resource Definition table defined in
+		TableConfig:Telecom:Resource Definition
+	    into shared memory
+	o  Starting the Telecom Services Network Server if
+		1) If you have Network Services loaded on the system and
+		2) If you have specified NetServices=ON in the 
+		ParamConfig:Telecom:Telecom Configuration form
+	o  Redirecting standard output from applications to "nohup.out"
+	o  Starting the main Telecom Services process.  The process id
+	    will be shown if Telecom Services starts successfully:
+		Telecom Services started, pid=4370
+If Telecom Services does not start properly, you may get a message similar to
+	"Telecom Services Responsibility failed to start"
+you should
+	1. Issue the Stop Telecom command to close out any Telecom
+	    related processes still running.
+	2. Check the log file that all Services write to.
+	3. Once you have determined the cause of the problem, restart
+	    the Telecom Services using Start Telecom.
+_________________________________________________________________________
+
+Verify Telecom
+
+Verify that the Telecom software is running.  Selecting this button pops a
+terminal which displays whether or not Telecom Services is active and whether or
+not Network Services is active.  Beside the status of each active service, you
+will see the process id of the service.
+
+For example, if Telecom Services is running, and if you either do not have
+Network Services loaded on the machine or specified NetServices=OFF in the
+ParamConfig:Telecom:Telecom Configuration form, then Network Services will not
+be started in conjunction with Telecom Services.  Messages similar to the 
+following would appear:
+
+	Telecom Services : Active. pid=1106
+	Network Services : NOT ACTIVE.
+_________________________________________________________________________
+
+Stop Telecom
+
+Stop the Telecom software.  Selecting this button pops a terminal which first
+prompts you to verify that you wish to Stop the services:
+
+	Wed Jul 3 15:24:03 EDT 1996
+	You are about to stop Telecom Services.
+
+	Are you sure? (default: n) y
+
+If you respond with a "y", the system will continue to stop the Services.
+The following is an example:
+	Stopping Telecom Services...
+	Network Services is not running.
+	Shutting down the iVIEW SNMP agent...
+        	snmpdrc: SNMP Agent (/usr/sbin/snmpd) stopped.
+	Shutting down the iVIEW logging facility...
+        	isplogrc: Removing iVIEW Event Manager shared memory...
+        	isplogrc: Stopping iVIEW Log Manager and Event Manager processes...
+        	isplogrc: Removing message queue (0)...
+        	isplogrc: ISP Common Logger stopped.
+	Telecom Services is stopped.
+
+	Press <Enter>
+In general, the Stop Telecom process, stops in reverse order all the items
+that were started by the Start Telecom command.
+_________________________________________________________________________
+
+Close
+
+Leave this window and return to the main Operations window.
+_________________________________________________________________________
+_________________________________________________________________________
+[Operations:SNA]
+This Help Screen contains help for the following buttons on the
+SNA Operations window ...
+	o  Start Gateway
+	o  Verify Gateway
+	o  Stop Gateway
+	o  Start SNA
+	o  Verify SNA
+	o  Stop SNA
+	o  Close
+_________________________________________________________________________
+_________________________________________________________________________
+[Operations:TCP]
+This Help Screen contains help for the following buttons on the
+TCP Operations window ...
+	o  Start TCP
+	o  Verify TCP
+	o  Stop TCP
+	o  Close
+_________________________________________________________________________
+_________________________________________________________________________
+[Operations:Network]
+This Help Screen contains help for the following buttons on the
+Network Operations window ...
+	o  Start Network
+	o  Verify Network
+	o  Stop Network
+	o  Close
+_________________________________________________________________________
+_________________________________________________________________________
+[Utilities]
+Note: 	This menu displays only those Services that you have installed on your
+	system.
+
+Close	Leave this utility and close the Utilities window.
+
+Global	Access utilities that span all Services:
+	o  CurrentLogParams
+
+Network	Access the Network Services Utilities functions:
+	o  Server_Registration
+	o  MessageQ_Count
+
+SNA	This button is a placeholder for SNA Services Utilities
+	Currently, there are no SNA Services Utilities in the system.
+
+TCP	This button is a placeholder for TCP Services Utilities
+	Currently, there are no TCP Services Utilities in the system.
+
+Telecom	Access the Telecom Services Utilities functions:
+	o  Record Phrase
+_________________________________________________________________________
+_________________________________________________________________________
+[Utilities:Global]
+This Help Screen contains help for the following buttons on the
+Global Utilities window ...
+	o  CurrentLogParams
+_________________________________________________________________________
+_________________________________________________________________________
+Current LogParams
+
+Lists the values of logging parameters that are currently active on the system.
+_________________________________________________________________________
+_________________________________________________________________________
+[Utilities:Telecom]
+This Help Screen contains help for the following button on the
+Telecom Utilities window ...
+	o  Record Phrase
+_________________________________________________________________________
+
+Record Phrase
+
+Record voice prompts to be used with the Telecom applications.
+Because Telecom applications communicate to users who are accessing the
+system over phone lines, the primary means of communicating to users
+will be through voice prompts.  This utility provides a simple means of
+recording the voice prompts / phrases that callers will hear.  This utility
+is "simple" because the voice prompts will be recorded over phone lines
+and will therefore be of lower quality than professional voice recordings.
+As a result, this utility serves the need of those who do not need a
+professional voice recording or who simply want to test the flow of an
+application before putting it through final production and paying for
+professional recordings.
+
+This utility is actually an application which runs on the voice processing
+boards.  Therefore, you must have issued Start Voice in order to prepare the
+voice processing boards to run applications.  In addition, you cannot have
+Telecom Services running because that would give the services control of
+the ports on the voice processing board.
+
+To prepare the utility to run, you must specify
+	o  the port on which the utility should be run
+	o  the compression to be used for recording
+
+For further information on compression types, refer to the Telecom
+Operations guide.  The most important thing to remember is that when you
+compress a voice prompt, the benefit is that it will require less storage
+space on the hard drive and the drawback is that it will generally be of
+lower quality.
+
+If your Telecom system contains Linkon's Teravox, the supported
+compressions are as follows:
+	3   ADPCM OKI at 4K bytes (Dialogic)	(standard compression)
+	4   ADPCM OKI at 3K bytes (Dialogic)
+	5   ADPCM CCITT G.721 (Linkon F2K)
+	6   16 bit Linear at 8khz		(clearest, most storage)
+	7   CELP at 4.8 kilobits per second	(least clear, least storage)
+	10  CELP at 7.2 kilobits per second
+	11  CELP at 9.6 kilobits per second
+_________________________________________________________________________
+_________________________________________________________________________
+[Utilities:SNA]
+Currently there are no operations under this service.
+_________________________________________________________________________
+_________________________________________________________________________
+[Utilities:TCP]
+Currently there are no operations under this service.
+_________________________________________________________________________
+_________________________________________________________________________
+[Utilities:Network]
+This Help Screen contains help for the following buttons on the
+Network Utilities window ...
+	o  Server_Registration
+	o  MessageQ_Count
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig]
+Note: 	This menu displays only those services that you have
+	installed on your system.
+
+Changes made to the configuration parameters take effect after the
+appropriate service is restarted.
+
+Global	Configure parameters that affect all services.  These parameters
+	are primarily related to logging.
+
+Telecom	Configure parameters that are used by Telecom Services on startup.
+	These parameters affect which processes are started in conjunction
+	with Telecom Services, whether Telecom Services is started and
+	stopped automatically, and how the Services will interact with the
+	phone system to make and accept calls.
+
+TCP	Configure parameters that are used by TCP Services on startup.
+	These parameters affect which processes are started in conjunction
+	with TCP Services, and whether TCP Services is started and
+	stopped automatically.
+
+SNA	Configure parameters that are used by SNA Services on startup.
+	These parameters affect which processes are started in conjunction
+	with SNA Services, whether SNA Services is started and
+	stopped automatically, and how the Services will interact with the
+	SNA host in order to get and receive information.
+
+Network	Configure parameters that are used by Network Services on startup.
+	These parameters affect which processes are started in conjunction
+	with Network Services, and whether Network Services is started and
+	stopped automatically.
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig:Global]
+This Help Screen contains help for the following button on the
+Global Parameter Configuration window ...
+	o  Global Configuration
+_________________________________________________________________________
+
+Global Configuration
+
+View or modify the following global configuration parameters:
+	o  Default Printer
+	o  LOG_PRIMARY_SERVER
+	o  LOG_SECONDARY_SERVER
+	o  LOG_REPORT_VERBOSE
+	o  LOG_x_LOCAL_FILE
+	o  LOG_RETENTION
+All configuration changes are saved in: $ISPBASE/Global/.Global.cfg
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig:Global:Global Configuration]
+This Help Screen contains help for the following buttons on the
+Global Parameter Configuration: Global Configuration window ...
+	o  Default Printer
+	o  LOG_PRIMARY_SERVER
+	o  LOG_SECONDARY_SERVER
+	o  LOG_REPORT_VERBOSE
+	o  LOG_x_LOCAL_FILE
+	o  LOG_RETENTION
+All configuration changes are saved in: $ISPBASE/Global/.Global.cfg
+DO NOT try to edit this file without using the graphical interface.
+_________________________________________________________________________
+
+DefaultPrinter
+
+Specifies the name of the default printer used.
+
+Valid Values:	Any string
+Value Required:	No. Currently, this option is not used by the system.
+_________________________________________________________________________
+
+LOG_PRIMARY_SERVER
+
+Specifies the name of the primary host where logging should be performed.
+The parameter contains the name of either the local system or a host on
+the network which will serve as the central logger.
+
+Valid Values:	Any string that can be used for the name of a machine.
+Value Required:	No.  If you do not specify this value, each Service will
+		log to your local system in the location specified by
+		LOG_x_LOCAL_FILE.
+_________________________________________________________________________
+
+LOG_SECONDARY_SERVER
+
+Specifies the name of the host which will be used as the backup server for
+logging in the event that the LOG_PRIMARY_SERVER is unavailable (either
+functioning improperly or out of service)
+The parameter contains the name of either the local system or a host on
+the network which will serve as the secondary logger.
+
+Valid Values:	Any string that can be used for the name of a machine.
+Value Required:	No.  If you do not specify this value, each Service will
+		log to your local system in the location specified by
+		LOG_x_LOCAL_FILE.
+_________________________________________________________________________
+
+LOG_REPORT_VERBOSE
+
+Specifies that the reporting mode is for verbose logging. This mode should
+only be turned on when you are trying to diagnose a particular problem.  
+When turned on, this option affects all newly initiated application processes,
+and will generate a significantly higher volume of messages to your 
+log file(s).
+
+It will generate one message for each call to each API in all running
+applications and show the parameters passed to the API.  It will also log 
+selected diagnostic messages within the APIs which might help to identify
+problems.  This mode should not be left on for very long.  If you wish to get 
+verbose logging on a specific running application, you can use the AppMonitor
+to turn on verbose logging only for that application instance.  Using this 
+approach will greatly reduce the number of messages logged, since it will
+only apply to one application instance (a single call on a single port).
+
+Valid Values:	ON
+		OFF
+Value Required:	Yes
+_________________________________________________________________________
+
+LOG_x_LOCAL_FILE
+
+Specifies a (partial) filename which dictates the directory and file name
+prefix for local logging.  For example, specifying the value as
+	/home/isp/.ISP/LOG/ISP
+means that local log files will be found in /home/isp/.ISP/LOG
+and will have names which begin with "ISP" and end with a System Time
+in the YYYY-MMMDD-HH format.
+As a result, on April 19, 1996 all log info between the hours of
+3pm and 4pm will show up in the following file (full path name included):
+	/home/isp/.ISP/LOG/ISP.1996-Apr19-16.
+
+Valid Values:	Any string containing a valid "partial" path name.
+Value Required:	Yes
+_________________________________________________________________________
+
+LOG_RETENTION
+
+Specifies the number of days that log files will be retained.  There is a
+cron job for this user that will check this value and delete all log files
+that are older than the retention value.
+
+Valid Values:	Any integer between 1 and 30
+Value Required:	Yes
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig:Telecom]
+
+View or modify the following Telecom parameter configurations:
+
+	o  Telecom Configuration
+	o  Analog Configuration
+	o  ISDN Configuration
+_________________________________________________________________________
+
+Telecom Configuration	
+
+View / Modify parameters associated with the start up and shut down of
+Telecom Services:
+
+	o  ServiceType
+	o  DefaultLanguage
+	o  AutoStop
+	o  AutoStart
+	o  FaxTimer
+	o  NetServices
+
+All configuration changes are saved in: $TELECOM/Tables/.TEL.cfg
+_________________________________________________________________________
+
+Analog Configuration
+
+View / Modify parameters associated with making calls using Telecom
+Services on analog phone lines (as opposed to digital or ISDN):
+
+	o  FlashLength
+	o  PreDiversionFirst
+	o  PreDiversionSub
+	o  DialSequence
+	o  PostDiversionAns
+	o  PostDiversionNoAns
+	o  LocalAreaCode
+	o  OffPremiseAccess
+	o  LongLinesAccess
+
+All configuration changes are saved in: $TELECOM/Tables/analogcfg
+_________________________________________________________________________
+
+ISDN Configuration
+
+View / Modify parameters associated with using Telecom Services
+on a digital phone system (as opposed to analog lines):
+
+	o  DialSequence
+	o  LocalAreaCode
+	o  PhoneServiceType
+	o  ReleaseLinkTrunk
+
+All configuration changes are saved in: $TELECOM/Tables/isdncfg
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig:Telecom:Telecom Configuration]
+This Help Screen contains help for the following buttons on the
+Telecom Services:Telecom Configuration window ...
+
+	o  ServiceType
+	o  DefaultLanguage
+	o  AutoStop
+	o  AutoStart
+	o  FaxTimer
+	o  NetServices
+
+All configuration changes are saved in: $TELECOM/Tables/.TEL.cfg
+_________________________________________________________________________
+
+ServiceType
+
+The type of Service being configured.  This entry cannot be changed.
+
+Valid Values:	TEL
+Value Required:	Yes.  Cannot be changed.
+_________________________________________________________________________
+
+DefaultLanguage
+
+The default language loaded onto all ports capable of performing Automatic
+Speech Recognition (ASR).  Because a language load can take up to 6 seconds
+in a heavily used system, it may be beneficial to "preload" it before an
+application is actually registered on the port.  This step keeps the caller
+from having to wait while an Interactive Voice Response (IVR) application
+loads an ASR language in preparation for Speech Recognition.
+
+If the default language is specified, then both the ASR language and the
+standard ASR vocabulary for that language are loaded on all ASR-capable
+ports before applications become registered on those ports.  The two cases
+when the default language and vocabulary are used are:
+	1. When Telecom Services is started
+	2. When the TEL_ExitTelecom API is called 
+
+In the first case, the Start Telecom terminal will display which ports are
+being loaded with the Default ASR Language as well as which language is being
+loaded.
+
+Changes made to this field become active the next time Telecom Services
+is started.
+
+Valid Values:	AMENG (American English)
+		DUTCH
+		FRENCH
+		GERMAN
+		SPANISH
+		NONE
+Value Required:	Yes.  If you do not want to specify a default language or
+		if your system does not support speech recognition, place
+		NONE in the field.
+_________________________________________________________________________
+
+AutoStart
+
+Specify if Telecom Services is to be started automatically when the system
+is booted.  Turn this option ON to have Telecom start automatically.  Place
+OFF in the field to prevent Telecom from starting automatically.
+When the field is turned ON, the voice processing boards will be started
+automatically before the Telecom Services is actually started.
+
+Changes made to this field become active when the system is rebooted.
+
+Valid Values:	ON
+		OFF
+Value Required:	Yes.
+_________________________________________________________________________
+
+AutoStop
+
+Specify if Telecom Services is to be stopped automatically when the system
+is booted.  Turn this option ON to have Telecom stop automatically.  Place
+OFF in the field to prevent Telecom from stopping automatically.
+When the field is turned ON, the voice processing boards will be stopped
+automatically after the Telecom Services have been stopped.
+
+Changes made to this field become active after the system is shutdown and
+rebooted.
+
+Valid Values:	ON
+		OFF
+Value Required:	Yes.
+_________________________________________________________________________
+
+FaxTimer
+
+This field specifies the number of seconds the FaxServer program will "sleep"
+before it rechecks the fax schedules to see if any faxes need to be sent out.
+
+Although this field only applies to analog Fax Servers, it is required.  The
+value specified will have no affect if Telecom is runnning in an ISDN
+environment.
+
+Changes made to this field become active the next time Telecom Services
+is started.
+
+Valid Values:	Any integer between 15 and 21600
+Value Required:	Yes.
+_________________________________________________________________________
+
+NetServices
+
+Specify if Network Services is to be started / stopped automatically when
+Telecom Services is started / stopped.  Turn this option ON to have Telecom's
+Network Server start / stop automatically.  Place OFF in the field to prevent
+the Telecom Network Server from being started / stopped along with Telecom
+Services.
+
+When the field is turned ON, the Start Telecom terminal will display that it
+is starting the Network Server and will also display the pid (process id) of
+the Telecom Network Server process "isp_telserv".  In addition, the Stop
+Telecom terminal will display that it is stopping this process immediately
+after stopping Telecom Services.
+
+Changes made to this field become active the next time Telecom Services
+is started.
+
+Valid Values:	ON
+		OFF
+Value Required:	Yes.  This value should be turned ON only if Network Services
+		is loaded co-resident on the Telecom Services system and if
+		the Telecom applications are using Network Services APIs.
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig:Telecom:Analog Configuration]
+This Help Screen contains help for the following buttons on the
+Telecom Services:Analog Configuration window ...
+
+	o  FlashLength
+	o  PreDiversionFirst
+	o  PreDiversionSub
+	o  DialSequence
+	o  PostDiversionAns
+	o  PostDiversionNoAns
+	o  LocalAreaCode
+	o  OffPremiseAccess
+	o  LongLinesAccess
+
+All of these parameters affect how Telecom Services works with analog phone
+lines to make outbound calls using the TEL_BridgeCall, TEL_InitiateCall, and
+TEL_TransferCall APIs.  They also affect how the FaxServer application makes
+outbound calls to deliver scheduled faxes.  The analog phone lines could be
+
+	o  PBX lines
+	o  Key System lines
+	o  Centrex lines
+	o  Basic analog phone lines
+
+In each case, the sequence of steps required to dial out or to transfer or
+bridge calls may be different.  Performing these activities manually will
+identify the values needed for each of these fields.
+
+Changes made to any of these fields will take affect the next time Telecom
+Services is started.
+
+The steps used most often in dial sequences are flash-hooks and pauses.  In
+the configuration file, the characters used to represent these actions are ...
+
+	&	(ampersand) indicates a flash-hook
+	,	(comma) indicates a 1 second pause
+
+All configuration changes are saved in: $TELECOM/Tables/analogcfg
+_________________________________________________________________________
+
+FlashLength
+
+In analog environments, flash-hooks are often used to get dial tone before
+making an outbound call or to connect calls together once a successful
+call has been made.  The FlashLength parameter specifies the length of time,
+in milliseconds, that the phone needs to be held on hook during a flash-hook.
+A typical value for this field is 500 milliseconds.
+
+Valid Values:	Any integer between 1 and 10000
+Value Required:	Yes.
+_________________________________________________________________________
+
+PreDiversionFirst
+
+This field represents the sequence used on initial call diversion activity.
+Initial call diversion activity stands for the initial sequence of steps
+required to make an outgoing call.  Typically, the diversion activity
+consists of a flash-hook (&).
+
+Valid Values:	& (ampersand)
+		, (comma)
+Value Required:	Yes.  Valid values can be used in any combination.
+		The maximum number of characters is 5.
+_________________________________________________________________________
+
+PreDiversionSub
+
+This field represents the sequence used after initial call diversion activity
+is completed.  In other words, if you precede an outbound call attempt with
+a flash-hook, that is the PreDiversionFirst value.  The step you take once
+you dial the number identifies the value of PreDiversionSub.  Typically, this
+sequence consists of a flash-hook (&).
+
+Initial call diversion activity stands for the initial sequence of steps
+required to make an outgoing call.
+
+Valid Values:	& (ampersand)
+		, (comma)
+Value Required:	Yes.  Valid values can be used in any combination.
+		The maximum number of characters is 5.
+_________________________________________________________________________
+
+DialSequence
+
+The characters in this field ('D' 'T' 'P' and 'R') represent codes used for
+dialing out.  They can be used in any combination and any order.  For a
+typical analog environment, the value in this field is "DTPR".
+
+	D  Wait for dial tone.  The system waits to receive a dial tone
+	    before placing an outbound call.
+
+	T  Switch to touch tone mode.  This is necessary on most systems
+	    before entering the number for an outbound call.
+
+	P  Phone Number.  The system dials the number specified in the
+	    API call TEL_BridgeCall, TEL_InitiateCall, TEL_TransferCall,
+	    or ScheduleFax.
+
+	R  Wait for call progress return codes.  If you specify this
+	    parameter, outbound dialing will not return until the result is
+	    fully known.  For example, when the call is made the function
+	    will not terminate until either a human answers, no one answers,
+	    a busy signal is heard, or other type of failure occurs.  If you
+	    do not specify this parameter, the function will return if the
+	    phone rings successfully, or a busy signal is detected or failure
+	    is detected.  If you do not use Call Progress, the best method of
+	    transferring or bridging callers to other numbers is by transferring
+	    the call immediately after detecting ringing on the called number.
+	    The caller will hear a "ringing" phone which may or may not get
+	    answered but at least the caller will have heard the ringing.
+
+In a typical scenario, you may want to wait for dial tone, go into touch
+tone mode, dial the phone number, and wait for return codes; you would
+set this sequence up with "DTPR" in the DialSequence field.
+
+Valid Values:	D	Wait for Dial tone
+		T	Switch to Touch tone mode
+		P	Dial the Phone number
+		R	Return call progress information
+		&	(ampersand) flash-hook
+		,	(comma) pause for 1 second
+Value Required:	Yes.  Valid values can be used in any combination.
+		The maximum number of characters is 6.
+_________________________________________________________________________
+
+PostDiversionAns
+
+This field represents the sequence used after call diversion activity if
+the call was answered.  Call diversion activity stands for the sequence of
+steps required to make an outgoing call.  If the call is answered, you will
+typically do a flash-hook to connect the 3rd party answering your call to
+the original caller.  In other words, the typical value is "&"
+
+Valid Values:	& (ampersand)
+		, (comma)
+Value Required:	Yes.  Valid values can be used in any combination.
+		The maximum number of characters is 5.
+_________________________________________________________________________
+
+PostDiversionNoAns
+
+This field represents the sequence used after call diversion activity if
+the call is not answered.  Call diversion activity stands for the sequence of
+steps required to make an outgoing call.  If the call is not answered, you
+typically need to flash-hook to disconnect from the phone system, pause, and
+then flash-hook to reconnect to the original caller.
+In other words, the typical value is "&,&"
+
+Valid Values:	& (ampersand)
+		, (comma)
+Value Required:	Yes.  Valid values can be used in any combination.
+		The maximum number of characters is 5.
+_________________________________________________________________________
+
+LocalAreaCode
+
+The local area code where Telecom Services is operating.  This will help
+an API determine whether or not it needs to use the LongLinesAccess
+dialing sequence for makin a long distance call (outside the area code).
+
+Valid Values:	Any valid 3-digit Area Code
+Value Required:	Yes.  The maximum number of digits is 3.
+_________________________________________________________________________
+
+OffPremiseAccess
+
+With an on-premises phone system such as a PBX or Key System, you must
+may need to dial a special sequence to get outside of the local phone system
+for an outbound call, i.e. get "off premises".  This field will typically
+contain a dialing sequence such as "9," or "8,"
+
+Valid Values:	Digits 0-9
+		&	(ampersand)
+		,	(comma)
+Value Required:	Yes.  If this does not apply to your environment, just
+		place a "," in the field, and it will have no effect. 
+		The maximum number of characters is 5.
+_________________________________________________________________________
+
+LongLinesAccess
+
+The number(s) that must be dialed to get a phone line for making long-
+distance phone calls.  In the U.S.A, this number is 1.
+
+Valid Values:	Digits 0-9
+		&	(ampersand)
+		,	(comma)
+Value Required:	Yes.  Valid values can be used in any combination.
+		The maximum number of characters is 5.
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig:Telecom:ISDN Configuration]
+This Help Screen contains help for the following buttons on the
+Telecom Services:ISDN Configuration window ...
+
+	o  DialSequence
+	o  LocalAreaCode
+	o  PhoneServiceType
+	o  ReleaseLinkTrunk
+
+All of these parameters affect how Telecom Services works with ISDN phone
+lines to make outbound calls using the TEL_BridgeCall, TEL_InitiateCall, and
+TEL_TransferCall APIs.  They also affect how the FaxServer application makes
+outbound calls to deliver scheduled faxes.
+
+Changes made to any of these fields will take affect the next time Telecom
+Services is started.
+
+The steps used most often in dial sequences are flash-hooks and pauses.  In
+the configuration file, the characters used to represent these actions are ...
+
+	&	(ampersand) indicates a flash-hook
+	,	(comma) indicates a 1 second pause
+
+All configuration changes are saved in: $TELECOM/Tables/isdncfg
+_________________________________________________________________________
+
+DialSequence
+
+The characters in this field ('D' 'T' 'P' and 'R') represent codes used for
+dialing out.  They can be used in any combination and any order.  For a
+typical ISDN environment, the value in this field is "TPR".
+
+	D  Wait for dial tone.  The system waits to receive a dial tone
+	    before placing an outbound call.  In an ISDN environment, this
+	    step is unnecessary because your phone number can only be sent to
+	    the phone system in digital form and dial tone is not required.
+
+	T  Switch to touch tone mode.  This is necessary on most systems
+	    before entering the number for an outbound call.
+
+	P  Phone Number.  The system dials the number specified in the
+	    API call TEL_BridgeCall, TEL_InitiateCall, TEL_TransferCall,
+	    or ScheduleFax.
+
+	R  Wait for call progress return codes.  If you specify this
+	    parameter, outbound dialing will not return until the result is
+	    fully known.  For example, when the call is made the function
+	    will not terminate until either a human answers, no one answers,
+	    a busy signal is heard, or other type of failure occurs.  If you
+	    do not specify this parameter, the function will return if the
+	    phone rings successfully, or a busy signal is detected or failure
+	    is detected.  If you do not use Call Progress, the best method of
+	    transferring or bridging callers to other numbers is by transferring
+	    the call immediately after detecting ringing on the called number.
+	    The caller will hear a "ringing" phone which may or may not get
+	    answered but at least the caller will have heard the ringing.
+	    NOTE: an outbound call made on ISDN without call progress will
+	    continue to ring indefinitely if the destination phone number
+	    rings with no answer.
+
+In a typical scenario, you may want to wait for dial tone, go into touch
+tone mode, dial the phone number, and wait for return codes; you would
+set this sequence up with "DTPR" in the DialSequence field.
+
+Valid Values:	D	Wait for Dial tone		(unnecessary)
+		T	Switch to Touch tone mode
+		P	Dial the Phone number
+		R	Return call progress information	(recommended)
+		&	(ampersand) flash-hook
+		,	(comma) pause for 1 second
+Value Required:	Yes.  Valid values can be used in any combination.
+		The maximum number of characters is 6.
+_________________________________________________________________________
+
+LocalAreaCode
+
+The local area code where Telecom Services is operating.  This will help
+an API determine whether or not it needs to use the LongLinesAccess
+dialing sequence for makin a long distance call (outside the area code).
+
+Valid Values:	Any valid 3-digit Area Code
+Value Required:	Yes.
+_________________________________________________________________________
+
+PhoneServiceType
+
+The type of phone service being used.
+
+Valid Values:	SDN
+		MEGACOM
+		MEGA800
+		LONGDIST
+		ACCUNET
+		MULTIQUEST
+		INTL800
+Value Required:	Yes.
+
+_________________________________________________________________________
+
+ReleaseLinkTrunk
+
+In ISDN, when calls are bridged together or transferred, two lines are
+used up - one for the original inbound call, and another for the outgoing
+call to the 3nd party.  In cases where there is a PBX, once you have
+connected the caller with the 3rd party and no longer need the application
+to be tying up two ports, you can disengage from the "conversation" but have
+the PBX keep the 2 calls together until they disconnect.  You have this
+capability if your PBX can support this function and if you have set the
+value of the ReleaseLinkTrunk field to ON.
+
+Valid Values:	Yes
+		No
+		YES
+		NO
+		yes
+		no
+Value Required:	Yes (a value of No or Yes is required).
+_________________________________________________________________________
+_________________________________________________________________________
+[ParamConfig:SNA]
+INCOMPLETE: Refer to SNA Services Operations Guide
+_________________________________________________________________________
+[ParamConfig:SNA Configuration]
+INCOMPLETE: Refer to SNA Services Operations Guide
+_________________________________________________________________________
+[ParamConfig:TCP]
+INCOMPLETE: Refer to TCP Services Operations Guide
+_________________________________________________________________________
+[ParamConfig:TCP Configuration]
+INCOMPLETE: Refer to TCP Services Operations Guide
+_________________________________________________________________________
+[ParamConfig:Network]
+INCOMPLETE: Refer to Network Services Operations Guide
+_________________________________________________________________________
+[ParamConfig:Network Configuration]
+INCOMPLETE: Refer to Network Services Operations Guide
+_________________________________________________________________________
+
+[TableConfig]
+
+
+Whenever Network Services is co-resident with one of the Services, there will
+also be Transaction Location Table to edit.
+_________________________________________________________________________
+_________________________________________________________________________
+[TableConfig:Global]
+
+[TableConfig:TEL]
+
+[TableConfig:SNA]
+
+[TableConfig:TCP]
+INCOMPLETE: Refer to TCP Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[TableConfig:Network]
+_________________________________________________________________________
+_________________________________________________________________________
+[Scheduling]
+Note: 	This menu displays only those services that you have
+	installed on your system.
+
+Identify application groups and schedule applications to run based on
+different criteria.  Changes made to the schedules take effect after
+the Update Active command is issued from one of the Scheduling forms.
+
+Global	This button is a placeholder for scheduling tables that may span all
+	Services.  Currently, the system does not need any cross-service
+	application schedules.
+
+Telecom	Set up the scheduling tables used to run Telecom Services applications.
+	These tables include:
+		o  Application Reference Table
+		o  Program Reference Table
+		o  Schedule Table
+
+SNA	Set up the scheduling tables used to run SNA Services applications.
+	These tables include:
+		o  Application Reference Table
+		o  Program Reference Table
+		o  Schedule Table
+
+TCP	Set up the scheduling tables used to run TCP Services applications.
+	These tables include:
+		o  Application Reference Table
+		o  Program Reference Table
+		o  Schedule Table
+
+Network	Set up the scheduling tables used to run Network Services applications.
+	These tables include:
+		o  Application Reference Table
+		o  Program Reference Table
+		o  Schedule Table
+_________________________________________________________________________
+_________________________________________________________________________
+[Scheduling:Global]
+There is no Global Scheduling utility.  This option is currently ineffective.
+_________________________________________________________________________
+_________________________________________________________________________
+[Scheduling:TEL]
+INCOMPLETE: Refer to Telecom Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[Scheduling:SNA]
+INCOMPLETE: Refer to SNA Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[Scheduling:TCP]
+INCOMPLETE: Refer to TCP Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[Scheduling:Network]
+INCOMPLETE: Refer to Network Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[AppMonitor]
+INCOMPLETE: Refer to the Operations Guide for the appropriate Service
+_________________________________________________________________________
+_________________________________________________________________________
+[AppMonitor:Global]
+_________________________________________________________________________
+_________________________________________________________________________
+[AppMonitor:TEL]
+INCOMPLETE: Refer to Telecom Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[AppMonitor:SNA]
+INCOMPLETE: Refer to SNA Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[AppMonitor:TCP]
+INCOMPLETE: Refer to TCP Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[AppMonitor:Network]
+INCOMPLETE: Refer to Network Services Operations Guide
+_________________________________________________________________________
+_________________________________________________________________________
+[LogMgmt]
+This utility permits viewing of local log files located in the directory
+specified in the path portion of
+	ParamConfig:Global:GlobalConfiguration:LOG_x_LOCAL_FILE
+
+Simply click on the file you wish to view and you will a chronological
+display of each record located in the file.  You can sort your record
+view according to one of the sorting options on the bottom right corner
+of the screen: Log, Date/Time, Type, Message ID, System Name, Pid, Uid,
+Module Name, Resource Name, and Message.
+
+Next	This button will bring up the chronologically subsequent log file.
+	For example, if your are viewing ISP.1996-Jul10-15, then selecting
+	this button will change the view to ISP.1996-Jul10-16.
+
+Previous	This button will bring up the chronologically previous log file.
+	For example, if your are viewing ISP.1996-Jul10-16, then selecting
+	this button will change the view to ISP.1996-Jul10-15.
+
+_________________________________________________________________________
+_________________________________________________________________________
+[LogMgmt:Global]
+IRRELEVANT
+_________________________________________________________________________
+_________________________________________________________________________
+[LogMgmt:TEL]
+IRRELEVANT
+_________________________________________________________________________
+_________________________________________________________________________
+[LogMgmt:SNA]
+IRRELEVANT
+_________________________________________________________________________
+_________________________________________________________________________
+[LogMgmt:TCP]
+IRRELEVANT
+_________________________________________________________________________
+_________________________________________________________________________
+[LogMgmt:Network]
+IRRELEVANT
+_________________________________________________________________________
+_________________________________________________________________________

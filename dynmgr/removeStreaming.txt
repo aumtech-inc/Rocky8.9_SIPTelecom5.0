@@ -1,0 +1,45 @@
+
+ArcSipCommon.h
+	- remove the following
+	    int streamFlag;  ///TRUE if the current speak is a stream
+	    int streamOccuredAtleastOnce; ///TRUE if the current speak is a stream
+	    int getStreamDataFailed;
+	    int needToNotifyClientToStop;
+	    int lastBufferFd;
+	    char lastBufferName[128];   ///Name of the last stream file
+	    int isItLastBuffer;         ///TRUE if this is the last buffer from SC
+	    struct Msg_StreamAudio msgStream;
+	    char currentStreamUrl[256];
+	    char streamFifo[128];
+	    char buffer_1[128];
+	    int streamFd;
+	    int streamClientPid;
+	    int pauseStreaming;
+	    int lastBufferWasReceived;
+	    int lastBufferWasFinished;
+	    int astreamStarted;
+
+	
+
+
+ArcSipMediaMgr.c
+	- functions to remove
+		speakRTPStream() 14915, 15876
+		speakStream() - 15880, 17187
+
+						1432, 2366
+		stream_read()						check 	
+		stopDownloadStreamData()			check
+		cleanUpStreamBuffersAndFifo()		check
+		getStreamData()						check
+		getStreamDataForPlayBack()			check
+
+		// addLoopFile()
+		// addToStreamingList()
+
+						2504, 2503
+		closeStreamingClientSession()		check
+		deleteStreamingList()				check
+		createStreamingFifo()				check
+		getStreamingParams()				check
+		// getValue()

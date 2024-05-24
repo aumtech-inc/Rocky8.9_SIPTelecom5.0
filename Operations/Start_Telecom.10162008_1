@@ -1,0 +1,501 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# Program:	Start_Telecom (mrcp)
+# Purpose:	To start IP Telecom Services and its associated processes.
+# Author: 	Aumtech
+# Date:		02/21/2001
+#------------------------------------------------------------------------------ 
+# Copyright (c) 2001, Aumtech, Inc.
+# All Rights Reserved.
+#
+#  This is an unpublished work of Aumtech which is protected under
+#  the copyright laws of the United States and a trade secret
+#  of Aumtech. It may not be used, copied, disclosed or transferred
+#  other than in accordance with the written permission of Aumtech
+# 
+#------------------------------------------------------------------------------ 
+
+Echo()
+{
+	echo $1 | tee -a $HOME/start_stop.log
+}
+
+Beep()
+{
+	if [ -z "$AUTO" ]
+	then
+		echo "\007\c"
+	fi
+}
+
+Read_anything()
+{
+	if [ -z "$AUTO" ]
+	then
+		echo "Press Enter \c"
+		read anything
+	fi
+}
+
+Display_logo()
+{
+	clear
+	echo "                                   Start_Telecom"
+	echo
+	echo "                          ARC SIP Telecom Services Software"
+	echo "                                  Copyright (c) 2005"
+	echo "                                    Aumtech, Inc."
+	echo "                                All Rights Reserved"
+	echo "\n"
+}
+
+Check_Responsibility_subsystem()
+{
+	ps -ef | grep "ArcIPResp" | grep -v grep >/dev/null
+	if [ "$?" = "0" ]
+	then
+		Beep	
+		telpid=`ps -ef | fgrep  ArcIPResp |fgrep -v fgrep |awk ' {print  $2}'`
+		echo "\n"
+		Echo "Telecom Services is already running. pid=$telpid\n"
+		Read_anything
+		exit 3
+	fi 
+}
+
+Get_New_Licensing_Files()
+{
+ 	cd $ISPBASE/Global/Exec
+	licenseFileList=""
+
+	tmpFList=""
+	tmpFile="/tmp/.`basename $0`.$$"
+
+	if [ -f "$tmpFile" ]
+	then
+		rm $tmpFile 2>/dev/null
+	fi
+
+		# For each <service>LicenseFileList entry in the .Global.cfg
+	myLine=`grep "^licenseFileList" $gFile`
+	nameTag="`echo $myLine | cut -d'=' -f1`"
+	fList="`echo $myLine | cut -d'=' -f2`"
+	if [ -z "$fList" ] 
+	then
+		return 0
+	fi
+
+	while [ `echo "$fList" | grep -c ":"` -ge 1 ]
+	do
+			# Parse out the file name(s); delimited by a ':'
+		tFile="`echo $fList | cut -d':' -f1`"
+		if [ -z "$tFile" ]
+		then
+			fList="`echo $fList | cut -d':' -f2-`"
+			continue
+		fi
+		if [ ! -f "$tFile" ]
+		then
+			echo -n "ERROR: Invalid license file $tFile specified for $nameTag "
+			echo "line in file $gFile."
+			echo "$tFile does not exist.  Correct and retry."
+			echo
+			exit
+		fi
+
+		if [ -z "$tmpFList" ]
+		then
+			export tmpFList="$tFile"
+		else
+			export tmpFList="$tmpFList:$tFile"
+		fi
+		fList="`echo $fList | cut -d':' -f2-`"
+	done
+	if [ ! -f "$fList" ]
+	then
+		echo "ERROR: Invalid license file $fList specified for $nameTag "
+		echo "ERROR: line in file $gFile."
+		echo "$fList does not exist.  Correct and retry."
+		echo
+		exit
+	fi
+	if [ -z "$tmpFList" ]
+	then
+		export tmpFList="$fList"
+	else
+		export tmpFList="${tmpFList}:$fList"
+	fi
+
+	echo "$tmpFList" >$tmpFile
+	if [ ! -f $tmpFile ] 
+	then
+		return 0
+	fi
+	dupeStr="`cat $tmpFile`"
+	rm $tmpFile 2>/dev/null
+
+		# remove duplicates
+	if [ -z "$dupeStr" ] 
+	then
+		return 0
+	fi
+
+	dTmp="`echo $dupeStr | cut -d':'  -f1`"
+	dupeStr="`echo $dupeStr | cut -d':'  -f2-`"
+	while [ -n "$dupeStr" ]
+	do
+		xTmp="`echo $dupeStr | cut -d':'  -f1`"
+		if [ -z "$xTmp" ]
+		then
+			break;
+		fi
+		i=0
+
+		for x in `echo $dTmp |sed -e 's/:/ /g'`
+		do
+			if [ "$x" = "$xTmp" ] 
+			then
+				i=1
+				break
+			fi
+		done
+
+		if [ $i -eq 0 ]
+		then
+			dTmp="$dTmp:$xTmp"
+		fi
+
+		if [ `echo "$dupeStr" | grep -c ":"` -le 0 ]
+		then
+			break;
+		fi
+		dupeStr="`echo $dupeStr | cut -d':' -f2-`"
+	done
+	export L_FILE="$dTmp"
+}
+
+Start_Licensing()
+{
+
+	gFile="$ISPBASE/Global/.Global.cfg"
+
+	if [ `grep -c "^licenseFileList" $gFile` -gt 0 ]
+	then
+		Get_New_Licensing_Files
+	else
+		L_FILE="$ISPBASE/Global/Tables/license.dat"
+	fi
+
+	if [ -z "$L_FILE" ]
+	then
+		echo "No license managers will be started."
+		return 0
+	else
+		echo "Starting licensing with the license file list set to \"$L_FILE\""
+	fi
+		
+	L_DAEMON=$ISPBASE/Global/Exec/lmgrd
+	L_REREAD=$ISPBASE/Global/Exec/lmreread
+	L_UTIL=$ISPBASE/Global/Exec/lmutil
+	L_OUTPUT_FILE=$ISPBASE/LOG/lmgrd.out
+	if [ `$L_UTIL lmstat -c $L_FILE |grep -c UP` -ge 1 ]
+	then
+		$L_REREAD -c $L_FILE
+	else
+		#
+		#       Uncomment the following line for FLEXlm debug logging
+		#
+		# 	FLEXLM_DIAGNOSTICS=3; export FLEXLM_DIAGNOSTICS
+		#
+		$L_DAEMON -c $L_FILE -l $L_OUTPUT_FILE
+	fi
+
+	return 0
+
+}
+	
+Start_Responsibility_subsystem()
+{
+	file="${ISPBASE}/Telecom/Tables/.TEL.cfg"
+	str="MultipleResponsibilies"
+		
+	rm ${ISPBASE}/Telecom/Exec/.portStatus.*  2>/dev/null
+
+	totalPorts=`wc -l $ISPBASE/Telecom/Tables/ResourceDefTab | \
+				gawk '{ print $1 }'`
+	
+	multipleRespsOn=0
+	if [ `grep -c "^$str" $file` -lt 1 ]
+	then
+		echo
+		echo "Warning: $str not found in "
+		echo "         $file.  Defaulting to run"
+		echo "         single responsibility mode."
+		echo
+	else
+		onOff=`grep -m 1 "^$str" $file|cut -d= -f2`
+		if [ "$onOff" = "ON" -o "$onOff" = "on" -o "$onOff" = "On" ]
+		then
+			multipleRespsOn=1
+			if [ $totalPorts -le 96 ]
+			then
+				echo
+				echo -n "Warning: Total number of ports currently set to "
+				echo "$totalPorts."
+				echo -n "Must be greater than 96 to run multiple "
+				echo "responsibilities.  "
+				echo "Defaulting to single responsibility mode."
+				echo
+				multipleRespsOn=0
+			fi
+		fi
+	fi
+
+	Start_Licensing
+
+	# $1 is the "kill time" (max time an inactive application can live)
+	cd $ISPBASE/Telecom/Exec
+	if [ $multipleRespsOn -eq 1 ]
+	then
+		Start_Multiple_Responsibilities $1
+	else
+		echo "Starting Normal"
+		cd $ISPBASE/Telecom/Exec
+		nohup ArcIPResp TEL $1 &
+		sleep 2
+	fi
+
+		# Did it really come up ?
+	ps -ef | grep "ArcIPResp" | grep -v grep >/dev/null
+	if [ "$?" != "0" ]
+	then
+		Echo "\nTelecom Services startup FAILED."
+		# If SNMP is turned on, send a trap.
+		grep -i "SNMP=" $ISPBASE/Global/.Global.cfg | grep -i "=ON"
+		if [ "$?" = "0" ]
+		then
+			send_SNMP_trap TEL ARC 3900 "Telecom Services startup failed"
+		fi
+	else
+		TelecomStarted=1
+		telpid=`ps -ef| fgrep ArcIPResp |fgrep -v fgrep|awk '{print $2}'`
+		Echo "\nTelecom Services started. pid="
+		for f in $telpid
+		do
+			Echo $f
+		done
+
+#		Echo "\t\t in directory `pwd`"	# this will append to the nohup msg
+	fi
+}
+
+Start_Multiple_Responsibilities()
+{
+	multSleepTime=3
+
+	str="PortsPerResponsibility"
+	if [ `grep -c "^$str" $file` -lt 1 ]
+	then
+		echo
+		echo "Warning: $str not found in "
+		echo "         $file. Defaulting to run 96 ports per Responsibility"
+		echo
+		portsPerResp=96
+	else
+		portsPerResp=`grep -m 1 "^$str" $file|cut -d= -f2`
+		portsPerResp=`echo $portsPerResp | \
+			gawk '{ print $1 }'`
+		tmpP=`expr $portsPerResp % 48`
+		if [ $tmpP -ne 0 ]
+		then
+			echo -n "Warning: Invalid portsPerResp value "
+			echo " ( $portsPerResp ) found in .TEL.cfg file."
+			echo "Defaulting to run 96 ports per Responsibility"
+			echo
+			portsPerResp=96
+		fi
+	fi
+
+	if [ $totalPorts -gt 384 ]
+	then
+		echo
+		echo "Warning: Maximum number of ports ( 384 ) is exceeded with "
+		echo "         $totalPorts defined in the ResourceDefTab file."
+		echo "         Defaulting to 384."
+		echo
+		totalPorts=384
+	fi
+
+	if [ $portsPerResp -gt 192 ]
+	then
+		echo
+		echo "Warning: Maximum number of ports per Responsibility ( 384 ) "
+		echo "         is exceeded with $portsPerResp found in .TEL.cfg.  "
+		echo "         Defaulting to 192."
+		echo
+		portsPerResp=192
+	fi
+
+	# At this point, totalPorts and portsPerResp are validated.
+	respIndex=0
+	currentStartPort=0
+	
+	numFullRespsToStart=`expr $totalPorts / $portsPerResp`
+	partialRespPorts=`expr $totalPorts % $portsPerResp`	# remaining ports
+
+	echo 
+	multSleepTime=3
+	while [ $respIndex -lt $numFullRespsToStart ]
+	do
+		currentEndPort=`expr $currentStartPort + $portsPerResp - 1`
+		echo -n "Starting Responsibility $respIndex for ports "
+		echo "$currentStartPort thru $currentEndPort"
+		nohup ArcIPResp TEL $1 $currentStartPort $currentEndPort $respIndex &
+		currentStartPort=`expr $currentEndPort + 1`
+		respIndex=`expr $respIndex + 1`
+		sleep $multSleepTime
+	done
+
+	if [ $partialRespPorts -gt 0 ]
+	then
+		#  Now start the Responsibility for the remaining ports
+		currentEndPort=`expr $currentStartPort + $partialRespPorts - 1`
+		echo -n "Starting Responsibility $respIndex for ports "
+		echo "$currentStartPort thru $currentEndPort"
+		nohup ArcIPResp TEL $1 $currentStartPort $currentEndPort $respIndex &
+	 	sleep $multSleepTime
+	fi
+
+	return 0
+}
+
+Update_ResourceDefTab()
+{
+	Echo "\nUpdating Resource Definition Table from work table..."
+	cd $ISPBASE/Telecom/Tables
+	cp ResourceDefTab.work ResourceDefTab
+}
+
+Check_for_root_user()
+{
+	X=`id`
+	Y=`echo $X | grep "uid=0"`
+	if [ "$Y" = "" ]
+	then
+		return
+	else
+		Echo "You must not start Telecom Services as the root user."
+		exit 0	
+	fi
+}
+
+#----------------------------------------------------------------------------
+# Stop mrcp SR Clients
+#----------------------------------------------------------------------------
+Stop_mrcp_sr_clients()
+{
+
+	if [ `ps -ef | grep ArcMrcpSRClientMgr | egrep -v "grep" | awk '{ print $2 }'` ]
+	then
+		echo "Stopping MRCP Client V1.0"
+		for pid in 		\
+			`ps -ef | grep ArcMrcpSRClientMgr | egrep -v "grep" | awk '{ print $2 }'`
+		do
+			kill $pid
+		done
+	fi
+
+}
+
+
+#----------------------------------------------------------------------------
+# Stop mrcp TTS Clients
+#----------------------------------------------------------------------------
+Stop_mrcp_tts_clients()
+{
+	for pid in 		\
+			`ps -ef | grep mrcpTTSClient | egrep -v "grep" | awk '{ print $2 }'`
+	do
+		kill $pid
+	done
+
+}
+
+Start_Mrcp_Client()
+{
+	file="${ISPBASE}/Telecom/Tables/.TEL.cfg"
+	str="MrcpVersion"
+	
+	if [ `grep -c "^$str" $file` -lt 1 ]
+	then
+		echo "Error: $str not found in $file.   Defaulting to MRCP V1.0"
+		MrcpVersion="1.0"
+	else
+		MrcpVersion=`grep "^$str" $file | cut -d'=' -f2`
+	fi
+
+	if [ "$MrcpVersion" == "1.0" ]
+	then
+		if [ `ps -ef | grep mrcpSRClient | egrep -v "grep" |wc -l` -gt 0 ]
+		then
+			Stop_mrcp_sr_clients
+		fi
+			
+		numClients=`wc -l $ISPBASE/Telecom/Tables/ResourceDefTab | awk '{print $1}'`
+		if [ $numClients -gt 190 ]; then
+			numClients=190
+		fi
+		
+		cd $ISPBASE/Telecom/Exec
+		xerlib="libxerces-c1_5.so.mrcpV1"
+		if [ ! -f ${xerlib} ]
+		then
+			echo "Error: ${xerlib} not found.  Unable to start MRCP Client V1.0"
+			return
+		fi
+
+		rm ${ISPBASE}/Telecom/Exec/libxerces-c1_5.so  2>/dev/null
+		ln -s libxerces-c1_5.so.mrcpV1 libxerces-c1_5.so
+
+		echo "Starting ArcMrcpSRClientMgr for MRCP V1.0"
+		nohup ArcMrcpSRClientMgr -r $numClients &
+	        sleep 2
+		mrcppid=`ps -ef| fgrep ArcMrcpSRClientMgr |fgrep -v fgrep|awk '{print $2}'`
+		echo "MRCP V1.0 Client started.  pid=$mrcppid"
+	fi
+}
+
+#----------------------------------------------------------------------------
+#main routine
+#----------------------------------------------------------------------------
+# Trap stops delete key from taking down Telecom Server
+trap "" 2
+
+KILLTIME=20;	# Number of minutes of inactivity after which an application
+		# will be killed
+TelecomStarted=0
+
+PATH=$PATH:$ISPBASE/Telecom/Exec;export PATH
+
+Echo "\n`date`"
+
+AUTO="$1"
+
+if [ -z "$AUTO" ]
+then
+	Display_logo
+fi
+
+Check_for_root_user
+Check_Responsibility_subsystem  # see if we are already running
+
+$ISPBASE/Global/Exec/isplogrc start
+
+Update_ResourceDefTab
+Start_Responsibility_subsystem $KILLTIME
+
+if [ "$TelecomStarted" -ne 0 ]
+then
+	Start_Mrcp_Client
+fi
+Read_anything

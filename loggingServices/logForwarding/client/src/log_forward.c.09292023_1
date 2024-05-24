@@ -1,0 +1,811 @@
+/*-----------------------------------------------------------------------
+Program:log_forward.c
+Author: Dan Barto
+Date:	02/24/97
+Purpose:Client routine which will read 'forward' log files, and send the
+	data to the LOG_PRIMARY_SERVER.  These 'forward' files reside in
+	the log directories, and end with a '.for' extension.  
+Procedure:
+	It first reads the $ISPBASE/Global/.Global.cfg and
+	gets the LOG_PRIMARY_SERVER, LOG_x_LOCAL_FILE, and
+	LOG_2x_LOCAL_FILE entries. It checks the directories
+	specified by the LOG_x and LOG_2x LOCAL_FILE entries for
+	"*.for" files.  It will disregard it if is the current-hour
+	file.
+
+	For each '.for' file found, it attempts to send the file
+	using sc_SendFile().  If it fails, an error is logged.
+
+	If LOG_PRIMARY_SERVER == localname, the file is appended to the 
+	proper name in the LOG_x_LOCAL_FILE.
+
+	This program can be started up thru crontab at the beginning
+	of each hour.
+
+Update: 3/14/97  djb	changed sc_SendData() to sc_SendFile().
+Update:	5/13/97  djb	moved function DelReadRecords() to log_routines().
+Update:	7/15/97  mpb	changed sc_SendData parameters.
+Update: 10/23/97 djb	added DEBUG logic and DEBUG messages
+Update: 10/24/97 djb	Commented #define DEBUG 
+Update:	10/27/97  djb	fixed bug of always sc_Init(), even when no file to send
+Update:	10/28/97  djb	after last file sent, now will send a null filename
+Update:	10/30/97  djb	changed all logging to gaVarLog()
+Update:	11/06/97  djb	inserted memsets; removed NULL file xfer
+Update:	04/09/02  djb	Fixed core dump if number of files > MAX_FORWARDFILES
+Update:	06/06/06  djb	Fixed core dump by correcting a log msg in
+                        ProcessForwardFile.
+Update:	06/07/06  djb	Changed sc_SendFile to sc_NewSendFile.
+Update: 01/07/2009 djb	MR 2836. Corrected issue of 0-length forward files.
+Update: 07/16/2010 rg,ddn Replaced localtime with thread safe localtime_r
+------------------------------------------------------------------------*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+#include <errno.h>
+#include <time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <rpc/des_crypt.h>
+
+#include "log_defs.h"
+#include "gaUtils.h"
+#include "sc.h"
+
+#define	MAX_FORWARDFILES		100
+#define MAX_ENCODED_FILE_SIZE	62914560		// 60 MB
+
+typedef struct
+{
+	char			sourceFile[256];
+	char			encodedFile[256];
+	char			destFile[256];
+} SendRecvFiles;
+	
+struct LogNameInfo
+        {
+        char Path[PATHSZ];   /* entire path (ie. $ISPBASE/LOG/ISP) */
+        char Dir[PATHSZ];    /* directory only (ie. $ISPBASE/LOG) */
+        char Prefix[PATHSZ]; /* prefix only (ie. ISP) */
+        };
+
+static int		gLogForwardEncryption = 0;
+SendRecvFiles	SendRecvFileNames[MAX_FORWARDFILES];
+
+int		forward_sw;
+char		tmpbuf[256];
+void		Exit();
+
+/* #define	DEBUG */
+
+int encryptFile(char *inFile, char *encFile);
+//static int lValidateDirectory(char *iDirectory, char *oErrorMsg);
+static int processLargeEnc(int index);
+static int setCDRLogForwarding(int *z_if_RTR_is_enabled_then_no_forward_CDRs);
+
+main(int argc, char *argv[])
+{
+struct LogNameInfo      LogNames[MAXLOGDIRS];
+char			LogServer[32], NodeName[32];
+int			retcode, i, j;
+int			rc;
+int			if_RTR_is_enabled_then_no_forward_CDRs;
+
+static char		mod[]="main";
+static char		gaLogDir[256];
+
+void    ParsePaths(struct LogNameInfo[]);
+int     ProcessForwardFile(int , struct LogNameInfo[], char *);
+
+if(argc == 2 && (strcmp(argv[1], "-v") == 0))
+{
+    fprintf(stdout, 
+        "Aumtech's Logging Services Client (%s).\n"
+        "Version 2.3.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
+    exit(0);
+}
+
+memset((char *)gaLogDir, 0, sizeof(gaLogDir));
+sprintf(gaLogDir,"%s/LOG", (char *)getenv("ISPBASE"));
+
+rc=gaSetGlobalString("$PROGRAM_NAME", argv[0]);
+rc=gaSetGlobalString("$LOG_DIR", gaLogDir);
+rc=gaSetGlobalString("$LOG_BASE", argv[0]);
+
+if ( setCDRLogForwarding(&if_RTR_is_enabled_then_no_forward_CDRs) != 0)
+{
+	sleep(5);
+	exit(0);
+}
+
+memset((char *)LogNames[0].Path, 0, PATHSZ);
+memset((char *)LogNames[1].Path, 0, PATHSZ);
+GetLogPaths(LogNames[0].Path, LogNames[1].Path);
+
+memset((char *)LogServer, 0, sizeof(LogServer));
+memset((char *)NodeName, 0, sizeof(NodeName));
+if ((retcode=GetLogServer(LogServer, NodeName)) == -1)
+        forward_sw=LOCAL_LOG;
+else
+        if (strcmp(LogServer, NodeName))
+                forward_sw=FORWARD_LOG;
+        else
+                forward_sw=LOCAL_LOG;
+
+rc=GetLogForwardEncryption(&gLogForwardEncryption);
+
+ParsePaths(LogNames);
+
+retcode=ProcessForwardFile(if_RTR_is_enabled_then_no_forward_CDRs, LogNames, LogServer);
+
+if (forward_sw == FORWARD_LOG)
+	Exit();
+
+}
+
+void ParsePaths(FullPaths)
+/*--------------------------------------------------------------*/
+/* Purpose: Parse pathnames into directory-only buffer, 	*/
+/*	    full pathname buffer, and filename-prefix-only	*/
+/*	    buffer.						*/
+/*--------------------------------------------------------------*/       
+struct LogNameInfo *FullPaths;
+{
+int i, j, len;
+static char	mod[]="ParsePaths";
+
+for (i=0; i<MAXLOGDIRS; i++)
+	{
+	len=strlen(FullPaths[i].Path);
+	for (j=len-1; j>0; j--)
+		if (FullPaths[i].Path[j] == '/')
+			break;
+
+	sprintf(FullPaths[i].Dir,"%.*s",j,FullPaths[i].Path);
+	sprintf(FullPaths[i].Prefix,"%s",&FullPaths[i].Path[j+1]);
+	}
+}
+
+int ProcessForwardFile(if_RTR_is_enabled_then_no_forward_CDRs, LogInfo, LogServer)
+/*--------------------------------------------------------------*/
+/* Purpose: Main driver routine to send all the data in the 	*/
+/*	    files to the LOG_PRIMARY_SERVER. 			*/
+/*	    Opens the directories, and reads each filename to	*/
+/*	    determine if it is a 'forward' file.  If so, it 	*/
+/*	    reads each record and sends it.			*/
+/*--------------------------------------------------------------*/       
+int		if_RTR_is_enabled_then_no_forward_CDRs;
+struct	LogNameInfo LogInfo[];
+char	*LogServer;
+{
+	DIR             *DirPtr;
+	struct dirent   *DirEntry;
+	int             i, retcode;
+	FILE            *For_fp;
+	char            buf[BUFSZ], LogHour[8], CurHour[8], CurDay[8], LogDay[8];
+	char            tmpBuf[256];
+	char			SendFile[64];
+	time_t			CurTime;
+	int             SendRemote(char *, char *, char *);
+	int             SendLocal(char *, char *);
+	int             IsForwardFile(char *, char *, char *);
+	int				SfCount;
+	static char		mod[]="ProcessForwardFile";
+	struct tm		*pTime;
+	struct tm		temp_pTime;
+	struct stat		sbuf;
+	int				rc;
+	int				rcvDataSplit;
+	
+	time(&CurTime);
+	pTime = localtime_r(&CurTime, &temp_pTime);
+	strftime(CurHour,sizeof(CurHour), "%H",pTime);
+	strftime(CurDay,sizeof(CurDay), "%d",pTime);
+	
+	memset((SendRecvFiles *) SendRecvFileNames, 0, sizeof(SendRecvFileNames));
+	
+	rcvDataSplit = 0;
+	
+	SfCount=0;
+	for (i=0; i<MAXLOGDIRS; i++)
+	{
+		if ((DirPtr=opendir(LogInfo[i].Dir)) == NULL)
+			{
+			gaVarLog(mod, 0, "Unable to open directory %s. errno=%d.",
+						LogInfo[i].Dir, errno);
+			return(-1);
+			}
+	
+		chdir(LogInfo[i].Dir);
+		while ((DirEntry=readdir(DirPtr)) != NULL)
+		{
+			if (if_RTR_is_enabled_then_no_forward_CDRs )
+			{
+				if ( ! strncmp(DirEntry->d_name, "CDR", 3) )
+				{
+					gaVarLog(mod, 1, "Real-time Reports is enabled. Not forwarding CDR file (%s).",
+							DirEntry->d_name);
+					continue;
+				}
+			}
+			if (IsForwardFile(DirEntry->d_name, LogHour, LogDay))
+			{
+				if ( ( ! strcmp(LogDay, CurDay) ) && ( !strcmp(LogHour, CurHour) ) )
+				{
+					continue;
+				}
+				
+				memset((struct stat *)&sbuf, 0, sizeof(sbuf));
+				rc=stat(DirEntry->d_name, &sbuf);
+				if ( sbuf.st_size == 0 )
+				{
+					gaVarLog(mod, 1, "Log file (%s) is %d bytes, so it "
+							"will be removed and not forwarded.",
+							DirEntry->d_name, sbuf.st_size);
+					unlink(DirEntry->d_name);
+					continue;
+				}
+	
+				sprintf(SendRecvFileNames[SfCount].sourceFile,
+						"%s/%s", LogInfo[i].Dir, DirEntry->d_name);
+	
+	            sprintf(SendRecvFileNames[SfCount].destFile,
+	                    "%.*s",
+	                    strlen(DirEntry->d_name)-4,
+	                    DirEntry->d_name);
+	
+				gaVarLog(mod, 1, "%s|%d|[%d].sourceFile=(%s)",
+						__FILE__, __LINE__, SfCount, SendRecvFileNames[SfCount].sourceFile);
+				gaVarLog(mod, 1, "%s|%d|[%d].destFile=(%s)",
+						__FILE__, __LINE__, SfCount, SendRecvFileNames[SfCount].destFile);
+	
+				if ( gLogForwardEncryption )
+				{
+					sprintf(SendRecvFileNames[SfCount].encodedFile, "%s.encZ",
+							SendRecvFileNames[SfCount].sourceFile);
+		
+					if ( (rc = encryptFile(SendRecvFileNames[SfCount].sourceFile,
+											SendRecvFileNames[SfCount].encodedFile)) != 0 )
+					{
+						gaVarLog(mod, 0, "Encryption of file (%s) failed.  "
+							"Unable to send file.", SendRecvFileNames[SfCount].sourceFile);
+						break;
+					}
+				}
+				else
+				{
+					sprintf(SendRecvFileNames[SfCount].destFile,
+						"%.*s", strlen(DirEntry->d_name)-4, DirEntry->d_name);
+				}
+	
+				SfCount++;
+				if ( SfCount >= MAX_FORWARDFILES )
+					break;
+			}
+		}
+		retcode=closedir(DirPtr);
+		if ( SfCount >= MAX_FORWARDFILES )
+			break;
+	}
+	
+	gaVarLog(mod, 1,"forward_sw=%d; FORWARD_LOG=%d; LOCAL_LOG=%d. "
+			" Number of files to transfer=%d.",
+			forward_sw, FORWARD_LOG, LOCAL_LOG, SfCount);
+		
+	if (  (forward_sw == FORWARD_LOG) && (SfCount > 0) )
+	{
+		for (i=0; i<SfCount; i++)
+		{
+			gaVarLog(mod, 1, "sourceFile[%d]=(%s)  destFile[%d]=(%s).",
+				i, SendRecvFileNames[i].sourceFile,
+				i, SendRecvFileNames[i].destFile);
+		}
+	}
+
+	if ( (forward_sw == FORWARD_LOG) && (SfCount > 0) )
+	{
+		if((retcode = sc_Init("log_svc", LogServer)) != sc_SUCCESS)
+		{
+			gaVarLog(mod, 0,"%s|%d|sc_Init failed. rc=%d",__FILE__, __LINE__, retcode);
+			return(retcode);
+		}
+		gaVarLog(mod, 1,"%s|%d|sc_Init succeeded. rc=%d", __FILE__, __LINE__, retcode);
+
+		if ((retcode = sc_SendData(strlen(XFER_FILE), XFER_FILE)) != sc_SUCCESS)
+		{
+			gaVarLog(mod, 0,"%s|%d|Unable to send data (%s) to %s. rc=%d",
+						XFER_FILE, LogServer,retcode);
+			sc_Exit();
+			return(retcode);
+		}
+		gaVarLog(mod, 1,"%s|%d|Successfully sent transfer type (%s) to server.  "
+			"XFER_FILE=(%s) XFER_DATA=(%s) )",
+			__FILE__, __LINE__, XFER_FILE, XFER_FILE, XFER_DATA);
+	}
+	gaVarLog(mod, 1,"%s|%d|gLogForwardEncryption=%d  rcvDataSplit=%d",
+			__FILE__, __LINE__, gLogForwardEncryption, rcvDataSplit);
+
+	if ( gLogForwardEncryption )
+	{
+		sprintf(tmpBuf, "%s", XFER_ENCR);
+	}
+	else
+	{
+		sprintf(tmpBuf, "%s", XFER_NOENCR);
+	}
+	
+	if ((rc=sc_SendData(strlen(tmpBuf), tmpBuf)) != sc_SUCCESS)
+	{
+		gaVarLog(mod, 0,"%s|%d|Unable to send transfer type (%s) to %s. rc=%d",
+						__FILE__, __LINE__, tmpBuf,LogServer,retcode);
+		sc_Exit();
+		return(retcode);
+	}
+	gaVarLog(mod, 1,"%s|%d|Successfully sent file type (%s) to server.  "
+			"XFER_ENCR=%s XFER_NOENCR=%s",
+			__FILE__, __LINE__, tmpBuf, XFER_ENCR, XFER_NOENCR);
+	
+	i=0;
+	while (i < SfCount)
+	{
+		if (forward_sw == FORWARD_LOG)
+		{
+			retcode=SendRemote(SendRecvFileNames[i].sourceFile,
+							   SendRecvFileNames[i].destFile,
+							   SendRecvFileNames[i].encodedFile);
+		}
+		else
+		{
+			retcode=SendLocal(SendRecvFileNames[i].sourceFile,
+	                                   SendRecvFileNames[i].destFile);
+		}
+		gaVarLog(mod, 1,"%s|%d|%d=SendRemote()",
+				__FILE__, __LINE__, retcode);
+	
+		if (retcode == 0)
+		{
+			if ( access(SendRecvFileNames[i].sourceFile, F_OK) == 0 )
+			{
+				unlink(SendRecvFileNames[i].sourceFile);
+			}
+			if ( gLogForwardEncryption )
+			{
+				if ( access(SendRecvFileNames[i].encodedFile, F_OK) == 0 )
+				{
+					unlink(SendRecvFileNames[i].encodedFile);
+				}
+			}
+		}
+		else
+		{
+			gaVarLog(mod, 0, "Unable to transfer file %s to %s. rc=%d",
+						SendRecvFileNames[i].sourceFile, LogServer, retcode);
+			i = SfCount + 1;
+			break;
+		}
+	
+		i++;
+	}
+
+
+	if (forward_sw == FORWARD_LOG)
+	{
+		sc_Exit();
+	}
+
+	if ( gLogForwardEncryption )
+	{
+		for (i=0; i<SfCount; i++)
+		{
+			if ( SendRecvFileNames[i].encodedFile[0] != '\0' )
+			{
+				if (access(SendRecvFileNames[i].encodedFile, F_OK) == 0)
+				{
+					unlink(SendRecvFileNames[i].encodedFile);
+				}
+			}
+		}
+	}
+	return(0);
+}
+
+int SendRemote(SourceFile, DestFile, EncFile)
+char *SourceFile, *DestFile, *EncFile;
+/*--------------------------------------------------------------*/
+/*--------------------------------------------------------------*/
+{
+int		rc;
+int		rc2;
+static char	mod[]="SendRemote";
+char		tmpBuf[20];
+long		recvdBytes;
+
+//	gaVarLog(mod, 1,"log_forward(SendRemote): DestFile:<%s>",DestFile);
+//	gaVarLog(mod, 1,"log_forward(SendRemote): SourceFile:<%s>",SourceFile);
+
+if ((rc=sc_SendData(strlen(DestFile), DestFile)) != sc_SUCCESS)
+{
+	gaVarLog(mod, 0, "%s|%d|Failed to send destination filename (%s). rc=%d. ",
+		__FILE__, __LINE__, DestFile, rc);
+	return(rc);
+}
+gaVarLog(mod, 1, "%s|%d|Successfully sent destination filename (%s).  ",
+		__FILE__, __LINE__, DestFile);
+
+if (strlen(DestFile) > 0)
+{
+	if ( gLogForwardEncryption )
+	{
+		rc = sc_SendFile(EncFile);
+		if ( rc == 0 )
+		{
+			gaVarLog(mod, 1, "%s|%d|Successfully sent encoded file (%s).  ",
+					__FILE__, __LINE__, EncFile);
+		}
+		else
+		{
+			gaVarLog(mod, 0, "%s|%d|Failed to send encoded file (%s).  ",
+					__FILE__, __LINE__, EncFile);
+		}
+	}
+	else
+	{
+		rc = sc_SendFile(SourceFile);
+		if ( rc == 0 )
+		{
+			gaVarLog(mod, 1, "%s|%d|Successfully sent file (%s).  ",
+					__FILE__, __LINE__, SourceFile);
+		}
+		else
+		{
+			gaVarLog(mod, 0, "%s|%d|Failed to send file (%s).  ",
+					__FILE__, __LINE__, SourceFile);
+		}
+	}
+
+	memset(tmpBuf, 0, sizeof(tmpBuf));
+	gaVarLog(mod, 1,"%s|%d|Waiting to receive go-ahead from server...", __FILE__, __LINE__);
+	if ((rc2=sc_RecvData(600, -1, tmpBuf, &recvdBytes)) != sc_SUCCESS) // give 5 minutes
+	{
+		gaVarLog(mod, 0,"%s|%d|ss_RecvData() of transfer type failed.  rc=%d.",
+					__FILE__, __LINE__, rc2);
+	}
+	else
+	{
+		gaVarLog(mod, 1,"%s|%d|Successfully received go-ahead", __FILE__, __LINE__);
+	}
+
+}
+
+return(rc);
+
+}	 // END: SendRemote
+
+int SendLocal(ForwardFile, DestFile)
+/*--------------------------------------------------------------*/
+/* Purpose: Write the log file locally.				*/
+/*--------------------------------------------------------------*/
+char *ForwardFile, *DestFile;
+{
+FILE	*for_fp, *dest_fp;
+int	i, retcode;
+int	DelReadRecords(char *, FILE *, char *);
+char	buf[BUFSZ];
+static char	mod[]="SendLocal";
+
+if ((for_fp=fopen(ForwardFile, "r")) == NULL)
+	{
+	gaVarLog(mod, 0,"Unable to open %s for input. [%d, %s]",
+			ForwardFile, errno, strerror(errno));
+	return(-1);
+	}
+
+if ((dest_fp=fopen(DestFile, "a")) == NULL)
+	{
+	gaVarLog(mod, 0,"Unable to open %s for input. [%d, %s]",
+			DestFile, errno, strerror(errno));
+	return(-1);
+	}
+
+	gaVarLog(mod, 2, "DestFile:(%s)",DestFile);
+while (fgets(buf, BUFSZ, for_fp))
+	{
+	if ((retcode=fputs(buf, dest_fp)) != EOF)
+		continue;
+	else
+		{
+		retcode=DelReadRecords(ForwardFile, for_fp, buf);
+		return(retcode);
+		}
+	}
+
+remove(ForwardFile);
+
+return(0);
+
+}
+
+int IsForwardFile(FileName, Hour, Day)
+/*--------------------------------------------------------------*/
+/* Purpose: Determine if FileName contains the substring        */
+/*          EXTENSION at the end of the string.  If it does     */
+/*          end with EXTENSION, return 1; otherwise, return 0.  */
+/*	    Also, return the hour from the file in the Hour	*/
+/*	    parameter.						*/
+/*--------------------------------------------------------------*/       
+char *FileName, *Hour, *Day;
+{
+int     ext_len, str_len;
+static char	mod[]="IsForwardFile";
+
+str_len=strlen(FileName);
+ext_len=strlen(EXTENSION);
+
+sprintf(Hour,"%.*s",2,&FileName[str_len - ext_len - 3]);
+sprintf(Day,"%.*s",2,&FileName[12]);
+
+if (strcmp(&FileName[str_len-ext_len], EXTENSION) == 0)
+{
+        return(1);
+}
+else
+{
+        return(0);
+}
+
+}
+
+/*-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------*/
+int encryptFile(char *inFile, char *encFile)
+{
+	static char	mod[]="encryptFile";
+	char		sysBuf[512];
+	int			rc;
+
+	gaVarLog(mod, 1, "Encoding file (%s) to (%s).", inFile, encFile);
+	sprintf(sysBuf, "base64 %s >%s", inFile, encFile);
+	if ((rc = system(sysBuf)) != 0)
+	{
+		gaVarLog(mod, 0, "system command 'base64' failed.  Unable to encode.");
+		return(-1);
+	}
+	gaVarLog(mod, 1, "Successfully encoded %s to %s.", inFile, encFile);
+
+	return(0);
+	
+		
+#if 0
+	FILE	*inFp;
+	FILE	*encFp;
+	int		rc;
+	int		i;
+	int		j;
+	size_t	bytesRead;
+	size_t	tmpBytesRead;
+	size_t	bytesWritten;
+	struct stat   sbuf;
+	char		data[NUM_ENC_BYTES_TO_PROCESS + 64];
+
+	static char	key[9]="37494723";
+	unsigned	mode;
+	int			remainderMod8;
+	char		*dataP;
+
+	if ( (rc = stat(inFile, &sbuf)) == -1)
+	{
+		gaVarLog(mod, 0, "stat(%s) failed.  rc=%d.  [%d, %s]\n",
+				inFile, rc, errno, strerror(errno));
+		return(-1);
+	}
+		
+	//fprintf(stderr, "2480397 =%d\n", sbuf.st_size);
+	//if ( sbuf.st_size <= 0 )
+
+	if ( sbuf.st_size <= 0 )
+	{
+		gaVarLog(mod, 0, "file (%s) has a size of %d bytes. Unable to transfer.\n",
+				inFile, sbuf.st_size);
+		return(-1);
+	}
+
+	if ((inFp = fopen(inFile, "r")) == NULL )
+    {
+		gaVarLog(mod, 0, "Unable to open file (%s) for reading. [%d, %s]\n",
+				inFile, errno, strerror(errno));
+		return(-1);
+	}
+
+	sprintf(encFile, "%s.encZ", inFile);
+	if ((encFp = fopen(encFile, "w")) == NULL )
+    {
+		gaVarLog(mod, 0, "Unable to open file (%s) for writing. [%d, %s]\n",
+				encFile, errno, strerror(errno));
+		return(-1);
+	}
+
+	des_setparity(key);
+	memset((char *)data, '\0', sizeof(data));
+	remainderMod8 = -1;
+	while ((bytesRead=fread(data, sizeof(char), NUM_ENC_BYTES_TO_PROCESS, inFp)) > 0)
+	{
+		if ( bytesRead < NUM_ENC_BYTES_TO_PROCESS )
+		{
+			remainderMod8 = bytesRead % 8;
+			if ( remainderMod8 != 0 )
+			{
+				tmpBytesRead = bytesRead - remainderMod8 + 8;
+				remainderMod8 = tmpBytesRead - bytesRead;
+				bytesRead = tmpBytesRead;
+
+				i = strlen(data);
+				dataP = &data[strlen(data) + 1];
+				for (i=0; i<remainderMod8; i++)
+				{
+					*dataP = '\0';
+					dataP++;
+				}
+			}
+		}
+
+		mode = DES_ENCRYPT | DES_SW;
+		rc =  ecb_crypt(key, data, bytesRead, mode);
+		if ( rc != DESERR_NONE )
+		{
+			gaVarLog(mod, 0, "%s|%d|ecb_crypt(%s, %d, %d) failed.  rc=%d. "
+					"DESERR_NONE=%d; DESERR_NOHWDEVICE=%d; DESERR_HWERROR=%d; DESERR_BADPARAM=%d\n",
+		            __FILE__, __LINE__, key, bytesRead, mode, rc, 
+					DESERR_NONE, DESERR_NOHWDEVICE, DESERR_HWERROR, DESERR_BADPARAM);
+			fclose(inFp);
+			fclose(encFp);
+			return(-1);
+		}
+		gaVarLog(mod, 1, "%s|%d|%d = ecb_crypt(%s, %d, DES_ENCRYPT)\n",
+			__FILE__, __LINE__, rc, key, bytesRead);
+
+  		if ((bytesWritten=fwrite(data, sizeof(char), bytesRead, encFp)) != bytesRead)
+		{
+			gaVarLog(mod, 0, "%s|%d|write() failed to write %d encryted bytes to (%s). rc=%d  [%d, %s] "
+				"Closing and returning failure.\n",
+				__FILE__, __LINE__, bytesRead, encFile, bytesWritten, errno, strerror(errno));
+			
+			fclose(inFp);
+			fclose(encFp);
+			return(-1);
+		}
+		gaVarLog(mod, 1, "%s|%d|write() succeeded to write %d encryted bytes to (%s).\n",
+				__FILE__, __LINE__, bytesWritten, encFile);
+		memset((char *)data, '\0', sizeof(data));
+	}
+
+	fclose(inFp);
+	fclose(encFp);
+#endif
+	return(0);
+
+} // END: encryptFile()
+
+void Exit()
+{
+
+sc_Exit();
+
+exit(0);
+
+}
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int setCDRLogForwarding(int *z_if_RTR_is_enabled_then_no_forward_CDRs)
+{
+	static char mod[]="init";
+	int			rc;
+	char		filename[128];
+	char		ispbase[32]="ISPBASE";
+	char		*ptr;
+	char		name[64];
+	char		value[64];
+	char		defaultValue[64];
+	static char	gaLogDir[256];
+
+	*z_if_RTR_is_enabled_then_no_forward_CDRs = 0;
+    if ((ptr = getenv (ispbase)) == NULL)
+    {
+		gaVarLog(mod, 0, "[%d] Unable to get ISPBASE env variable. Set it and retry.  Unable to continue.", __LINE__);
+        return (-1);
+    }
+	if ( ptr[strlen(ptr) - 1] == '/' )
+	{
+		ptr[strlen(ptr) - 1] = '\0';
+	}
+	sprintf(filename, "%s/Global/.Global.cfg", ptr);
+
+	sprintf(name, "%s", "LOG_CDR_FILE");
+	sprintf(defaultValue, "%s", "YES_BOTH");
+	memset((char *)value, '\0', sizeof(value));
+	if ((rc = gaGetProfileString ("Settings", name, defaultValue, value, sizeof(value), filename)) == 0)
+	{
+		if (strncmp(value, "YES", 3) != 0 )
+		{
+			gaVarLog(mod, 1, "[%d] LOG_CDR_FILE in %s is not enabled. Real-time reports are disabled. OK to forward CDR files.",
+						__LINE__, filename);
+			*z_if_RTR_is_enabled_then_no_forward_CDRs = 0;
+			return(0);
+		}
+	}
+	
+	sprintf(name, "%s", "REALTIME_REPORTS");
+	sprintf(defaultValue, "%s", "YES");
+	memset((char *)value, '\0', sizeof(value));
+	if ((rc = gaGetProfileString ("Settings", name, defaultValue, value, sizeof(value), filename)) == 0)
+	{
+		if (strncmp(value, "YES", 3) != 0 )
+		{
+			gaVarLog(mod, 1, "[%d] REALTIME_REPORTS in %s is not enabled. OK to forward CDR files.", __LINE__, filename);
+			*z_if_RTR_is_enabled_then_no_forward_CDRs = 0;
+			return(0);
+		}
+	}
+	*z_if_RTR_is_enabled_then_no_forward_CDRs = 1;
+	gaVarLog(mod, 1, "[%d] REALTIME_REPORTS and LOG_CDR_FILE are enabled.  CDR files will NOT be sent.", __LINE__, filename);
+	return(0);
+
+
+} // END: init()
+#if 0
+/*------------------------------------------------------------------------------
+lValidateDirectory():
+    Verifies if the directory passed in exists and is a valid directory.  
+    If it does not exist, create it with the system call 'mkdir'.
+------------------------------------------------------------------------------*/
+static int lValidateDirectory(char *iDirectory, char *oErrorMsg)
+{
+    int     rc;
+    mode_t      mode;
+    struct stat statBuf;
+    static char mod[]="lValidateDirectory";
+
+	oErrorMsg[0] = '\0';
+    (void)umask(0000);
+    /*
+     * Does the directory exist
+     */
+    if ((rc=access(iDirectory, F_OK)) == 0)
+    {
+        /*
+         * Is it really directory
+         */
+        if ( (rc=stat(iDirectory, &statBuf)) != 0)
+        {
+            sprintf(oErrorMsg, "Could not stat (%s).  [%d, %s].  "
+                    "(%s) exists but unable to access it.",
+                    iDirectory, errno, strerror(errno),
+                    iDirectory);
+            return(-1);
+        }
+
+           mode = statBuf.st_mode & S_IFMT;
+
+        if ( mode != S_IFDIR)
+        {
+            sprintf(oErrorMsg, "Error: (%s) exists, but is not a "
+                "directory.", iDirectory);
+            return(-1);
+        }
+        return(0);
+    }
+
+    if ((rc=mkdir(iDirectory, 0755)) != 0)
+    {
+        sprintf(oErrorMsg,
+            "Error: Unable to create directory (%s).  [%d, %s]",
+            iDirectory, errno, strerror(errno));
+        return(-1);
+    }
+
+    return(0);
+} /* END: lValidateDirectory() */
+#endif
+

@@ -1,0 +1,64 @@
+#-------------------------------------------------------------------------------# File:     Makefile
+# Author:   Aumtech, Inc.
+# Update: djb 06/28/2006	Created the file
+#-------------------------------------------------------------------------------
+include ../Make.def.new
+
+
+SRCS = mrcpClient2.cpp mrcpCommon2.cpp SRPort.cpp
+SRCS += sipThread.cpp readerThread.cpp mrcpThread.cpp
+SRCS +=  mrcp2_HeaderList.cpp  mrcp2_Request.cpp mrcp2_Event.cpp \
+         mrcp2_Response.cpp mrcp2_parser_utils.cpp MrcpInitialize.cpp	\
+
+SRCS_MGR = mrcpTTSClient2Mgr.c
+
+INCPATHS = -I .  -I ${MRCP_HOME}/include\
+    -I ${MRCP_HOME}/include/parser \
+    -I ${STEL_HOME}/include     \
+    -I ${COMMON_INC} \
+    -I ${STEL_HOME}/thirdParty/libeXosip2-3.0.3-3/src \
+    -I ${STEL_HOME}/thirdParty/libeXosip2-3.0.3-3/include       \
+    -I ${STEL_HOME}/thirdParty/libosip2-3.0.3-2/include    
+
+LIBPATHS =   \
+	-L ${STEL_HOME}/lib	\
+	-L ${MRCP_LIB}	\
+    -L ${STEL_HOME}/thirdParty/xerces-c-src_2_8_0/lib   \
+    -L ${STEL_HOME}/thirdParty/libosip2-3.0.3-2/src/osipparser2/.libs       \
+    -L ${STEL_HOME}/thirdParty/libosip2-3.0.3-2/src/osip2/.libs     \
+    -L ${STEL_HOME}/thirdParty/libeXosip2-3.0.3-3/src/.libs     \
+    -L ${STEL_HOME}/Common/lib \
+    -L ${HOME}/isp2.2/SNMP/lib    \
+
+
+LIBS =    \
+  	   -lISPUtil -lISPLog -lloglite -larcSNMP -lpthread \
+       -lTTS_mrcpV2.new -losipparser2 -losip2 -leXosip2 
+
+#-lxerces-c1_5
+MRCPCLIENT2	= ${MRCP_HOME}/bin/ttsClient.mrcp
+
+MRCPTTSCLIENT2MGR  = ${MRCP_HOME}/bin/mrcpTTSClient2Mgr
+
+CPPFLAGS += ${INCPATHS} -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+
+OBJ = $(SRCS:.cpp=.o)
+
+all: ${MRCPCLIENT2} ${MRCPTTSCLIENT2MGR}
+
+.cpp.o: ${SRCS}
+#	g++ -ggdb -DENABLE_TRACE -c $< ${INCPATHS}
+	g++ -ggdb -DOSIP_MT -c $< ${INCPATHS}
+
+${MRCPCLIENT2}: ${OBJ} ${SR_LIB}
+	g++ -ggdb -DOSIP_MT -o $@ ${OBJ} ${LIBPATHS} ${LIBS} -Wall
+
+${MRCPTTSCLIENT2MGR}: ${SRCS_MGR}
+	gcc -o ${MRCPTTSCLIENT2MGR} ${SRCS_MGR}
+
+${SR_LIB}:
+	( cd ${MRCP_HOME}/apisrc; make )
+
+clean:
+	rm -rf *.o ${MRCPCLIENT2} ${MRCPTTSCLIENT2MGR}
+

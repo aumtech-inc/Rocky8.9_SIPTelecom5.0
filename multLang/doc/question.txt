@@ -1,0 +1,37 @@
+
+1) For the section
+
+#define LANGUAGE_1          44          /* English    */
+#define LANGUAGE_2          33          /* French     */
+#define LANGUAGE_3          49          /* German     */
+#define LANGUAGE_4          39          /* Italian    */
+#define LANGUAGE_5          34          /* Spanish    */
+#define LANGUAGE_6          351         /* Portuguese */
+#define LANGUAGE_7          90          /* Turkish    */
+#define LANGUAGE_8          381         /* SerboCroat */
+#define LANGUAGE_9          30          /* Greek      */
+#define LANGUAGE_10         353         /* Irish      */
+#define UK              "44"
+#define FRANCE              "33"
+#define GERMANY             "49"
+#define ITALY               "39"
+#define SPAIN               "34"
+#define PORTUGAL            "351"
+#define TURKEY              "90"
+#define SERBIA              "381"
+#define GREECE                  "30"
+#define IRELAND                 "353"
+
+where did you get the numbers?
+
+2) French - do you have $TELECOM/phrases/FRENCH/... set up? How can telecom
+resolve male/female?
+
+3) FRENCH/phr.GenericApp
+	-	remaining tag is a duplicate
+	-	where is mainCurrencyUnit2
+
+4) male/female  -  IN_MONEY/IN_TIME ;  so IN_MONEY means male, not money?
+
+5) playBalance() - performs a TEL_GetGlobal($LANGUAGE), then compares with
+					something else.

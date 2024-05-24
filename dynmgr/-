@@ -1,0 +1,31 @@
+
+ArcSipMediaMgr.c
+
+Code was not ported to 64 bit
+		code difference 10242016 -> 04212017
+		MR: ?
+		routines modified/added
+	-----------------------------
+		code difference 07262017 -> 08162017
+		spandsp/arc_tones_ringbuff.c
+		MR: ?
+		routines modified/added
+	
+
+Code was ported to 64 bit
+		code difference 04212017 -> 05092017
+		MR: ?
+		routines modified/added
+			rtpSleep_withbreaks()
+			getFunctionalStatus()
+	
+
+
+
+To Do/Verify:
+MR 4475
+MR 4854
+MR 4808
+
+remaining differences
+arc_tones_ringbuff_unblock()

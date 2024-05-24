@@ -1,0 +1,12 @@
+
+gcc -I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/include 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/openssl-1.0.2k/include 		\
+	-DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE 				\
+	-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/include 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/openssl-1.0.2k/include			\
+	-o .libs/sip_reg sip_reg.o		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/openssl-1.0.2k/lib ../src/.libs/libeXosip2.so 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/osip2/.libs 	\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/osipparser2/.libs
+	-lrt -lresolv -lcrypto -Wl,-rpath -Wl,/usr/local/lib
+

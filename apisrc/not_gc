@@ -1,0 +1,150 @@
+Building TEL_AnswerCall API
+Building TEL_BridgeCall API
+Building TEL_InitiateCall API
+Building TEL_ClearDTMF API
+Building TEL_Common API utility routines
+In file included from /home/dan/isp2.2/SIPTelecom3.6/include/TEL_Common.h:120:0,
+                 from TEL_Common.c:41:
+/home/dan/isp2.2/SIPTelecom3.6/include/TEL_Globals.h:69:2: warning: #warning "DJB - NOT GLOBAL CROSSING ONLY" [-Wcpp]
+ #warning "DJB - NOT GLOBAL CROSSING ONLY"
+  ^
+/home/dan/isp2.2/SIPTelecom3.6/include/TEL_Globals.h: In function ‘LogOff’:
+/home/dan/isp2.2/SIPTelecom3.6/include/TEL_Globals.h:71:18: warning: ‘return’ with a value, in function returning void [enabled by default]
+ void LogOff()  { return(0); }  // MR # 4814
+                  ^
+# @gcc -fPIC  -ggdb  -ggdb -DMRCP_SR -c -I /home/dan/isp2.2/SIPTelecom3.6/include -I /home/dan/isp2.2/SIPTelecom3.6/Common/include -I../include   TEL_Common.c  -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+Building TEL_DropCall API
+Building TEL_RejectCall API
+Building TEL_ExitTelecom API
+Building TEL_InitTelecom API
+Building TEL_GetDTMF API
+Building TEL_GetGlobal API
+Building TEL_GetGlobalString API
+# @gcc -fPIC  -ggdb  -ggdb -DMRCP_SR -c -I /home/dan/isp2.2/SIPTelecom3.6/include -I /home/dan/isp2.2/SIPTelecom3.6/Common/include -I../include   TEL_GetGlobalString.c -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+Building TEL_OutputDTMF API
+Building TEL_DialExtension API
+Building TEL_PortOperation API
+Building TEL_Record API
+Building TEL_Rest API
+Building OCS Utility APIs
+Building TEL_ScheduleCall API
+Building TEL_SetGlobal API
+Building TEL_SetGlobalString API
+Building TEL_UnscheduleCall API
+Building TEL_GetCDFInfo API
+Building TEL_Speak API
+Building TEL_SpeakTTS API
+Building TEL_TTSGetParameter API
+Building TEL_TTSSetParameter API
+Building TEL_LoadTags API
+TEL_LoadTags.c: In function ‘sLoadTagList’:
+TEL_LoadTags.c:354:21: warning: assignment from incompatible pointer type [enabled by default]
+  pPrevTag = pNowTag = &GV_AppTags;
+                     ^
+TEL_LoadTags.c: In function ‘sLoadPncSectionVariables’:
+TEL_LoadTags.c:668:31: warning: assignment from incompatible pointer type [enabled by default]
+  pPrevPncInput = pNowPncInput = &GV_PncInput;
+                               ^
+TEL_LoadTags.c: In function ‘sDoesEntryAlreadyExist’:
+TEL_LoadTags.c:1275:10: warning: assignment from incompatible pointer type [enabled by default]
+  yTmpTag = &GV_AppTags;
+          ^
+TEL_LoadTags.c: In function ‘sGetVariablesForTag’:
+TEL_LoadTags.c:1512:10: warning: assignment from incompatible pointer type [enabled by default]
+  yTmpTag = &GV_AppTags;
+          ^
+TEL_LoadTags.c: In function ‘sPrintPncInput’:
+TEL_LoadTags.c:1697:16: warning: assignment from incompatible pointer type [enabled by default]
+  pHoldPncInput = &GV_PncInput;
+                ^
+TEL_LoadTags.c: In function ‘sPrintTags’:
+TEL_LoadTags.c:1751:12: warning: assignment from incompatible pointer type [enabled by default]
+  pHoldTags = &GV_AppTags;
+            ^
+Building TEL_SaveTags API
+TEL_SaveTags.c: In function ‘TEL_SaveTags’:
+TEL_SaveTags.c:67:10: warning: assignment from incompatible pointer type [enabled by default]
+  pTmpTag = &GV_AppTags;
+          ^
+TEL_SaveTags.c:80:10: warning: assignment from incompatible pointer type [enabled by default]
+  pTmpTag = &GV_AppTags;
+          ^
+TEL_SaveTags.c:141:12: warning: assignment from incompatible pointer type [enabled by default]
+  pPncInput = &GV_PncInput;
+            ^
+TEL_SaveTags.c: In function ‘sReadLogicalLine’:
+TEL_SaveTags.c:374:10: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+   return((int)NULL); 
+          ^
+TEL_SaveTags.c: In function ‘sGetTagFromFile’:
+TEL_SaveTags.c:396:10: warning: assignment from incompatible pointer type [enabled by default]
+  yTmpTag = &GV_AppTags;
+          ^
+Building TEL_PromptAndCollect API
+TEL_PromptAndCollect.c: In function ‘sPncGetInputBySection’:
+TEL_PromptAndCollect.c:612:12: warning: assignment from incompatible pointer type [enabled by default]
+  pPncInput = &GV_PncInput;
+            ^
+TEL_PromptAndCollect.c: In function ‘TEL_PlayTag’:
+TEL_PromptAndCollect.c:935:10: warning: assignment from incompatible pointer type [enabled by default]
+  pTmpTag = &GV_AppTags;
+          ^
+TEL_PromptAndCollect.c: In function ‘sGetTagFromFile’:
+TEL_PromptAndCollect.c:1141:10: warning: assignment from incompatible pointer type [enabled by default]
+  yTmpTag = &GV_AppTags;
+          ^
+Building TEL_SRAddWords API
+Building TEL_SRDeleteWords API
+Building TEL_SRExit API
+Building TEL_SRGetParameter API
+Building TEL_SRGetPhoneticSpelling API
+Building TEL_SRGetResult API
+Building TEL_SRGetXMLResult API
+Building TEL_SRInit API
+Building TEL_SRLearnWord API
+Building TEL_SRLoadGrammar API
+Building TEL_SRRecognize API
+Building TEL_SRRecognizeV2 API
+TEL_SRRecognizeV2.c: In function ‘TEL_SRRecognizeV2’:
+TEL_SRRecognizeV2.c:36:2: warning: passing argument 1 of ‘parametersAreGood’ discards ‘const’ qualifier from pointer target type [enabled by default]
+  if( !parametersAreGood(mod, zParams) )
+  ^
+TEL_SRRecognizeV2.c:16:12: note: expected ‘char *’ but argument is of type ‘const char *’
+ static int parametersAreGood(char *zMod, SRRecognizeParams *zParams);
+            ^
+Building TEL_SRReleaseResource API
+Building TEL_SRReserveResource API
+Building TEL_SRSetParameter API
+Building TEL_SRUnloadGrammars API
+Building TEL_SRUnloadGrammar API
+Building TEL_SRLogEvent API
+Building TEL_RecordSrgs API
+Building TEL_TransferCall API
+Building TEL_PlayMedia API
+Building TEL_RecordMedia API
+Building TEL_FindMe API
+Building TEL_HoldCall API
+Building get_uniq_filename
+Building TELmsg.c
+Building TEL_ListenCall.c
+Building TEL_BridgeThirdLeg.c
+Building TEL_RetrieveCall API
+Building TEL_SendFax.c
+Building TEL_ScheduleFax.c
+Building TEL_RecvFax.c
+Building TEL_BuildFaxList.c
+Building TEL_StartNewApp.c
+Building TEL_BlastDial.c
+TEL_BlastDial.c: In function ‘TEL_BlastDial’:
+TEL_BlastDial.c:52:5: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+     (int)arc_val_tostr(numRings));;
+     ^
+Building FAX_Common.c
+Building TEL_ConferenceStart.c
+Building TEL_ConferenceStop.c
+Building TEL_ConfAddUser.c
+Building TEL_ConfRemoveUser.c
+Building TEL_ConfSendData.c
+Building TEL_TTSReleaseResource.c
+Building /home/dan/isp2.2/SIPTelecom3.6/lib/libISPTel_mrcp.a
+ar: creating /home/dan/isp2.2/SIPTelecom3.6/lib/libISPTel_mrcp.a

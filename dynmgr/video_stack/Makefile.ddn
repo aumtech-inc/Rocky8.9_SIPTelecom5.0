@@ -1,0 +1,81 @@
+#------------------------------------------------------------------------------
+# File:     Makefile
+#
+# Purpose:  Compile and link video stack
+#
+# Author:   Rahul Gupta 
+#
+#------------------------------------------------------------------------------
+
+SHELL			= /bin/ksh
+EC				= @echo
+CD				= @cd
+RM				= @rm
+CC				= @gcc
+LD				= @ld
+LN				= @ln
+CPP				= @g++
+CFLAGS			= -fPIC -c -g3 `cat .debug`
+CP				= @cp
+
+SRCS_CONF		= \
+			mbuffer.cpp	\
+			mobject.cpp	\
+			mpacket.cpp	\
+			mrtppacket.cpp	\
+			arc_video_packet.cpp
+			
+HDRS_CONF		= mrtppacket.h \
+						mbuffer.h \
+						mobject.h \
+						mpacket.h \
+						arc_video_packet.hpp
+
+REALNAME		=libvideostack.so.1.0
+SONAME			=${REALNAME:.so.1.0=.so.1}
+LIBNAME			=${SONAME:.so.1=.so}
+OBJNAME			=${SRCS_CONF:.cpp=.o}
+RECORDS			=.makeRecord
+SAMPLE			=sample
+CONF_VERSION	=`cat .version`
+CONF_BUILD		=`cat .build`
+BUILD_INFO  	=-DCONF_VERSION=${CONF_VERSION} -DCONF_BUILD=${CONF_BUILD}
+
+#-------------------------^^^^^------------------------------------------
+
+${RECORDS}:	${LIBNAME}
+	${EC} -e "\n\n\n\n To create a DEBUG VERSION, use \"make clean debug all\""
+	${EC} -e "`date`|`cksum ${LIBNAME}`\n`cat $@`" >$@
+
+#	${CP} libsrgs.so.1 .
+
+${LIBNAME}:	${SONAME}
+	${LN} -sf ${SONAME} $@
+
+${SONAME}:	${REALNAME}
+	${LN} -sf ${REALNAME} $@
+
+${REALNAME}:	${OBJNAME}
+	${LD}	 -shared -soname ${SONAME} \
+	-o	$@ -lc ${OBJNAME}
+
+${OBJNAME}:	${SRCS_CONF} ${HDRS_CONF}
+	${CPP} ${CFLAGS} -g3  -c ${SRCS_CONF}	\
+	${BUILD_INFO}
+
+${SAMPLE}: ${SAMPLE}.c ${RECORDS}
+	${CPP} -g3 -o $@ -L. -L../lib -lvideostack $@.c	\
+
+all:	${RECORDS} ${SAMPLE}
+
+clean:
+	${RM}\
+	${LIBNAME}\
+	${SONAME}\
+	${REALNAME}\
+	${SAMPLE}	\
+	${OBJNAME}
+	>.debug
+
+debug:
+	${EC} "-DDEBUG">.debug

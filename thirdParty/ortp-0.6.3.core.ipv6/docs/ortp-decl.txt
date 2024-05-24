@@ -1,0 +1,1443 @@
+<MACRO>
+<NAME>RTP_MAX_RQ_SIZE</NAME>
+#define RTP_MAX_RQ_SIZE 50 /* max number of packet allowed to be enqueued */
+</MACRO>
+<MACRO>
+<NAME>IPMAXLEN</NAME>
+#define IPMAXLEN 20
+</MACRO>
+<MACRO>
+<NAME>UDP_MAX_SIZE</NAME>
+#define UDP_MAX_SIZE 65536
+</MACRO>
+<MACRO>
+<NAME>RTP_FIXED_HEADER_SIZE</NAME>
+#define RTP_FIXED_HEADER_SIZE 12
+</MACRO>
+<MACRO>
+<NAME>RTP_DEFAULT_JITTER</NAME>
+#define RTP_DEFAULT_JITTER 4*160
+</MACRO>
+<MACRO>
+<NAME>RTP_TIMESTAMP_IS_NEWER_THAN</NAME>
+#define RTP_TIMESTAMP_IS_NEWER_THAN(ts1,ts2) \
+	((guint32)((guint32)(ts1) - (guint32)(ts2))< (guint32)(1<<31))
+</MACRO>
+<MACRO>
+<NAME>RTP_TIMESTAMP_IS_STRICTLY_NEWER_THAN</NAME>
+#define RTP_TIMESTAMP_IS_STRICTLY_NEWER_THAN(ts1,ts2) \
+	( ((guint32)((guint32)(ts1) - (guint32)(ts2))< (guint32)(1<<31)) && (ts1)!=(ts2) )
+</MACRO>
+<MACRO>
+<NAME>TIME_IS_NEWER_THAN</NAME>
+#define TIME_IS_NEWER_THAN(t1,t2) RTP_TIMESTAMP_IS_NEWER_THAN(t1,t2)
+</MACRO>
+<MACRO>
+<NAME>TIME_IS_STRICTLY_NEWER_THAN</NAME>
+#define TIME_IS_STRICTLY_NEWER_THAN(t1,t2) RTP_TIMESTAMP_IS_STRICTLY_NEWER_THAN(t1,t2)
+</MACRO>
+<STRUCT>
+<NAME>telephone_event</NAME>
+struct _telephone_event
+{
+#ifdef WORDS_BIGENDIAN
+	guint32 event:8;
+	guint32 E:1;
+	guint32 R:1;
+	guint32 volume:6;
+	guint32 duration:16;
+#else
+	guint32 event:8;
+	guint32 volume:6;
+	guint32 R:1;
+	guint32 E:1;
+	guint32 duration:16;
+#endif
+};
+</STRUCT>
+<TYPEDEF>
+<NAME>telephone_event_t</NAME>
+typedef struct _telephone_event telephone_event_t;
+</TYPEDEF>
+<FUNCTION>
+<NAME>rtp_session_telephone_events_supported</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_create_telephone_event_packet</NAME>
+<RETURNS>mblk_t	*</RETURNS>
+RtpSession *session, int start
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_add_telephone_event</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session,mblk_t *packet, guchar event, gint end, guchar volume, guint16 duration
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_read_telephone_event</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session,mblk_t *packet,telephone_event_t **tab
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_send_dtmf</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session, gchar dtmf, guint32 userts
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_check_telephone_events</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, mblk_t *m0
+</FUNCTION>
+<MACRO>
+<NAME>TELEPHONY_EVENTS_ALLOCATED_SIZE</NAME>
+#define TELEPHONY_EVENTS_ALLOCATED_SIZE		(4*sizeof(telephone_event_t))
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_0</NAME>
+#define TEV_DTMF_0			(0)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_1</NAME>
+#define TEV_DTMF_1			(1)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_2</NAME>
+#define TEV_DTMF_2			(2)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_3</NAME>
+#define TEV_DTMF_3			(3)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_4</NAME>
+#define TEV_DTMF_4			(4)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_5</NAME>
+#define TEV_DTMF_5			(5)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_6</NAME>
+#define TEV_DTMF_6			(6)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_7</NAME>
+#define TEV_DTMF_7			(7)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_8</NAME>
+#define TEV_DTMF_8			(8)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_9</NAME>
+#define TEV_DTMF_9			(9)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_STAR</NAME>
+#define TEV_DTMF_STAR		(10)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_POUND</NAME>
+#define TEV_DTMF_POUND		(11)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_A</NAME>
+#define TEV_DTMF_A			(12)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_B</NAME>
+#define TEV_DTMF_B			(13)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_C</NAME>
+#define TEV_DTMF_C			(14)
+</MACRO>
+<MACRO>
+<NAME>TEV_DTMF_D</NAME>
+#define TEV_DTMF_D			(15)
+</MACRO>
+<MACRO>
+<NAME>TEV_FLASH</NAME>
+#define TEV_FLASH			(16)
+</MACRO>
+<MACRO>
+<NAME>PAYLOADTYPE_H</NAME>
+#define PAYLOADTYPE_H
+</MACRO>
+<ENUM>
+<NAME>PayloadTypeFlags</NAME>
+typedef enum{
+	PAYLOAD_TYPE_ALLOCATED = 1
+}PayloadTypeFlags;
+</ENUM>
+<STRUCT>
+<NAME>PayloadType</NAME>
+struct _PayloadType
+{
+	gint type;
+	#define PAYLOAD_AUDIO_CONTINUOUS 0
+	#define PAYLOAD_AUDIO_PACKETIZED 1
+	#define	PAYLOAD_VIDEO 2
+	#define PAYLOAD_OTHER 3  /* ?? */
+	gint clock_rate;
+	double bytes_per_sample;		/* in case of continuous audio data */
+	char *zero_pattern;
+	gint pattern_length;
+	/* other usefull information */
+	gint normal_bitrate;	/*in bit/s */
+	char *mime_type;
+	PayloadTypeFlags flags;
+	void *user_data;
+};
+</STRUCT>
+<MACRO>
+<NAME>PayloadType_defined</NAME>
+#define PayloadType_defined
+</MACRO>
+<STRUCT>
+<NAME>PayloadType</NAME>
+</STRUCT>
+<FUNCTION>
+<NAME>payload_type_new</NAME>
+<RETURNS>PayloadType *</RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>payload_type_clone</NAME>
+<RETURNS>PayloadType *</RETURNS>
+PayloadType *payload
+</FUNCTION>
+<FUNCTION>
+<NAME>payload_type_destroy</NAME>
+<RETURNS>void </RETURNS>
+PayloadType *pt
+</FUNCTION>
+<MACRO>
+<NAME>payload_type_set_flag</NAME>
+#define payload_type_set_flag(pt,flag) (pt)->flags|=(flag)
+</MACRO>
+<MACRO>
+<NAME>payload_type_unset_flag</NAME>
+#define payload_type_unset_flag(pt,flag) (pt)->flags&=(~flag)
+</MACRO>
+<STRUCT>
+<NAME>RtpProfile</NAME>
+struct _RtpProfile
+{
+	char *name;
+	PayloadType *payload[128];
+};
+</STRUCT>
+<STRUCT>
+<NAME>RtpProfile</NAME>
+</STRUCT>
+<VARIABLE>
+<NAME>av_profile</NAME>
+extern RtpProfile av_profile;
+</VARIABLE>
+<MACRO>
+<NAME>payload_type_set_user_data</NAME>
+#define payload_type_set_user_data(pt,p)	(pt)->user_data=(p)
+</MACRO>
+<MACRO>
+<NAME>payload_type_get_user_data</NAME>
+#define payload_type_get_user_data(pt)		((pt)->user_data)
+</MACRO>
+<MACRO>
+<NAME>rtp_profile_get_name</NAME>
+#define rtp_profile_get_name(profile) 	(profile)->name
+</MACRO>
+<MACRO>
+<NAME>rtp_profile_set_name</NAME>
+#define rtp_profile_set_name(profile,nm) 	(profile)->name=(nm)
+</MACRO>
+<MACRO>
+<NAME>rtp_profile_set_payload</NAME>
+#define rtp_profile_set_payload(profile,index,pt)  (profile)->payload[(index)]=(pt)
+</MACRO>
+<MACRO>
+<NAME>rtp_profile_clear_payload</NAME>
+#define rtp_profile_clear_payload(profile,index)	(profile)->payload[(index)]=NULL
+</MACRO>
+<MACRO>
+<NAME>rtp_profile_clear_all</NAME>
+#define rtp_profile_clear_all(profile)	memset((void*)(profile),0,sizeof(RtpProfile))
+</MACRO>
+<MACRO>
+<NAME>rtp_profile_get_payload</NAME>
+#define rtp_profile_get_payload(profile,index)	((profile)->payload[(index)])
+</MACRO>
+<FUNCTION>
+<NAME>rtp_profile_get_payload_from_mime</NAME>
+<RETURNS>PayloadType *</RETURNS>
+RtpProfile *profile,const char *mime
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_get_payload_from_rtpmap</NAME>
+<RETURNS>PayloadType *</RETURNS>
+RtpProfile *profile, const char *rtpmap
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_get_payload_number_from_mime</NAME>
+<RETURNS>gint </RETURNS>
+RtpProfile *profile,const char *mime
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_get_payload_number_from_rtpmap</NAME>
+<RETURNS>gint </RETURNS>
+RtpProfile *profile, const char *rtpmap
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_find_payload_number</NAME>
+<RETURNS>gint </RETURNS>
+RtpProfile *prof,const gchar *mime,int rate
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_find_payload</NAME>
+<RETURNS>PayloadType *</RETURNS>
+RtpProfile *prof,const gchar *mime,int rate
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_move_payload</NAME>
+<RETURNS>gint </RETURNS>
+RtpProfile *prof,int oldpos,int newpos
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_new</NAME>
+<RETURNS>RtpProfile *</RETURNS>
+char *name
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_clone_full</NAME>
+<RETURNS>RtpProfile *</RETURNS>
+RtpProfile *prof
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_profile_destroy</NAME>
+<RETURNS>void </RETURNS>
+RtpProfile *prof
+</FUNCTION>
+<VARIABLE>
+<NAME>pcmu8000</NAME>
+extern PayloadType pcmu8000;
+</VARIABLE>
+<VARIABLE>
+<NAME>pcma8000</NAME>
+extern PayloadType pcma8000;
+</VARIABLE>
+<VARIABLE>
+<NAME>pcm8000</NAME>
+extern PayloadType pcm8000;
+</VARIABLE>
+<VARIABLE>
+<NAME>lpc1016</NAME>
+extern PayloadType lpc1016;
+</VARIABLE>
+<VARIABLE>
+<NAME>gsm</NAME>
+extern PayloadType gsm;
+</VARIABLE>
+<VARIABLE>
+<NAME>lpc1015</NAME>
+extern PayloadType lpc1015;
+</VARIABLE>
+<VARIABLE>
+<NAME>speex_nb</NAME>
+extern PayloadType speex_nb;
+</VARIABLE>
+<VARIABLE>
+<NAME>speex_wb</NAME>
+extern PayloadType speex_wb;
+</VARIABLE>
+<VARIABLE>
+<NAME>truespeech</NAME>
+extern PayloadType truespeech;
+</VARIABLE>
+<VARIABLE>
+<NAME>telephone_event</NAME>
+extern PayloadType telephone_event;
+</VARIABLE>
+<VARIABLE>
+<NAME>mpv</NAME>
+extern PayloadType mpv;
+</VARIABLE>
+<VARIABLE>
+<NAME>h261</NAME>
+extern PayloadType h261;
+</VARIABLE>
+<VARIABLE>
+<NAME>h263</NAME>
+extern PayloadType h263;
+</VARIABLE>
+<FUNCTION>
+<NAME>ortp_init</NAME>
+<RETURNS>void </RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>ortp_scheduler_init</NAME>
+<RETURNS>void </RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>ortp_exit</NAME>
+<RETURNS>void </RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>ortp_set_debug_file</NAME>
+<RETURNS>void </RETURNS>
+gchar *domain, FILE *file
+</FUNCTION>
+<FUNCTION>
+<NAME>ortp_set_log_handler</NAME>
+<RETURNS>void </RETURNS>
+gchar *domain, GLogFunc func, gpointer ud
+</FUNCTION>
+<FUNCTION>
+<NAME>ortp_get_scheduler</NAME>
+<RETURNS>RtpScheduler *</RETURNS>
+
+</FUNCTION>
+<MACRO>
+<NAME>ortp_get_scheduler</NAME>
+#define ortp_get_scheduler() 	(NULL)
+</MACRO>
+<VARIABLE>
+<NAME>ortp_global_stats</NAME>
+extern rtp_stats_t ortp_global_stats;
+</VARIABLE>
+<FUNCTION>
+<NAME>ortp_global_stats_reset</NAME>
+<RETURNS>void </RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>ortp_get_global_stats</NAME>
+<RETURNS>rtp_stats_t *</RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>ortp_global_stats_display</NAME>
+<RETURNS>void </RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_stats_display</NAME>
+<RETURNS>void </RETURNS>
+rtp_stats_t *stats, char *header
+</FUNCTION>
+<FUNCTION>
+<NAME>putq</NAME>
+<RETURNS>void </RETURNS>
+queue_t *q, mblk_t *m
+</FUNCTION>
+<FUNCTION>
+<NAME>getq</NAME>
+<RETURNS>mblk_t *</RETURNS>
+queue_t *q
+</FUNCTION>
+<FUNCTION>
+<NAME>insq</NAME>
+<RETURNS>void </RETURNS>
+queue_t *q,mblk_t *emp, mblk_t *mp
+</FUNCTION>
+<FUNCTION>
+<NAME>allocb</NAME>
+<RETURNS>mblk_t *</RETURNS>
+gint size,gint unused
+</FUNCTION>
+<MACRO>
+<NAME>BPRI_MED</NAME>
+#define BPRI_MED 0
+</MACRO>
+<FUNCTION>
+<NAME>freeb</NAME>
+<RETURNS>void </RETURNS>
+mblk_t *m
+</FUNCTION>
+<FUNCTION>
+<NAME>freemsg</NAME>
+<RETURNS>void </RETURNS>
+mblk_t *mp
+</FUNCTION>
+<FUNCTION>
+<NAME>dupb</NAME>
+<RETURNS>mblk_t *</RETURNS>
+mblk_t *m
+</FUNCTION>
+<FUNCTION>
+<NAME>dupmsg</NAME>
+<RETURNS>mblk_t	*</RETURNS>
+mblk_t* m
+</FUNCTION>
+<MACRO>
+<NAME>FLUSHALL</NAME>
+#define FLUSHALL 0
+</MACRO>
+<FUNCTION>
+<NAME>flushq</NAME>
+<RETURNS>void </RETURNS>
+queue_t *q, int how
+</FUNCTION>
+<FUNCTION>
+<NAME>msgdsize</NAME>
+<RETURNS>gint </RETURNS>
+mblk_t *mp
+</FUNCTION>
+<FUNCTION>
+<NAME>msgpullup</NAME>
+<RETURNS>mblk_t *</RETURNS>
+mblk_t *mp,int len
+</FUNCTION>
+<FUNCTION>
+<NAME>copyb</NAME>
+<RETURNS>mblk_t *</RETURNS>
+mblk_t *mp
+</FUNCTION>
+<FUNCTION>
+<NAME>copymsg</NAME>
+<RETURNS>mblk_t *</RETURNS>
+mblk_t *mp
+</FUNCTION>
+<USER_FUNCTION>
+<NAME>RtpTimerFunc</NAME>
+<RETURNS>void </RETURNS>
+void
+</USER_FUNCTION>
+<STRUCT>
+<NAME>RtpTimer</NAME>
+struct _RtpTimer
+{
+	gint state;
+#define RTP_TIMER_RUNNING 1
+#define RTP_TIMER_STOPPED 0
+	RtpTimerFunc timer_init;
+	RtpTimerFunc timer_do;
+	RtpTimerFunc timer_uninit;
+	struct timeval interval;
+};
+</STRUCT>
+<STRUCT>
+<NAME>RtpTimer</NAME>
+</STRUCT>
+<FUNCTION>
+<NAME>rtp_timer_set_interval</NAME>
+<RETURNS>void </RETURNS>
+RtpTimer *timer, struct timeval *interval
+</FUNCTION>
+<VARIABLE>
+<NAME>posix_timer</NAME>
+extern RtpTimer posix_timer;
+</VARIABLE>
+<FUNCTION>
+<NAME>get_av_profile</NAME>
+<RETURNS>RtpProfile *</RETURNS>
+ void
+</FUNCTION>
+<FUNCTION>
+<NAME>get_telephone_event</NAME>
+<RETURNS>PayloadType *</RETURNS>
+ void
+</FUNCTION>
+<ENUM>
+<NAME>RtpSessionMode</NAME>
+typedef enum {
+	RTP_SESSION_RECVONLY,
+	RTP_SESSION_SENDONLY,
+	RTP_SESSION_SENDRECV
+} RtpSessionMode;
+</ENUM>
+<ENUM>
+<NAME>RtpSessionFlags</NAME>
+typedef enum {
+	RTP_SESSION_RECV_SYNC=1,	/* the rtp session is synchronising in the incoming stream */
+	RTP_SESSION_SEND_SYNC=1<<1, /* the rtp session is synchronising in the outgoing stream */
+	RTP_SESSION_SCHEDULED=1<<2, /* the rtp session has to be scheduled */
+	RTP_SESSION_BLOCKING_MODE=1<<3, /* in blocking mode */
+	RTP_SESSION_RECV_NOT_STARTED=1<<4,	/* the application has not started to try to recv */
+	RTP_SESSION_SEND_NOT_STARTED=1<<5,  /* the application has not started to send something */
+	RTP_SESSION_IN_SCHEDULER=1<<6,	/* the rtp session is in the scheduler list */
+	RTP_SESSION_USING_EXT_SOCKETS=1<<7 /* the session is using externaly supplied sockets */
+}RtpSessionFlags;
+</ENUM>
+<STRUCT>
+<NAME>RtpSession</NAME>
+</STRUCT>
+<STRUCT>
+<NAME>RtpSession</NAME>
+struct _RtpSession
+{
+	RtpSession *next;	/* next RtpSession, when the session are enqueued by the scheduler */
+	RtpProfile *profile;
+	GMutex *lock;
+	guint32 ssrc;
+	gint payload_type;
+	gint max_buf_size;
+#ifdef TARGET_IS_HPUXKERNEL
+	mblk_t *dest_mproto; 	/* a M_PROTO that contains the destination address for outgoing packets*/
+#endif
+	RtpSignalTable on_ssrc_changed;
+	RtpSignalTable on_payload_type_changed;
+	RtpSignalTable on_telephone_event_packet;
+	RtpSignalTable on_telephone_event;
+	RtpSignalTable on_timestamp_jump;
+	RtpStream rtp;
+	RtcpStream rtcp;
+	RtpSessionMode mode;
+#ifdef BUILD_SCHEDULER
+	struct _RtpScheduler *sched;
+#endif
+	guint32 flags;
+	rtp_stats_t stats;
+	gint mask_pos;	/* the position in the scheduler mask of RtpSession */
+	gpointer user_data;
+	
+	/* telephony events extension */
+	gint telephone_events_pt;	/* the payload type used for telephony events */
+	mblk_t *current_tev;		/* the pending telephony events */
+	
+	#ifdef RTCP
+	GList *contributing_sources;
+	#endif
+
+    gint32 lastTS;
+	gint32 lastDTMFTS;
+    gint32 lastSN;
+    gint32 isBridgeStarted;
+
+};
+</STRUCT>
+<FUNCTION>
+<NAME>rtp_session_init</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, gint mode
+</FUNCTION>
+<MACRO>
+<NAME>rtp_session_set_rq</NAME>
+#define rtp_session_set_rq(s,q) (s)->rtp.rq=(q)
+</MACRO>
+<MACRO>
+<NAME>rtp_session_set_wq</NAME>
+#define rtp_session_set_wq(s,q) (s)->rtp.wq=(q)
+</MACRO>
+<MACRO>
+<NAME>rtp_session_lock</NAME>
+#define rtp_session_lock(session) 	g_mutex_lock(session->lock)
+</MACRO>
+<MACRO>
+<NAME>rtp_session_unlock</NAME>
+#define rtp_session_unlock(session) g_mutex_unlock(session->lock)
+</MACRO>
+<FUNCTION>
+<NAME>rtp_session_new</NAME>
+<RETURNS>RtpSession *</RETURNS>
+gint mode
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_scheduling_mode</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, gint yesno
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_blocking_mode</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, gint yesno
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_profile</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session,RtpProfile *profile
+</FUNCTION>
+<MACRO>
+<NAME>rtp_session_get_profile</NAME>
+#define rtp_session_get_profile(session)	(session)->profile
+</MACRO>
+<MACRO>
+<NAME>rtp_session_set_flag</NAME>
+#define rtp_session_set_flag(session,flag) (session)->flags|=(flag)
+</MACRO>
+<MACRO>
+<NAME>rtp_session_unset_flag</NAME>
+#define rtp_session_unset_flag(session,flag) (session)->flags&=~(flag)
+</MACRO>
+<FUNCTION>
+<NAME>rtp_session_signal_connect</NAME>
+<RETURNS>int </RETURNS>
+RtpSession *session,char *signal, RtpCallback cb, gpointer user_data
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_signal_disconnect_by_callback</NAME>
+<RETURNS>int </RETURNS>
+RtpSession *session,char *signal, RtpCallback cb
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_ssrc</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, guint32 ssrc
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_seq_number</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, guint16 seq
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_get_seq_number</NAME>
+<RETURNS>guint16 </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_jitter_compensation</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, int milisec
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_local_addr</NAME>
+<RETURNS>int </RETURNS>
+RtpSession *session,gchar *addr, gint port, const char *ifname
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_remote_addr</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session,struct sockaddr_in *dest
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_remote_addr</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session,gchar *addr, gint port, const char *ifname
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_sockets</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, gint rtpfd, gint rtcpfd
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_payload_type</NAME>
+<RETURNS>int </RETURNS>
+RtpSession *session, int paytype
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_get_payload_type</NAME>
+<RETURNS>int </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_set_timeout</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session,guint timeout
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_recvm_with_ts</NAME>
+<RETURNS>mblk_t *</RETURNS>
+RtpSession * session, guint32 user_ts, RtpSession * cross_session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_create_packet</NAME>
+<RETURNS>mblk_t *</RETURNS>
+RtpSession *session,gint header_size, char *payload, gint payload_size, gint markBit
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_sendm_with_ts</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession * session, mblk_t *mp, guint32 userts
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_recv_with_ts</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session, gchar *buffer, gint len, guint32 time,gint *have_more, gint type, RtpSession *cross_session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_send_with_ts</NAME>
+<RETURNS>gint </RETURNS>
+RtpSession *session, gchar *buffer, gint len, guint32 userts, gint type, gint markBit
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_get_current_send_ts</NAME>
+<RETURNS>guint32 </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_get_current_recv_ts</NAME>
+<RETURNS>guint32 </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_reset</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_uninit</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_destroy</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session
+</FUNCTION>
+<MACRO>
+<NAME>rtp_session_get_stats</NAME>
+#define rtp_session_get_stats(session) (&(session)->stats)
+</MACRO>
+<MACRO>
+<NAME>rtp_session_reset_stats</NAME>
+#define rtp_session_reset_stats(session)	memset(&(session)->stats,0,sizeof(rtp_stats_t))
+</MACRO>
+<MACRO>
+<NAME>rtp_session_set_data</NAME>
+#define rtp_session_set_data(session,data)	(session)->user_data=(data)
+</MACRO>
+<MACRO>
+<NAME>rtp_session_get_data</NAME>
+#define rtp_session_get_data(session,data)	((session)->user_data)
+</MACRO>
+<MACRO>
+<NAME>rtp_session_max_buf_size_set</NAME>
+#define rtp_session_max_buf_size_set(session,bufsize)	(session)->max_buf_size=(bufsize)
+</MACRO>
+<FUNCTION>
+<NAME>rtp_parse</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, mblk_t *mp, int putInQueue
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_ts_to_t</NAME>
+<RETURNS>guint32 </RETURNS>
+RtpSession *session,guint32 timestamp
+</FUNCTION>
+<MACRO>
+<NAME>rtp_set_markbit</NAME>
+#define rtp_set_markbit(mp,value)		((rtp_header_t*)((mp)->b_rptr))->markbit=(value)
+</MACRO>
+<MACRO>
+<NAME>rtp_set_seqnumber</NAME>
+#define rtp_set_seqnumber(mp,seq)	((rtp_header_t*)((mp)->b_rptr))->seq_number=(seq)
+</MACRO>
+<MACRO>
+<NAME>rtp_set_timestamp</NAME>
+#define rtp_set_timestamp(mp,ts)	((rtp_header_t*)((mp)->b_rptr))->timestamp=(ts)
+</MACRO>
+<MACRO>
+<NAME>rtp_set_ssrc</NAME>
+#define rtp_set_ssrc(mp,_ssrc)		((rtp_header_t*)((mp)->b_rptr))->ssrc=(_ssrc)
+</MACRO>
+<FUNCTION>
+<NAME>rtp_add_csrc</NAME>
+<RETURNS>void </RETURNS>
+mblk_t *mp,guint32 csrc
+</FUNCTION>
+<MACRO>
+<NAME>rtp_set_payload_type</NAME>
+#define rtp_set_payload_type(mp,pt)	((rtp_header_t*)((mp)->b_rptr))->paytype=(pt)
+</MACRO>
+<FUNCTION>
+<NAME>rtp_session_add_contributing_source</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *session, guint32 csrc,gchar *cname, gchar *name, gchar *email,gchar *phone, gchar *loc, gchar *tool, gchar *note
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_remove_contributing_sources</NAME>
+<RETURNS>mblk_t *</RETURNS>
+RtpSession *session, guint32 ssrc
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_session_create_rtcp_sdes_packet</NAME>
+<RETURNS>mblk_t*</RETURNS>
+RtpSession *session
+</FUNCTION>
+<MACRO>
+<NAME>HAVE_GLIB</NAME>
+#define HAVE_GLIB 1
+</MACRO>
+<MACRO>
+<NAME>RTP_DEBUG</NAME>
+#define RTP_DEBUG 1
+</MACRO>
+<MACRO>
+<NAME>BUILD_SCHEDULER</NAME>
+#define BUILD_SCHEDULER 1
+</MACRO>
+<FUNCTION>
+<NAME>close_socket</NAME>
+<RETURNS>int </RETURNS>
+gint sock
+</FUNCTION>
+<MACRO>
+<NAME>pthread_t</NAME>
+	#define pthread_t	HANDLE
+</MACRO>
+<FUNCTION>
+<NAME>pthread_create</NAME>
+<RETURNS>int </RETURNS>
+pthread_t *thread,const void *attr,void *(__cdecl *start)(void *),void* arg
+</FUNCTION>
+<FUNCTION>
+<NAME>pthread_join</NAME>
+<RETURNS>int </RETURNS>
+pthread_t thread,void **
+</FUNCTION>
+<FUNCTION>
+<NAME>close_socket</NAME>
+<RETURNS>int </RETURNS>
+SOCKET sock
+</FUNCTION>
+<FUNCTION>
+<NAME>inet_aton</NAME>
+<RETURNS>int </RETURNS>
+const char * cp, struct in_addr * addr
+</FUNCTION>
+<FUNCTION>
+<NAME>set_non_blocking_socket</NAME>
+<RETURNS>int </RETURNS>
+RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>set_thread_priority</NAME>
+<RETURNS>int </RETURNS>
+
+</FUNCTION>
+<MACRO>
+<NAME>ORTP_FD_SET</NAME>
+#define ORTP_FD_SET(d, s)     FD_SET(d, s)
+</MACRO>
+<MACRO>
+<NAME>ORTP_FD_CLR</NAME>
+#define ORTP_FD_CLR(d, s)     FD_CLR(d, s)
+</MACRO>
+<MACRO>
+<NAME>ORTP_FD_ISSET</NAME>
+#define ORTP_FD_ISSET(d, s)   FD_ISSET(d, s)
+</MACRO>
+<MACRO>
+<NAME>ORTP_FD_ZERO</NAME>
+#define ORTP_FD_ZERO(s)		  FD_ZERO(s)
+</MACRO>
+<TYPEDEF>
+<NAME>ortp_fd_set</NAME>
+typedef fd_set ortp_fd_set;
+</TYPEDEF>
+<MACRO>
+<NAME>ORTP_FD_ZERO</NAME>
+#define ORTP_FD_ZERO(s) \
+  do {									      \
+    unsigned int __i;							      \
+    ortp_fd_set *__arr = (s);						      \
+    for (__i = 0; __i < sizeof (ortp_fd_set) / sizeof (ortp__fd_mask); ++__i)	      \
+      ORTP__FDS_BITS (__arr)[__i] = 0;					      \
+  } while (0)
+</MACRO>
+<MACRO>
+<NAME>ORTP_FD_SET</NAME>
+#define ORTP_FD_SET(d, s)     (ORTP__FDS_BITS (s)[ORTP__FDELT(d)] |= ORTP__FDMASK(d))
+</MACRO>
+<MACRO>
+<NAME>ORTP_FD_CLR</NAME>
+#define ORTP_FD_CLR(d, s)     (ORTP__FDS_BITS (s)[ORTP__FDELT(d)] &= ~ORTP__FDMASK(d))
+</MACRO>
+<MACRO>
+<NAME>ORTP_FD_ISSET</NAME>
+#define ORTP_FD_ISSET(d, s)   ((ORTP__FDS_BITS (s)[ORTP__FDELT(d)] & ORTP__FDMASK(d)) != 0)
+</MACRO>
+<TYPEDEF>
+<NAME>ortp__fd_mask</NAME>
+typedef long int ortp__fd_mask;
+</TYPEDEF>
+<MACRO>
+<NAME>ORTP__FD_SETSIZE</NAME>
+#define ORTP__FD_SETSIZE 1024
+</MACRO>
+<MACRO>
+<NAME>ORTP__NFDBITS</NAME>
+#define ORTP__NFDBITS	(8 * sizeof (ortp__fd_mask))
+</MACRO>
+<MACRO>
+<NAME>ORTP__FDELT</NAME>
+#define	ORTP__FDELT(d)	((d) / ORTP__NFDBITS)
+</MACRO>
+<MACRO>
+<NAME>ORTP__FDMASK</NAME>
+#define	ORTP__FDMASK(d)	((ortp__fd_mask) 1 << ((d) % ORTP__NFDBITS))
+</MACRO>
+<MACRO>
+<NAME>ORTP__FDS_BITS</NAME>
+# define ORTP__FDS_BITS(set) ((set)->fds_bits)
+</MACRO>
+<STRUCT>
+<NAME>SessionSet</NAME>
+struct _SessionSet
+{
+	ortp_fd_set rtpset;
+};
+</STRUCT>
+<STRUCT>
+<NAME>SessionSet</NAME>
+</STRUCT>
+<FUNCTION>
+<NAME>session_set_new</NAME>
+<RETURNS>SessionSet *</RETURNS>
+
+</FUNCTION>
+<MACRO>
+<NAME>session_set_init</NAME>
+#define session_set_init(ss)		ORTP_FD_ZERO(&(ss)->rtpset)
+</MACRO>
+<MACRO>
+<NAME>session_set_set</NAME>
+#define session_set_set(ss,rtpsession)		ORTP_FD_SET((rtpsession)->mask_pos,&(ss)->rtpset)
+</MACRO>
+<MACRO>
+<NAME>session_set_is_set</NAME>
+#define session_set_is_set(ss,rtpsession)	ORTP_FD_ISSET((rtpsession)->mask_pos,&(ss)->rtpset)
+</MACRO>
+<MACRO>
+<NAME>session_set_clr</NAME>
+#define session_set_clr(ss,rtpsession)		ORTP_FD_CLR((rtpsession)->mask_pos,&(ss)->rtpset)
+</MACRO>
+<MACRO>
+<NAME>session_set_copy</NAME>
+#define session_set_copy(dest,src)		memcpy(&(dest)->rtpset,&(src)->rtpset,sizeof(ortp_fd_set))
+</MACRO>
+<FUNCTION>
+<NAME>session_set_destroy</NAME>
+<RETURNS>void </RETURNS>
+SessionSet *set
+</FUNCTION>
+<FUNCTION>
+<NAME>session_set_select</NAME>
+<RETURNS>int </RETURNS>
+SessionSet *recvs, SessionSet *sends, SessionSet *errors
+</FUNCTION>
+<STRUCT>
+<NAME>RtpScheduler</NAME>
+struct _RtpScheduler {
+ 
+	RtpSession *list;	/* list of scheduled sessions*/
+	SessionSet	all_sessions;  /* mask of scheduled sessions */
+	gint		all_max;		/* the highest pos in the all mask */
+	SessionSet  r_sessions;		/* mask of sessions that have a recv event */
+	gint		r_max;
+	SessionSet	w_sessions;		/* mask of sessions that have a send event */
+	gint 		w_max;
+	SessionSet	e_sessions;	/* mask of session that have error event */
+	gint		e_max;
+	gint max_sessions;		/* the number of position in the masks */
+  /* GMutex  *unblock_select_mutex; */
+	GCond   *unblock_select_cond;
+	GMutex	*lock;
+	GThread *thread;
+	gint thread_running;
+	struct _RtpTimer *timer;
+	guint32 time_;       /*number of miliseconds elapsed since the start of the thread */
+	guint32 timer_inc;	/* the timer increment in milisec */
+};
+</STRUCT>
+<STRUCT>
+<NAME>RtpScheduler</NAME>
+</STRUCT>
+<FUNCTION>
+<NAME>rtp_scheduler_new</NAME>
+<RETURNS>RtpScheduler *</RETURNS>
+
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_scheduler_set_timer</NAME>
+<RETURNS>void </RETURNS>
+RtpScheduler *sched,RtpTimer *timer
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_scheduler_start</NAME>
+<RETURNS>void </RETURNS>
+RtpScheduler *sched
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_scheduler_stop</NAME>
+<RETURNS>void </RETURNS>
+RtpScheduler *sched
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_scheduler_destroy</NAME>
+<RETURNS>void </RETURNS>
+RtpScheduler *sched
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_scheduler_add_session</NAME>
+<RETURNS>void </RETURNS>
+RtpScheduler *sched, RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_scheduler_remove_session</NAME>
+<RETURNS>void </RETURNS>
+RtpScheduler *sched, RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_scheduler_schedule</NAME>
+<RETURNS>gpointer </RETURNS>
+gpointer sched
+</FUNCTION>
+<MACRO>
+<NAME>rtp_scheduler_lock</NAME>
+#define rtp_scheduler_lock(sched)	g_mutex_lock((sched)->lock)
+</MACRO>
+<MACRO>
+<NAME>rtp_scheduler_unlock</NAME>
+#define rtp_scheduler_unlock(sched)	g_mutex_unlock((sched)->lock)
+</MACRO>
+<MACRO>
+<NAME>EOPNOTSUPP</NAME>
+#define EOPNOTSUPP 1000
+</MACRO>
+<MACRO>
+<NAME>EWOULDBLOCK</NAME>
+#define EWOULDBLOCK WSAEWOULDBLOCK
+</MACRO>
+<FUNCTION>
+<NAME>rtp_putq</NAME>
+<RETURNS>void </RETURNS>
+queue_t *q, mblk_t *mp
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_getq</NAME>
+<RETURNS>mblk_t *</RETURNS>
+queue_t *q,guint32 timestamp
+</FUNCTION>
+<MACRO>
+<NAME>RTCP_COMMON_HEADER_SIZE</NAME>
+#define RTCP_COMMON_HEADER_SIZE 4
+</MACRO>
+<MACRO>
+<NAME>RTCP_SENDER_INFO_SIZE</NAME>
+#define RTCP_SENDER_INFO_SIZE 20
+</MACRO>
+<MACRO>
+<NAME>RTCP_REPORT_BLOCK_SIZE</NAME>
+#define RTCP_REPORT_BLOCK_SIZE 24
+</MACRO>
+<MACRO>
+<NAME>RTCP_SDES_MAX_STRING_SIZE</NAME>
+#define RTCP_SDES_MAX_STRING_SIZE 255
+</MACRO>
+<MACRO>
+<NAME>RTCP_SDES_ITEM_HEADER_SIZE</NAME>
+#define RTCP_SDES_ITEM_HEADER_SIZE 2
+</MACRO>
+<ENUM>
+<NAME>rtcp_type_t</NAME>
+typedef enum {
+    RTCP_SR	= 200,
+    RTCP_RR	= 201,
+    RTCP_SDES	= 202,
+    RTCP_BYE	= 203,
+    RTCP_APP	= 204
+} rtcp_type_t;
+</ENUM>
+<ENUM>
+<NAME>rtcp_sdes_type_t</NAME>
+typedef enum {
+    RTCP_SDES_END		= 0,
+    RTCP_SDES_CNAME 	= 1,
+    RTCP_SDES_NAME	= 2,
+    RTCP_SDES_EMAIL	= 3,
+    RTCP_SDES_PHONE	= 4,
+    RTCP_SDES_LOC		= 5,
+    RTCP_SDES_TOOL	= 6,
+    RTCP_SDES_NOTE	= 7,
+    RTCP_SDES_PRIV		= 8,
+    RTCP_SDES_MAX		= 9
+} rtcp_sdes_type_t;
+</ENUM>
+<MACRO>
+<NAME>HAVE_GLIB</NAME>
+#define HAVE_GLIB
+</MACRO>
+<TYPEDEF>
+<NAME>guint64</NAME>
+typedef  uint64_t guint64;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>guint16</NAME>
+typedef  uint16_t guint16;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>guint32</NAME>
+typedef  uint32_t guint32;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>gint16</NAME>
+typedef  signed short gint16;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>gint32</NAME>
+typedef  int32_t gint32;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>guint</NAME>
+typedef  unsigned int guint;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>gint</NAME>
+typedef  int gint;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>gchar</NAME>
+typedef  char gchar;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>guchar</NAME>
+typedef  unsigned char guchar;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>guint8</NAME>
+typedef  unsigned char guint8;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>gpointer</NAME>
+typedef  void* gpointer;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>gboolean</NAME>
+typedef int gboolean;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>gdouble</NAME>
+typedef double gdouble;
+</TYPEDEF>
+<MACRO>
+<NAME>g_return_if_fail</NAME>
+#define g_return_if_fail(expr) if (!(expr)) {printf("%s:%i- assertion #expr failed\n",__FILE__,__LINE__); return;}
+</MACRO>
+<MACRO>
+<NAME>g_return_val_if_fail</NAME>
+#define g_return_val_if_fail(expr,ret) if (!(expr)) {printf("%s:%i- assertion #expr failed\n",__FILE__,__LINE__); return (ret);}
+</MACRO>
+<ENUM>
+<NAME>GLogLevelFlags</NAME>
+typedef enum {
+	/* GLib log levels */
+  G_LOG_LEVEL_ERROR             = 1 << 2,       /* always fatal */
+  G_LOG_LEVEL_CRITICAL          = 1 << 3,
+  G_LOG_LEVEL_WARNING           = 1 << 4,
+  G_LOG_LEVEL_MESSAGE           = 1 << 5,
+  G_LOG_LEVEL_MASK              = ~0
+
+} GLogLevelFlags;
+</ENUM>
+<MACRO>
+<NAME>G_LOG_DOMAIN</NAME>
+#define G_LOG_DOMAIN ""
+</MACRO>
+<FUNCTION>
+<NAME>g_log</NAME>
+<RETURNS>void </RETURNS>
+const gchar *log_domain,GLogLevelFlags log_level,const gchar *format,...
+</FUNCTION>
+<FUNCTION>
+<NAME>g_logv</NAME>
+<RETURNS>void </RETURNS>
+const gchar *log_domain,GLogLevelFlags log_level,const gchar *format,va_list args
+</FUNCTION>
+<USER_FUNCTION>
+<NAME>GLogFunc</NAME>
+<RETURNS>void </RETURNS>
+const gchar *log_domain,
+                                          GLogLevelFlags log_level,
+                                           const gchar *message,
+                                           gpointer user_data
+</USER_FUNCTION>
+<FUNCTION>
+<NAME>g_log_set_handler</NAME>
+<RETURNS>void </RETURNS>
+const gchar *domain, GLogLevelFlags levels, GLogFunc func, gpointer ud
+</FUNCTION>
+<MACRO>
+<NAME>htons</NAME>
+#define htons(x)	(x)
+</MACRO>
+<MACRO>
+<NAME>htonl</NAME>
+#define htonl(x)	(x)
+</MACRO>
+<MACRO>
+<NAME>ntohs</NAME>
+#define ntohs(x)	(x)
+</MACRO>
+<MACRO>
+<NAME>ntohl</NAME>
+#define ntohl(x)	(x)
+</MACRO>
+<MACRO>
+<NAME>memcpy</NAME>
+#define memcpy(dest,src,size)	bcopy((src),(dest),(size))
+</MACRO>
+<MACRO>
+<NAME>memset</NAME>
+#define memset(p,v,n)		do { int _i; for (_i=0;_i<(n);_i++) ((char*)(p))[_i]=(v);}while (0)
+</MACRO>
+<TYPEDEF>
+<NAME>GMutex</NAME>
+typedef lock_t GMutex;
+</TYPEDEF>
+<MACRO>
+<NAME>g_mutex_lock</NAME>
+#define g_mutex_lock(mutex)	spinlock((mutex))
+</MACRO>
+<MACRO>
+<NAME>g_mutex_unlock</NAME>
+#define g_mutex_unlock(mutex) spinunlock((mutex))
+</MACRO>
+<MACRO>
+<NAME>g_mutex_free</NAME>
+#define g_mutex_free(mutex)	FREE((void*)(mutex),M_SPINLOCK)
+</MACRO>
+<MACRO>
+<NAME>g_free</NAME>
+#define g_free(p)	FREE(p,M_IOSYS)
+</MACRO>
+<VARIABLE>
+<NAME>ortp_allocations</NAME>
+extern gint ortp_allocations;
+</VARIABLE>
+<MACRO>
+<NAME>g_new</NAME>
+#define g_new(type,count)   (type *)g_malloc(sizeof(type)*(count))
+</MACRO>
+<MACRO>
+<NAME>g_new0</NAME>
+#define g_new0(type, count)	(type *)g_malloc0(sizeof(type)*(count))
+</MACRO>
+<MACRO>
+<NAME>g_realloc</NAME>
+#define g_realloc(p,sz) realloc((p),(sz))
+</MACRO>
+<MACRO>
+<NAME>g_strdup</NAME>
+#define g_strdup(machin)	strdup(machin)
+</MACRO>
+<TYPEDEF>
+<NAME>GMutex</NAME>
+typedef pthread_mutex_t GMutex;
+</TYPEDEF>
+<ENUM>
+<NAME>GThreadPriority</NAME>
+typedef enum
+{
+  G_THREAD_PRIORITY_LOW,
+  G_THREAD_PRIORITY_NORMAL,
+  G_THREAD_PRIORITY_HIGH,
+  G_THREAD_PRIORITY_URGENT
+} GThreadPriority;
+</ENUM>
+<TYPEDEF>
+<NAME>GThread</NAME>
+typedef pthread_t GThread;
+</TYPEDEF>
+<USER_FUNCTION>
+<NAME>GThreadFunc</NAME>
+<RETURNS>gpointer </RETURNS>
+gpointer data
+</USER_FUNCTION>
+<MACRO>
+<NAME>g_mutex_lock</NAME>
+#define g_mutex_lock(mutex)	  pthread_mutex_lock((mutex))
+</MACRO>
+<MACRO>
+<NAME>g_mutex_unlock</NAME>
+#define g_mutex_unlock(mutex)  pthread_mutex_unlock((mutex))
+</MACRO>
+<MACRO>
+<NAME>g_mutex_free</NAME>
+#define g_mutex_free(mutex)		pthread_mutex_destroy((mutex));g_free((mutex))
+</MACRO>
+<TYPEDEF>
+<NAME>GCond</NAME>
+typedef pthread_cond_t GCond;
+</TYPEDEF>
+<MACRO>
+<NAME>g_cond_wait</NAME>
+#define g_cond_wait(cond,mutex)	pthread_cond_wait((cond),(mutex))
+</MACRO>
+<MACRO>
+<NAME>g_cond_signal</NAME>
+#define g_cond_signal(cond)		pthread_cond_signal((cond))
+</MACRO>
+<MACRO>
+<NAME>g_cond_broadcast</NAME>
+#define g_cond_broadcast(cond)	pthread_cond_broadcast((cond))
+</MACRO>
+<MACRO>
+<NAME>g_cond_free</NAME>
+#define g_cond_free(cond)		pthread_cond_destroy((cond)); g_free((cond))
+</MACRO>
+<MACRO>
+<NAME>g_thread_init</NAME>
+#define g_thread_init(vtable)
+</MACRO>
+<MACRO>
+<NAME>g_thread_supported</NAME>
+#define g_thread_supported()	(1)
+</MACRO>
+<MACRO>
+<NAME>ortp_debug</NAME>
+#define ortp_debug
+</MACRO>
+<MACRO>
+<NAME>ortp_debug</NAME>
+#define ortp_debug	g_message
+</MACRO>
+<FUNCTION>
+<NAME>getSocketError</NAME>
+<RETURNS>char *</RETURNS>
+
+</FUNCTION>
+<MACRO>
+<NAME>getSocketError</NAME>
+#define getSocketError() strerror(errno)
+</MACRO>
+<MACRO>
+<NAME>RTP_CALLBACK_TABLE_MAX_ENTRIES</NAME>
+#define RTP_CALLBACK_TABLE_MAX_ENTRIES	10
+</MACRO>
+<USER_FUNCTION>
+<NAME>RtpCallback</NAME>
+<RETURNS>void </RETURNS>
+RtpSession *, ...
+</USER_FUNCTION>
+<STRUCT>
+<NAME>RtpSignalTable</NAME>
+struct _RtpSignalTable
+{
+	RtpCallback callback[RTP_CALLBACK_TABLE_MAX_ENTRIES];
+	gpointer	user_data[RTP_CALLBACK_TABLE_MAX_ENTRIES];
+	RtpSession *session;
+	gint count;
+};
+</STRUCT>
+<STRUCT>
+<NAME>RtpSignalTable</NAME>
+</STRUCT>
+<FUNCTION>
+<NAME>rtp_signal_table_init</NAME>
+<RETURNS>void </RETURNS>
+RtpSignalTable *table,RtpSession *session
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_signal_table_add</NAME>
+<RETURNS>int </RETURNS>
+RtpSignalTable *table,RtpCallback cb, gpointer user_data
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_signal_table_emit</NAME>
+<RETURNS>void </RETURNS>
+RtpSignalTable *table
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_signal_table_emit2</NAME>
+<RETURNS>void </RETURNS>
+RtpSignalTable *table, gpointer arg
+</FUNCTION>
+<FUNCTION>
+<NAME>rtp_signal_table_remove_by_callback</NAME>
+<RETURNS>int </RETURNS>
+RtpSignalTable *table,RtpCallback cb
+</FUNCTION>

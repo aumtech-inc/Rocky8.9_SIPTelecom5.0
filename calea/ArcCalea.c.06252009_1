@@ -1,0 +1,299 @@
+#include <iostream>
+#include <errno.h>
+#include <poll.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include "AppMessages.h"
+#include "Telecom.h"
+
+int 	GV_PortNum = -1;
+int 	GV_RequestFifoFd = -1;
+char 	GV_RequestFifo[32] = "";
+int 	GV_ResponseFifoFd = -1;
+char 	GV_ResponseFifo[32] = "";
+int		fifo_is_open = 0;
+
+int 	openChannelToDynMgr(int dynMgrId);
+int 	yGetDynMgrIdForAni(char *ani, int yDynMgrCount);
+int 	parseResponseMessage(char *Msg);
+int		getNumResources();
+int 	readResponseFromDynMgr(char *mod, int timeout, void *pMsg, int zMsgLength);
+int 	startCallRecordSilently(char *zFileName);
+int 	sendRequestToDynMgr(char *mod, struct MsgToDM *request);
+
+int main(int argc, char **argv)
+{
+	int	yRc = 0;
+	int canContinue = 1;
+	int yDynMgrCount = 0;
+	int yDynMgrId = -1;
+	char	ani[32] = "anonymous";
+	struct MsgToDM yMsgToDM;
+	struct MsgToApp response;
+
+#if 0
+	if(argc < 3)
+	{
+		printf("USAGE\n");fflush(stdout);
+		return 0;
+	}
+#endif
+
+	sprintf(GV_ResponseFifo, "/tmp/caleaAppRespFifo");
+
+	yDynMgrCount = getNumResources();
+	
+	for(int i=0; i<yDynMgrCount; i++)
+	{
+		openChannelToDynMgr(i);
+		yDynMgrId = yGetDynMgrIdForAni(ani, yDynMgrCount);
+	}
+
+	readResponseFromDynMgr( "", 10, &response, sizeof(response));
+		
+	switch(response.opcode)
+	{
+		case DMOP_GETPORTDETAILFORANI:
+			GV_PortNum = parseResponseMessage(response.message);	
+			break;
+		default:
+		/* Unexpected message. Logged in examineDynMgr... */
+			break;
+    }/* switch rc */
+
+	printf("RGDEBUG::Got port Num = %d\n", GV_PortNum);fflush(stdout);
+
+	startCallRecordSilently("");
+
+	exit(0);
+}
+
+int 	startCallRecordSilently(char *zFileName)
+{
+	char mod[] = "startCallRecordSilently";
+	struct Msg_StartRecordSilently  yMsgToDM;
+
+	yMsgToDM.opcode = DMOP_STARTRECORDSILENTLY;
+	yMsgToDM.appCallNum = GV_PortNum;
+	sprintf(yMsgToDM.inFilename, "/tmp/caleaInFile_%d", GV_PortNum);
+	sprintf(yMsgToDM.outFilename, "/tmp/caleaOutFile_%d", GV_PortNum);
+
+	sendRequestToDynMgr(mod, (MsgToDM *)&yMsgToDM);
+}
+
+int readResponseFromDynMgr(char *mod, int timeout, void *pMsg, int zMsgLength)
+{
+	int rc;
+	struct MsgToApp *response;
+	struct pollfd pollset[1];
+
+	memset(pMsg, 0, sizeof(struct MsgToApp));
+
+	if (!fifo_is_open)
+	{
+		if ((mknod(GV_ResponseFifo, S_IFIFO | 0666, 0) < 0)
+			&& (errno != EEXIST))
+		{
+			return(-1);
+		}
+
+		if ((GV_ResponseFifoFd = open(GV_ResponseFifo, O_RDWR)) < 0)
+		{
+			return(-1);
+		}
+
+		fifo_is_open = 1;
+	}
+		
+	pollset[0].fd = GV_ResponseFifoFd;
+	pollset[0].events = POLLIN;
+
+	if (timeout > 0 || timeout == -1)
+	{
+
+		if(timeout == -1)
+		{
+			rc = poll(pollset, 1, 10);
+		}
+		else
+		{
+			rc = poll(pollset, 1, timeout * 1000);
+		}
+
+		if(rc < 0)
+		{
+			return(-1);
+		}
+
+		if(pollset[0].revents == 0)
+		{
+/* Timed out waiting for data to read */
+			return(-2);
+		}
+		else
+		if(pollset[0].revents == 1)
+		{
+/* There is data to read. */
+		}
+		else
+		{
+/* Unexpected return code from poll */
+			return(-1);
+		}
+	}
+
+	rc = read(GV_ResponseFifoFd, (char *)pMsg, zMsgLength);
+		
+	response=(struct MsgToApp *)pMsg;
+	if(rc == -1)
+	{
+		return(-1);
+	}
+
+	return(0);
+}
+
+int  getNumResources()
+{
+    static  char    mod[]="getNumResources";
+    char    record[256];
+    FILE    *fp;
+    int     i;
+    char    *p;
+    char    *isp_base;
+    char 	resource_file[128];
+	int 	numResources;
+
+    if((isp_base=(char *)getenv("ISPBASE")) == NULL)
+    {
+		printf("RGDEBUG::failed to get ispbase\n");fflush(stdout);
+        numResources = 1;
+        return(0);
+    }
+
+    sprintf(resource_file, "%s/Telecom/Tables/ResourceDefTab", isp_base);
+    numResources = 0;
+    i = 0;
+    if((fp=fopen(resource_file, "r")) == NULL)
+    {
+        printf("Can't open file %s. [%d, %s]  Defaulting to 48 ports.\n",
+                resource_file, errno, strerror(errno));
+        return(numResources);
+    }
+
+    while( fgets(record, sizeof(record), fp) != NULL)
+    {
+        if( (p = strstr(record, "DCHANNEL")) != (char *)NULL)
+        {
+            continue;
+        }
+        i++;
+    }
+
+    (void) fclose(fp);
+    numResources = i/48;
+
+    return(numResources);
+
+} // END: getNumResources()
+
+
+int parseResponseMessage(char *responseMessage)
+{
+	FILE *fp;
+	int yRc = -1;
+	struct stat yStat;
+	char portDetails[256];
+
+	if( (yRc = stat(responseMessage, &yStat)) < 0)
+    {
+        return(-1);
+    }
+
+	fp = fopen(responseMessage, "r");
+	if(fp == NULL)
+	{
+		return -1;
+	}
+
+	fread(portDetails, yStat.st_size, 1, fp);
+
+	fclose(fp);
+
+	unlink(responseMessage);
+	
+	sscanf (portDetails, "PORT_NUM=%d", &yRc);
+	
+	return yRc;
+}
+
+int openChannelToDynMgr(int dynMgrId)
+{
+
+	sprintf(GV_RequestFifo, "/tmp/RequestFifo.%d", dynMgrId);
+
+    if ( (GV_RequestFifoFd = open(GV_RequestFifo, O_WRONLY)) < 0)
+    {
+        return(-1);
+    }
+    return(0);
+}
+
+int closeChannelToDynMgr(int dynMgrId)
+{
+    if (GV_RequestFifoFd > 0)
+    {
+        close(GV_RequestFifoFd);
+		GV_RequestFifoFd = -1;
+    }
+    return(0);
+}
+
+int sendRequestToDynMgr(char *mod, struct MsgToDM *request)
+{
+	int rc;
+    rc=write(GV_RequestFifoFd, (char *)request, sizeof(struct MsgToDM));
+    if (rc == -1)
+    {
+        return(-1);
+    }
+	return 0;
+}
+
+int yGetDynMgrIdForAni(char *ani, int yDynMgrCount)
+{
+	char mod[] = "yGetDynMgrIdForAni";
+    int rc;
+    struct MsgToApp response;
+	int canContinue = 1;
+	struct MsgToDM yMsgToDM;
+
+	yMsgToDM.opcode = DMOP_GETPORTDETAILFORANI;
+	yMsgToDM.appCallNum = -1;
+	sprintf(yMsgToDM.data, "%s", ani);
+
+	sendRequestToDynMgr(mod, &yMsgToDM);
+
+#if 0
+	while(1)
+	{
+		readResponseFromDynMgr(mod, 60, &response, sizeof(response));
+		//rc = examineDynMgrResponse(mod, yMsgToDM, &response, 0);
+		
+		switch(response.opcode)
+		{
+        	case DMOP_GETPORTDETAILFORANI:
+            	break;
+        	default:
+				break;
+    	}/* switch rc */
+
+		if(!canContinue)
+		{
+			break;
+		}
+	}
+#endif
+}

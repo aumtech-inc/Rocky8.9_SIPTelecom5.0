@@ -1,0 +1,61 @@
+#----------------------------------------------------------------------------
+# Program:	Makefile 
+# Purpose:	Make file for creating the licensing library.
+#		This make file makes license.o and getmac and archives them
+#		into libarcLicense.a.
+# Author:	George Wenzel
+# Date:		10/25/2000
+#----------------------------------------------------------------------------
+CC		=	gcc	-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+AR		= 	ar
+ECHO		=	echo
+
+FLEXLM=/home/license/flexNET.11.5
+FLEXLM_INC=${FLEXLM}/machind
+FLEXLM_LIB=${FLEXLM}/lib
+
+LIB_NO_LICENSE=${FLEXLM_LIB}/libarcLicenseV11.5_noLicense.a
+LIB_NO_LICENSE_WITH_HANDLE=${FLEXLM_LIB}/libarcLicenseV11.5_noLicense_with_handleLic.a
+
+SYSLIBS="-lnsl -lsocket -lgen -lelf"
+INCLUDE= -I ${FLEXLM_INC} -I .
+
+HEADERS= ${FLEXLM_INC}/lmpolicy.h  license.h 
+
+CFLAGS=-ggdb3
+
+LIB_NO_LICENSE_OBJECTS=license_noLicense.o getmac.o
+LIB_NO_LICENSE_WITH_HANDLE_OBJECTS=license_noLicense_withHandleLic.o getmac.o
+
+EXEC_SIP		=	arcLicense.sip
+EXEC_SDM		=	arcLicense.sdm
+
+EXEC2			=	testLic
+
+all:	${LIB_NO_LICENSE} ${LIB_NO_LICENSE_WITH_HANDLE}
+
+${LIB_NO_LICENSE}: ${LIB_NO_LICENSE_OBJECTS}
+	@${ECHO} "Building library ${LIB_NO_LICENSE}"   
+	@${AR} ${ARFLAGS} ${LIB_NO_LICENSE} ${LIB_NO_LICENSE_OBJECTS}
+#	scp ${LIB_WITH_HANDLE_LIC} dev@maul:/home/dev/isp2.2/Common/flexNET/v11.5/lib
+
+${LIB_NO_LICENSE_WITH_HANDLE}: ${LIB_NO_LICENSE_WITH_HANDLE_OBJECTS}
+	@${ECHO} "Building library ${LIB_NO_LICENSE_WITH_HANDLE}"   
+	@${AR} ${ARFLAGS} ${LIB_NO_LICENSE_WITH_HANDLE} ${LIB_NO_LICENSE_WITH_HANDLE_OBJECTS}
+#	scp ${LIB_WITH_HANDLE_LIC} dev@maul:/home/dev/isp2.2/Common/flexNET/v11.5/lib
+
+clean:	
+	rm -f ${LIB_NO_LICENSE} ${LIB_NO_LICENSE_WITH_HANDLE}		\
+		${LIB_NO_LICENSE_OBJECTS}				\
+		${LIB_NO_LICENSE_WITH_HANDLE_OBJECTS}
+
+license_noLicense.o: license_noLicense.c       ${HEADERS}
+		@${ECHO} "Building license_noLicense.o"
+			${CC} ${CFLAGS} ${INCLUDE} 	\
+				-o license_noLicense.o	-c license_noLicense.c
+
+license_noLicense_withHandleLic.o: license_noLicense.c       ${HEADERS}
+		@${ECHO} "Building license_noLicense_withHandleLic.o"
+			${CC} ${CFLAGS} -DWITH_HANDLE_LIC ${INCLUDE} 	\
+				-o license_noLicense_withHandleLic.o	\
+				-c license_noLicense.c

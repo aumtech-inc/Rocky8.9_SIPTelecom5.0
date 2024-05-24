@@ -1,0 +1,5 @@
+# Example SIP Redirector Tables
+#
+# Format:
+# regex|127.0.0.1|127.0.0.1:5061|127.0.0.1:5062|127.0.0.1:5063
+#

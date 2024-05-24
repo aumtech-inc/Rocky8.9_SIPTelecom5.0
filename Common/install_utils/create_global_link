@@ -1,0 +1,35 @@
+#----------------------------------------------------------------------------
+# Program:	create_global_link
+# Purpose:	To check for and create the appropriate link so that 
+#		/home/$USER_ID/.ISP/Global exists.
+#		This script should be run at the start of the postinstall
+#		script for every ARC product.
+# Author:	George Wenzel
+# Date:		11/11/99
+#----------------------------------------------------------------------------
+create_global_link()
+{
+	DIR_LINKED_TO=/home/$USER_ID/ISP
+	LINK=/home/$USER_ID/.ISP/Global
+
+	# If $LINK exists as a directory and not as a link
+	if [ -d "$LINK" -a ! -h "$LINK" ]
+	then
+		echo "$LINK is a real directory. It must be a link. Exiting."
+		exit 1
+	fi
+
+	# If $LINK is not a link (i.e. it does not exist), then create it.
+	if [ ! -h "$LINK" ]
+	then
+		echo "Creating $LINK as a link..."
+		ln -s $DIR_LINKED_TO $LINK
+		if [ "$?" != "0" ]
+		then
+			echo "Failed to create $LINK as a link. Exiting."
+			exit 1
+		fi
+	else
+		echo "$LINK already exists as a link."
+	fi
+}

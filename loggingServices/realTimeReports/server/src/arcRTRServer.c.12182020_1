@@ -1,0 +1,435 @@
+/*-----------------------------------------------------------------------
+Program:	arcRTRServer.c
+Author:		Aumtech, Inc
+Date:		12-9-2020
+-----------------------------------------------------------------------*/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <dirent.h>
+
+// #include <rpc/des_crypt.h>
+
+#include "ss.h"
+#include "gaUtils.h"
+
+#include "log_defs.h"
+
+#define START_STR				"## START ##"
+#define END_STR					"## END"			// partial string
+#define END_AND_REMOVE_STR		"REMOVE SHADOW"		// partial string
+
+//#define MAXBUFF	512
+//#define	DIRECTORY_CREATION_PERMS	0755
+//#define	OPEN_MASK			0000
+
+/* #define DEBUG */
+//static char	LogFile1[PATHSZ];
+//static char	LogFile2[PATHSZ];
+//static char	Dir1[PATHSZ];
+//static char	BaseDir[PATHSZ];
+//char		msgbuf[256];
+
+
+typedef struct
+{
+	char		workDir[128];
+	char		processedDir[128];
+	char		uname[32];
+	char		filename[128];
+	char		adjustedFilename[256];
+	char		shadowFilename[256];
+	char		prevShadowFilename[256];
+	int			shadowIndex;
+	int			command;			// 1=start, 0=stop
+} SInfo;
+
+char		*gIspBase;
+SInfo		sInfo;
+
+//void		Exit();
+//static int	lValidateDirectory(char *iDirectory, char *oErrorMsg);
+static int parseCmdStr(char *zData);
+static int 	init();
+static int 	processFiles();
+static int createAdjustedFilename();
+static void printSInfo();
+
+main(int argc, char *argv[])
+{
+	static char	mod[]="main";
+	char		databuf[256];
+
+	int			rc, i;
+	long		recvdBytes;
+
+	static char	gaLogDir[256];
+	
+	if(argc == 2 && (strcmp(argv[1], "-v") == 0))
+	{
+		fprintf(stdout, 
+			"Aumtech's Logging Services (%s).\n"
+			"Version 2.3.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
+		exit(0);
+	}
+	sprintf(gaLogDir,"%s/LOG", (char *)getenv("ISPBASE"));
+	rc=gaSetGlobalString("$PROGRAM_NAME", argv[0]);
+	rc=gaSetGlobalString("$LOG_DIR", gaLogDir);
+	rc=gaSetGlobalString("$LOG_BASE", argv[0]);
+
+	if ((rc = init()) != 0)
+	{
+		exit(1);
+	}
+	
+	if ((rc = ss_Init(argc, argv)) != ss_SUCCESS)
+	{
+		gaVarLog(mod, 0,"ss_Init() failed.  rc=%d.", rc);
+		exit(3);
+	}
+	gaVarLog(mod, 1,"ss_Init() succeeded.  rc=%d.", rc);
+	
+	rc = processFiles();
+
+	ss_Exit();
+	exit(3);
+	
+}
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int processFiles()
+{
+	static char	mod[]="processFiles";
+	char		data[1024];
+	long		numBytes;
+	char		*p;
+	int			rc;
+	FILE		*fp;
+	char		workFile[256];
+	char		processedFile[256];
+	int			notEnd;
+
+	memset(data, 0, sizeof(data));
+	if ((rc=ss_RecvData(60, -1, data, &numBytes)) != ss_SUCCESS)
+	{
+		gaVarLog(mod, 0,"ss_RecvData() of transfer type failed.  rc=%d.", rc);
+		return(-1);
+	}
+	gaVarLog(mod, 1,"Successfully received (%s) from server.", data);
+
+	if ( (rc = parseCmdStr(data)) != 0)
+	{
+		; // TODO: handle error
+	}
+
+	if ( sInfo.command ) // START
+	{
+		if ( (rc = createAdjustedFilename()) != 0 )
+		{
+			; // TODO: handle error
+		}
+		printSInfo();
+
+		sprintf(workFile, "%s/%s", 
+				sInfo.workDir, sInfo.adjustedFilename);
+		sprintf(processedFile, "%s/%s", 
+				sInfo.processedDir, sInfo.adjustedFilename);
+		if ((fp = fopen(workFile, "w")) == NULL)
+		{
+			gaVarLog(mod, 0, "Unable to open %s for output.  [%d, %s] "
+				"Unable to receive (%s).", errno, strerror(errno), workFile);
+			return(-1);
+		}
+		gaVarLog(mod, 1, "Successfully opened destination file (%s).", workFile);
+
+		// Now receive the data and write it
+		notEnd=1;
+		while (notEnd)
+		{
+			memset(data, 0, sizeof(data));
+			if ((rc=ss_RecvData(60, -1, data, &numBytes)) != ss_SUCCESS)
+			{
+				gaVarLog(mod, 0,"ss_RecvData() of transfer type failed.  rc=%d.", rc);
+				fclose(fp);
+				return(-1);
+			}
+			gaVarLog(mod, 1,"Successfully received (%s) from server.", data);
+		
+			if ( ! strstr(data, END_STR ) )
+			{
+				fprintf(fp, "%s", data);
+				continue;
+			}
+
+			// we have the end string.  close it up.
+			fclose(fp);
+			if ( (rc = rename(workFile, processedFile)) != 0)
+			{
+				gaVarLog(mod, 0, "Failed to rename (%s) to (%s).  [%d, %s]",
+						workFile, processedFile);
+				// TODO
+			}
+			gaVarLog(mod, 1, "Moved (%s) to (%s).", workFile, processedFile);
+
+			if ( sInfo.prevShadowFilename[0] != '\0' )
+			{
+				sprintf(workFile, "%s/%s", sInfo.workDir, sInfo.prevShadowFilename);
+				if ( access(workFile, F_OK) == 0 )
+				{
+					unlink(workFile);
+					gaVarLog(mod, 1, "Removed (%s).", workFile);
+				}
+			}
+
+//			gaVarLog(mod, 0, "DJB: data:(%s) END_AND_REMOVE_STR(%s)", data, END_AND_REMOVE_STR);
+			if ( strstr(data, END_AND_REMOVE_STR ) )
+			{
+				sprintf(workFile, "%s/%s", sInfo.workDir, sInfo.shadowFilename);
+				if ((fp = fopen(workFile, "w")) == NULL)
+				{
+					gaVarLog(mod, 0, "Unable to open %s for output.  [%d, %s] "
+						"Unable to create shadow file (%s)", workFile);
+				}
+				fclose(fp);
+				gaVarLog(mod, 0, "Created shadow file (%s).", workFile);
+			}
+			notEnd = 0;
+		}
+	}
+
+	return(0);
+} // END: processFiles
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int createAdjustedFilename()
+{
+	static char		mod[]="createAdjustedFilename";
+	int				rc;
+ 	DIR				*dir;
+	struct dirent	*dirEntry;     
+	char			searchFile[256];
+	int				index;
+	char			*p;
+
+	if ( (dir = opendir(sInfo.workDir)) == NULL)
+	{
+		gaVarLog(mod, 0, "Unable to open directory (%s).  Cannot process (%s)",
+			sInfo.workDir, sInfo.filename);
+		return(-1);
+	}
+
+	//
+	// ex.  looking for shadow.testsys.CDR.2020-Dec07-13.for.<index>
+	//
+	sprintf(searchFile, "shadow.%s.%s", sInfo.uname, sInfo.filename);
+	index = -1;
+	gaVarLog(mod, 1, "Searching %s for %s", sInfo.workDir, searchFile);
+    while (dirEntry = readdir (dir))
+	{
+		if (strstr(dirEntry->d_name, searchFile) != (char *)NULL)
+		{
+			// found it.  Now get the index.
+			p=strrchr(dirEntry->d_name, '.');
+			p++;
+			index=atoi(p);
+			break;
+		}
+	}
+    (void) closedir (dir);
+
+	if ( index == -1 ) // not found
+	{
+		sInfo.shadowIndex = 0;
+		sprintf(sInfo.adjustedFilename, "%s.%s.%d",
+				sInfo.uname, sInfo.filename, sInfo.shadowIndex);
+		sprintf(sInfo.shadowFilename, "shadow.%s", sInfo.adjustedFilename);
+		sInfo.prevShadowFilename[0] = '\0';
+		gaVarLog(mod, 1, "DJB: not found - sInfo.adjustedFilename(%s)", sInfo.adjustedFilename);
+	}
+	else
+	{
+		sInfo.shadowIndex = index + 1;
+		sprintf(sInfo.adjustedFilename, "%s.%s.%d",
+				sInfo.uname, sInfo.filename, sInfo.shadowIndex);
+		gaVarLog(mod, 1, "DJB: found - index=%d, sInfo.shadowIndex=%d  sInfo.adjustedFilename(%s)", 
+				index, sInfo.shadowIndex, sInfo.adjustedFilename);
+
+		sprintf(sInfo.shadowFilename, "shadow.%s", sInfo.adjustedFilename);
+		gaVarLog(mod, 1, "DJB: found - sInfo.shadowFilename(%s)", sInfo.shadowFilename);
+		sprintf(sInfo.prevShadowFilename, "shadow.%s.%s.%d",
+				sInfo.uname, sInfo.filename, sInfo.shadowIndex - 1);
+		gaVarLog(mod, 1, "DJB: found - sInfo.prevShadowFilename(%s)", sInfo.prevShadowFilename);
+	}
+
+	return(0);
+} // END: createAdjustedFilename()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int parseCmdStr(char *zData)
+{
+	static char	mod[]="parseCmdStr";
+	char		buf[256];
+	char		*p;
+
+	sprintf(buf, "%s", zData);
+
+	if ( (p=strchr(buf, '|')) == (char *)NULL)
+	{
+		gaVarLog(mod, 0, "Invalid command string received (%s).  Unable to parse.  Where's the uname?",
+			zData);
+		return(-1);
+	}
+	*p='\0';
+	sprintf(sInfo.uname, "%s", buf);
+	p++;
+
+	sprintf(buf, "%s", p);
+
+	if ( (p=strchr(buf, '|')) == (char *)NULL)
+	{
+		gaVarLog(mod, 0, "Invalid command string received (%s).  Unable to parse. Where's the filename?",
+			zData);
+		return(-1);
+	}
+	*p='\0';
+	sprintf(sInfo.filename, "%s", buf);
+	p++;
+
+	if ( strstr(p, START_STR) )
+	{
+		sInfo.command = 1;
+	}
+	else if ( strstr(p, END_STR) )
+	{
+		sInfo.command = 0;
+	}
+	else
+	{
+		gaVarLog(mod, 0, "Invalid command string received (%s).  Unable to parse. What's the command?",
+			zData);
+		return(-1);
+	}
+	return(0);
+	
+
+} // END: parseCmdStr()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int init()
+{
+	static char	mod[]="init";
+	char		*base;
+	int			rc;
+	char		buf[256];
+
+    if ((gIspBase = getenv ("ISPBASE")) == NULL)
+    {
+		gaVarLog(mod, 0, "Unable to get ISPBASE env variable. Set it and retry.  Unable to continue.");
+        return (-1);
+    }
+	gaVarLog(mod, 0, "Starting.");
+
+    if ((base = getenv ("HOME")) == NULL)
+    {
+		gaVarLog(mod, 0, "Unable to get HOME env variable. Set it and retry.  Unable to continue.");
+		return(-1);
+	}
+	if ( base[strlen(base) - 1] == '/' )
+	{
+		base[strlen(base) - 1] = '\0';
+	}
+
+	memset((SInfo *)&sInfo, '\0', sizeof(sInfo));
+
+	sprintf(buf, "%s/RTR", base);
+	if (access (buf, F_OK|R_OK ) < 0)
+	{
+		if(errno == ENOENT)
+		{
+			if (mkdir(buf, 0755) < 0)
+			{
+				gaVarLog(mod, 0, "mkdir (%s) failed. Unable to create directory. [%d, %s].  Correct and retry.",
+						buf, errno, strerror(errno));
+				return(-1);
+			}
+		}
+        else
+        {
+            gaVarLog(mod, 0, "Unable to access directry (%s). [%d, %s].  Correct and retry.",
+                        buf, errno, strerror(errno));
+            return(-1);
+        }
+	}
+
+	
+	sprintf(sInfo.workDir, "%s/work", buf);
+	sprintf(sInfo.processedDir, "%s/processed", buf);
+
+	if (access (sInfo.workDir, F_OK|R_OK ) < 0)
+	{
+		if(errno == ENOENT)
+		{
+			if (mkdir(sInfo.workDir, 0755) < 0)
+			{
+				gaVarLog(mod, 0, "mkdir (%s) failed. Unable to create directory. [%d, %s].  Correct and retry.",
+						sInfo.workDir, errno, strerror(errno));
+				return(-1);
+			}
+		}
+        else
+        {
+            gaVarLog(mod, 0, "Unable to access directry (%s). [%d, %s].  Correct and retry.",
+                        sInfo.workDir, errno, strerror(errno));
+            return(-1);
+        }
+	}
+	if (access (sInfo.processedDir, F_OK|R_OK ) < 0)
+	{
+		if(errno == ENOENT)
+		{
+			if (mkdir(sInfo.processedDir, 0755) < 0)
+			{
+				gaVarLog(mod, 0, "mkdir (%s) failed. Unable to create directory. [%d, %s].  Correct and retry.",
+						sInfo.processedDir, errno, strerror(errno));
+				return(-1);
+			}
+		}
+        else
+        {
+            gaVarLog(mod, 0, "Unable to access directry (%s). [%d, %s].  Correct and retry.",
+                        sInfo.processedDir, errno, strerror(errno));
+            return(-1);
+        }
+	}
+
+	return(0);
+} // END: init()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static void printSInfo()
+{
+	static char mod[] = "printSInfo";
+
+	gaVarLog(mod, 1, "workDir(%s) processedDir(%s), uname(%s), filename(%s), adjustedFilename(%s), "
+			"shadowFilename(%s), prevShadowFilename(%s), shadowIndex(%d), command(%d)", 
+			sInfo.workDir, 
+			sInfo.processedDir,
+			sInfo.uname,
+			sInfo.filename,
+			sInfo.adjustedFilename,
+			sInfo.shadowFilename,
+			sInfo.prevShadowFilename,
+			sInfo.shadowIndex,
+			sInfo.command);
+
+} // END: printSInfo()

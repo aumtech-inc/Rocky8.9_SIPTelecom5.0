@@ -1,0 +1,22 @@
+echo "Compiling parseResult.cpp"
+g++ -ggdb -g3 -D OSIP_MT -c parseResult.cpp 		\
+	-I /home/devmaul/isp2.2/mrcpClient2.0/include 		\
+	-I /home/devmaul/include 		\
+	-I /home/devmaul/isp2.2/Common/include 		\
+    -I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc      \
+    -I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/framework        \
+    -I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include      \
+    -I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/sax      \
+    -I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/util         \
+    -I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/dom/deprecated       \
+	-I /home/devmaul/include/osip2 		\
+	-I /home/devmaul/include/osipparser2 		\
+	-I /home/devmaul/include/eXosip2
+
+#	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc 		\
+#	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/framework 		\
+#	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/dom 		\
+#	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include 		\
+#	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/sax 		\
+#	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/util 		\
+#	-I /home/devmaul/thirdParty/xerces-c-src_2_8_0/include/xercesc/dom/deprecated 		\

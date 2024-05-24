@@ -1,0 +1,54 @@
+#----------------------------------------------------------------------------
+# Program:	Makefile
+# Purpose:	Make file for isp_tcp, etc.
+#
+# Written by:	ISP 2.1 development staff
+# Orig date:	Jul 18, 1995
+#
+# Last Chg by:	George Wenzel
+# Last Update:	Feb 2, 1996
+#----------------------------------------------------------------------------
+CC		=	gcc	 -ggdb -fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ECHO		=	/bin/echo
+MV		=	/bin/mv
+LIB             =       -lnsl  -lgen
+
+ISP_BASE_DIR=/home/dev
+ISP_VERSION=isp2.2
+
+BASE=$(ISP_BASE_DIR)/$(ISP_VERSION)/SIPTelecom3.6
+COMMON=$(BASE)/Common
+COMINC=$(COMMON)/include
+COMLIB=${HOME}/lib
+
+SYSLIBS=-lnsl -L/usr/ccs/lib  
+#IVIEWLIBS=-L$(IVIEW_LIB_DIR) $(IVIEW_LIBS)
+IVIEWLIBS=
+
+UTLLIBS=-L$(COMLIB) -lUTILS -lISPLog
+
+INCLUDE=-I$(COMINC) 
+
+HEADERS=$(COMINC)/COMmsg.h $(COMINC)/LOGmsg.h $(COMINC)/ispinc.h $(COMINC)/messages.h
+
+#CFLAGS=-O -K pentium -s
+CFLAGS=-g3
+
+TCP_OBJECT	= isp_tcp.o
+
+all:	tcp
+
+tcp:	build_tcp
+
+clean:
+	rm -f isp_tcp
+
+isp_tcp.o: 		isp_tcp.c 	
+			@$(ECHO) "Building isp_tcp.o"
+			@$(CC) $(CFLAGS) $(INCLUDE) -c isp_tcp.c
+			@$(MV) *.o obj
+
+build_tcp:		$(TCP_OBJECT) 
+			@$(ECHO) "Building isp_tcp executable"
+			@$(CC) $(CFLAGS) $(INCLUDE) $(TCP_OBJECT) \
+				$(UTLLIBS) $(IVIEWLIBS) $(SYSLIBS) -o isp_tcp

@@ -1,0 +1,4 @@
+export CFLAGS="-m32"
+
+./configure --prefix=/home/dev/lib32 --enable-debug  --enable-trace  --enable-pthread --enable-semaphore 
+

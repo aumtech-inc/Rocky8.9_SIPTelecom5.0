@@ -1,0 +1,14 @@
+#------------------------------------------------------------------------------
+# File:		Resources.def
+# Purpose:	GUI definition file for Telecom Resource Definition table(s).
+# Author:	Aumtech, Inc.
+# Date:		08/27/99
+#
+# DO NOT CHANGE THIS FILE. DO NOT CHANGE THIS FILE. DO NOT CHANGE THIS FILE.
+#------------------------------------------------------------------------------
+
+[Tables]
+Resource Definition
+
+[Misc]
+Resource Definition=Telecom/Tables/resourcedef.def

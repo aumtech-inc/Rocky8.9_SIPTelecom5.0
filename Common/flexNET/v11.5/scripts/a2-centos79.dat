@@ -1,0 +1,20 @@
+#------------------------------------------------------------------
+# All Aumtech Telecom Services Products are registered
+# to a specific machine identification number.
+# Changes to this registration for the purpose of
+# transferring the license to another machine can be
+# performed on temporary licenses only (licenses with an
+# expiration date). Changes to a permanent license will
+# require the customer to return the original system's Network
+# Interface Card ('NIC' Card) to Aumtech before the license
+# will be transferred. All license transfers are subject
+# to a US$500.00 transfer charge.
+#------------------------------------------------------------------
+SERVER a2-centos79 000C29334139
+VENDOR arclicd /home/arc/.ISP/Global/Exec/arclicd
+FEATURE IPTEL arclicd 2.0 01-may-2024 68 HOSTID=000c29334139 \
+	SIGN="007F F7A6 6621 80B9 13D6 B78B B80C BD00 7E42 AF1B BD33 \
+	41A1 9C38 593D C156"
+FEATURE SPEECH_REC arclicd 2.0 01-may-2024 uncounted \
+	HOSTID=000c29334139 SIGN="000A A1FB 4105 1178 9E16 51B4 3012 \
+	3C00 56AA 905D ED83 D570 4BEA DB99 DCA9"

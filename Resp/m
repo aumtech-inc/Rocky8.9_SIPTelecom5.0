@@ -1,0 +1,784 @@
+Building ArcIPResp
+ArcIPResp.c: In function ‘main’:
+ArcIPResp.c:586:53: warning: implicit declaration of function ‘sigset’ [-Wimplicit-function-declaration]
+  586 |         if (signal (SIGCHLD, SIG_IGN) == SIG_ERR || sigset (SIGCLD, SIG_IGN) == -1)
+      |                                                     ^~~~~~
+ArcIPResp.c: In function ‘StartUpDynMgrAfterDefunct’:
+ArcIPResp.c:4262:9: warning: implicit declaration of function ‘util_sleep’; did you mean ‘usleep’? [-Wimplicit-function-declaration]
+ 4262 |         util_sleep (0, 250);
+      |         ^~~~~~~~~~
+      |         usleep
+ArcIPResp.c: In function ‘convertStarToUnixPatternMatch’:
+ArcIPResp.c:5054:45: warning: argument to ‘sizeof’ in ‘memset’ call is the same expression as the destination; did you mean to provide an explicit length? [-Wsizeof-pointer-memaccess]
+ 5054 |         memset (parmResultString, 0, sizeof (parmResultString));
+      |                                             ^
+ArcIPResp.c: In function ‘sendStaticPortReserveReqToDM’:
+ArcIPResp.c:5823:55: warning: passing argument 1 of ‘processRESOP_FIREAPP’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 5823 |                                 processRESOP_FIREAPP (&gMsg_ReservePort);
+      |                                                       ^~~~~~~~~~~~~~~~~
+      |                                                       |
+      |                                                       struct Msg_ReservePort *
+ArcIPResp.c:299:44: note: expected ‘struct MsgToRes *’ but argument is of type ‘struct Msg_ReservePort *’
+  299 | int processRESOP_FIREAPP (struct MsgToRes *zpMsgToRes);
+      |                           ~~~~~~~~~~~~~~~~~^~~~~~~~~~
+ArcIPResp.c:5827:63: warning: passing argument 1 of ‘processRESOP_STATIC_APP_GONE’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 5827 |                                 processRESOP_STATIC_APP_GONE (&gMsg_ReservePort);
+      |                                                               ^~~~~~~~~~~~~~~~~
+      |                                                               |
+      |                                                               struct Msg_ReservePort *
+ArcIPResp.c:300:52: note: expected ‘struct MsgToRes *’ but argument is of type ‘struct Msg_ReservePort *’
+  300 | int processRESOP_STATIC_APP_GONE (struct MsgToRes *zpMsgToRes);
+      |                                   ~~~~~~~~~~~~~~~~~^~~~~~~~~~
+ArcIPResp.c: In function ‘checkAndStartFaxServer’:
+ArcIPResp.c:7181:45: warning: too many arguments for format [-Wformat-extra-args]
+ 7181 |                                 sscanf(str, "%s %s %s %s %d %s %d",
+      |                                             ^~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘load_appref_table’:
+ArcIPResp.c:1363:82: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 100 [-Wformat-overflow=]
+ 1363 |                                         sprintf (appref[tot_apprefs].acct_code, "%s", field);
+      |                                                                                  ^~   ~~~~~
+ArcIPResp.c:1363:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 100
+ 1363 |                                         sprintf (appref[tot_apprefs].acct_code, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1360:86: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 50 [-Wformat-overflow=]
+ 1360 |                                         sprintf (appref[tot_apprefs].appl_grp_name, "%s", field);
+      |                                                                                      ^~   ~~~~~
+ArcIPResp.c:1360:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 50
+ 1360 |                                         sprintf (appref[tot_apprefs].appl_grp_name, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘load_pgmref_table’:
+ArcIPResp.c:1444:86: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 50 [-Wformat-overflow=]
+ 1444 |                                         sprintf (pgmref[tot_pgmrefs].appl_grp_name, "%s", field);
+      |                                                                                      ^~   ~~~~~
+ArcIPResp.c:1444:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 50
+ 1444 |                                         sprintf (pgmref[tot_pgmrefs].appl_grp_name, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1441:85: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 256 [-Wformat-overflow=]
+ 1441 |                                         sprintf (pgmref[tot_pgmrefs].program_name, "%s", field);
+      |                                                                                     ^~   ~~~~~
+ArcIPResp.c:1441:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 256
+ 1441 |                                         sprintf (pgmref[tot_pgmrefs].program_name, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘load_schedule_table’:
+ArcIPResp.c:1559:84: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 256 [-Wformat-overflow=]
+ 1559 |                                         sprintf (schedule[tot_schedules].program, "%s", field);
+      |                                                                                    ^~   ~~~~~
+ArcIPResp.c:1559:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 256
+ 1559 |                                         sprintf (schedule[tot_schedules].program, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1555:86: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 1555 |                                         sprintf (schedule[tot_schedules].stop_time, "%s", field);
+      |                                                                                      ^~   ~~~~~
+ArcIPResp.c:1555:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 1555 |                                         sprintf (schedule[tot_schedules].stop_time, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1551:87: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 1551 |                                         sprintf (schedule[tot_schedules].start_time, "%s", field);
+      |                                                                                       ^~   ~~~~~
+ArcIPResp.c:1551:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 1551 |                                         sprintf (schedule[tot_schedules].start_time, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1547:86: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 1547 |                                         sprintf (schedule[tot_schedules].stop_date, "%s", field);
+      |                                                                                      ^~   ~~~~~
+ArcIPResp.c:1547:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 1547 |                                         sprintf (schedule[tot_schedules].stop_date, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1543:87: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 1543 |                                         sprintf (schedule[tot_schedules].start_date, "%s", field);
+      |                                                                                       ^~   ~~~~~
+ArcIPResp.c:1543:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 1543 |                                         sprintf (schedule[tot_schedules].start_date, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1531:88: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 1531 |                                         sprintf (schedule[tot_schedules].origination, "%s", field);
+      |                                                                                        ^~   ~~~~~
+ArcIPResp.c:1531:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 1531 |                                         sprintf (schedule[tot_schedules].origination, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1527:88: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 1527 |                                         sprintf (schedule[tot_schedules].destination, "%s", field);
+      |                                                                                        ^~   ~~~~~
+ArcIPResp.c:1527:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 1527 |                                         sprintf (schedule[tot_schedules].destination, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1523:84: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 50 [-Wformat-overflow=]
+ 1523 |                                         sprintf (schedule[tot_schedules].machine, "%s", field);
+      |                                                                                    ^~   ~~~~~
+ArcIPResp.c:1523:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 50
+ 1523 |                                         sprintf (schedule[tot_schedules].machine, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1519:84: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 10 [-Wformat-overflow=]
+ 1519 |                                         sprintf (schedule[tot_schedules].srvtype, "%s", field);
+      |                                                                                    ^~   ~~~~~
+ArcIPResp.c:1519:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 10
+ 1519 |                                         sprintf (schedule[tot_schedules].srvtype, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1612:37: warning: ‘%s’ directive writing up to 255 bytes into a region of size 100 [-Wformat-overflow=]
+ 1612 |                 sprintf (pgm_name, "%s", schedule[tot_schedules].program);
+      |                                     ^~
+ArcIPResp.c:1612:17: note: ‘sprintf’ output between 1 and 256 bytes into a destination of size 100
+ 1612 |                 sprintf (pgm_name, "%s", schedule[tot_schedules].program);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ArcIPResp.c:83:
+ArcIPResp.c: In function ‘load_shmem_tabl’:
+/home/dan/isp2.2/SIPTelecom3.6/Common/include/shm_def.h:25:25: warning: ‘%50s’ directive writing between 50 and 255 bytes into a region of size between 178 and 190 [-Wformat-overflow=]
+   25 | #define SHM_FORMAT      "%8s %8s %17s %12s %5s %10s %50s %2s %6s %2s\n"
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dan/isp2.2/SIPTelecom3.6/Common/include/shm_def.h:25:25: note: in definition of macro ‘SHM_FORMAT’
+   25 | #define SHM_FORMAT      "%8s %8s %17s %12s %5s %10s %50s %2s %6s %2s\n"
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dan/isp2.2/SIPTelecom3.6/Common/include/shm_def.h:25:53: note: format string is defined here
+   25 | #define SHM_FORMAT      "%8s %8s %17s %12s %5s %10s %50s %2s %6s %2s\n"
+      |                                                     ^~~~
+ArcIPResp.c:1726:25: note: ‘sprintf’ output between 131 and 348 bytes into a destination of size 256
+ 1726 |                         sprintf (buf, SHM_FORMAT, "Reserve", "0", resource_no, "field4", "0", "0000000000", file_name, "0", "0", "0");
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘readFromDynMgr’:
+ArcIPResp.c:1834:45: warning: ‘%s’ directive writing 7 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 1834 |                 sprintf (GV_FromDMFifo, "%s/%s.%d", gFifoDir, "ResFifo", gRespId);
+      |                                             ^~                ~~~~~~~~~
+ArcIPResp.c:1834:17: note: ‘sprintf’ output between 11 and 148 bytes into a destination of size 128
+ 1834 |                 sprintf (GV_FromDMFifo, "%s/%s.%d", gFifoDir, "ResFifo", gRespId);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1838:53: warning: ‘%s’ directive writing 7 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 1838 |                         sprintf (GV_FromDMFifo, "%s/%s", gFifoDir, "ResFifo");
+      |                                                     ^~             ~~~~~~~~~
+ArcIPResp.c:1838:25: note: ‘sprintf’ output between 9 and 136 bytes into a destination of size 128
+ 1838 |                         sprintf (GV_FromDMFifo, "%s/%s", gFifoDir, "ResFifo");
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1858:55: warning: ‘%s’ directive writing 15 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 1858 |                         sprintf (GV_FromVxmlFifo, "%s/%s.%d", gFifoDir, "ResFromVxmlFifo", gRespId);
+      |                                                       ^~                ~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1858:25: note: ‘sprintf’ output between 19 and 156 bytes into a destination of size 128
+ 1858 |                         sprintf (GV_FromVxmlFifo, "%s/%s.%d", gFifoDir, "ResFromVxmlFifo", gRespId);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1862:63: warning: ‘%s’ directive writing 15 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 1862 |                                 sprintf (GV_FromVxmlFifo, "%s/%s", gFifoDir, "ResFromVxmlFifo");
+      |                                                               ^~             ~~~~~~~~~~~~~~~~~
+ArcIPResp.c:1862:33: note: ‘sprintf’ output between 17 and 144 bytes into a destination of size 128
+ 1862 |                                 sprintf (GV_FromVxmlFifo, "%s/%s", gFifoDir, "ResFromVxmlFifo");
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘writeToAllDynMgrs’:
+ArcIPResp.c:1998:40: warning: ‘%s’ directive writing 11 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 1998 |                 sprintf (fifoName, "%s/%s.%d", gFifoDir, "RequestFifo", i);
+      |                                        ^~                ~~~~~~~~~~~~~
+ArcIPResp.c:1998:17: note: ‘sprintf’ output between 15 and 152 bytes into a destination of size 128
+ 1998 |                 sprintf (fifoName, "%s/%s.%d", gFifoDir, "RequestFifo", i);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘writeToDynMgr’:
+ArcIPResp.c:2076:62: warning: ‘%s’ directive writing 11 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 2076 |                 sprintf (gGV_DMInfo[zDMNumber].fifoName, "%s/%s.%d", gFifoDir, "RequestFifo", zDMNumber);
+      |                                                              ^~                ~~~~~~~~~~~~~
+ArcIPResp.c:2076:17: note: ‘sprintf’ output between 15 and 152 bytes into a destination of size 128
+ 2076 |                 sprintf (gGV_DMInfo[zDMNumber].fifoName, "%s/%s.%d", gFifoDir, "RequestFifo", zDMNumber);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘launchApp’:
+ArcIPResp.c:2458:46: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 224 [-Wformat-overflow=]
+ 2458 |         sprintf(gGV_MsgToApp[port].message, "%s", log_buf);
+      |                                              ^~   ~~~~~~~
+ArcIPResp.c:2458:9: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 224
+ 2458 |         sprintf(gGV_MsgToApp[port].message, "%s", log_buf);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2465:40: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 512 [-Wformat-overflow=]
+ 2465 |                 sprintf (gResultLine, "%s", log_buf);
+      |                                        ^~   ~~~~~~~
+ArcIPResp.c:2465:17: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 512
+ 2465 |                 sprintf (gResultLine, "%s", log_buf);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2430:48: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 512 [-Wformat-overflow=]
+ 2430 |                         sprintf (gResultLine, "%s", log_buf);
+      |                                                ^~   ~~~~~~~
+ArcIPResp.c:2430:25: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 512
+ 2430 |                         sprintf (gResultLine, "%s", log_buf);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2437:48: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 512 [-Wformat-overflow=]
+ 2437 |                         sprintf (gResultLine, "%s", log_buf);
+      |                                                ^~   ~~~~~~~
+ArcIPResp.c:2437:25: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 512
+ 2437 |                         sprintf (gResultLine, "%s", log_buf);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2445:50: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 224 [-Wformat-overflow=]
+ 2445 |             sprintf(gGV_MsgToApp[port].message, "%s", log_buf);
+      |                                                  ^~   ~~~~~~~
+ArcIPResp.c:2445:13: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 224
+ 2445 |             sprintf(gGV_MsgToApp[port].message, "%s", log_buf);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2366:56: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 512 [-Wformat-overflow=]
+ 2366 |                                 sprintf (gResultLine, "%s", log_buf);
+      |                                                        ^~   ~~~~~~~
+ArcIPResp.c:2366:33: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 512
+ 2366 |                                 sprintf (gResultLine, "%s", log_buf);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2360:56: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 512 [-Wformat-overflow=]
+ 2360 |                                 sprintf (gResultLine, "%s", log_buf);
+      |                                                        ^~   ~~~~~~~
+ArcIPResp.c:2360:33: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 512
+ 2360 |                                 sprintf (gResultLine, "%s", log_buf);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2416:50: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 224 [-Wformat-overflow=]
+ 2416 |             sprintf(gGV_MsgToApp[port].message, "%s", log_buf);
+      |                                                  ^~   ~~~~~~~
+ArcIPResp.c:2416:13: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 224
+ 2416 |             sprintf(gGV_MsgToApp[port].message, "%s", log_buf);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2278:48: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 512 [-Wformat-overflow=]
+ 2278 |                         sprintf (gResultLine, "%s", log_buf);
+      |                                                ^~   ~~~~~~~
+ArcIPResp.c:2278:25: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 512
+ 2278 |                         sprintf (gResultLine, "%s", log_buf);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘launchBrowserApp’:
+ArcIPResp.c:2573:45: warning: ‘%s’ directive writing up to 255 bytes into a region of size between 128 and 255 [-Wformat-overflow=]
+ 2573 |                 sprintf (lAppToAppInfo, "%s|%s", gGV_FAXInfo[port].faxFileName, gGV_FAXInfo[port].appToAppInfo);
+      |                                             ^~
+ArcIPResp.c:2573:17: note: ‘sprintf’ output between 2 and 384 bytes into a destination of size 256
+ 2573 |                 sprintf (lAppToAppInfo, "%s|%s", gGV_FAXInfo[port].faxFileName, gGV_FAXInfo[port].appToAppInfo);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2569:45: warning: ‘%s’ directive writing up to 255 bytes into a region of size between 128 and 255 [-Wformat-overflow=]
+ 2569 |                 sprintf (lAppToAppInfo, "%s|%s", gGV_CDFInfo[port].cdfFileName, gGV_CDFInfo[port].appToAppInfo);
+      |                                             ^~
+ArcIPResp.c:2569:17: note: ‘sprintf’ output between 2 and 384 bytes into a destination of size 256
+ 2569 |                 sprintf (lAppToAppInfo, "%s|%s", gGV_CDFInfo[port].cdfFileName, gGV_CDFInfo[port].appToAppInfo);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:2587:63: warning: ‘%s’ directive writing up to 255 bytes into a region of size 224 [-Wformat-overflow=]
+ 2587 |                 "%d^%s^%s^%d^%s^%s^%s^%s^%s^%d^%s^%s^%s^%s^%s^%s^%s^%s^%s^%s^%s^%s^",
+      |                                                               ^~
+......
+ 2590 |                 "-U", lAppToAppInfo, "-r", ringEventTime, "-d", lpDynMgrId,
+      |                       ~~~~~~~~~~~~~                            
+ArcIPResp.c:2586:9: note: ‘sprintf’ output 46 or more bytes (assuming 324) into a destination of size 256
+ 2586 |         sprintf (buf,
+      |         ^~~~~~~~~~~~~
+ 2587 |                 "%d^%s^%s^%d^%s^%s^%s^%s^%s^%d^%s^%s^%s^%s^%s^%s^%s^%s^%s^%s^%s^%s^",
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2588 |                 port, appl_name, "-p", port, "-y", acctName,
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2589 |                 "-P", appl_name, "-z", password, "-D", dnis, "-A", ani,
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2590 |                 "-U", lAppToAppInfo, "-r", ringEventTime, "-d", lpDynMgrId,
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2591 |                 "-t", resource[port].res_usage);
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘set_object_path’:
+ArcIPResp.c:3451:40: warning: ‘%s’ directive writing up to 64 bytes into a region of size 50 [-Wformat-overflow=]
+ 3451 |         sprintf (object_machine_name, "%s", sys_info.nodename);
+      |                                        ^~   ~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3451:9: note: ‘sprintf’ output between 1 and 65 bytes into a destination of size 50
+ 3451 |         sprintf (object_machine_name, "%s", sys_info.nodename);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3455:34: warning: ‘%s’ directive writing up to 255 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3455 |         sprintf (table_path, "%s/%s/%s", isp_base, server_dir, TABLE_DIR);
+      |                                  ^~                ~~~~~~~~~~
+ArcIPResp.c:3455:9: note: ‘sprintf’ output between 9 and 519 bytes into a destination of size 256
+ 3455 |         sprintf (table_path, "%s/%s/%s", isp_base, server_dir, TABLE_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3456:33: warning: ‘%s’ directive writing up to 255 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3456 |         sprintf (exec_path, "%s/%s/%s", isp_base, server_dir, EXEC_DIR);
+      |                                 ^~                ~~~~~~~~~~
+ArcIPResp.c:3456:9: note: ‘sprintf’ output between 7 and 517 bytes into a destination of size 256
+ 3456 |         sprintf (exec_path, "%s/%s/%s", isp_base, server_dir, EXEC_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3457:40: warning: ‘%s’ directive writing 6 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3457 |         sprintf (global_exec_path, "%s/%s/%s", isp_base, GLOBAL_DIR, EXEC_DIR);
+      |                                        ^~
+ArcIPResp.c:3457:9: note: ‘sprintf’ output between 13 and 268 bytes into a destination of size 256
+ 3457 |         sprintf (global_exec_path, "%s/%s/%s", isp_base, GLOBAL_DIR, EXEC_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3458:33: warning: ‘%s’ directive writing up to 255 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3458 |         sprintf (lock_path, "%s/%s/%s", isp_base, server_dir, LOCK_DIR);
+      |                                 ^~                ~~~~~~~~~~
+ArcIPResp.c:3458:9: note: ‘sprintf’ output between 8 and 518 bytes into a destination of size 256
+ 3458 |         sprintf (lock_path, "%s/%s/%s", isp_base, server_dir, LOCK_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3461:37: warning: ‘%s’ directive writing 8 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3461 |         sprintf (schedule_tabl, "%s/%s", table_path, "schedule");
+      |                                     ^~               ~~~~~~~~~~
+ArcIPResp.c:3461:9: note: ‘sprintf’ output between 10 and 265 bytes into a destination of size 256
+ 3461 |         sprintf (schedule_tabl, "%s/%s", table_path, "schedule");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3462:37: warning: ‘%s’ directive writing 14 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3462 |         sprintf (resource_tabl, "%s/%s", table_path, "ResourceDefTab");
+      |                                     ^~               ~~~~~~~~~~~~~~~~
+ArcIPResp.c:3462:9: note: ‘sprintf’ output between 16 and 271 bytes into a destination of size 256
+ 3462 |         sprintf (resource_tabl, "%s/%s", table_path, "ResourceDefTab");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3463:35: warning: ‘%s’ directive writing 6 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3463 |         sprintf (appref_tabl, "%s/%s", table_path, "appref");
+      |                                   ^~               ~~~~~~~~
+ArcIPResp.c:3463:9: note: ‘sprintf’ output between 8 and 263 bytes into a destination of size 256
+ 3463 |         sprintf (appref_tabl, "%s/%s", table_path, "appref");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3464:35: warning: ‘%s’ directive writing 12 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3464 |         sprintf (pgmref_tabl, "%s/%s", table_path, "pgmreference");
+      |                                   ^~               ~~~~~~~~~~~~~~
+ArcIPResp.c:3464:9: note: ‘sprintf’ output between 14 and 269 bytes into a destination of size 256
+ 3464 |         sprintf (pgmref_tabl, "%s/%s", table_path, "pgmreference");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3466:28: warning: ‘%s’ directive writing 9 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3466 |     sprintf (ntAppCfg, "%s/%s", exec_path, "NTApp.cfg");
+      |                            ^~              ~~~~~~~~~~~
+ArcIPResp.c:3466:5: note: ‘sprintf’ output between 11 and 266 bytes into a destination of size 256
+ 3466 |     sprintf (ntAppCfg, "%s/%s", exec_path, "NTApp.cfg");
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘load_resource_table’:
+ArcIPResp.c:3563:100: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 3563 |                                         sprintf (resource[tot_resources + beginPort].static_dest, "%s", field);
+      |                                                                                                    ^~   ~~~~~
+ArcIPResp.c:3563:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 3563 |                                         sprintf (resource[tot_resources + beginPort].static_dest, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3560:98: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 3560 |                                         sprintf (resource[tot_resources + beginPort].res_usage, "%s", field);
+      |                                                                                                  ^~   ~~~~~
+ArcIPResp.c:3560:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 3560 |                                         sprintf (resource[tot_resources + beginPort].res_usage, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3557:98: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 3557 |                                         sprintf (resource[tot_resources + beginPort].res_state, "%s", field);
+      |                                                                                                  ^~   ~~~~~
+ArcIPResp.c:3557:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 3557 |                                         sprintf (resource[tot_resources + beginPort].res_state, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3554:97: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 20 [-Wformat-overflow=]
+ 3554 |                                         sprintf (resource[tot_resources + beginPort].res_type, "%s", field);
+      |                                                                                                 ^~   ~~~~~
+ArcIPResp.c:3554:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 20
+ 3554 |                                         sprintf (resource[tot_resources + beginPort].res_type, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3544:95: warning: ‘%s’ directive writing up to 1023 bytes into a region of size 30 [-Wformat-overflow=]
+ 3544 |                                         sprintf (resource[tot_resources + beginPort].res_no, "%s", field);
+      |                                                                                               ^~   ~~~~~
+ArcIPResp.c:3544:41: note: ‘sprintf’ output between 1 and 1024 bytes into a destination of size 30
+ 3544 |                                         sprintf (resource[tot_resources + beginPort].res_no, "%s", field);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3547:118: warning: ‘%s’ directive writing up to 1023 bytes into a region of size between 27 and 1050 [-Wformat-overflow=]
+ 3547 |                                                 sprintf (log_buf, "Ignoring entry ResourceDefTab (%s), Resource name %s is > maximum resource length %d", record, field,
+      |                                                                                                                      ^~                                           ~~~~~
+ArcIPResp.c:3547:49: note: ‘sprintf’ output between 80 and 2136 bytes into a destination of size 1098
+ 3547 |                                                 sprintf (log_buf, "Ignoring entry ResourceDefTab (%s), Resource name %s is > maximum resource length %d", record, field,
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 3548 |                                                         fld_siz[APPL_RESOURCE - 1]);
+      |                                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘start_netserv’:
+ArcIPResp.c:3845:37: warning: ‘%s’ directive writing 11 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3845 |         sprintf (net_serv_path, "%s/%s", exec_path, TEL_NET_SERV);
+      |                                     ^~
+ArcIPResp.c:3845:9: note: ‘sprintf’ output between 13 and 268 bytes into a destination of size 256
+ 3845 |         sprintf (net_serv_path, "%s/%s", exec_path, TEL_NET_SERV);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartarcVXML’:
+ArcIPResp.c:3894:36: warning: ‘%s’ directive writing 7 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3894 |         sprintf (browser_path, "%s/%s", exec_path, "arcVXML");
+      |                                    ^~              ~~~~~~~~~
+ArcIPResp.c:3894:9: note: ‘sprintf’ output between 9 and 264 bytes into a destination of size 256
+ 3894 |         sprintf (browser_path, "%s/%s", exec_path, "arcVXML");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:3962:36: warning: ‘%s’ directive writing 8 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 3962 |         sprintf (browser_path, "%s/%s", exec_path, "arcVXML2");
+      |                                    ^~              ~~~~~~~~~~
+ArcIPResp.c:3962:9: note: ‘sprintf’ output between 10 and 265 bytes into a destination of size 256
+ 3962 |         sprintf (browser_path, "%s/%s", exec_path, "arcVXML2");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘see_if_googleSR_should_run’:
+ArcIPResp.c:4105:32: warning: ‘%s’ directive writing 8 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4105 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |                                ^~               ~~~~~~~~~~
+ArcIPResp.c:4105:9: note: ‘sprintf’ output between 10 and 265 bytes into a destination of size 256
+ 4105 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘startVXML2Process’:
+ArcIPResp.c:4148:36: warning: ‘%s’ directive writing 8 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4148 |         sprintf (browser_path, "%s/%s", exec_path, "arcVXML2");
+      |                                    ^~              ~~~~~~~~~~
+ArcIPResp.c:4148:9: note: ‘sprintf’ output between 10 and 265 bytes into a destination of size 256
+ 4148 |         sprintf (browser_path, "%s/%s", exec_path, "arcVXML2");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘startGoogleSRProcess’:
+ArcIPResp.c:4189:37: warning: ‘%s’ directive writing 14 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4189 |         sprintf (googleSR_path, "%s/%s", exec_path, "arcGoogleSR.sh");
+      |                                     ^~              ~~~~~~~~~~~~~~~~
+ArcIPResp.c:4189:9: note: ‘sprintf’ output between 16 and 271 bytes into a destination of size 256
+ 4189 |         sprintf (googleSR_path, "%s/%s", exec_path, "arcGoogleSR.sh");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpDynMgrAfterDefunct’:
+ArcIPResp.c:4227:35: warning: ‘%s’ directive writing up to 14 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4227 |         sprintf (DynMgr_path, "%s/%s", exec_path, gGV_DMInfo[zDMNumber].dynMgrName);
+      |                                   ^~
+ArcIPResp.c:4227:9: note: ‘sprintf’ output between 2 and 271 bytes into a destination of size 256
+ 4227 |         sprintf (DynMgr_path, "%s/%s", exec_path, gGV_DMInfo[zDMNumber].dynMgrName);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpDynMgr’:
+ArcIPResp.c:4319:35: warning: ‘%s’ directive writing up to 14 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4319 |         sprintf (DynMgr_path, "%s/%s", exec_path, gGV_DMInfo[zDMNumber].dynMgrName);
+      |                                   ^~
+ArcIPResp.c:4319:9: note: ‘sprintf’ output between 2 and 271 bytes into a destination of size 256
+ 4319 |         sprintf (DynMgr_path, "%s/%s", exec_path, gGV_DMInfo[zDMNumber].dynMgrName);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpResourceMgr’:
+ArcIPResp.c:4409:40: warning: ‘%s’ directive writing 11 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4409 |         sprintf (ResourceMgr_path, "%s/%s", global_exec_path, "ResourceMgr");
+      |                                        ^~                     ~~~~~~~~~~~~~
+ArcIPResp.c:4409:9: note: ‘sprintf’ output between 13 and 268 bytes into a destination of size 256
+ 4409 |         sprintf (ResourceMgr_path, "%s/%s", global_exec_path, "ResourceMgr");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpSRMgr’:
+ArcIPResp.c:4437:34: warning: ‘%s’ directive writing 14 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4437 |         sprintf (srMgr_path, "%s/%s", exec_path, "mrcpClient2Mgr");
+      |                                  ^~              ~~~~~~~~~~~~~~~~
+ArcIPResp.c:4437:9: note: ‘sprintf’ output between 16 and 271 bytes into a destination of size 256
+ 4437 |         sprintf (srMgr_path, "%s/%s", exec_path, "mrcpClient2Mgr");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpTTSMgr’:
+ArcIPResp.c:4466:35: warning: ‘%s’ directive writing 17 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4466 |         sprintf (ttsMgr_path, "%s/%s", exec_path, "mrcpTTSClient2Mgr");
+      |                                   ^~              ~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:4466:9: note: ‘sprintf’ output between 19 and 274 bytes into a destination of size 256
+ 4466 |         sprintf (ttsMgr_path, "%s/%s", exec_path, "mrcpTTSClient2Mgr");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpRedirector’:
+ArcIPResp.c:4496:39: warning: ‘%s’ directive writing 16 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4496 |         sprintf (Redirector_path, "%s/%s", exec_path, "ArcSipRedirector");
+      |                                       ^~              ~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:4496:9: note: ‘sprintf’ output between 18 and 273 bytes into a destination of size 256
+ 4496 |         sprintf (Redirector_path, "%s/%s", exec_path, "ArcSipRedirector");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpSipProxy’:
+ArcIPResp.c:4550:36: warning: ‘%s’ directive writing 10 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4550 |         sprintf (siproxd_path, "%s/%s", exec_path, "arcsiproxd");
+      |                                    ^~              ~~~~~~~~~~~~
+ArcIPResp.c:4550:9: note: ‘sprintf’ output between 12 and 267 bytes into a destination of size 256
+ 4550 |         sprintf (siproxd_path, "%s/%s", exec_path, "arcsiproxd");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:4553:32: warning: ‘%s’ directive writing 15 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4553 |         sprintf (filename, "%s/%s", table_path, "arcsiproxy.conf");
+      |                                ^~               ~~~~~~~~~~~~~~~~~
+ArcIPResp.c:4553:9: note: ‘sprintf’ output between 17 and 272 bytes into a destination of size 256
+ 4553 |         sprintf (filename, "%s/%s", table_path, "arcsiproxy.conf");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘StartUpRTRClient’:
+ArcIPResp.c:4601:38: warning: ‘%s’ directive writing 12 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 4601 |         sprintf (rtrClient_path, "%s/%s", global_exec_path, "arcRTRClient");
+      |                                      ^~                     ~~~~~~~~~~~~~~
+ArcIPResp.c:4601:9: note: ‘sprintf’ output between 14 and 269 bytes into a destination of size 256
+ 4601 |         sprintf (rtrClient_path, "%s/%s", global_exec_path, "arcRTRClient");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘see_if_tts_sr_should_run’:
+ArcIPResp.c:5128:32: warning: ‘%s’ directive writing 8 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 5128 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |                                ^~               ~~~~~~~~~~
+ArcIPResp.c:5128:9: note: ‘sprintf’ output between 10 and 265 bytes into a destination of size 256
+ 5128 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘see_if_vxml_should_run’:
+ArcIPResp.c:5189:32: warning: ‘%s’ directive writing 8 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 5189 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |                                ^~               ~~~~~~~~~~
+ArcIPResp.c:5189:9: note: ‘sprintf’ output between 10 and 265 bytes into a destination of size 256
+ 5189 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘see_if_redirector_should_run’:
+ArcIPResp.c:5239:32: warning: ‘%s’ directive writing 8 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 5239 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |                                ^~               ~~~~~~~~~~
+ArcIPResp.c:5239:9: note: ‘sprintf’ output between 10 and 265 bytes into a destination of size 256
+ 5239 |         sprintf (filename, "%s/%s", table_path, ".TEL.cfg");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘processRESOP_START_NTOCS_APP’:
+ArcIPResp.c:5942:66: warning: ‘%s’ directive writing up to 255 bytes into a region of size 192 [-Wformat-overflow=]
+ 5942 |                                 "Can't access received cdf file (%s), [%d, %s] No application will be started.",
+      |                                                                  ^~
+ 5943 |                                 ntCdfFile, errno, strerror(errno));
+      |                                 ~~~~~~~~~                         
+ArcIPResp.c:5941:17: note: ‘sprintf’ output 73 or more bytes (assuming 328) into a destination of size 224
+ 5941 |                 sprintf(response.message,
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+ 5942 |                                 "Can't access received cdf file (%s), [%d, %s] No application will be started.",
+      |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 5943 |                                 ntCdfFile, errno, strerror(errno));
+      |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘startNTOCSApp’:
+ArcIPResp.c:5979:46: warning: ‘%s’ directive writing up to 255 bytes into a region of size 224 [-Wformat-overflow=]
+ 5979 |                 sprintf(zResponse->message, "%s", msg);
+      |                                              ^~   ~~~
+ArcIPResp.c:5979:17: note: ‘sprintf’ output between 1 and 256 bytes into a destination of size 224
+ 5979 |                 sprintf(zResponse->message, "%s", msg);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘processRESOP_FIREAPP’:
+ArcIPResp.c:6244:29: warning: ‘%s’ directive writing up to 255 bytes into a region of size 128 [-Wformat-overflow=]
+ 6244 |         sprintf (msg.data, "%s", application );
+      |                             ^~   ~~~~~~~~~~~
+ArcIPResp.c:6244:9: note: ‘sprintf’ output between 1 and 256 bytes into a destination of size 128
+ 6244 |         sprintf (msg.data, "%s", application );
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘processRESOP_START_OCS_APP’:
+ArcIPResp.c:6339:44: warning: ‘%s’ directive writing 16 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 6339 |                 sprintf (Ocs_work_dir, "%s/%s", isp_base, OCS_WORK_DIR);
+      |                                            ^~
+ArcIPResp.c:6339:17: note: ‘sprintf’ output between 18 and 273 bytes into a destination of size 256
+ 6339 |                 sprintf (Ocs_work_dir, "%s/%s", isp_base, OCS_WORK_DIR);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6340:38: warning: ‘/0.’ directive writing 3 bytes into a region of size between 1 and 256 [-Wformat-overflow=]
+ 6340 |                 sprintf(zeroFile, "%s/0.%s", Ocs_work_dir, gGV_CDFInfo[zpMsgToRes->appCallNum].cdfFileName);
+      |                                      ^~~
+ArcIPResp.c:6340:17: note: ‘sprintf’ output between 4 and 386 bytes into a destination of size 256
+ 6340 |                 sprintf(zeroFile, "%s/0.%s", Ocs_work_dir, gGV_CDFInfo[zpMsgToRes->appCallNum].cdfFileName);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘checkAndStartOCSApp’:
+ArcIPResp.c:6561:33: warning: ‘%s’ directive writing up to 255 bytes into a region of size 128 [-Wformat-overflow=]
+ 6561 |         sprintf (Ocs_work_dir, "%s/%s", isp_base, OCS_WORK_DIR);
+      |                                 ^~      ~~~~~~~~
+ArcIPResp.c:6561:9: note: ‘sprintf’ output between 18 and 273 bytes into a destination of size 128
+ 6561 |         sprintf (Ocs_work_dir, "%s/%s", isp_base, OCS_WORK_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6593:38: warning: ‘%s’ directive writing up to 255 bytes into a region of size 128 [-Wformat-overflow=]
+ 6593 |                 sprintf (yZeroFile, "%s", yDirEntry->d_name);
+      |                                      ^~
+ArcIPResp.c:6593:17: note: ‘sprintf’ output between 1 and 256 bytes into a destination of size 128
+ 6593 |                 sprintf (yZeroFile, "%s", yDirEntry->d_name);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6611:50: warning: ‘%s’ directive writing up to 127 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 6611 |                         sprintf (y0FilePath, "%s/%s", Ocs_work_dir, yZeroFile);
+      |                                                  ^~                 ~~~~~~~~~
+ArcIPResp.c:6611:25: note: ‘sprintf’ output between 2 and 256 bytes into a destination of size 128
+ 6611 |                         sprintf (y0FilePath, "%s/%s", Ocs_work_dir, yZeroFile);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6612:49: warning: ‘%s’ directive writing up to 127 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 6612 |                         sprintf (yFilePath, "%s/%s", Ocs_work_dir, &yZeroFile[2]);
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6612:25: note: ‘sprintf’ output between 2 and 256 bytes into a destination of size 128
+ 6612 |                         sprintf (yFilePath, "%s/%s", Ocs_work_dir, &yZeroFile[2]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6631:56: warning: ‘%s’ directive writing up to 127 bytes into a region of size 64 [-Wformat-overflow=]
+ 6631 |                                 sprintf (ocsFileName, "%s", &yZeroFile[2]);
+      |                                 ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6631:33: note: ‘sprintf’ output between 1 and 128 bytes into a destination of size 64
+ 6631 |                                 sprintf (ocsFileName, "%s", &yZeroFile[2]);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘isAppEligible’:
+ArcIPResp.c:6832:52: warning: ‘%s’ directive writing up to 255 bytes into a region of size 128 [-Wformat-overflow=]
+ 6832 |                         sprintf(zero_header_file, "%s/0.%s", tmpHeaderFile, p);
+      |                                                    ^~        ~~~~~~~~~~~~~
+ArcIPResp.c:6832:25: note: ‘sprintf’ output 4 or more bytes (assuming 259) into a destination of size 128
+ 6832 |                         sprintf(zero_header_file, "%s/0.%s", tmpHeaderFile, p);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6826:54: warning: ‘%s’ directive writing up to 255 bytes into a region of size 126 [-Wformat-overflow=]
+ 6826 |                         sprintf(zero_header_file, "0.%s", tmpHeaderFile);
+      |                                                      ^~   ~~~~~~~~~~~~~
+ArcIPResp.c:6826:25: note: ‘sprintf’ output between 3 and 258 bytes into a destination of size 128
+ 6826 |                         sprintf(zero_header_file, "0.%s", tmpHeaderFile);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:6888:40: warning: ‘%s’ directive writing up to 1097 bytes into a region of size 512 [-Wformat-overflow=]
+ 6888 |                 sprintf (gResultLine, "%s", log_buf);
+      |                                        ^~   ~~~~~~~
+ArcIPResp.c:6888:17: note: ‘sprintf’ output between 1 and 1098 bytes into a destination of size 512
+ 6888 |                 sprintf (gResultLine, "%s", log_buf);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘checkAndStartFaxServer’:
+ArcIPResp.c:7113:26: warning: ‘%s’ directive writing up to 255 bytes into a region of size 128 [-Wformat-overflow=]
+ 7113 | sprintf(Fax_header_dir, "%s/%s/%s",     isp_base, FAX_WORK_DIR, HDR_DIR);
+      |                          ^~             ~~~~~~~~
+ArcIPResp.c:7113:1: note: ‘sprintf’ output between 25 and 280 bytes into a destination of size 128
+ 7113 | sprintf(Fax_header_dir, "%s/%s/%s",     isp_base, FAX_WORK_DIR, HDR_DIR);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7138:29: warning: ‘%s’ directive writing up to 255 bytes into a region of size 128 [-Wformat-overflow=]
+ 7138 |         sprintf(yZeroFile, "%s", yDirEntry->d_name);
+      |                             ^~
+ArcIPResp.c:7138:9: note: ‘sprintf’ output between 1 and 256 bytes into a destination of size 128
+ 7138 |         sprintf(yZeroFile, "%s", yDirEntry->d_name);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7154:41: warning: ‘%s’ directive writing up to 127 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 7154 |                 sprintf(y0FilePath, "%s/%s", Fax_header_dir, yZeroFile);
+      |                                         ^~                   ~~~~~~~~~
+ArcIPResp.c:7154:17: note: ‘sprintf’ output between 2 and 256 bytes into a destination of size 128
+ 7154 |                 sprintf(y0FilePath, "%s/%s", Fax_header_dir, yZeroFile);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7155:40: warning: ‘%s’ directive writing up to 127 bytes into a region of size between 0 and 127 [-Wformat-overflow=]
+ 7155 |                 sprintf(yFilePath, "%s/%s", Fax_header_dir, &yZeroFile[2]);
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7155:17: note: ‘sprintf’ output between 2 and 256 bytes into a destination of size 128
+ 7155 |                 sprintf(yFilePath, "%s/%s", Fax_header_dir, &yZeroFile[2]);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7167:47: warning: ‘%s’ directive writing up to 127 bytes into a region of size 64 [-Wformat-overflow=]
+ 7167 |                         sprintf(faxFileName, "%s", yFilePath);
+      |                                               ^~   ~~~~~~~~~
+ArcIPResp.c:7167:25: note: ‘sprintf’ output between 1 and 128 bytes into a destination of size 64
+ 7167 |                         sprintf(faxFileName, "%s", yFilePath);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘dispose_on_fax_failure’:
+ArcIPResp.c:7527:22: warning: ‘%s’ directive writing 16 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7527 | sprintf(faxFile, "%s/%s/%s/%s", isp_base, FAX_WORK_DIR, "faxfile", header_file);
+      |                      ^~
+ArcIPResp.c:7527:1: note: ‘sprintf’ output 27 or more bytes (assuming 282) into a destination of size 256
+ 7527 | sprintf(faxFile, "%s/%s/%s/%s", isp_base, FAX_WORK_DIR, "faxfile", header_file);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7528:25: warning: ‘%s’ directive writing 16 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7528 | sprintf(faxHdrFile, "%s/%s/%s/%s", isp_base,FAX_WORK_DIR,HDR_DIR,header_file);
+      |                         ^~
+ArcIPResp.c:7528:1: note: ‘sprintf’ output 26 or more bytes (assuming 281) into a destination of size 256
+ 7528 | sprintf(faxHdrFile, "%s/%s/%s/%s", isp_base,FAX_WORK_DIR,HDR_DIR,header_file);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7543:27: warning: ‘%s’ directive writing 17 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7543 | sprintf(faxErrHdrDir, "%s/%s/%s", isp_base,FAX_ERR_DIR,HDR_DIR);
+      |                           ^~
+ArcIPResp.c:7543:1: note: ‘sprintf’ output between 26 and 281 bytes into a destination of size 256
+ 7543 | sprintf(faxErrHdrDir, "%s/%s/%s", isp_base,FAX_ERR_DIR,HDR_DIR);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7556:25: warning: ‘sprintf’ may write a terminating nul past the end of the destination [-Wformat-overflow=]
+ 7556 | sprintf(pathname, "%s/%s", faxErrHdrDir, header_file);
+      |                         ^
+ArcIPResp.c:7556:1: note: ‘sprintf’ output 2 or more bytes (assuming 257) into a destination of size 256
+ 7556 | sprintf(pathname, "%s/%s", faxErrHdrDir, header_file);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7565:28: warning: ‘%s’ directive writing 17 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7565 | sprintf(faxErrFileDir, "%s/%s/%s", isp_base,FAX_ERR_DIR,"faxfile");
+      |                            ^~
+ArcIPResp.c:7565:1: note: ‘sprintf’ output between 27 and 282 bytes into a destination of size 256
+ 7565 | sprintf(faxErrFileDir, "%s/%s/%s", isp_base,FAX_ERR_DIR,"faxfile");
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7578:25: warning: ‘sprintf’ may write a terminating nul past the end of the destination [-Wformat-overflow=]
+ 7578 | sprintf(pathname, "%s/%s", faxErrFileDir, header_file);
+      |                         ^
+ArcIPResp.c:7578:1: note: ‘sprintf’ output 2 or more bytes (assuming 257) into a destination of size 256
+ 7578 | sprintf(pathname, "%s/%s", faxErrFileDir, header_file);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘NT_dispose_on_failure’:
+ArcIPResp.c:7619:36: warning: ‘%s’ directive writing 19 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7619 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, NT_OCS_WORK_DIR, fnameOnly);
+      |                                    ^~
+ArcIPResp.c:7619:9: note: ‘sprintf’ output between 22 and 532 bytes into a destination of size 256
+ 7619 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, NT_OCS_WORK_DIR, fnameOnly);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7637:32: warning: ‘%s’ directive writing 21 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7637 |         sprintf (pathname, "%s/%s", isp_base, NT_OCS_ERR_DIR);
+      |                                ^~
+ArcIPResp.c:7637:9: note: ‘sprintf’ output between 23 and 278 bytes into a destination of size 256
+ 7637 |         sprintf (pathname, "%s/%s", isp_base, NT_OCS_ERR_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7648:32: warning: ‘%s’ directive writing 21 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7648 |         sprintf (pathname, "%s/%s/%s", isp_base, NT_OCS_ERR_DIR, fnameOnly);
+      |                                ^~
+ArcIPResp.c:7648:9: note: ‘sprintf’ output between 24 and 534 bytes into a destination of size 256
+ 7648 |         sprintf (pathname, "%s/%s/%s", isp_base, NT_OCS_ERR_DIR, fnameOnly);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7649:36: warning: ‘%s’ directive writing 19 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7649 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, NT_OCS_WORK_DIR, fnameOnly);
+      |                                    ^~
+ArcIPResp.c:7649:9: note: ‘sprintf’ output between 22 and 532 bytes into a destination of size 256
+ 7649 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, NT_OCS_WORK_DIR, fnameOnly);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘dispose_on_failure’:
+ArcIPResp.c:7684:36: warning: ‘%s’ directive writing 16 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7684 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, OCS_WORK_DIR, header_file);
+      |                                    ^~
+ArcIPResp.c:7684:9: note: ‘sprintf’ output 19 or more bytes (assuming 274) into a destination of size 256
+ 7684 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, OCS_WORK_DIR, header_file);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7701:32: warning: ‘%s’ directive writing 18 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7701 |         sprintf (pathname, "%s/%s", isp_base, OCS_ERR_DIR);
+      |                                ^~
+ArcIPResp.c:7701:9: note: ‘sprintf’ output between 20 and 275 bytes into a destination of size 256
+ 7701 |         sprintf (pathname, "%s/%s", isp_base, OCS_ERR_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7712:32: warning: ‘%s’ directive writing 18 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7712 |         sprintf (pathname, "%s/%s/%s", isp_base, OCS_ERR_DIR, header_file);
+      |                                ^~
+ArcIPResp.c:7712:9: note: ‘sprintf’ output 21 or more bytes (assuming 276) into a destination of size 256
+ 7712 |         sprintf (pathname, "%s/%s/%s", isp_base, OCS_ERR_DIR, header_file);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘dispose_on_success’:
+ArcIPResp.c:7743:36: warning: ‘%s’ directive writing 16 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7743 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, OCS_WORK_DIR, header_file);
+      |                                    ^~
+ArcIPResp.c:7743:9: note: ‘sprintf’ output 19 or more bytes (assuming 274) into a destination of size 256
+ 7743 |         sprintf (ocs_pathname, "%s/%s/%s", isp_base, OCS_WORK_DIR, header_file);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7762:32: warning: ‘%s’ directive writing 18 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7762 |         sprintf (pathname, "%s/%s", isp_base, OCS_CALLED_DIR);
+      |                                ^~
+ArcIPResp.c:7762:9: note: ‘sprintf’ output between 20 and 275 bytes into a destination of size 256
+ 7762 |         sprintf (pathname, "%s/%s", isp_base, OCS_CALLED_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7773:32: warning: ‘%s’ directive writing 18 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7773 |         sprintf (pathname, "%s/%s/%s", isp_base, OCS_CALLED_DIR, header_file);
+      |                                ^~
+ArcIPResp.c:7773:9: note: ‘sprintf’ output 21 or more bytes (assuming 276) into a destination of size 256
+ 7773 |         sprintf (pathname, "%s/%s/%s", isp_base, OCS_CALLED_DIR, header_file);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘NT_dispose_on_success’:
+ArcIPResp.c:7830:32: warning: ‘%s’ directive writing 21 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7830 |         sprintf (pathname, "%s/%s", isp_base, NT_OCS_CALLED_DIR);
+      |                                ^~
+ArcIPResp.c:7830:9: note: ‘sprintf’ output between 23 and 278 bytes into a destination of size 256
+ 7830 |         sprintf (pathname, "%s/%s", isp_base, NT_OCS_CALLED_DIR);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:7848:40: warning: ‘%s’ directive writing 21 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 7848 |                 sprintf (pathname, "%s/%s/%s", isp_base, NT_OCS_CALLED_DIR, ++headerOnly);
+      |                                        ^~
+ArcIPResp.c:7848:17: note: ‘sprintf’ output 24 or more bytes (assuming 279) into a destination of size 256
+ 7848 |                 sprintf (pathname, "%s/%s/%s", isp_base, NT_OCS_CALLED_DIR, ++headerOnly);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘readRulesFromCfg’:
+ArcIPResp.c:8840:44: warning: ‘%s’ directive writing 15 bytes into a region of size between 0 and 255 [-Wformat-overflow=]
+ 8840 |         sprintf (huntGroupCfgFileName, "%s/%s", table_path, HUNT_GROUP_CFG);
+      |                                            ^~
+ArcIPResp.c:8840:9: note: ‘sprintf’ output between 17 and 272 bytes into a destination of size 256
+ 8840 |         sprintf (huntGroupCfgFileName, "%s/%s", table_path, HUNT_GROUP_CFG);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c:8861:76: warning: ‘%s’ directive writing up to 255 bytes into a region of size 50 [-Wformat-overflow=]
+ 8861 |                         sprintf (gGivePortRule[gMaxSections - 1].section, "%s", &buf[1]);
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+ArcIPResp.c:8861:25: note: ‘sprintf’ output between 1 and 256 bytes into a destination of size 50
+ 8861 |                         sprintf (gGivePortRule[gMaxSections - 1].section, "%s", &buf[1]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+At top level:
+ArcIPResp.c:9361:1: warning: ‘sRequestLicenses’ defined but not used [-Wunused-function]
+ 9361 | sRequestLicenses (int numResourcesToRequest)
+      | ^~~~~~~~~~~~~~~~
+ArcIPResp.c:9346:1: warning: ‘sReleaseLicenses’ defined but not used [-Wunused-function]
+ 9346 | sReleaseLicenses ()
+      | ^~~~~~~~~~~~~~~~
+ArcIPResp.c:4215:1: warning: ‘StartUpDynMgrAfterDefunct’ defined but not used [-Wunused-function]
+ 4215 | StartUpDynMgrAfterDefunct (int zDMNumber)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~
+ArcIPResp.c: In function ‘load_appref_pgmref_from_license’:
+ArcIPResp.c:1303:9: warning: ‘pclose’ called on pointer returned from a mismatched allocation function [-Wmismatched-dealloc]
+ 1303 |         pclose (fp);
+      |         ^~~~~~~~~~~
+ArcIPResp.c:1262:19: note: returned from ‘fopen’
+ 1262 |         if ((fp = fopen (license_file, "r")) == NULL)
+      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~
+cp ArcIPResp ../bin
+Building ArcIPStopResp
+ArcIPStopResp.c: In function ‘main’:
+ArcIPStopResp.c:73:12: warning: implicit declaration of function ‘determineObjectType’ [-Wimplicit-function-declaration]
+   73 |         rc=determineObjectType(argv[1], object_name, resp_name);
+      |            ^~~~~~~~~~~~~~~~~~~
+ArcIPStopResp.c:134:9: warning: implicit declaration of function ‘updatePortsOffFile’ [-Wimplicit-function-declaration]
+  134 |         updatePortsOffFile(tot_application);
+      |         ^~~~~~~~~~~~~~~~~~
+ArcIPStopResp.c: In function ‘killInactiveApps’:
+ArcIPStopResp.c:165:25: warning: implicit declaration of function ‘read_fld’ [-Wimplicit-function-declaration]
+  165 |                         read_fld(tran_tabl_ptr, i, APPL_STATUS, field);
+      |                         ^~~~~~~~
+ArcIPStopResp.c:190:33: warning: implicit declaration of function ‘util_sleep’; did you mean ‘usleep’? [-Wimplicit-function-declaration]
+  190 |                                 util_sleep(0, 10);
+      |                                 ^~~~~~~~~~
+      |                                 usleep
+ArcIPStopResp.c:194:49: warning: implicit declaration of function ‘write_fld’ [-Wimplicit-function-declaration]
+  194 |                                                 write_fld(tran_tabl_ptr, i,
+      |                                                 ^~~~~~~~~
+ArcIPStopResp.c: In function ‘Log’:
+ArcIPStopResp.c:580:9: warning: implicit declaration of function ‘LogARCMsg’; did you mean ‘LogMsg’? [-Wimplicit-function-declaration]
+  580 |         LogARCMsg(mod, mode, "0", "RES", "ArcIPStopResp", msgId, m);
+      |         ^~~~~~~~~
+      |         LogMsg
+ArcIPStopResp.c: In function ‘write_ports_off_file_entry’:
+ArcIPStopResp.c:433:1: warning: control reaches end of non-void function [-Wreturn-type]
+  433 | }
+      | ^
+ArcIPStopResp.c: In function ‘updatePortsOffFile’:
+ArcIPStopResp.c:538:1: warning: control reaches end of non-void function [-Wreturn-type]
+  538 | }
+      | ^
+cp ArcIPStopResp ../bin

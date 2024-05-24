@@ -1,0 +1,18 @@
+# -----------------------------------------------------------------------------
+# Program:	guidef
+# Purpose:	Master GUI definition file that contains pointers to the 
+#		directories that will hold other GUI definition files for
+#		each of the ARC Services.
+# Author:	Aumtech, Inc.
+# Date:		09/02/99
+# 
+# DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE.
+# -----------------------------------------------------------------------------
+#
+#Base Base/Tables
+Global Global/Tables
+#Telecom Telecom/Tables
+#Network Network/Tables
+#SNA SNA/Tables
+#TCP TCP/Tables
+#WSS WSS/Tables

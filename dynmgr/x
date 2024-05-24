@@ -1,0 +1,164 @@
+ArcSipCallMgr.c:#ifdef DJB_TEST
+ArcSipCallMgr.c:#ifdef DJB_TEST
+ArcSipCallMgr.c:#ifdef DJB_CAN_GET_RID_OF_THIS
+ArcSipCallMgr.c:#endif // DJB_CAN_GET_RID_OF_THIS
+ArcSipCallMgr.c://			"DJB: GV_SipFrom is (%s)", gCall[zCall].GV_SipFrom);
+ArcSipCallMgr.c://			"DJB: GV_CallerName is (%s)", gCall[zCall].GV_CallerName);
+ArcSipCallMgr.c://                  "DJB: %d=notifyMediaMgr: opcode=%d appCallNum=%d "
+ArcSipCallMgr.c://          "DJB: gCall[%d].callState=%d   yCurrentTime=%ld  yConnectTime=%ld",
+ArcSipCallMgr.c://			"DJB: Set SIP_FROM to (%s)", gCall[zCall].GV_SipFrom);
+ArcSipCallMgr.c://                   "DJB: not doing APPDIED - BREAKING OUT OF IT");
+ArcSipCallMgr.c://							"DJB: inside MP_OPCODE_SESSION_EXPIRES_SEND_REFRESH - time hit (%d)", tb.time);
+ArcSipCallMgr.c://		fprintf(stderr, "DJB: [%d]\n", __LINE__);
+ArcSipCallMgr.c://		fprintf(stderr, "DJB: [%d]\n", __LINE__);
+ArcSipMediaMgr.c:// DJB debug
+ArcSipMediaMgr.c:// end DJB debug
+ArcSipMediaMgr.c://			"DJB:[called from %d] %s", zLine, yMessage);
+ArcSipMediaMgr.c://          "DJB: gCall[%d].yInitTime(%d) < gCall[%d].yDropTime(%d).",
+ArcSipMediaMgr.c://							"DJB: unlink (%s)", gCall[yIntALeg].responseFifo);
+ArcSipMediaMgr.c://		if ((stat(fifoName, &(gCall[zCall].DJBStat))) == -1)
+ArcSipMediaMgr.c://				"DJB: fifo (%s - inode=%ld).", fifoName, gCall[zCall].DJBStat.st_ino);
+ArcSipMediaMgr.c:// DJBDEBUG - this is for debugging disconnect issue
+ArcSipMediaMgr.c://		memset((struct stat *)&(gCall[yIntALeg].DJBStat), '\0', sizeof(struct stat));
+ArcSipMediaMgr.c://		if ((stat(buf, &(gCall[yIntALeg].DJBStat))) == -1)
+ArcSipMediaMgr.c://				"[%s, %d] DJBStat.st_ino  = %ld", __FILE__, __LINE__, gCall[yIntALeg].DJBStat.st_ino);
+ArcSipMediaMgr.c:// END DJBDEBUG - this is for debugging disconnect issue
+ArcSipMediaMgr.c://			"DJB:[called from %d] CLEANING SPEAK LIST ", zLine);
+ArcSipMediaMgr.c:	//		"DJB:[called from %d] msgSpeak.list=%d", zLine, gCall[zCall].pFirstSpeak->msgSpeak.list);
+ArcSipMediaMgr.c:	//		 	"DJB:[called from %d] unlinked (%s)", zLine, gCall[zCall].pFirstSpeak->msgSpeak.key);
+ArcSipMediaMgr.c:	//		 	"DJB:[called from %d] Freed pFirstSpeak (%s)", zLine, gCall[zCall].pFirstSpeak->msgSpeak.key);
+ArcSipMediaMgr.c:		// DJB - TODO: Need a timeout here.
+ArcSipMediaMgr.c:		return (-1);			// DJB: what to do
+ArcSipMediaMgr.c:		return (-1);			// DJB: what to do
+ArcSipMediaMgr.c://										   DYN_BASE, INFO, "DJB: opening (%s)", file);
+ArcSipMediaMgr.c://										   DYN_BASE, INFO, "DJB: opened wav");
+ArcSipMediaMgr.c://										   DYN_BASE, INFO, "DJB: posting silence.  silenceCounter=%d", silenceCounter);
+ArcSipMediaMgr.c:		//										   DYN_BASE, INFO, "DJB: done with sending silence");
+ArcSipMediaMgr.c:		//							dynVarLog (__LINE__, zCall, (char *) __func__, REPORT_VERBOSE, DYN_BASE, INFO, "DJB: error opening (%s).  [%d]",
+ArcSipMediaMgr.c://				   "[%d] DJB: zMsgToDM is NULL.", zLine);
+ArcSipMediaMgr.c://						"DJB: MRCP: ARCGS: Sent SILENCE audio packet to Google SR Client");
+ArcSipMediaMgr.c://				   "[%d] DJB: pFirstSpeak is NULL", zLine);
+ArcSipMediaMgr.c://				   "[%d] DJB: gCall[%d].msgToDM.opcode=%d",
+ArcSipMediaMgr.c://			"[%d] DJB: gTrailSilenceDetection=%d,  trail_silence=%d, lead_silence=%d", zLine,
+ArcSipMediaMgr.c://				"[%d] DJB: interrupt_option=%d,  dtmf_tab[%d] = [%c, %d], terminate_char=[%c, %d]", zLine,
+ArcSipMediaMgr.c://		"DJB: Set recordStartedForDisconnect to %d",
+ArcSipMediaMgr.c://	   			"[%d] DJB: deleting (%s)", __LINE__, zFileName);
+ArcSipMediaMgr.c://              "[%d] DJB: gCall[%d].dtmfAvailable=%d, "
+ArcSipMediaMgr.c:			// DJB DEBUG - uncomment this if (arc_small_conference_find_free (ptr) == 1)
+ArcSipMediaMgr.c:			// END DJB DEBUG - uncomment this if (arc_small_conference_find_free (ptr) == 1)
+ArcSipMediaMgr.c://							"DJB: leads=%d msgRecord.lead_silence=%d.",
+ArcSipMediaMgr.c://							"DJB: googlePromptIsPlaying set to %d. leading_samples updated to  %d. ",
+ArcSipMediaMgr.c://						TEL_BASE, INFO, "DJB: beginning of loop.");
+ArcSipMediaMgr.c://						"DJBTONES: toneDetectionBuff.leading_samples updated to %d.",
+ArcSipMediaMgr.c://				"DJB: unlink (%s)", fifoName);
+ArcSipMediaMgr.c://							"DJB: unlink (%s)", gCall[zCall].responseFifo);
+ArcSipMediaMgr.c://              "DJB: gCall[%d].msg_avbMsgToApp.returnCode to %d; "
+ArcSipMediaMgr.c://  				"DJB: %d = read()  gsr.opcode = %d", yRc, gsr.opcode);
+ArcSipMediaMgr.c://				"DJB: Set gCall[%d].msg_avbMsgToApp.returnCode to %d; "
+ArcSipMediaMgr.c://                  "DJB: Before addToSpeakList.  lpSpeak->resource=(%s)",
+ArcSipMediaMgr.c://              "DJB: yTmpApproxTime(%d) - yLastHeartBeat(%d) = %d",
+ArcSipMediaMgr.c:// DJB debug
+ArcSipMediaMgr.c:// end DJB debug
+ArcSipMediaMgr.c://              "DJB: alloc'd %d to avb_bufferPCM.[%p] ",
+j.c:// DJB debug
+j.c:// end DJB debug
+j.c://			"DJB:[called from %d] %s", zLine, yMessage);
+j.c://          "DJB: gCall[%d].yInitTime(%d) < gCall[%d].yDropTime(%d).",
+j.c://							"DJB: unlink (%s)", gCall[yIntALeg].responseFifo);
+j.c://		if ((stat(fifoName, &(gCall[zCall].DJBStat))) == -1)
+j.c://				"DJB: fifo (%s - inode=%ld).", fifoName, gCall[zCall].DJBStat.st_ino);
+j.c:// DJBDEBUG - this is for debugging disconnect issue
+j.c://		memset((struct stat *)&(gCall[yIntALeg].DJBStat), '\0', sizeof(struct stat));
+j.c://		if ((stat(buf, &(gCall[yIntALeg].DJBStat))) == -1)
+j.c://				"[%s, %d] DJBStat.st_ino  = %ld", __FILE__, __LINE__, gCall[yIntALeg].DJBStat.st_ino);
+j.c:// END DJBDEBUG - this is for debugging disconnect issue
+j.c://			"DJB:[called from %d] CLEANING SPEAK LIST ", zLine);
+j.c:	//		"DJB:[called from %d] msgSpeak.list=%d", zLine, gCall[zCall].pFirstSpeak->msgSpeak.list);
+j.c:	//		 	"DJB:[called from %d] unlinked (%s)", zLine, gCall[zCall].pFirstSpeak->msgSpeak.key);
+j.c:	//		 	"DJB:[called from %d] Freed pFirstSpeak (%s)", zLine, gCall[zCall].pFirstSpeak->msgSpeak.key);
+j.c:		// DJB - TODO: Need a timeout here.
+j.c:		return (-1);			// DJB: what to do
+j.c:		return (-1);			// DJB: what to do
+j.c://										   DYN_BASE, INFO, "DJB: opening (%s)", file);
+j.c://										   DYN_BASE, INFO, "DJB: opened wav");
+j.c://										   DYN_BASE, INFO, "DJB: posting silence.  silenceCounter=%d", silenceCounter);
+j.c:		//										   DYN_BASE, INFO, "DJB: done with sending silence");
+j.c:		//							dynVarLog (__LINE__, zCall, (char *) __func__, REPORT_VERBOSE, DYN_BASE, INFO, "DJB: error opening (%s).  [%d]",
+j.c://				   "[%d] DJB: zMsgToDM is NULL.", zLine);
+j.c://						"DJB: MRCP: ARCGS: Sent SILENCE audio packet to Google SR Client");
+j.c://				"DJB: yMsgRecognize.lead_silence:%d  gCall[%d].msgRecord.lead_silence:%d",
+j.c://				   "[%d] DJB: pFirstSpeak is NULL", zLine);
+j.c://				   "[%d] DJB: gCall[%d].msgToDM.opcode=%d",
+j.c://			"[%d] DJB: gTrailSilenceDetection=%d,  trail_silence=%d, lead_silence=%d", zLine,
+j.c://				"[%d] DJB: interrupt_option=%d,  dtmf_tab[%d] = [%c, %d], terminate_char=[%c, %d]", zLine,
+j.c://		"DJB: Set recordStartedForDisconnect to %d",
+j.c://	   			"[%d] DJB: deleting (%s)", __LINE__, zFileName);
+j.c://              "[%d] DJB: gCall[%d].dtmfAvailable=%d, "
+j.c:			// DJB DEBUG - uncomment this if (arc_small_conference_find_free (ptr) == 1)
+j.c:			// END DJB DEBUG - uncomment this if (arc_small_conference_find_free (ptr) == 1)
+j.c://							"DJB: leads=%d msgRecord.lead_silence=%d.",
+j.c://							"DJB: googlePromptIsPlaying set to %d. leading_samples updated to  %d. ",
+j.c://						TEL_BASE, INFO, "DJB: beginning of loop.");
+j.c://						"DJBTONES: toneDetectionBuff.leading_samples updated to %d.",
+j.c://				"DJB: unlink (%s)", fifoName);
+j.c://							"DJB: unlink (%s)", gCall[zCall].responseFifo);
+j.c://              "DJB: gCall[%d].msg_avbMsgToApp.returnCode to %d; "
+j.c://  				"DJB: %d = read()  gsr.opcode = %d", yRc, gsr.opcode);
+j.c:				// DJB TODO: if google_sr, 
+j.c://				"DJB: Set gCall[%d].msg_avbMsgToApp.returnCode to %d; "
+j.c://                  "DJB: Before addToSpeakList.  lpSpeak->resource=(%s)",
+j.c://              "DJB: yTmpApproxTime(%d) - yLastHeartBeat(%d) = %d",
+j.c:// DJB debug
+j.c:// end DJB debug
+j.c://              "DJB: alloc'd %d to avb_bufferPCM.[%p] ",
+justRecordFile.c:// DJB debug
+justRecordFile.c:// end DJB debug
+justRecordFile.c://			"DJB:[called from %d] %s", zLine, yMessage);
+justRecordFile.c://          "DJB: gCall[%d].yInitTime(%d) < gCall[%d].yDropTime(%d).",
+justRecordFile.c://							"DJB: unlink (%s)", gCall[yIntALeg].responseFifo);
+justRecordFile.c://		if ((stat(fifoName, &(gCall[zCall].DJBStat))) == -1)
+justRecordFile.c://				"DJB: fifo (%s - inode=%ld).", fifoName, gCall[zCall].DJBStat.st_ino);
+justRecordFile.c:// DJBDEBUG - this is for debugging disconnect issue
+justRecordFile.c://		memset((struct stat *)&(gCall[yIntALeg].DJBStat), '\0', sizeof(struct stat));
+justRecordFile.c://		if ((stat(buf, &(gCall[yIntALeg].DJBStat))) == -1)
+justRecordFile.c://				"[%s, %d] DJBStat.st_ino  = %ld", __FILE__, __LINE__, gCall[yIntALeg].DJBStat.st_ino);
+justRecordFile.c:// END DJBDEBUG - this is for debugging disconnect issue
+justRecordFile.c://			"DJB:[called from %d] CLEANING SPEAK LIST ", zLine);
+justRecordFile.c:	//		"DJB:[called from %d] msgSpeak.list=%d", zLine, gCall[zCall].pFirstSpeak->msgSpeak.list);
+justRecordFile.c:	//		 	"DJB:[called from %d] unlinked (%s)", zLine, gCall[zCall].pFirstSpeak->msgSpeak.key);
+justRecordFile.c:	//		 	"DJB:[called from %d] Freed pFirstSpeak (%s)", zLine, gCall[zCall].pFirstSpeak->msgSpeak.key);
+justRecordFile.c:		// DJB - TODO: Need a timeout here.
+justRecordFile.c:		return (-1);			// DJB: what to do
+justRecordFile.c:		return (-1);			// DJB: what to do
+justRecordFile.c://										   DYN_BASE, INFO, "DJB: opening (%s)", file);
+justRecordFile.c://										   DYN_BASE, INFO, "DJB: opened wav");
+justRecordFile.c://										   DYN_BASE, INFO, "DJB: posting silence.  silenceCounter=%d", silenceCounter);
+justRecordFile.c:		//										   DYN_BASE, INFO, "DJB: done with sending silence");
+justRecordFile.c:		//							dynVarLog (__LINE__, zCall, (char *) __func__, REPORT_VERBOSE, DYN_BASE, INFO, "DJB: error opening (%s).  [%d]",
+justRecordFile.c://				   "[%d] DJB: zMsgToDM is NULL.", zLine);
+justRecordFile.c://						"DJB: MRCP: ARCGS: Sent SILENCE audio packet to Google SR Client");
+justRecordFile.c://				"DJB: yMsgRecognize.lead_silence:%d  gCall[%d].msgRecord.lead_silence:%d",
+justRecordFile.c://				   "[%d] DJB: pFirstSpeak is NULL", zLine);
+justRecordFile.c://				   "[%d] DJB: gCall[%d].msgToDM.opcode=%d",
+justRecordFile.c://			"[%d] DJB: gTrailSilenceDetection=%d,  trail_silence=%d, lead_silence=%d", zLine,
+justRecordFile.c://				"[%d] DJB: interrupt_option=%d,  dtmf_tab[%d] = [%c, %d], terminate_char=[%c, %d]", zLine,
+justRecordFile.c://		"DJB: Set recordStartedForDisconnect to %d",
+justRecordFile.c://	   			"[%d] DJB: deleting (%s)", __LINE__, zFileName);
+justRecordFile.c://              "[%d] DJB: gCall[%d].dtmfAvailable=%d, "
+justRecordFile.c:			// DJB DEBUG - uncomment this if (arc_small_conference_find_free (ptr) == 1)
+justRecordFile.c:			// END DJB DEBUG - uncomment this if (arc_small_conference_find_free (ptr) == 1)
+justRecordFile.c://							"DJB: leads=%d msgRecord.lead_silence=%d.",
+justRecordFile.c://							"DJB: googlePromptIsPlaying set to %d. leading_samples updated to  %d. ",
+justRecordFile.c://						TEL_BASE, INFO, "DJB: beginning of loop.");
+justRecordFile.c://						"DJBTONES: toneDetectionBuff.leading_samples updated to %d.",
+justRecordFile.c://				"DJB: unlink (%s)", fifoName);
+justRecordFile.c://							"DJB: unlink (%s)", gCall[zCall].responseFifo);
+justRecordFile.c://              "DJB: gCall[%d].msg_avbMsgToApp.returnCode to %d; "
+justRecordFile.c://  				"DJB: %d = read()  gsr.opcode = %d", yRc, gsr.opcode);
+justRecordFile.c:				// DJB TODO: if google_sr, 
+justRecordFile.c://				"DJB: Set gCall[%d].msg_avbMsgToApp.returnCode to %d; "
+justRecordFile.c://                  "DJB: Before addToSpeakList.  lpSpeak->resource=(%s)",
+justRecordFile.c://              "DJB: yTmpApproxTime(%d) - yLastHeartBeat(%d) = %d",
+justRecordFile.c:// DJB debug
+justRecordFile.c:// end DJB debug
+justRecordFile.c://              "DJB: alloc'd %d to avb_bufferPCM.[%p] ",

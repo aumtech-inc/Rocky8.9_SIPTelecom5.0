@@ -1,0 +1,62 @@
+arcLicense.c:252: syntax error before '{' token
+arcLicense.c:265: syntax error before "while"
+arcLicense.c:268: syntax error before string constant
+arcLicense.c:268: warning: conflicting types for built-in function `printf'
+arcLicense.c:268: warning: data definition has no type or storage class
+arcLicense.c:269: syntax error before string constant
+arcLicense.c:269: warning: data definition has no type or storage class
+arcLicense.c:270: syntax error before string constant
+arcLicense.c:270: warning: data definition has no type or storage class
+arcLicense.c:271: syntax error before string constant
+arcLicense.c:271: warning: data definition has no type or storage class
+arcLicense.c:273: initializer element is not constant
+arcLicense.c:273: warning: data definition has no type or storage class
+arcLicense.c:274: syntax error before "switch"
+arcLicense.c:278: syntax error before string constant
+arcLicense.c:278: warning: conflicting types for built-in function `sprintf'
+arcLicense.c:278: warning: data definition has no type or storage class
+arcLicense.c:279: syntax error before string constant
+arcLicense.c:279: warning: data definition has no type or storage class
+arcLicense.c:280: redefinition of `keepLooping'
+arcLicense.c:259: `keepLooping' previously defined here
+arcLicense.c:280: warning: data definition has no type or storage class
+arcLicense.c:281: syntax error before "continue"
+arcLicense.c:285: syntax error before string constant
+arcLicense.c:285: warning: data definition has no type or storage class
+arcLicense.c:286: syntax error before string constant
+arcLicense.c:286: warning: data definition has no type or storage class
+arcLicense.c:287: redefinition of `keepLooping'
+arcLicense.c:280: `keepLooping' previously defined here
+arcLicense.c:287: warning: data definition has no type or storage class
+arcLicense.c:288: syntax error before "continue"
+arcLicense.c:292: syntax error before string constant
+arcLicense.c:292: warning: data definition has no type or storage class
+arcLicense.c:293: syntax error before string constant
+arcLicense.c:293: warning: data definition has no type or storage class
+arcLicense.c:294: redefinition of `keepLooping'
+arcLicense.c:287: `keepLooping' previously defined here
+arcLicense.c:294: warning: data definition has no type or storage class
+arcLicense.c:295: syntax error before "continue"
+arcLicense.c:306: initializer element is not constant
+arcLicense.c:306: warning: data definition has no type or storage class
+arcLicense.c:307: syntax error before "if"
+arcLicense.c:312: redefinition of `keepLooping'
+arcLicense.c:294: `keepLooping' previously defined here
+arcLicense.c:312: warning: data definition has no type or storage class
+arcLicense.c:313: syntax error before '}' token
+arcLicense.c:318: syntax error before "sizeof"
+arcLicense.c:319: warning: initialization makes pointer from integer without a cast
+arcLicense.c:319: initializer element is not constant
+arcLicense.c:319: warning: data definition has no type or storage class
+arcLicense.c:320: syntax error before '}' token
+arcLicense.c:326: syntax error before "sizeof"
+arcLicense.c:327: redefinition of `ans'
+arcLicense.c:273: `ans' previously defined here
+arcLicense.c:327: initializer element is not constant
+arcLicense.c:327: warning: data definition has no type or storage class
+arcLicense.c:328: syntax error before "if"
+arcLicense.c:332: syntax error before "sizeof"
+arcLicense.c:333: syntax error before string constant
+arcLicense.c:333: warning: data definition has no type or storage class
+arcLicense.c:251: warning: `get_info' used but never defined
+make: *** [arcLicense.o] Error 1

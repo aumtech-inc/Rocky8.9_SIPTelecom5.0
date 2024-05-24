@@ -1,0 +1,6 @@
+user arc arc123
+cd .ISP/Telecom/Applications/lib
+lcd ..
+lcd lib
+put libarcML.a
+quit

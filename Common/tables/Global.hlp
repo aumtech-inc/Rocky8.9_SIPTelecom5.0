@@ -1,0 +1,51 @@
+#------------------------------------------------------------------------------
+# Program:	Global.cfg.hlp
+# Purpose:	To provide help messages for the Global configuration GUI.
+# Author:	ISP development staff
+# Date:		Unknown
+# Last update:	Feb 3, 1996 by George Wenzel, added this header
+#------------------------------------------------------------------------------
+^DefaultPrinter
+
+Specifies the name of the default printer used.
+
+^Base_Release
+
+Specifies the current release of ISP Base Services installed.
+
+^LOG_PRIMARY_SERVER
+
+Specifies the name of the primary host where logging
+should be performed.
+
+^LOG_SECONDARY_SERVER
+
+Specifies the name of the host which will be used as the
+backup server for logging.
+
+^LOG_REPORT_VERBOSE
+
+Specifies that the reporting mode is for verbose logging. 
+This mode should only be turned on when you are trying to 
+diagnose a particular problem.  When turned on, this option
+affects all newly initiated application processes, and will
+generate a significantly higher volume of messages to
+your log file(s).  It will generate one message for each
+call to each API in all running applications showing the 
+parameters passed to the API. It will also log selected
+diagnostic messages within the APIs which might help to
+identify problems.  This mode should not be left on for very
+long. If you wish to get verbose logging on a specific 
+running application, you can use the AppMonitor to turn on
+verbose logging only for that application instance. Using
+this approach will greatly reduce the number of messages
+logged, since it will only apply to one application instance.
+
+^LOG_RETENTION
+
+Specifies the number of days that log files will be retained.
+There is a cron job for this user that will check this value
+and delete all log files that are older than the retention
+value.
+
+^

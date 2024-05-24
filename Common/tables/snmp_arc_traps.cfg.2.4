@@ -1,0 +1,55 @@
+#------------------------------------------------------------------------------
+# File:		snmp_arc_traps.cfg
+# Purpose:	This file contains the numbers of error messages that are
+#		generated from ARC system software, and identifies which of
+#		those messages should generate an SNMP trap. For the messages
+#		so indicated, an snmp trap will be generated each time the
+#		particular message is logged, subject to the filtering criteria
+#		used by the ARC snmp agent.
+# Format:	<msg_id> <group> <active> <comments> 
+#		where, 	msg_id is the number of the message
+#			group is the ARC system, e.g., TEL, SNA, NET, etc.
+#			active is either "Y" or "N"
+#		Only those msg_id's for which the active field is "Y" will
+#		generate traps.  Lines with "#" in column one are ignored.
+# Author:	Aumtech, Inc.
+# Date:		08/13/97
+# Update:	<date>	<person> <description of change to this file>
+#------------------------------------------------------------------------------
+#
+# API and Aux Messages
+#
+1004 TEL Y TEL_EVENDORACTIVE 	Vendor software is not active on the port
+1006 TEL Y TEL_EAPPREG		Application can't register with vendor software	
+1020 TEL Y TEL_EOPENSPEECHFIL	Unable to open speech file
+1023 TEL Y TEL_EAVDEVOPEN	Unable to open voice device 
+1024 TEL Y TEL_EANDEVOPEN	Unable to open Network device 
+1104 TEL Y TEL_ETVSIRGO		Unable to start speech recognition
+1150 TEL Y TEL_E_EXEC		Failed to start new app
+1156 TEL Y TEL_E_SHMAT		Cannot attach to shmem
+1157 TEL Y TEL_E_MSGGET		Cannot attach to dynamic manager message queue
+#
+# Responsibility Subsystem Messages
+#
+3001 TEL Y ISP_EENV		Environment variable not set.
+3003 TEL Y ISP_ESHM_AT		Unable to attach shared memory segment.
+3005 TEL Y ISP_ESHMID		Unable to get shared memory segment.
+3007 TEL Y ISP_EMSGQID		Unable to get message queue identifier.
+3009 TEL Y ISP_ESTOP	Application spawning too rapidly; will not be started.
+3010 TEL Y ISP_EACTIVITY Application appears to be hung. It will be terminated.
+3017 TEL Y ISP_ERECV_MESG 	Unable to receive message from queue. 
+3038 TEL Y ISP_EEXECL		Exec system call failed.
+3039 TEL Y ISP_ESTART_NET 	Unable to start network services.
+3040 TEL Y ISP_ESTART_ACCESS 	Unable to start vendor software.
+3041 TEL Y ISP_EFORK		Fork system call failed.
+#
+# DynMgr & Responsibility Subsystem Messages
+#
+3100 TEL Y			Unable to get environment variable OBJDB.
+3101 TEL Y 			Can't get message queue.
+3102 TEL Y 			Failed to open Dialogic Channel.
+3110 TEL Y			Error in shared memory key.
+#
+7009 TEL N			Network link is down.
+7017 TEL N			Network link is up.
+

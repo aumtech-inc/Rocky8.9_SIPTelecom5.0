@@ -1,0 +1,144 @@
+$TELECOM/doc/install_arcFAX.readme			      March 30, 2001
+
+          Instructions for Installing/Removing ARC Fax Services
+          =====================================================
+
+The purpose of this document:
+
+This document provides instructions for installing and removing ARC 
+Fax Services on your Telecom Server.
+
+
+To determine if the Fax Services package is already installed:
+
+	1)	cat /home/.arcFAX.pkginfo
+	2) 	If the file does not exist, then the package is not installed.
+
+	If the file does exist, then examine the last set of information. The 
+	last line in the file should be either "INSTALLED" or "REMOVED". If
+	it is "INSTALLED", you must remove the existing installed package
+	before proceeding with the installation of the new package.
+
+
+To install the Fax Services package:
+
+	1) Make sure you have created the user "arc" with 
+	   1) a home directory of /home/arc, and
+	   2) a default shell of /bin/ksh (installation will fail without this).
+	   3) The current directory, ".", included in its PATH.
+
+	Note: You may have to get an administrator for you to do this.
+
+	2) su root
+
+	3) mkdir /tmp/pkg  (if it does not already exist)
+
+	4) cd /tmp/pkg
+
+	5) Copy the package file, arcFAX.3.1.tar.Z, to /tmp/pkg
+
+	6) uncompress arcFAX.3.1.tar.Z		
+	   tar -xvf arcFAX.3.1.tar
+
+	These commands will place all the files that make up the package
+	into the current directory, including the installation script. 
+
+	7) Run the installation script by typing: 
+
+	./install_arcFAX
+
+	8) Obtain a license from Aumtech.
+
+	If you have not previously done so, you will need to obtain a
+	license from Aumtech before you can successfully use the 
+	Fax Services features in your Telecom Services applications. 
+
+	To obtain a license, log in as the user you specified during the
+	installation of the package and type the following:
+
+	cd $HOME/.ISP/Global/Exec
+	arcLicense FAX
+
+	Enter the information requested and e-mail the information that
+	is stored into file /tmp/license.txt to support@aumtechinc.com and 
+	Aumtech will e-mail you back a license file.  Please indicate when
+	you need the license. (Requests for "as soon as possible" will 
+	be honored to the best of our ability.)
+
+	When you get a reply from Aumtech, detach the license file from 
+	the e-mail (as an ASCII file) and copy it to the 
+	$HOME/.ISP/Global/Tables directory as "license.dat."
+
+	Complete information regarding Aumtech licensing can be found in 
+	the licensing.readme file in $TELECOM/doc.
+	
+	09) Reboot your machine.
+
+	Before proceeding, you should reboot your machine to make sure that
+	all of the changes made during the installation have properly taken
+	effect. 
+
+	10) Start Telecom Services
+
+	If you have a valid license in place and have scheduled an 
+	application, you are ready to start Telecom Services and run
+	applications that are Fax capable. 
+
+	To start Telecom Services, do the following:
+	cd $TELECOM/Operations
+	./Start_Telecom
+
+	In a few moments, you should see a message indicating that
+	Telecom Services has started successfully. 
+
+	If Telecom Services does not start successfully, please check the 
+	following:
+
+	a) See if there is a message in $TELECOM/Exec/nohup.out indicating
+	a error. This will most likely be a licensing violation. Refer to
+	the document license.doc in $TELECOM/doc for instructions regarding
+	licensing. 
+
+	b) Check the last message(s) in the current Aumtech system log and
+	correct the problem according to the information there. To access
+	the current Aumtech system log, do the following:
+	cd $HOME/.ISP/LOG
+	vi ISP.cur 
+
+	c) If you cannot determine why Telecom Services did not start, 
+	send an e-mail to support@aumtechinc.com, with the following:
+
+	i)   A description of your problem.
+	ii)  The current Aumtech system log file, $HOME/.ISP/LOG/ISP.cur.
+	iii) The nohup file: $TELECOM/Exec/nohup.out
+	iv)  Your current license file: $HOME/.ISP/Global/Tables/license.dat.
+	v)   The license request information from your system: /tmp/license.txt.
+	     If this file is not present on your system, then generate it by
+	     issuing the following commands:
+	     cd $HOME/.ISP/Global/Exec
+	     arcLicense FAX
+
+
+To remove the Fax Services package:
+
+NOTE: 	You MUST be root remove the package.
+
+	1) cd /home/arc/.ISP/Telecom/bin
+	
+	2) su - root
+
+	3) ./remove_arcFAX
+
+	4) If you have trouble removing the package:
+
+	You cannot remove the arcFAX package unless it is installed. 
+	If you are sure it is installed and it is not allowing you to 
+	remove it, then check to see if the package information file 
+	"/home/.arcFAX.pkginfo" exists. If it does not, then create it 
+	and put a single line in it that contains only the word 
+	"INSTALLED" (upper case, no quotes).  This will allow you to 
+	proceed with the removal of the package.
+
+	Please note that it is NOT a good idea to manipulate the package
+	information file unless absolutely necessary.
+	

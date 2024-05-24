@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ActivationSpecificationRecord xmlns="http://www.macrovision.com/fnp/2004/11/activation">
+<Header>
+<Version>1</Version>
+<Id>ShortCodeA</Id>
+<PublisherId>256</PublisherId>
+</Header>
+<ConfigData>
+<ClientConfig>
+<Id>1</Id>
+<Revision>NumberOne</Revision>
+<RevisionType>ASR</RevisionType>
+<Data>0AE22F6F72FAF8FAD89585F81609D594745E9D4C8BFEB32CC61D1B71EDC5E43FB11EDAF43CA91158E5F892823E2048A16B4254C5AFCBDC05E1B8CC4E6E9F68B0FAB80180670F425177E500076E51958A0C5C20DE297100655AB5CAB42757D8C3A81F75636CBC710BCD0CAEDDC07669385AE5768D432302B2A68885466721BA644A513C6F0EDC1150B488535A25A2108EED3F78306B6FE419238D541673EFCA6B84E97801AAC9BA7E213631D09E0A75EF9CE7925C5DF91FFE07860F7198186FB413660F8D11030B37CEB1B82356785B0AE316848F178668C175</Data>
+</ClientConfig>
+</ConfigData>
+<DataDictionary>
+<Entries>
+<Entry/>
+</Entries>
+</DataDictionary>
+<FulfillmentRecord>
+<FulfillmentRecordHeader>
+<VersionNumber>1</VersionNumber>
+</FulfillmentRecordHeader>
+<FulfillmentRecordData>
+<FulfillmentId>ShortCodeASR_A</FulfillmentId>
+<FulfillmentDictionary>
+<Entries>
+<Entry>
+<Key>fulfillmentType</Key>
+<Value>2</Value>
+</Entry>
+<Entry>
+<Key>expiry</Key>
+<Value>31-dec-2008</Value>
+</Entry>
+<Entry>
+<Key>serverHostID</Key>
+<Value>FLEXID=6-a6300155</Value>
+</Entry>
+<Entry>
+<Key>servOrLocal</Key>
+<Value>2</Value>
+</Entry>
+<Entry>
+<Key>ProductId</Key>
+<Value>EZCALC-A</Value>
+</Entry>
+<Entry>
+<Key>EntitlementId</Key>
+<Value>ENTL-EZCALC-A1</Value>
+</Entry>
+<Entry>
+<Key>availAct</Key>
+<Value>1</Value>
+</Entry>
+<Entry>
+<Key>features</Key>
+<Value>INCREMENT ADD demo 1.0 31-dec-2008 1 SIGN="0074 91B0 7293 119A 99A3 \
+	7CEA 44D7 6E00 368C 772D A56F 9BC4 D91E 5889 4962"
+INCREMENT SUBTRACT demo 1.0 31-dec-2008 1 SIGN="00B0 7F97 5E13 53E6 \
+	46C6 C89C B5D9 4A00 3F54 1F3D 419B 3009 C8FC 14D1 FBFF"
+INCREMENT MULTIPLY demo 1.0 31-dec-2008 1 SIGN="00BC 73C6 BBEF 8651 \
+	ECD3 0B21 BE36 8900 AB28 5411 439C BF58 2CE0 CD7D F0CA"
+INCREMENT DIVIDE demo 1.0 31-dec-2008 1 SIGN="0059 F2CC 3B02 FD39 \
+	56D9 2602 0A31 9C00 F7D2 8AD7 0233 6084 9C44 7F41 46DA"
+INCREMENT AVG demo 1.0 31-dec-2008 1 SIGN="00AF 90A0 7FD4 5BFE 1B91 \
+	76A1 5899 1F00 F378 C41C 09F7 2FEA D1AC B9F3 49DE"
+</Value>
+</Entry>
+</Entries>
+</FulfillmentDictionary>
+</FulfillmentRecordData>
+</FulfillmentRecord>
+<ShortCodeData>
+<SchemeId>SCS_BASIC_42</SchemeId>
+<ShortCodeAlias>99</ShortCodeAlias>
+<Overrides>
+<ResponseOverrides>
+<Dictionary>
+<Entries>
+<Entry>
+<Key>MinimumCodeSize</Key>
+<Value>24</Value>
+</Entry>
+</Entries>
+</Dictionary>
+</ResponseOverrides>
+</Overrides>
+</ShortCodeData>
+<Signature>089314B1B006720507563324EEECA1C86B0EFAC12F4F619B80D6A56E246301DB311B73C863A162686044EF0BCDDCB1818EB51306EF67C54202BCC50A</Signature>
+</ActivationSpecificationRecord>

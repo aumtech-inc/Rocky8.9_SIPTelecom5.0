@@ -1,0 +1,26 @@
+Tuesday August 12 2003 : ortp-0.6.3
+	- some improvements by Aymeric Moizard for Win32 build
+	- some bug fixes concerning ipv6 support.
+
+Thursday August 7 2003 : ortp-0.6.2
+	- just some minor improvements for using oRTP in a C++ environment.
+
+Wednesday January 8 2003: ortp-0.6.0
+	- many bug fixes by Telisma: the most important bug concerned the windows port.
+	- some new functionnalities concerning the RTP profiles and payload management.
+	- ported to glib-2.0 .
+
+Monday September 23 2002: ortp-0.5.0
+	- ortp has been ported to the Microsoft Windows OS (version 2000 and later) by Eloquant
+		(http://www.eloquant.com)
+	- some bug fixes and improvements of the windows port have been made by Telisma 
+		(http://www.telisma.com)
+
+Wednesday June 5 2002: ortp-0.4.4
+	- Some crashing bugs fixed.
+
+Wednesday May 15 2002: ortp-0.4.3
+	- Install include files properly.
+
+Tuesday May 7 2002: ortp-0.4.2
+	- First official and public release of oRTP.

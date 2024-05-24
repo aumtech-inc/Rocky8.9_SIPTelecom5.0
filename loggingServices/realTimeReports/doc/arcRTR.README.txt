@@ -1,0 +1,64 @@
+arcRTRClient
+============
+
+main()
+	- init()
+	- mainThread ( pthread
+	- pthread_create ( mainThread ) 
+	- loops checking mainThread
+
+	- mainThread()
+		- establishConnection
+		- while ()
+		{
+			processAllCDRFiles()
+		}
+		- sc_Exit()
+
+	- processAllCDRFiles()
+		- whereDoIStartFrom()
+		- processCDRs()
+
+	- processAllRecordsFromFile()
+		- process all record from single CDR file
+---------------------------------------------------
+
+- setNextCDRFile()
+	- determines the next CDR File to process
+	Called from:
+		processAllCDRFiles()
+		
+
+- whereDoIStartFrom()
+	- check arcRTRClientTracker.txt; determine file to look for
+	- popFieldsFromLogFile()
+	- goFindFile()
+	
+
+- goFindFile()
+	- search $LOG and $LOG/load/loaded.<date>, returns fullPath 
+	  and doesItExist
+	  if ( notFound) 
+	  {
+		sets doesItExist to 0
+	  }
+	  else
+	  {
+		sets fullPath
+		sets .doesItExist to 1
+	  }
+	  return(0);
+
+- popFieldsFromLogFile( gCDRInfo.cdrFileName )
+	- From the log filename, population CDRInfo fields (mm, day, yy, etc), and isItInThePast
+
+- createCDRLogFromTime()
+	- creates a CDR Log file from the time (mon, day, year, hour)
+
+- isCurrentFileInThePast()
+	- Called from:
+			setNextCDRFile()
+			popFieldsFromLogFile()
+
+- updateTrackerFile()
+

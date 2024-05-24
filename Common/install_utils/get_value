@@ -1,0 +1,48 @@
+#!/bin/ksh
+#-----------------------------------------------------------------------------
+# Program: 	get_value
+# Purpose:	To get a value from a file containing lines with format:
+#		name=value.
+#		NOTE: This function must be called with a dot in front of it,
+#			so that the returned value is available in the calling
+#			shell.
+#		Example: . get_value .Global.cfg PRIMARY_LOG_HOST
+#
+#		Parm1=filename; Parm2=name for which value is sought.
+#
+#		Commented lines containing the name sought are ignored.
+#		Only the first uncommented line containing the name sought 
+#		is parsed. If no lines are found containing the name sought,
+#		the value will be null. 
+#		The value is returned in $get_valueOUTPUT.
+# Author:	George Wenzel
+# Date:		06/15/99
+# Update:	02/21/01 gpw added -f option to rm's
+#-----------------------------------------------------------------------------
+get_value()
+{
+	temp_file=/tmp/get_value.$$
+	if `grep "$2" $1 | grep -v "^\#" > $temp_file 2>&1 `
+	then
+		echo `cut -d= -f2 $temp_file` > ${temp_file}2
+		get_valueOUTPUT=`cut -d\  -f1 ${temp_file}2`
+	else
+		get_valueOUTPUT=""
+	fi
+	echo $get_valueOUTPUT >/tmp/value
+
+	rm -f $temp_file 	2>&1
+	rm -f ${temp_file}2 2>&1
+}
+
+#-----------------------------------------------------------------------------
+# main 
+#-----------------------------------------------------------------------------
+
+if [ "$#" -ne "2" ]
+then
+	echo "Invalid number of parameters passed to $0."
+	return
+fi
+
+get_value "$1" "$2"

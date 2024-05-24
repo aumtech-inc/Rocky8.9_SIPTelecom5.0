@@ -1,0 +1,73 @@
+rtpmod.c://printf("RGDEBUG:: Inside ortpstack rtp_putq: this is a duplicated packet. Don't queue it (pid=%d)\n", getpid() );fflush(stdout);
+rtpmod.c://printf("RGDEBUG:: rtp_getq(): asking for too old packet for (pid=%d), (ts=%d), (oldest=%d)\n", pthread_self(), timestamp, oldest);fflush(stdout);
+rtpmod.c://printf("RGDEBUG:: rtp_getq(): no more interesting packets, so return for (pid=%d)\n", getpid());fflush(stdout);
+rtpparse.c://printf("RGDEBUG::%s::%d::Receiving rtp packet with version number !=2...discarded\n", __FUNCTION__, __LINE__);fflush(stdout);
+rtpparse.c://printf("RGDEBUG:: Inside ortpstack rtp_parse: RTP_SESSION_RECV_SYNC (ts=%i)(pid=%d)\n",rtp->timestamp, pthread_self());fflush(stdout);
+rtpparse.c:printf("RGDEBUG:: Inside ortpstack rtp_parse: very old packet but its DTMF so not discarding(ts=%i)(pid=%d)\n",rtp->timestamp, pthread_self());fflush(stdout);
+rtpparse.c:printf("RGDEBUG:: Inside ortpstack rtp_parse: silently discarding very old packet (ts=%i)(pid=%d)\n",rtp->timestamp, pthread_self());fflush(stdout);
+rtpparse.c://printf("RGDEBUG:: Inside ortpstack rtp_parse: inside else of RTP_SESSION_RECV_SYNC (ts=%i)(pid=%d)\n",rtp->timestamp, pthread_self());fflush(stdout);
+rtpparse.c:	//g_warning("RGDEBUG::putting packet num = %ld in the queue", pk_num);
+rtpparse.c:			//g_warning("RGDEBUG::rtp_parse: Inside paytype");
+rtpparse.c:			//g_warning("RGDEBUG::rtp_parse: Called on_telephone_event_packet");
+rtpparse.c:					//g_warning("RGDEBUG:: mp is null!");
+rtpparse.c:					//g_warning("RGDEBUG::rtp_parse: Calling on_telephone_eventt");
+rtpparse.c:					//g_warning("RGDEBUG::rtp_parse: Called on_telephone_eventt");
+rtpparse.c:				//g_warning("RGDEBUG::rtp_parse: ERROR not inside session->on_telephone_event.count>0");
+rtpparse.c://printf("RGDEBUG::%s::%d::putInQueue == 0 discarding data\n", __FUNCTION__, __LINE__);fflush(stdout);
+rtpparse.c://printf("RGDEBUG:: Inside ortpstack rtp_putq: Queue is full. Discarding message with (ts=%i)(pid=%d)\n",((rtp_header_t*)mp->b_rptr)->timestamp, pthread_self());fflush(stdout);
+rtprecv.c:				printf("RGDEBUG:: err=%d\n",err);fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG::Setting socket to -1, socket=%d, session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::after setting socket=%d session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Calling bind on socket=%d session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG::Setting socket to -1, socket=%d, session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Setting setsockopt reusable socket=%d session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Set Loacl port successful socket=%d session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG::Setting socket to -1, socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG:: Error sending rtp packet with send: <%s> error=%d, socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG::Setting socket to -1, socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG::Setting socket to -1, socket=%d, session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Setting random local addresses retry=%d, session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Setting random local addresses retry=%d, localport=%d session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Could not find a random local address for socket !\n",  __FUNCTION__, __LINE__);fflush(stdout);
+rtpsession.c://printf("%s::%d::RGDEBUG::Set local addresses successful, session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Error in socket address: %s\n", __FUNCTION__, __LINE__, gai_strerror(err));fflush(stdout);
+rtpsession.c://printf("%s::%d::RGDEBUG::Can't connect rtp socket: %s\n",  __FUNCTION__, __LINE__, getSocketError());fflush(stdout);
+rtpsession.c://printf("%s::%d::RGDEBUG::Error: %s\n",  __FUNCTION__, __LINE__, gai_strerror(err));fflush(stdout);
+rtpsession.c://printf("%s::%d::RGDEBUG::Error in socket address:%s.\n",  __FUNCTION__, __LINE__, getSocketError());fflush(stdout);
+rtpsession.c://printf("%s::%d::RGDEBUG::calling connect on socket=%d, session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Can't connect rtp socket: %s.\n", __FUNCTION__, __LINE__, getSocketError());fflush(stdout);
+rtpsession.c://printf("%s::%d::RGDEBUG::calling connect on rtcp socket=%d, session=%p\n", 
+rtpsession.c://printf("%s::%d::RGDEBUG::Can't connect rtp socket: %s.\n", __FUNCTION__, __LINE__, getSocketError());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: after setting rtp packet with send:socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG:: sending rtp packet with send: socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG:: Error sending rtp packet with send: <%s> error=%d, socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG:: Error sending rtp packet with sendto: <%s> error=%d socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG:: Error sending rtp packet: <%s> error=%d session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG:: after sending rtp packet with sendto: error<%d> socket=%d, session=%p\n", 
+rtpsession.c:	//printf("%s:%d ::RGDEBUG:: failed in rtp_send, error=%d\n", __FUNCTION__, __LINE__, error);fflush(stdout);
+rtpsession.c:	//printf("%s:%d ::RGDEBUG:: calling putq for session=%p\n", __FUNCTION__, __LINE__, session);fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: returning from rtp_session_sendm_with_ts, error=%d session=%p\n", __FUNCTION__, __LINE__, error, session);fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: Could not allocate message block for sending packet. returning -1\n", 
+rtpsession.c:				//printf("RGDEBUG::%s::%d::got some data in rtp stack error = %d\n", __FUNCTION__, __LINE__, error);fflush(stdout);
+rtpsession.c:					//printf("RGDEBUG::%s::%d::after setting audioSsrc=%ld, for session=%p\n", __FUNCTION__, __LINE__, cross_session->ssrc, &cross_session);fflush(stdout);
+rtpsession.c:				//printf("RGDEBUG::%s::%d::no data in rtp stack error = %d\n", __FUNCTION__, __LINE__, error);fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: 1 ts=%d. (pid=%d)\n", __FUNCTION__, __LINE__, user_ts, getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: 2 ts=%d. (pid=%d)\n", __FUNCTION__, __LINE__, user_ts, getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: 3 ts=%d. (pid=%d)\n", __FUNCTION__, __LINE__, user_ts, getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: 4 ts=%d. (pid=%d)\n", __FUNCTION__, __LINE__, user_ts, getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: 5 ts=%d. (pid=%d)\n", __FUNCTION__, __LINE__, user_ts, getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: calling rtp_getq with ts=%d. (pid=%d)\n", __FUNCTION__, __LINE__, ts, getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG::session has no sockets for the moment socket=%d, session=%p\n", 
+rtpsession.c://printf("%s:%d ::RGDEBUG:: rtp_session_recv_with_ts: Error receiving udp packet: %s. (pid=%d)\n", __FUNCTION__, __LINE__, getSocketError(), getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: calling rtp_parse error=%d \n", __FUNCTION__, __LINE__, error);fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG:: rtp_session_recv_with_ts: calling rtp_session_recvm_with_ts. (pid=%d)\n", __FUNCTION__, __LINE__, getpid());fflush(stdout);
+rtpsession.c://printf("%s:%d ::RGDEBUG::Setting socket to -1, socket=%d, session=%p\n", 
+telephonyevents.c://	printf("RGDEBUG::inside rtp_session_read_telephone_event\n");fflush(stdout);
+telephonyevents.c://		g_warning("RGDEBUG::%s::%d::found marker bit", __FILE__, __LINE__);
+telephonyevents.c://			g_warning("RGDEBUG::%s::%d::inside session->current_tev!=NULL", __FILE__, __LINE__);
+telephonyevents.c://		g_warning("RGDEBUG::%s::%d::inside cur_tev!=NULL", __FILE__, __LINE__);
+telephonyevents.c://			g_warning("RGDEBUG::%s::%d::timestamp is identical", __FILE__, __LINE__);
+telephonyevents.c:			//			g_warning("RGDEBUG::%s::%d::found end flag", __FILE__, __LINE__);
+telephonyevents.c://			g_warning("RGDEBUG::%s::%d::timestamp is not identical", __FILE__, __LINE__);
+telephonyevents.c://		g_warning("RGDEBUG::%s::%d::no marker bit found", __FILE__, __LINE__);
+telephonyevents.c://				g_warning("RGDEBUG::%s::%d::sending dtmf", __FILE__, __LINE__);

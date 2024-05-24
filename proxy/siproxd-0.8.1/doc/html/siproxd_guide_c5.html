@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Plug-ins</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Siproxd Users Guide"
+HREF="siproxd_guide.html"><LINK
+REL="PREVIOUS"
+TITLE="Chroot() Jail"
+HREF="siproxd_guide_c4s2.html"><LINK
+REL="NEXT"
+TITLE="Available Plug-ins"
+HREF="siproxd_guide_c5s2.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Siproxd Users Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="siproxd_guide_c4s2.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="siproxd_guide_c5s2.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="PLUG-INS"
+></A
+>Plug-ins</H1
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN275"
+>5.1. Plug-in API</A
+></H1
+><P
+>Siproxd plug-ins are dynamic loadable libraries and must provide
+        3 functions towards siproxd. As we make use of some libltdl features
+        we do some internal macor magic - the PLUGIN_xxx funcation names
+        are actually CPP macros that will expand in unique names. Th have
+        this working properly the PLUGIN_NAME must be #defined before 
+        the plugins.h header file is included:
+        </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>#define PLUGIN_NAME     plugin_myplugin
+#include "plugins.h"
+[...]
+int  PLUGIN_INIT(plugin_def_t *plugin_def);
+int  PLUGIN_PROCESS(int stage, sip_ticket_t *ticket);
+int  PLUGIN_END(plugin_def_t *plugin_def);</PRE
+></TD
+></TR
+></TABLE
+><P
+>        The <TT
+CLASS="FILENAME"
+>PLUGIN_INIT</TT
+> function is called when
+        the plug-in is loaded during startup of siproxd. The plug-in must
+        define the following 4 fields of the plugin_def structure:
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>api_version</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>name</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>desc</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>exe_mask</TT
+></P
+></LI
+></OL
+>
+
+        Example code fragment:
+        </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>/* API version number of siproxd that this plug-in is built against.
+ * This constant will change whenever changes to the API are made
+ * that require adaptions in the plug-in. */
+plugin_def-&#62;api_version=SIPROXD_API_VERSION;
+
+/* Name and descriptive text of the plug-in. Those item MUST NOT be
+   on the stack but either allocated via malloc (and then freed
+   of course) or a static string in the plug-in. */
+plugin_def-&#62;name=strdup("plugin_demo");
+plugin_def-&#62;desc=strdup("This is just a demo plugin without any purpose");
+
+/* Execution mask - during what stages of SIP processing shall
+ * the plug-in be called. */
+plugin_def-&#62;exe_mask=PLUGIN_DETERMINE_TARGET|PLUGIN_PRE_PROXY;</PRE
+></TD
+></TR
+></TABLE
+><P
+>        The <TT
+CLASS="FILENAME"
+>PLUGIN_PROCESS</TT
+> function is called at
+        the requested SIP processing stages (see 'execution mask').
+        Your processing will be done here.
+        </P
+><P
+>        The <TT
+CLASS="FILENAME"
+>PLUGIN_END</TT
+> function is called at
+        shutdown of siproxd and gives the plug-in the opportunity
+        to clean up and properly shutdown itself.</P
+><P
+>Note: The previously allocated 'name' and 'desc' must be
+        freed by the plug-in. If you did use a static string then of
+        course you must not try to free() anything.</P
+><P
+>        Minimum required clean up procedure:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>int  PLUGIN_END(plugin_def_t *plugin_def){
+   /* free my allocated rescources (if allocated via malloc only) */
+   if (plugin_def-&#62;name) {free(plugin_def-&#62;name); plugin_def-&#62;name=NULL;}
+   if (plugin_def-&#62;desc) {free(plugin_def-&#62;desc); plugin_def-&#62;desc=NULL;}
+   return STS_SUCCESS;
+}</PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>        For a simple example refer to the simple demonstration plug-in
+        <TT
+CLASS="FILENAME"
+>plugin_demo</TT
+>.
+        </P
+><P
+>        Each plug-in can have its own set of configuration parameters
+        in <TT
+CLASS="FILENAME"
+>siproxd.conf</TT
+>. The plug-in has to define
+        a <TT
+CLASS="FILENAME"
+>cfgopts_t</TT
+> structure and call <TT
+CLASS="FILENAME"
+>        read_config</TT
+> during its initialization. Look at <TT
+CLASS="FILENAME"
+>        plugin_demo</TT
+> for a simple example. The naming of
+        the config parameters is by definition
+        <TT
+CLASS="FILENAME"
+>plugin_name_</TT
+>option.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c4s2.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="siproxd_guide.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c5s2.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Chroot() Jail</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Available Plug-ins</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

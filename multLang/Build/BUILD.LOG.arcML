@@ -1,0 +1,1059 @@
+Mon Jan 28 18:09:39 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Mon Jan 28 18:10:13 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/lib/libarcML.a to /tmp/packtemp
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/appPhrases.tar to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcML.1.0 package.
+Exiting...
+Mon Jan 28 18:11:46 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/appPhrases.tar to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcML.1.0 package.
+Exiting...
+Mon Jan 28 18:12:33 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Tue Jan 29 05:38:53 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Tue Jan 29 05:39:08 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Tue Jan 29 16:01:43 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Tue Jan 29 16:02:21 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Tue Jan 29 16:03:27 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Tue Jan 29 16:03:53 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Tue Jan 29 16:04:51 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Tue Jan 29 16:31:43 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Tue Jan 29 16:32:09 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Wed Jan 30 14:02:51 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Wed Jan 30 14:03:04 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Wed Jan 30 13:51:19 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Wed Jan 30 13:58:14 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Wed Jan 30 13:58:29 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Wed Jan 30 14:26:47 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Fri Feb 1 14:26:13 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Fri Feb 1 14:26:22 EST 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Mon Apr 29 20:03:20 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Mon Apr 29 20:03:28 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Mon Apr 29 20:04:28 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Mon Apr 29 20:06:26 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.0
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.0 ...
+Wed May 1 17:33:08 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Wed May 1 17:33:16 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue May 14 19:04:31 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Tue May 14 19:04:40 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue May 14 22:06:30 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Thu May 16 11:14:14 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Thu May 16 11:14:20 GMT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu May 16 13:58:11 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu May 16 16:39:58 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Fri May 17 10:11:08 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Wed May 29 14:32:51 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Wed May 29 14:33:36 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Fri May 31 16:39:05 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/appPhrases34.tar.Z to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcML.1.1 package.
+Exiting...
+Fri May 31 16:40:47 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Jun 4 09:53:03 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Jun 4 12:43:54 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Tue Jun 4 12:44:14 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Sep 10 12:17:44 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Tue Sep 10 12:18:05 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Sep 10 17:52:44 EDT 2002
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Oct 7 10:55:58 EDT 2003
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/lib/libarcML.a to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcML.1.1 package.
+Exiting...
+Tue Oct 7 10:56:43 EDT 2003
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Oct 7 12:06:56 EDT 2003
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Wed Feb 16 16:06:30 EST 2005
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Wed Mar 23 12:50:21 EST 2005
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu Mar 24 11:01:30 EST 2005
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue May 31 11:03:32 EDT 2005
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Fri Jun 17 12:18:21 EDT 2005
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Jun 28 12:07:05 EDT 2005
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Tue Apr 11 13:43:54 EDT 2006
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Tue Apr 11 13:44:27 EDT 2006
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Wed Apr 12 15:47:14 EDT 2006
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu May 18 04:54:47 EDT 2006
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu May 18 04:55:47 EDT 2006
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu May 18 04:56:39 EDT 2006
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Wed Mar 7 13:03:24 EST 2007
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/lib/libarcML.a to /tmp/packtemp
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/LANG33.tar.Z to /tmp/packtemp
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/LANG133.tar.Z to /tmp/packtemp
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/appPhrases33.tar.Z to /tmp/packtemp
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/LANG34.tar.Z to /tmp/packtemp
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/LANG134.tar.Z to /tmp/packtemp
+Failed to copy /home/dev/isp2.2/DTelecom/multLang/phrases/appPhrases34.tar.Z to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcML.1.1 package.
+Exiting...
+Thu Mar 8 15:57:45 EST 2007
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu Mar 8 15:59:04 EST 2007
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Thu Mar 8 16:06:51 EST 2007
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Fri Mar 16 13:00:24 EST 2007
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/multLang
+All files copied successfully.
+Building arcML.1.1 ...
+Mon Jul 6 13:59:37 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 14:04:55 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:35:53 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:37:42 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:39:04 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:41:55 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:43:24 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:44:07 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:45:31 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Mon Jul 6 15:46:51 EDT 2015
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/SIPTelecom3.3/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Fri Feb 5 08:57:29 EST 2021
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dan/isp2.2/SIPTelecom3.3/multLang
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/lib/libarcML.a to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/include/arcML.h to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG33.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG133.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/appPhrases33.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG34.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG134.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/appPhrases34.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/Build/install_arcML to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/Build/remove_arcML to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/Build/install_arcML.readme to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/doc/arcML_releaseNotes.1.2.txt to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcML.1.2 package.
+Exiting...
+Fri Feb 5 08:59:03 EST 2021
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dan/isp2.2/SIPTelecom3.3/multLang
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/lib/libarcML.a to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/include/arcML.h to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG33.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG133.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/appPhrases33.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG34.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/LANG134.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/phrases/appPhrases34.tar.Z to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/Build/install_arcML to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/Build/remove_arcML to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/Build/install_arcML.readme to /tmp/packtemp
+Failed to copy /home/dan/isp2.2/SIPTelecom3.3/multLang/doc/arcML_releaseNotes.1.2.txt to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcML.1.2 package.
+Exiting...
+Fri Feb 5 09:01:17 EST 2021
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dan/isp2.2/SIPTelecom3.6/multLang
+All files copied successfully.
+Building arcML.1.2 ...
+Wed Mar 17 14:42:55 EDT 2021
+Build Package
+Product Id.......: arcML
+Product Descrip..: arcML.1.2
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcML
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dan/isp2.2/SIPTelecom3.6/multLang
+All files copied successfully.
+Building arcML.1.2 ...

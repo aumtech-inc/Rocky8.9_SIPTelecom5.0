@@ -1,0 +1,56 @@
+set -x
+g++ -ggdb -c parseResult.cpp  srParse.cpp DOMTreeErrorReporter.cpp				\
+	-I /home/devmaul/isp2.2/mrcpClient2.0/include	\
+	-I /home/devmaul/isp2.2/Common/include 		\
+	-I /home/devmaul/isp2.2/SIPTelecom/2.0/include 		\
+	-I /home/devmaul/thirdParty/libosip2-2.0.6/include 		\
+	-I /home/devmaul/thirdParty/libosip2-2.0.6/include/osip2  		\
+	-I /home/devmaul/thirdParty/libosip2-2.0.6/include/osipparser2 		\
+	-I /home/devmaul/isp2.2/SIPTelecom/2.0/libeXosip2-1.9.0-pre7/include 		\
+	-I/home/devmaul/isp2.2/SIPTelecom/2.0/libeXosip2-1.9.0-pre7/include 		\
+	-I /home/devmaul/thirdParty/xerces-c-src1_5_0/include
+
+if [ $? -ne 0 ]
+then
+	exit
+fi
+
+g++ -ggdb -g3           \
+    -o srParse parseResult.o srParse.o DOMTreeErrorReporter.o  	\
+    -L /home/devmaul/isp2.2/mrcpClient2.0/lib   \
+    -L /home/devmaul/lib    \
+    -L /home/devmaul/thirdParty/xerces-c-src1_5_0/lib   \
+    -L /home/devmaul/isp2.2/Common/lib  \
+    -L /home/devmaul/isp2.2/SNMP/lib    \
+    -lISPUtil -lISPLog -lloglite -larcSNMP -lpthread       \
+    -losipparser2 -losip2 -leXosip2 -lxerces-c1_5  -Wall
+
+
+#    -lSR_mrcpV2301 -losipparser2 -losip2 -leXosip2 -lxerces-c1_5  -Wall
+# g++ -ggdb -o srParse srParse.o parseResult.o DOMTreeErrorReporter.o 		\
+# 		-L /home/devmaul/isp2.2/mrcpClient2.0/lib 	\
+# 		-L /home/devmaul/isp2.2/Common/lib 	\
+# 		-L /home/devmaul/isp2.2/SIPTelecom/2.0/libeXosip2-1.9.0-pre7/src/.libs 	\
+# 		-L /home/devmaul/thirdParty/xerces-c-src1_5_0/lib	\
+# 		-L /home/devmaul/lib	\
+# 		-lISPUtil -lISPLog -lloglite -lpthread \
+# 		-losipparser2 -losip2 -leXosip2 -lxerces-c1_5 -Wall
+# 
+#		-lISPUtil -lISPLog -lloglite -lpthread -lSR_mrcpV2301		\
+exit
+g++ -ggdb -g3 			\
+	-o /home/devmaul/isp2.2/mrcpClient2.0/bin/mrcpClient2.sip		\
+	mrcpClient2.o mrcpCommon2.o SRPort.o GrammarList.o		\
+	sipThread.o readerThread.o mrcpThread.o			\
+	mrcp2_HeaderList.o mrcp2_Request.o mrcp2_Event.o		\
+	mrcp2_Response.o mrcp2_parser_utils.o MrcpInitialize.o		\
+	/home/devmaul/isp2.2/Common/flexNET/v11.5/i86_re3/lm_new.o 	\
+	-L /home/devmaul/isp2.2/mrcpClient2.0/lib 	\
+	-L /home/devmaul/lib 	\
+	-L /home/devmaul/lib/flexlm 	\
+	-L /home/devmaul/thirdParty/xerces-c-src1_5_0/lib 	\
+	-L /home/devmaul/isp2.2/Common/lib 	\
+	-L /home/devmaul/isp2.2/SNMP/lib		\
+	-lISPUtil -lISPLog -lloglite -larcSNMP -lpthread		\
+	-lSR_mrcpV2301 -losipparser2 -losip2 -leXosip2 -lxerces-c1_5  -Wall
+

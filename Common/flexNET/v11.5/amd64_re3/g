@@ -1,0 +1,56 @@
+./lmrand1 -i ../machind/lsvendor.c
+cc -c -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT  lmcode.c
+cc  lmnewgen.o lmcode.o liblmgr.a libcrvs.a libsb.a   -ldl  -lpthread ./activation/lib/libnoact.a \
+					-o lmnewgen
+rm -f lm_new.c
+./lmnewgen arclicd -o lm_new.c
+cc -c -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT  lm_new.c
+cc -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT ../machind/lmcrypt.c
+cc  -o lmcrypt lmcrypt.o \
+liblmgr.a libcrvs.a libsb.a   ./activation/lib/libnoact.a -ldl  -lpthread
+make lm_new.o
+make[1]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3'
+./lmrand1 -i ../machind/lsvendor.c
+cc -c -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT  lmcode.c
+cc  lmnewgen.o lmcode.o liblmgr.a libcrvs.a libsb.a   -ldl  -lpthread ./activation/lib/libnoact.a \
+					-o lmnewgen
+rm -f lm_new.c
+./lmnewgen arclicd -o lm_new.c
+cc -c -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT  lm_new.c
+make[1]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3'
+cc -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT ../machind/lmflex.c
+cc  -o lmflex lmflex.o lm_new.o liblmgr.a libcrvs.a libsb.a   ./activation/lib/libnoact.a -ldl  \
+        -lpthread
+rm lmflex.o
+strip lmflex
+rm -f lm_new.o
+make lm_new.o
+make[1]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3'
+./lmrand1 -i ../machind/lsvendor.c
+cc -c -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT  lmcode.c
+cc  lmnewgen.o lmcode.o liblmgr.a libcrvs.a libsb.a   -ldl  -lpthread ./activation/lib/libnoact.a \
+					-o lmnewgen
+rm -f lm_new.c
+./lmnewgen arclicd -o lm_new.c
+cc -c -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT  lm_new.c
+make[1]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/Common/flexNET/v11.5/amd64_re3'
+cc -c -c -g -I../machind -I. -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX  -DNO_ACTIVATION_SUPPORT lsrvend.c 
+mv lsrvend.o lsvendor.o
+rm -f lsrvend.c
+cc  -o arclicd lsvendor.o lm_new.o  \
+			liblmgr_as.a liblmgr_s.a liblmgr.a libcrvs.a libsb.a   ./activation/lib/libnoact.a -ldl  -lpthread
+strip arclicd
+rm -f lmhostid lmver lmdown lmremove lmreread lmswitchr \
+	lmstat lmdiag lminstall lmpath lmborrow lmswitch
+ln -s lmutil lmhostid
+ln -s lmutil lmver
+ln -s lmutil lmdown
+ln -s lmutil lmremove 
+ln -s lmutil lmreread 
+ln -s lmutil lmswitchr 
+ln -s lmutil lmstat 
+ln -s lmutil lmdiag
+ln -s lmutil lminstall
+ln -s lmutil lmpath
+ln -s lmutil lmborrow
+ln -s lmutil lmswitch

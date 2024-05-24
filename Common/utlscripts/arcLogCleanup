@@ -1,0 +1,183 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# File:		arcLogCleanup
+#
+# Purpose:	Remove all log files created by ARC processes that are more 
+#		than X days old, where X is the value specified by the user
+#		for the LOG_RETENTION variable in $ISPBASE/Global/.Global.cfg
+#
+#		Files (or partial filenames) that are removed are read from
+#		$ISPBASE/Global/Tables/arcLogFiles
+#
+# Author:	Aumtech Inc.
+#
+# Date:		10/15/97
+# Update:	8/19/98	added egrep in RMFILES
+# Update:	07/16/2004 ddn	added directory removal
+#------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------------------
+# log(): Log a message to the appropriate location
+#------------------------------------------------------------------------------
+log()
+{
+	if [ $# -lt 2 ]
+	then
+		mode=INFO
+	else
+		mode=$1
+		shift 1
+	fi
+
+	echo "$ME: $mode: $*"
+
+	return 0
+} # END: log
+
+#------------------------------------------------------------------------------
+# setEnv(): Set all env. vars. need to execute this script
+#------------------------------------------------------------------------------
+setEnv()
+{
+	
+	if [ -z "$ISPBASE" ]
+	then
+		ISPBASE="$HOME/.ISP"
+	fi
+
+	# Where is the global config file?
+	GLOBAL_CFG=$ISPBASE/Global/.Global.cfg
+
+	# Where is the list of log files kept?
+	ARC_LOG_FILES_LIST="$ISPBASE/Global/Tables/arcLogFiles"
+
+	# What is the log retention period (in days)?
+	LOG_RETENTION_PERIOD=
+
+	# What files are we going to remove?
+	RMFILES=
+
+
+	export ARC_LOG_FILES_LIST
+	export LOG_RETENTION_PERIOD
+	export RMFILES
+	export GLOBAL_CFG
+
+	return 0
+} # END: setEnv()
+
+#------------------------------------------------------------------------------
+# getLogRetention(): From $GLOBAL_CFG, determine how many days the logs need
+#		     to be retained.
+#------------------------------------------------------------------------------
+getLogRetention()
+{
+
+	if [ ! -f "$GLOBAL_CFG" -o ! -r "$GLOBAL_CFG" ]
+	then
+		log ERROR "Cannot access global config. file ($GLOBAL_CFG)"
+		return 1
+	fi
+
+	savIfs=$IFS
+	IFS='='
+
+	found=0
+	while read name value
+	do
+		if [ "$name" = "LOG_RETENTION" ]
+		then
+			found=1
+			break
+		fi
+	done < $GLOBAL_CFG
+
+	IFS=$savIfs
+
+	if [ $found -eq 0  -o -z "$value" ]
+	then
+		log ERROR "LOG_RETENTION value not specified in $GLOBAL_CFG"
+		return 1
+	fi
+
+	if [ $value -lt 0 ]
+	then
+		log ERROR "LOG_RETENTION value in $GLOBAL_CFG must be >= 0"
+		return 1
+	fi
+
+	LOG_RETENTION_PERIOD=$value
+
+	return 0
+} # END: getLogRetention()
+
+#------------------------------------------------------------------------------
+# getFileList(): From $ARC_LOG_FILES_LIST, get all the files that we need to 
+#		 search from and remove if they are more than 
+#		 $LOG_RETENTION_PERIOD days old.
+#------------------------------------------------------------------------------
+getFileList()
+{
+	if [ ! -f "$ARC_LOG_FILES_LIST" -o ! -r "$ARC_LOG_FILES_LIST" ]
+	then
+		log ERROR "Cannot access log file list ($ARC_LOG_FILES_LIST)"
+		return 1
+	fi
+
+	RMFILES=`cat $ARC_LOG_FILES_LIST | egrep -v "^ |^#"`
+	return 0
+} # END: getFileList()
+#------------------------------------------------------------------------------
+# rmOldFiles(): From $ARC_LOG_FILES_LIST, get all the files that we need to 
+#		 search from and remove if they are more than 
+#		 $LOG_RETENTION_PERIOD days old.
+#------------------------------------------------------------------------------
+rmOldFiles()
+{
+	if [ -z "$RMFILES" ]
+	then
+		return 0
+	fi
+
+	for filePath in $RMFILES
+	do
+		dir=`dirname $filePath`
+		file=`basename $filePath`
+
+		if [ -d "$filePath" ]
+		then
+		( 
+		echo "Checking $filePath"
+		eval cd $filePath/..
+		find . -name $file -mtime +${LOG_RETENTION_PERIOD} -exec rm -rf {} \;
+		)
+		else
+		( 
+		eval cd $dir
+		ls -1 $file 2>/dev/null| while read rmFile
+		do
+			find `pwd`  -name $rmFile -mtime 	\
+			+${LOG_RETENTION_PERIOD} -links 1 -exec rm -f {} \;
+		done
+		)
+		fi
+	done
+
+	return 0
+} # END: rmOldFiles()
+
+#------------------------------------------------------------------------------
+# main entry point
+#------------------------------------------------------------------------------
+ME=`basename $0`; export ME
+
+setEnv 			|| exit 1
+
+getLogRetention 	|| exit 1
+
+getFileList 		|| exit 1
+
+rmOldFiles 		|| exit 1
+
+exit 0

@@ -1,0 +1,127 @@
+/*
+  The oRTP library is an RTP (Realtime Transport Protocol - rfc1889) stack.
+  Copyright (C) 2001  Simon MORLAT simon.morlat@linphone.org
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+
+#include "ortp.h"
+#include "rtpmod.h"
+
+#define TIMESTAMP_JUMP	32000
+
+void rtp_parse(RtpSession *session,mblk_t *mp)
+{
+	gint i,header_size;
+	mblk_t *mdata;
+	rtp_header_t *rtp;
+	gint msgsize;
+
+static int j = 0;
+	
+	g_return_if_fail(mp!=NULL);
+#ifdef TARGET_IS_HPUXKERNEL
+	if (mp->b_cont!=NULL){
+		mblk_t *newm;
+		/* the message is fragmented, we need to reassemble it*/
+		newm=msgpullup(mp,-1);
+		freemsg(mp);
+		mp=newm;
+	}
+#endif
+	
+	msgsize=msgdsize(mp);
+	ortp_global_stats.hw_recv+=msgsize;
+	session->stats.hw_recv+=msgsize;
+	ortp_global_stats.packet_recv++;
+	session->stats.packet_recv++;
+
+#if 0
+
+	
+	rtp=(rtp_header_t*)mp->b_rptr;
+	if (rtp->version!=2)
+	{
+		ortp_debug("Receiving rtp packet with version number !=2...discarded");
+		session->stats.bad++;
+		ortp_global_stats.bad++;
+		freemsg(mp);
+		return;
+	}
+	
+	/* convert all header data from network order to host order */
+	rtp->seq_number=ntohs(rtp->seq_number);
+	rtp->timestamp=ntohl(rtp->timestamp);
+	rtp->ssrc=ntohl(rtp->ssrc);
+	/* convert csrc if necessary */
+	for (i=0;i<rtp->cc;i++)
+		rtp->csrc[i]=ntohl(rtp->csrc[i]);
+	if (session->ssrc!=0)
+	{
+		/*the ssrc is set, so we must check it */
+		if (session->ssrc!=rtp->ssrc){
+			//ortp_debug("rtp_parse: bad ssrc - %i",rtp->ssrc);
+			session->ssrc=rtp->ssrc;
+			rtp_signal_table_emit(&session->on_ssrc_changed);
+		}
+	}else session->ssrc=rtp->ssrc;
+	
+	if (!(session->flags & RTP_SESSION_RECV_SYNC)){
+		/* detect timestamp important jumps in the future, to workaround stupid rtp senders */
+		if (RTP_TIMESTAMP_IS_NEWER_THAN(rtp->timestamp,session->rtp.rcv_last_ts+TIMESTAMP_JUMP)){
+			ortp_debug("rtp_parse: timestamp jump ?");
+			rtp_signal_table_emit2(&session->on_timestamp_jump,&rtp->timestamp);
+		}
+		else if (RTP_TIMESTAMP_IS_NEWER_THAN(session->rtp.rcv_last_ts,rtp->timestamp)){
+			/* avoid very old packet to enqueued, because the user is no more supposed to get them */
+			ortp_debug("rtp_parse: silently discarding very old packet (ts=%i)",rtp->timestamp);
+			freemsg(mp);
+			session->stats.outoftime+=msgsize;
+			ortp_global_stats.outoftime+=msgsize;
+			return;
+		}
+	}
+
+#endif
+
+	/* creates a new mblk_t to be linked with the rtp header*/
+	mdata=dupb(mp);
+	header_size=RTP_FIXED_HEADER_SIZE ;//+ (4*rtp->cc);
+	mp->b_wptr=mp->b_rptr+header_size;
+	mdata->b_rptr+=header_size;
+	/* link proto with data */
+	mp->b_cont=mdata;
+	/* and then add the packet to the queue */
+
+	j++;
+//	printf("calling rtp_putq pkt size =%d, pkt number=%d\n",msgsize, j);fflush(stdout);
+	
+	rtp_putq(session->rtp.rq,mp);
+	/* make some checks: q size must not exceed RtpStream::max_rq_size */
+	while (session->rtp.rq->q_mcount > session->rtp.max_rq_size)
+	{
+		/* remove the oldest mblk_t */
+		mp=getq(session->rtp.rq);
+		if (mp!=NULL)
+		{
+			msgsize=msgdsize(mp);
+//			printf("RGDEBUG:: rtp_putq: Queue is full. Discarding message with ts=%i \n",((rtp_header_t*)mp->b_rptr)->timestamp);fflush(stdout);
+			freemsg(mp);
+			session->stats.discarded+=msgsize;
+			ortp_global_stats.discarded+=msgsize;
+		}
+	}
+}

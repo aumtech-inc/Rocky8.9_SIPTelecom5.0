@@ -1,0 +1,28 @@
+#------------------------------------------------------------------------------
+# File:     Make.def
+# Purpose:  This file defines all macros and flags used by makefiles that 
+#           compile various components of the SpeechWorks SR system.
+# Author:   Aumtech, Inc.
+# Update: 2003/03/20 djb    Created the file.
+#------------------------------------------------------------------------------
+
+ISP_BASE_DIR=${HOME}
+ISP_VERSION=isp2.2
+
+BASE        = ${ISP_BASE_DIR}/${ISP_VERSION}/SIPTelecom3.6
+
+MRCP_HOME       = ${BASE}/mrcpTTSClient2.0
+MRCP_INC        = ${MRCP_HOME}/include
+MRCP_LIB        = $(MRCP_HOME)/lib
+
+SVID_HOME       = ${BASE}
+SVID_INC        = ${SVID_HOME}/include
+
+SNMP_HOME		= ${BASE}/SNMP
+SNMP_INC		= ${SNMP_HOME}/include
+SNMP_LIB		= ${SNMP_HOME}/lib
+
+SR_LIB			= ${MRCP_LIB}/libTTS_mrcpV2_eXosip4.1.a
+
+CPPFLAGS	=   -ggdb
+

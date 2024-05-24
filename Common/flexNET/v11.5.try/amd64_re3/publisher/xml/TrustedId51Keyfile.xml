@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SecureKeyInformation xmlns="http://www.macrovision.com/fnp/2004/11/trusted">
+<PublisherId>256</PublisherId>
+<KeyInformation>
+<Id>51</Id>
+<Revision>DEMO|PUB:256|TID:50</Revision>
+<RevisionType>SRV</RevisionType>
+<KeyDataItems>
+<KeyDataItem>
+<Type>Long_1</Type>
+<KeyData>17A6788700608878A06B0D7C0A186F2643E77CE34DDE92E9980095882E48221FD7E1C891348F8B937E613EC93AD6</KeyData>
+</KeyDataItem>
+<KeyDataItem>
+<Type>Short_21</Type>
+<KeyData>972A5EC00774609F3823A77A03E830C88DADAF26B1EBB502B6DB5074D417FD5B797ACA05CCB395AA9E0452AF76186BA304FB35EA32</KeyData>
+</KeyDataItem>
+</KeyDataItems>
+</KeyInformation>
+</SecureKeyInformation>

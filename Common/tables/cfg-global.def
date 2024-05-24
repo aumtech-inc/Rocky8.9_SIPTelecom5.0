@@ -1,0 +1,39 @@
+#-----------------------------------------------------------------------------
+# File:     cfg-global.def
+# Purpose:  arcFlash global GUI definition file
+# Author:   Aumtech, Inc.
+# Date:     09/02/99
+#
+# DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY.
+#
+#-----------------------------------------------------------------------------
+
+[Settings]
+saveTo=Global/.Global.cfg
+
+
+[Attributes]
+LOG_PRIMARY_SERVER=Primary Log Server:string:null:1:80:Host on which ARC system log messages are stored.
+LOG_SECONDARY_SERVER=Secondary Log Server:string:null:1:80:Host on which ARC system log messages are stored if Primary Log Server is unavailable.
+LOG_FREQUENCY=Log Frequency:list:logFreq:0:0:Frequency with which messages are forwarded to Primary Log Server (if remote).
+LOG_REPORT_VERBOSE=Log in Verbose Mode:list:OnOff:0:0:Log extra "verbose" messages into the system log?
+LOG_x_LOCAL_FILE=Local Log File Prefix:string:null:1:80:Partial pathname and file prefix for ARC system log file names, e.g. /home/arc/.ISP/Log/ISP
+LOG_2x_LOCAL_FILE=Secondary Log File Prefix:string:null:1:80:Partial pathname and file prefix for ARC system log files names if initial attempt to log failed.
+LOG_RETENTION=Days to Retain Logs:intRange:1-30:1:2:Number of days worth of ARC system log records to retain.
+FIFO_DIR=Directory Used for Fifos:string:null:1:80:Directory where internal ARC FIFO files are written.
+DefaultPrinter=Default Printer:string:null:1:80:Default Printer
+SNMP=SNMP Alarm Notification:list:OnOff:0:0:Send SNMP traps to be forwarded by the ARC SNMP agent?
+ResourceMgr=Resource Manager:list:OnOff:0:0: Should Resource Manager be started automatically?
+DATE_FORMAT=Date format of the logs:list:dateform:0:0:Specify if dates in log  include millisec
+
+[list:OnOff]
+ON
+OFF
+
+[list:logFreq]
+REALTIME
+HOURLY
+
+[list:dateform]
+MILLISECONDS
+NORMAL

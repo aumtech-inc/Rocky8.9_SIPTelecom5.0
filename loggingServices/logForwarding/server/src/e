@@ -1,0 +1,45 @@
+Building arcRTRListener ...
+com_listen.c: In function ‘proc_sigterm’:
+com_listen.c:67:3: warning: implicit declaration of function ‘read_fld’; did you mean ‘readlink’? [-Wimplicit-function-declaration]
+   read_fld(__tran_tabl_ptr, appl_no, APPL_PID, field);
+   ^~~~~~~~
+   readlink
+com_listen.c: In function ‘proc_sigchild’:
+com_listen.c:88:44: warning: implicit declaration of function ‘sigset’; did you mean ‘tzset’? [-Wimplicit-function-declaration]
+  if(signal(SIGCHLD, SIG_DFL) == SIG_ERR || sigset(SIGCLD, SIG_DFL) == -1)
+                                            ^~~~~~
+                                            tzset
+com_listen.c: In function ‘cleanup_app’:
+com_listen.c:117:7: warning: implicit declaration of function ‘write_fld’; did you mean ‘Write_Log’? [-Wimplicit-function-declaration]
+    if(write_fld(mem_map[i].ptr, i, APPL_STATUS, KILL)< 0)
+       ^~~~~~~~~
+       Write_Log
+com_listen.c: At top level:
+com_listen.c:150:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ main(int argc, char **argv)
+ ^~~~
+com_listen.c: In function ‘main’:
+com_listen.c:213:7: warning: implicit declaration of function ‘isdigit’ [-Wimplicit-function-declaration]
+   if(!isdigit(argv[2][index]))
+       ^~~~~~~
+com_listen.c:231:6: warning: implicit declaration of function ‘checkProcessStatus’ [-Wimplicit-function-declaration]
+  if (checkProcessStatus(argv[0]) < 0)
+      ^~~~~~~~~~~~~~~~~~
+com_listen.c:269:5: warning: implicit declaration of function ‘initSocketConnection’ [-Wimplicit-function-declaration]
+  if(initSocketConnection() < 0)
+     ^~~~~~~~~~~~~~~~~~~~
+com_listen.c:295:3: warning: implicit declaration of function ‘checkApps’ [-Wimplicit-function-declaration]
+   checkApps();
+   ^~~~~~~~~
+com_listen.c: At top level:
+com_listen.c:759:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ checkApps()
+ ^~~~~~~~~
+com_listen.c: In function ‘checkApps’:
+com_listen.c:781:2: warning: ‘return’ with no value, in function returning non-void
+  return;
+  ^~~~~~
+com_listen.c:759:1: note: declared here
+ checkApps()
+ ^~~~~~~~~
+make: *** No rule to make target 'arcRTRServer.c', needed by 'arcRTRServer'.  Stop.

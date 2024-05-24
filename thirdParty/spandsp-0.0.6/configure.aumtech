@@ -1,0 +1,5 @@
+#!/bin/bash 
+
+export LDFLAGS="/home/dan/isp2.2/SIPTelecom3.6/thirdParty/tiff-3.9.4/libtiff/.libs:$LDFLAGS"
+#./configure  --disable-builtin_tiff
+./configure  --enable-builtin_tiff

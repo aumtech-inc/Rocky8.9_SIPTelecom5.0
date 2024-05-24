@@ -1,0 +1,8 @@
+#----------------------------------------------------------------------------
+# File:         OCServer.cfg
+# Purpose:      This file holds various values used by the ARC Telecom
+#               Services Outbound Call Service (OCS).
+# Author:       Aumtech, Inc.
+# Date:         09/09/99
+#----------------------------------------------------------------------------
+TIMEOUT=30

@@ -1,0 +1,145 @@
+#------------------------------------------------------------------------------
+# File:		GenericApp34.phr
+#
+# Purpose:	Contains all the phrase definitions for the application. This
+#		file is read by the taLoadTags() accessory routine to load
+#		all phrase tags and lists.
+#
+# Author:	Aumtech, Inc. (USA)
+#
+# Usage:	Each line contains a phrase tag definition entry. e.g.:
+#
+#		prompt		|prompt.32a	|This is a prompt
+#		
+#		In this case, the application would use the phrase tag "prompt"
+#		to speak the phrase "prompt.32a". 
+#		
+#		Menus can be defined as a list of comma separated phrase tags
+#		each defined in the format described above. e.g.:
+#
+#		^menu 		= option1, press1, option2, press2
+#
+# Update:	26/05/2000      Gary Knapper (XAL)  
+#------------------------------------------------------------------------------
+#Actual Phrase Tag	|Name of the phrase file	|Actual Text
+goodMorning		|1000.32a	|Good Morning
+goodEvening		|1001.32a	|Good Evening
+goodAfternoon		|1002.32a	|Good Afternoon
+enterAcctNo		|1003.32a	|Please enter PIN
+invalidAcctNo		|1004.32a	|Pin not recognised
+enterPin		|1005.32a	|Please enter PIN
+invalidPin		|1006.32a	|Pin not recognised
+redialNumber		|1007.32a	|Please redial
+outOfTime		|1008.32a	|You have no more time
+warning			|1009.32a	|You have 20s left
+makeACall 		|1010.32a	|Please dial the number
+operatorXfer 		|1011.32a	|Please wait....operator
+operatorsAreBusy	|1012.32a	|All operators are busy
+yourBalanceIs		|1013.32a	|Your balance is...
+remaining		|1014.32a	|Remaining
+invalidPhoneNo		|1015.32a	|Dialed invalid number
+accountExpired		|1016.32a	|Your card has expired
+numberIsBusy		|1017.32a	|Number dialed is busy
+ringNoAnswer		|1018.32a	|Number did not answer
+invalidTone		|1019.32a	|Number not responding
+callDuration		|1020.32a	|Time on this call...
+minute			|1021.32a	|Minute
+minutes			|1022.32a	|Minutes
+second			|1023.32a	|Second
+seconds			|1024.32a	|Seconds
+zero			|1025.32a	|Zero
+pressStarNow		|1026.32a	|Please press star now
+accountInUse            |1028.32a	|Your Card is locked
+tryAgain		|1029.32a	|Try again
+tryLater		|1030.32a	|Try later
+pressHashHash		|1031.32a	|Press ##
+weeks			|1032.32a	|Weeks
+month			|1033.32a	|Month
+months			|1034.32a	|Months
+days			|1035.32a	|Days
+week			|1036.32a	|Week
+day			|1037.32a	|Day
+needHlp			|1039.32a	|If you need help....
+helpMsg1		|1040.32a	|Help message 1
+helpMsg2		|1041.32a	|Help message 2
+noMoreTime		|1042.32a	|No more time
+# remaining		|1043.32a	|Remaining
+beforeExpiry		|1044.32a	|Befory expiry
+useFor			|1045.32a	|Can use card for...
+notEnoughCredit		|1008.32a	|Not enough for call
+changePin		|1047.32a	|To change PIN press 1
+enterNewPin		|1048.32a	|Enter new PIN
+invalidEntry		|1049.32a	|Invalid entry
+confirmPin		|1050.32a	|Confirm new PIN
+pinChanged		|1051.32a	|PIN changed OK
+pinsNotMatched		|1052.32a	|PINs not matched
+announce		|phr.GenericApp44/1053.32a	|Announce xfer to oper
+dialTone		|dialTone.24a	|DialTone
+thousand                |thousand.32a          |Thousand
+million                 |million.32a           |Million
+hundred                 |hundred.32a           |Hundred
+hundredPlus             |hundredPlus.32a       |Hundred+
+twoHundred              |twoHundred.32a        |200
+threeHundred            |threeHundred.32a      |300
+fourHundred             |fourHundred.32a       |400
+fiveHundred             |fiveHundred.32a       |500
+sixHundred              |sixHundred.32a        |600
+sevenHundred            |sevenHundred.32a      |700
+eightHundred            |eightHundred.32a      |800
+nineHundred             |nineHundred.32a       |900
+mainCurrencyUnit1    	|mainCU1.32a	|Peseta
+mainCurrencyUnit2    	|mainCU2.32a	|Pesetas
+mainCurrencyUnit3    	|mainCU3.32a	|Pesetas
+and						|and.32a		|ee		(and)
+minorCurrencyUnit1    	|minorCU1.32a	|Nothing
+minorCurrencyUnit2    	|minorCU1.32a	|Nothing
+#
+# The following are for speaking dates and times.
+#
+first			|first.32a			|primero	(first)
+third			|third.32a			|tercero	(third)
+today			|today.32a			|hoy		(today)
+tomorrow		|tomorrow.32a		|manyana	(tomorrow)
+yesterday		|yesterday.32a		|ayer		(yesterday)
+#
+de				|de.32a				|de			(of)
+dela			|dela.32a			|de le		(of the)
+afternoon		|afternoon.32a		|tarde		(afternoon)
+evening			|evening.32a		|noche		(evening)
+earlyMorning	|earlyMorning.32a	|nadrugada	(early morning)
+morning			|morning.32a		|manyana	(morning)
+delaAfternoon	|delaAfternoon.32a	|de le tarde	(of the afternoon)
+delaEvening	 	|delaEvening.32a	|de le noche	(of the evening)
+delaEarlyMorning|delaEarlyMorning.32a|de le nadrugada	(of the early morning)
+delaMorning		|delaMorning.32a	|de le morning	(of the morning)
+noon			|noon.32a			|mediodia	(noon)
+midnight		|midnight.32a		|medianoche	(midnight)
+15Minutes		|15Minutes.32a		|cuarto (15 minutes / quarter past)
+30Minutes		|30Minutes.32a		|media (30 minutes / half past)
+#
+monday			|monday.32a			|lunes		(monday)
+tuesday			|tuesday.32a		|martes		(tuesday)
+wednesday		|wednesday.32a		|miercoles	(wednesday)
+thursday		|thursday.32a		|jueves		(thursday)
+friday			|friday.32a			|viernes	(friday)
+saturday		|saturday.32a		|sabado		(saturday)
+sunday			|sunday.32a			|domingo	(sunday)
+#
+january			|january.32a	|enero		(january)
+february		|february.32a	|febrero	(february)
+march			|march.32a		|marzo		(march)
+april			|april.32a		|abril		(april)
+may				|may.32a		|mayo		(may)
+june			|june.32a		|junio		(june)
+july			|july.32a		|julio		(july)
+august			|august.32a		|agosto		(august)
+september		|september.32a	|septiembre	(september)
+october			|october.32a	|octubre	(october)
+november		|november.32a	|noviembre	(november)
+december		|december.32a	|diciembre	(december)
+
+#
+# Menus and phrase lists
+#
+#^welcomeStar		= welcome, pressStarNow
+^daysBeforeExpiry	= days, beforeExpiry

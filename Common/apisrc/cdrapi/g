@@ -1,0 +1,5 @@
+/bin/echo "Building CDR_CustomerEvent API"
+gcc -O -s	-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -c 		\
+	-I /home/dev//isp2.2/SIPTelecom3.4/Common/include 		\
+	-I /home/dev/isp2.2/SIPTelecom3.4/Common/Log 			\
+	CDR_CustomEvent.c

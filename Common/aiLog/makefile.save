@@ -1,0 +1,59 @@
+
+
+
+SOURCES=\
+CDRmsg.c\
+CEVmsg.c\
+COMmsg.c\
+gtlogcfg.c\
+LogARCMsg.c\
+log_cli.c\
+log_forward.c\
+LOGglb.c\
+LOGINIT.c\
+LOGmsg.c\
+log_remote.c\
+log_routines.c\
+LOG_SetMode.c\
+LOGXXCTL.c\
+LOGXXPRT.c\
+NETmsg.c\
+resp_log.c\
+send_SNMP_trap.c\
+testLog1.c\
+testLog.c\
+
+OBJS=\
+CDRmsg.o\
+CEVmsg.o\
+COMmsg.o\
+gtlogcfg.o\
+LogARCMsg.o\
+log_cli.o\
+log_forward.o\
+LOGglb.o\
+LOGINIT.o\
+LOGmsg.o\
+log_remote.o\
+log_routines.o\
+LOG_SetMode.o\
+LOGXXCTL.o\
+LOGXXPRT.o\
+NETmsg.o\
+resp_log.o\
+send_SNMP_trap.o\
+testLog1.o\
+testLog.o\
+
+
+
+INCLUDES= -I../include -I/home/dev/include -I../../../WSC/include  -I../Log
+
+all: $(SOURCES) 
+	gcc -ggdb -Wall -fPIC $(INCLUDES) -c $^   
+
+lib: $(OBJS) 
+	ar -cru ../lib/libISPLog.a $(OBJS)
+	ar -cru ../lib/libloglite.a  log_remote.o 
+
+

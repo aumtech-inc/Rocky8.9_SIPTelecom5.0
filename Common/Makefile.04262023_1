@@ -1,0 +1,93 @@
+#----------------------------------------------------------------------------
+# Program:	Makefile
+# Purpose:	Master make file for cleaning up and building all Common
+#		libraries
+#
+# Author:	Unkown
+# Date:		09/17/94
+# Update:	02/17/96 G. Wenzel used environment variables to define dir's
+# Update:	02/26/96 G. Wenzel changed rdb_rules to sc_rule for dir change
+# Update:	03/20/96 G. Wenzel removed gtlogcfg, lumped with Log
+# Update:	11/06/97 D. Barto  added accessories
+# Update:	06/30/99 G. Wenzel added ResourceMgr, ResourceMgr.clean
+# Update: 2000/03/17 sja Added saUtils
+# Update: 	11/06/01 apj Added flexlm.
+#----------------------------------------------------------------------------
+
+ISP_BASE_DIR=/home/dev
+ISP_VERSION=isp2.2
+
+BASE = $(ISP_BASE_DIR)/$(ISP_VERSION)/SIPTelecom3.6
+COMMON=$(BASE)/Common
+
+all: Log \
+     util \
+     monitor \
+     cdrapi \
+     utilapi \
+     indxaryapi	\
+     accessories
+
+clean: Log.clean	\
+       util.clean	\
+       monitor.clean \
+       cdrapi.clean \
+       utilapi.clean 	\
+       indxaryapi.clean \
+       accessories.clean
+
+accessories:		Always
+	( cd $(COMMON)/accessories; make -f Makefile all)
+
+accessories.clean:	Always
+	( cd ${COMMON}/accessories; make -f Makefile clean)
+
+Log:	Always
+	( cd $(COMMON)/Log ; make -f Makefile all )
+
+Log.clean: Always
+	( cd $(COMMON)/Log ; make -f Makefile clean )
+
+util:		Always
+	( cd $(COMMON)/util; make -f Makefile all)
+
+util.clean:		Always
+	( cd $(COMMON)/util; make -f Makefile clean)
+
+Resp:		Always
+	( cd $(COMMON)/Resp; make -f Makefile all)
+
+Resp.clean:	Always
+	( cd $(COMMON)/Resp; make -f Makefile clean)
+
+monitor:	Always
+	( cd $(COMMON)/monitor; make -f Makefile all)
+
+monitor.clean:	Always
+	( cd $(COMMON)/monitor; make -f Makefile clean)
+
+cdrapi:		Always
+	( cd $(COMMON)/apisrc/cdrapi; make -f Makefile all)
+
+cdrapi.clean:		Always
+	( cd $(COMMON)/apisrc/cdrapi; make -f Makefile clean)
+
+utilapi:		Always
+	( cd $(COMMON)/apisrc/utilapi; make -f Makefile all)
+
+utilapi.clean:		Always
+	( cd $(COMMON)/apisrc/utilapi; make -f Makefile clean)
+
+ResourceMgr:		Always
+	( cd $(COMMON)/ResourceMgr; make -f Makefile all)
+
+ResourceMgr.clean:	Always
+	( cd $(COMMON)/ResourceMgr; make -f Makefile clean)
+
+indxaryapi:		Always
+	( cd $(COMMON)/apisrc/indxaryapi; make -f Makefile all)
+
+indxaryapi.clean:		Always
+	( cd $(COMMON)/apisrc/indxaryapi; make -f Makefile clean)
+
+Always:

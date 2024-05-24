@@ -1,0 +1,49 @@
+( cd /home/dev/isp2.2/WSC/apisrcLite; make all )
+Building sc_Common.c API
+gcc: /WSC/include: No such file or directory
+sc_Common.c:20:21: error: WSC_var.h: No such file or directory
+sc_Common.c:21:16: error: sc.h: No such file or directory
+sc_Common.c: In function ‘Write_Log’:
+sc_Common.c:36: error: ‘FILE’ undeclared (first use in this function)
+sc_Common.c:36: error: (Each undeclared identifier is reported only once
+sc_Common.c:36: error: for each function it appears in.)
+sc_Common.c:36: error: ‘fp_log’ undeclared (first use in this function)
+sc_Common.c: In function ‘sendSize’:
+sc_Common.c:71: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c:73: error: ‘__log_buf’ undeclared (first use in this function)
+sc_Common.c:76: warning: incompatible implicit declaration of built-in function ‘strlen’
+sc_Common.c: In function ‘recvSize’:
+sc_Common.c:93: warning: incompatible implicit declaration of built-in function ‘memset’
+sc_Common.c: In function ‘newRecvSize’:
+sc_Common.c:117: warning: incompatible implicit declaration of built-in function ‘memset’
+sc_Common.c:119: error: ‘NULL’ undeclared (first use in this function)
+sc_Common.c: In function ‘readSocketData’:
+sc_Common.c:145: error: ‘sockfd’ undeclared (first use in this function)
+sc_Common.c:153: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c:153: error: ‘__log_buf’ undeclared (first use in this function)
+sc_Common.c:153: error: ‘errno’ undeclared (first use in this function)
+sc_Common.c:160: error: ‘NULL’ undeclared (first use in this function)
+sc_Common.c:162: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c:168: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c:172: error: ‘GV_ScConnected’ undeclared (first use in this function)
+sc_Common.c:173: error: ‘sc_DISCONNECT’ undeclared (first use in this function)
+sc_Common.c:176: error: ‘sc_TIMEOUT’ undeclared (first use in this function)
+sc_Common.c:188: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c:208: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c:221: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c: In function ‘writeSocketData’:
+sc_Common.c:258: error: ‘sockfd’ undeclared (first use in this function)
+sc_Common.c:260: warning: incompatible implicit declaration of built-in function ‘sprintf’
+sc_Common.c:260: error: ‘__log_buf’ undeclared (first use in this function)
+sc_Common.c:261: error: ‘errno’ undeclared (first use in this function)
+sc_Common.c:266: error: ‘GV_ScConnected’ undeclared (first use in this function)
+sc_Common.c:267: error: ‘sc_DISCONNECT’ undeclared (first use in this function)
+sc_Common.c: In function ‘getField’:
+sc_Common.c:299: warning: incompatible implicit declaration of built-in function ‘strlen’
+sc_Common.c: In function ‘isSocketStillConnected’:
+sc_Common.c:338: error: storage size of ‘remoteEndAddr’ isn’t known
+sc_Common.c:341: error: invalid application of ‘sizeof’ to incomplete type ‘struct sockaddr_in’ 
+sc_Common.c:343: error: ‘sockfd’ undeclared (first use in this function)
+sc_Common.c:347: error: ‘errno’ undeclared (first use in this function)
+make[1]: *** [sc_Common.o] Error 1
+make: *** [/home/dev/isp2.2/SIPTelecom3.3/Common/lib/liblogComm.a] Error 2

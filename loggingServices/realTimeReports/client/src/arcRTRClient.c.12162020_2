@@ -1,0 +1,1045 @@
+/*-----------------------------------------------------------------------
+Program:	arcRTRClient.c
+Date:		12/03/2020
+------------------------------------------------------------------------*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
+#include <dirent.h>
+#include <errno.h>
+#include <time.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/utsname.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <rpc/des_crypt.h>
+
+#include "log_defs.h"
+#include "gaUtils.h"
+#include "sc.h"
+
+#define	START_STR				"## START ##"
+#define	END_STR					"## END ##"
+#define	END_AND_REMOVE_STR		"## END AND REMOVE SHADOW FILE ##"
+#define EXIT_SLEEP	2
+
+typedef struct
+{
+	char	destIP[32];
+} Cfgs;
+
+typedef struct
+{
+	char	cdrFileName[32];
+	char	cdrFullPath[256];
+	int		month;
+	char	charMonth[32];
+	int		day;
+	int		year;
+	int		hour;
+	int		doy;
+	int		lastLine;
+	int		isItInThePast;
+} CDRInfo;
+
+typedef struct
+{
+	int		day;
+	int		year;
+	int		month;
+	int		hour;
+	int		doy;
+} CurrentDateTime;
+
+static Cfgs		gCfg;
+static char		gUname[64];
+
+char		*gIspBase;
+char		gLogMsg[256];
+char		gTrackerFile[256];
+CDRInfo		gCDRInfo;
+CurrentDateTime	gCurDateInfo;
+
+static char	gKeepGoing = 1;
+
+static pthread_t	processCDRThreadId;
+static int			gCanProcessCDRThread = 0;
+
+static void exitClient(int arg)
+{
+	static char	mod[]="exitClient";
+
+	gaVarLog(mod, 1, "Received term signal.  Shutting down.");
+
+	gKeepGoing = 0;
+
+	sleep(EXIT_SLEEP);
+
+	exit(0);
+
+} // END: exitClient()
+
+/*------------------------------------------------------------------------------
+------------------------------------------------------------------------------*/
+static void exitClient_sigterm(int sig, siginfo_t *info, void *ctx)
+{
+	static char		mod[]="exitClient_sigterm";
+//    struct timeval  tp;
+ //   struct timezone tzp;
+  //  struct tm   *tm;
+   // char    timeStr[256];
+
+	gaVarLog(mod, 1, 
+            "SIGTERM (%d) caught from pid (%ld), user (%ld).  Exiting.",
+            sig, (long)info->si_pid, (long)info->si_uid);
+
+	gKeepGoing = 0;
+
+	sleep(EXIT_SLEEP);
+
+	exit(0);
+
+} // END: exitClient_sigterm() 
+
+
+static int init();
+static int dateToDayOfYear(int zMon, int zDay, int zYear, int *zDoy);
+static int dayOfYearToDate(int zDoy, int zYear, int *zMon, char *zCharMonth, int *zDay);
+static int establishServerConnection();
+static int whereDoIStartFrom();
+static int goFindFile(char *zFileToFind, char *zFullPath);
+static int updateTrackerFile(char *zFile, int zLine, int zJustClose);
+static int getLineInLogFromCurrentTime(int *zLineNumber);
+static void createCDRLogFromTime(int zMon, int zDay, int zYear, int zHour);
+static void printCDRInfo();
+static void popFieldsFromLogFile(char *zLogFile);
+static int processCDRs();
+static int isCurrentFileInThePast();
+static int setNextCDRFile();
+void *mainThread();
+
+main(int argc, char *argv[])
+{
+	int					rc;
+	struct sigaction	act;
+	struct sigaction	sig_act, sig_oact;
+	
+	static char		mod[]="main";
+	static char		gaLogDir[256];
+	
+	int m, d, y=2020, doy;
+	char		dateStr[64] = "";
+
+	if(argc == 2 && (strcmp(argv[1], "-v") == 0))
+	{
+	    fprintf(stdout, 
+	        "Aumtech's Real-Time Reporting Client (%s).\n"
+	        "Version 2.3.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
+	    exit(0);
+	}
+	
+    signal(SIGINT, exitClient);
+    signal(SIGQUIT, exitClient);
+    signal(SIGHUP, exitClient);
+
+    memset (&act, '\0', sizeof(act));
+    act.sa_sigaction = &exitClient_sigterm;
+    act.sa_flags = SA_SIGINFO;
+    if (sigaction(SIGTERM, &act, NULL) < 0)
+    {
+		gaVarLog(mod, 0, "sigaction(SIGTERM): system call failed. [%d, %s] Exiting.",
+            errno, strerror(errno));
+		exit(0);
+    }
+
+	/* set death of child function */
+	sig_act.sa_handler = NULL;
+	sig_act.sa_flags = SA_NOCLDSTOP | SA_NOCLDWAIT;
+	if(sigaction(SIGCHLD, &sig_act, &sig_oact) != 0)
+	{
+		gaVarLog(mod, 0, "sigaction(SIGCHLD, SA_NOCLDWAIT): system call failed. [%d, %s] Exiting.",
+				errno, strerror(errno));
+		exit(-1);
+	}
+
+	if (signal(SIGCHLD, SIG_IGN) == SIG_ERR)
+	{
+		gaVarLog(mod, 0, "signal(SIGCHLD, SIG_IGN): system call failed. [%d, %s] Exiting.",
+				errno, strerror(errno));
+		exit(-1);
+		}
+
+	sprintf(gaLogDir,"%s", "/tmp");
+	
+	rc=gaSetGlobalString("$PROGRAM_NAME", argv[0]);
+	rc=gaSetGlobalString("$LOG_DIR", gaLogDir);
+	rc=gaSetGlobalString("$LOG_BASE", argv[0]);
+	
+	
+	if ( (rc=init()) != 0 )
+	{
+		gaVarLog(mod, 0, "%d=init()", rc);
+		sleep(EXIT_SLEEP);
+		exit(0);
+	}
+	gaVarLog(mod, 1, "%d=init()", rc);
+	memset( (CDRInfo *)&gCDRInfo, '\0', sizeof(gCDRInfo));
+
+	if ((rc = whereDoIStartFrom()) != 0)
+	{
+		sleep(EXIT_SLEEP);
+		exit(0);
+	}
+	printCDRInfo();
+
+	if ((rc = establishServerConnection()) != 0)
+	{
+		sleep(EXIT_SLEEP);
+		exit(0);
+	}
+
+	gCanProcessCDRThread = 1;
+	if ((rc = pthread_create(&processCDRThreadId, NULL,  mainThread, NULL)) != 0)
+	{
+		gaVarLog(mod, 0, "pthread_create(%d) failed. rc=%d. [%d, %s] "
+			"Unable to create outbound thread.",
+			processCDRThreadId, rc, errno, strerror(errno));
+	}
+
+	while ( gCanProcessCDRThread )
+	{
+		if ((rc = pthread_kill(processCDRThreadId, 0)) == ESRCH)
+		{
+			gaVarLog(mod, 1, "processCDRThread died.  Exiting");
+			gCanProcessCDRThread = 0;
+			break;
+		}
+		sleep(3);
+
+	}
+	sc_Exit();
+	sleep(EXIT_SLEEP);
+	exit(0);
+
+#if 0
+	m=3;
+	d=1;
+	y=2020;
+	rc = dateToDayOfYear(m, d, y, &doy);
+	gaVarLog(mod, 1, "%d=dateToDayOfYear(For %d-%d-%d,  doy=%d)", rc, m, d, y, doy);
+
+	m=0;
+	d=0;
+	rc = dayOfYearToDate(doy, y, &m, &d, dateStr);
+
+	gaVarLog(mod, 1, "%d=dayOfYearToDate(doy=%d, %d-%d-%d) dateStr=(%s)", rc, doy, m, d, y, dateStr);
+#endif
+	
+} // END: main()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+void *mainThread()
+{
+	static char		mod[]="mainThread";
+	int				rc;
+
+	rc = isCurrentFileInThePast();
+	if ( (rc = processCDRs()) != 0 )
+	{
+		return;
+	}
+
+	while ( isCurrentFileInThePast() )
+	{
+		if ( (rc = setNextCDRFile()) != 0 )
+		{
+			break;
+		}
+		printCDRInfo();
+		if ( (rc = processCDRs()) != 0 )
+		{
+			break;
+		}
+	}
+
+	pthread_detach(pthread_self());
+	pthread_exit(NULL);
+
+} // END: mainThread()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int setNextCDRFile()
+{
+	static char	mod[]="setNextCDRFile";
+	time_t		t;
+	int			rc;
+
+	if ( gCDRInfo.hour < 23 )
+	{
+		gCDRInfo.hour++;
+	}
+	else
+	{
+		if ( gCDRInfo.month == 12 && gCDRInfo.day == 31 )
+		{
+			gCDRInfo.month = 1;
+			sprintf(gCDRInfo.charMonth, "%s", "Jan");
+			gCDRInfo.day = 1;
+			gCDRInfo.year++;
+			gCDRInfo.hour = 0;
+			gCDRInfo.doy = 1;
+		}
+		else // next day
+		{
+			rc = dateToDayOfYear(gCDRInfo.month, gCDRInfo.day, gCDRInfo.year, &gCDRInfo.doy);
+			gCDRInfo.doy++;
+			rc = dayOfYearToDate(gCDRInfo.doy, gCDRInfo.year, &gCDRInfo.month, gCDRInfo.charMonth, &gCDRInfo.day);
+			gCDRInfo.hour=0;
+
+		}
+	}
+	sprintf(gCDRInfo.cdrFileName, "CDR.%d-%s%02d-%02d.for",
+			gCDRInfo.year, gCDRInfo.charMonth, gCDRInfo.day, gCDRInfo.hour);
+	gCDRInfo.lastLine = 0;
+	if ( (rc = goFindFile(gCDRInfo.cdrFileName, gCDRInfo.cdrFullPath)) == -1)
+	{
+		return(-1);
+	}
+	return(0);
+	
+} // END: setNextCDRFile()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int isCurrentFileInThePast()
+{
+	static char	mod[]="isCurrentFileInThePast";
+	time_t		t;
+	struct tm	*pTime;
+	
+	time(&t);
+	pTime = localtime(&t);
+	gCurDateInfo.day	= pTime->tm_mday;
+	gCurDateInfo.month	= pTime->tm_mon + 1;
+	gCurDateInfo.year	= pTime->tm_year + 1900;
+	gCurDateInfo.hour	= pTime->tm_hour;
+	gCurDateInfo.doy	= pTime->tm_yday;
+
+	gaVarLog(mod, 1, "Current date info: %d-%d-%d hour %d, doy %d",
+			gCurDateInfo.day, gCurDateInfo.month, gCurDateInfo.year, gCurDateInfo.hour, gCurDateInfo.doy);
+
+	if ( gCurDateInfo.year > gCDRInfo.year )
+	{
+		gCDRInfo.isItInThePast = 1;
+		return(1);
+	}
+
+	if ( gCurDateInfo.month > gCDRInfo.month )
+	{
+		gCDRInfo.isItInThePast = 1;
+		return(1);
+	}
+
+	if ( gCurDateInfo.day > gCDRInfo.day )
+	{
+		gCDRInfo.isItInThePast = 1;
+		return(1);
+	}
+
+	if ( gCurDateInfo.hour > gCDRInfo.hour )
+	{
+		gCDRInfo.isItInThePast = 1;
+		return(1);
+	}
+	gCDRInfo.isItInThePast = 0;
+
+	return(0);
+} // END: isCurrentFileInThePast()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int processCDRs()
+{
+	static char		mod[]="processCDRs";
+	static FILE		*fp = NULL;
+	int				rc;
+	int				i;
+	char			line[256];
+	int				counter;
+	int				eof;
+
+	printCDRInfo();
+	if((fp=fopen(gCDRInfo.cdrFullPath, "r")) == NULL)
+	{
+		gaVarLog(mod, 0, "Failed open file (%s). [%d, %s] Unable to process.",
+			gCDRInfo.cdrFullPath, errno, strerror(errno));
+		return(-1);
+	}
+
+	//
+	// get to the last line
+	//
+	for(i=0; i<gCDRInfo.lastLine; i++)
+	{
+		if ( fgets(line, sizeof(line), fp) == NULL)
+		{
+				;
+		}
+	}
+
+	eof = 0; 
+	counter=i;
+	memset((char *)line, '\0', sizeof(line));
+	while ( ! eof )
+	{
+		if ( fgets(line, sizeof(line), fp) != NULL)
+		{
+			gaVarLog(mod, 1, "Read (%s)", line);
+			if ((rc = sc_SendData(strlen(line), line)) != sc_SUCCESS)
+			{
+				gaVarLog(mod, 0, "Failed to send data (%s). rc=%d.  Shutting down.",
+							line, rc);
+				updateTrackerFile(gCDRInfo.cdrFileName, counter, 1);
+				eof = 1;
+				break;
+			}
+			updateTrackerFile(gCDRInfo.cdrFileName, counter, 0);
+	
+			if ( ! gKeepGoing )
+			{
+				updateTrackerFile(gCDRInfo.cdrFileName, counter, 1);
+				gaVarLog(mod, 1, "Breaking");
+				break;
+			}
+			counter++;
+			memset((char *)line, '\0', sizeof(line));
+		}
+		else
+		{
+			eof = 1;
+		}
+	}
+	
+	fclose(fp);
+
+	if ( gCDRInfo.isItInThePast )
+	{
+		sprintf(line, "%s", END_AND_REMOVE_STR);
+	}
+	else
+	{
+		sprintf(line, "%s", END_STR);
+	}
+	if ((rc = sc_SendData(strlen(line), line)) != sc_SUCCESS)
+	{
+		gaVarLog(mod, 0, "ERROR: Failed to END data (%s). rc=%d. "
+				"Please verify file (%s) manually at (%s); file (%s)."
+				"There should have been %d records sent.",
+				line, rc, gCDRInfo.cdrFileName, gCfg.destIP);
+		return(-1);
+	}
+	gaVarLog(mod, 1, "Successfully sent end string (%s). rc=%d", line, rc);
+	return(0);
+} // END: processCDRs()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int establishServerConnection()
+{
+	static char		mod[]="establishServerConnection";
+	int				rc;
+	struct utsname	myhost;
+	char			buf[256];
+    long 			recvdBytes;
+
+	if (( rc = sc_Init("arcRTRServer", gCfg.destIP)) != 0 )
+	{
+		gaVarLog(mod, 0, "Failed to initialize session [arcRTRServer / %s].  rc=%d.  Unable to continue.", gCfg.destIP,  rc);
+		return(-1);
+	}
+	gaVarLog(mod, 1, "sc_Init() succeeded.");
+
+	memset(buf, 0, sizeof(buf));
+	if((rc = uname(&myhost)) == -1)
+	{
+		gaVarLog(mod, 0, "Failed to get uname of system rc=%d. [%d, %s]  Unable to continue.",
+			rc, errno, strerror(errno));
+		return(-1);
+	}
+	sprintf(gUname, "%s", myhost.nodename);
+
+	sprintf(buf, "%s|%s|%s", gUname, gCDRInfo.cdrFileName, START_STR);
+	
+	 if ((rc = sc_SendData(strlen(buf), buf)) != sc_SUCCESS)
+	{
+		gaVarLog(mod, 0, "Failed to  send data (%s). Unable to establish connection to (%s). rc=%d",
+			buf, gCfg.destIP, rc);
+		return(-1);
+	}
+	gaVarLog(mod, 1, "Sent (%s)", buf);
+
+	return(0);
+} // END: establishServerConnection()
+
+/*-----------------------------------------------------------------------------
+	Sets the cdrFullPath and lastLine of the gCDRInfo structure.
+  ---------------------------------------------------------------------------*/
+static int whereDoIStartFrom()
+{
+	static char		mod[]="whereDoIStartFrom";
+	int				rc;
+	char			filename[256];
+	char			dirName[128];
+	char			line[256];
+	FILE			*fp;
+	char			cdrFilename[64];
+	char			charLastLine[32];
+	char			*p;
+
+	sprintf(dirName, "%s/RTR", gIspBase);
+
+	if (access (dirName, F_OK|R_OK ) < 0)
+	{
+		if(errno == ENOENT)
+		{
+			if (mkdir(dirName, 0755) < 0)
+			{
+				gaVarLog(mod, 0, "mkdir (%s) failed. Unable to create directory. [%d, %s].  Correct and retry.",
+						dirName, errno, strerror(errno));
+				return(-1);
+			}
+		}
+		else
+		{
+			gaVarLog(mod, 0, "Unable to access directry (%s). [%d, %s].  Correct and retry.",
+						dirName, errno, strerror(errno));
+			return(-1);
+		}
+	}
+
+	sprintf(gTrackerFile, "%s/arcRTRClientTracker.txt", dirName);
+
+	if ( access(gTrackerFile, F_OK) == 0 )
+	{
+		if((fp=fopen(gTrackerFile, "r")) == NULL)
+		{
+			gaVarLog(mod, 0, "Failed open file (%s). [%d, %s] Correct and retry",
+				gTrackerFile, errno, strerror(errno));
+			return(-1);
+		}
+
+		if ( fgets(line, sizeof(line), fp) != NULL)
+		{
+			if ( line[strlen(line) - 1] == '\n' )
+			{
+				line[strlen(line) - 1] = '\0';
+			}
+			gaVarLog(mod, 1, "read (%s) from (%s)", line, gTrackerFile);
+		
+
+			if( (p = strstr(line, "|")) != (char *)NULL)
+			{
+				*p='\0';
+				sprintf(gCDRInfo.cdrFileName, "%s", line);
+				p++;
+				sprintf(charLastLine, "%s", p);
+				if ( charLastLine[strlen(charLastLine)-1] == '\n' )
+				{
+					charLastLine[strlen(charLastLine)-1] = '\0';
+				}
+				gCDRInfo.lastLine=atoi(charLastLine);
+				if ( gCDRInfo.lastLine > 0 )
+				{
+					gCDRInfo.lastLine++;
+				}
+			}
+		}
+		fclose(fp);
+
+		popFieldsFromLogFile(gCDRInfo.cdrFileName);
+		if ( (rc = goFindFile(gCDRInfo.cdrFileName, gCDRInfo.cdrFullPath)) == -1)
+		{
+			return(-1);
+		}
+	}
+	else
+	{
+		createCDRLogFromTime(-1, 0, 0, 0);
+		if ( (rc = goFindFile(gCDRInfo.cdrFileName, gCDRInfo.cdrFullPath)) == -1)
+		{
+			return(-1);
+		}
+		gCDRInfo.lastLine = 0;
+		getLineInLogFromCurrentTime(&gCDRInfo.lastLine);
+		updateTrackerFile(gCDRInfo.cdrFileName, gCDRInfo.lastLine, 0);
+	}
+
+	return(0);
+
+} // END: whereDoIStartFrom()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int getLineInLogFromCurrentTime(int *zLineNumber)
+{
+	static char		mod[]="getLineInLogFromCurrentTime";
+
+	time_t		t;
+	char		timeBuf[64];
+	struct tm	*pTime;
+	FILE		*fp;
+	char		line[256];
+	char		*p;
+	int			counter=0;
+	int			rc;
+
+	time(&t);
+	pTime = localtime(&t);
+	strftime(timeBuf, sizeof(timeBuf)-1, "%C%y %H:%M:%S", pTime);
+
+	gaVarLog(mod, 1, "Reading %s to get line for time %s", gCDRInfo.cdrFullPath, timeBuf);
+	if((fp=fopen(gCDRInfo.cdrFullPath, "r")) == NULL)
+	{
+		gaVarLog(mod, 0, "Failed open file (%s). [%d, %s] Correct and retry",
+			gTrackerFile, errno, strerror(errno));
+		return(-1);
+	}
+
+	memset((char *)line, '\0', sizeof(line));
+	*zLineNumber = 0;
+	while ( fgets(line, sizeof(line), fp) != NULL)
+	{
+		counter++;
+		p=&line[12];
+			
+//		gaVarLog(mod, 1, "strncmp((%s), (%s), %d)", timeBuf, p, strlen(timeBuf));
+		if ( (rc =strncmp(timeBuf, p, strlen(timeBuf))) > 0)
+		{
+//			gaVarLog(mod, 1, "Yep. rc=%d  Got it - counter is %d.", rc, counter);
+			*zLineNumber = counter;
+			break;
+		}
+	}
+	fclose(fp);
+
+} // END: getLineInLogFromCurrentTime()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int goFindFile(char *zFileToFind, char *zFullPath)
+{
+	static char mod[]="goFindFile";
+	int			rc;
+	char		searchDirs[2][128];
+	int			i;
+	char		fullPath[256];
+	char		noDorFor[256];
+	char		*p;
+	
+	sprintf(searchDirs[0], "%s/LOG", gIspBase);
+	sprintf(searchDirs[1], "%s/LOG/load/loaded.%d%02d%02d", gIspBase, gCDRInfo.year, gCDRInfo.month, gCDRInfo.day);
+	*zFullPath = '\0';
+	
+	for (i=0; i<2; i++)
+	{
+		sprintf(fullPath, "%s/%s", searchDirs[i], gCDRInfo.cdrFileName);
+		if (access (fullPath, F_OK|R_OK ) == 0 )
+		{
+			sprintf(zFullPath, "%s", fullPath);
+			gaVarLog(mod, 1, "(%s) is found.", fullPath);
+			return(0);
+		}
+		gaVarLog(mod, 1, "(%s) not found.", fullPath);
+	}
+	
+	// 
+	// now remove the .for extension and search
+	//
+	for (i=0; i<2; i++)
+	{
+		sprintf(fullPath, "%s/%s", searchDirs[i], gCDRInfo.cdrFileName);
+		p=rindex(fullPath, '.');
+		*p='\0';
+		
+		if (access (fullPath, F_OK|R_OK ) == 0 )
+		{
+			sprintf(zFullPath, "%s", fullPath);
+			p=rindex(gCDRInfo.cdrFileName, '.');
+			*p='\0';
+			gaVarLog(mod, 1, "(%s) is found.", fullPath);
+
+			return(0);
+		}
+		gaVarLog(mod, 1, "(%s) not found.", fullPath);
+	}
+
+	return(-1);
+} // END: goFindFile()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static void popFieldsFromLogFile(char *zLogFile)
+{
+	static char		mod[]="popFieldsFromLogFile";
+	int				rc;
+	char			*p;
+	char			buf[64];
+	char			buf2[32];
+	
+	sprintf(buf, "%s", zLogFile);
+	
+	sprintf(buf2, "%s", zLogFile+4);
+	p=buf2+4;
+	*p = '\0';
+	gCDRInfo.year = atoi(buf2);
+	p++;
+
+	sprintf(gCDRInfo.charMonth, "%s", p);
+	gCDRInfo.charMonth[3] = '\0';
+
+	p+=3;
+
+	sprintf(buf2, "%s", p);
+	p+=2;
+	*p='\0';
+	gCDRInfo.day=atoi(buf2);
+
+
+	p++;
+	sprintf(buf, "%s", p);
+	p+=2;
+	if ( *p != '\0' )
+	{
+		*p='\0';
+	}
+	gCDRInfo.hour=atoi(buf);
+	
+	if ( strcmp(gCDRInfo.charMonth, "Jan") == 0 )
+	{
+		gCDRInfo.month = 1;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Feb") == 0 )
+	{
+		gCDRInfo.month = 2;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Mar") == 0 )
+	{
+		gCDRInfo.month = 3;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Apr") == 0 )
+	{
+		gCDRInfo.month = 4;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "May") == 0 )
+	{
+		gCDRInfo.month = 5;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Jun") == 0 )
+	{
+		gCDRInfo.month = 6;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Jul") == 0 )
+	{
+		gCDRInfo.month = 7;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Aug") == 0 )
+	{
+		gCDRInfo.month = 8;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Sep") == 0 )
+	{
+		gCDRInfo.month = 9;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Oct") == 0 )
+	{
+		gCDRInfo.month = 10;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Nov") == 0 )
+	{
+		gCDRInfo.month = 11;
+	}
+	else if ( strcmp(gCDRInfo.charMonth, "Dec") == 0 )
+	{
+		gCDRInfo.month = 12;
+	}
+
+	rc = dateToDayOfYear(gCDRInfo.month, gCDRInfo.day, gCDRInfo.year, &gCDRInfo.doy);
+
+	return;
+} // END: popFieldsFromLogFile
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static void createCDRLogFromTime(int zMon, int zDay, int zYear, int zHour)
+{
+	static char	mod[]="createCDRLogFromTime";
+	time_t		t;
+	char		timeBuf[64];
+	struct tm	*pTime;
+
+	char	charMonth[32];
+	if (zMon == -1)
+	{
+		time(&t);
+		pTime = localtime(&t);
+		strftime(timeBuf, sizeof(timeBuf)-1, "CDR.%C%y-%b%d-%H.for", pTime);
+		sprintf(gCDRInfo.cdrFileName, "%s", timeBuf);
+		gCDRInfo.month = pTime->tm_mon + 1;
+		gCDRInfo.day = pTime->tm_mday;
+		gCDRInfo.year = pTime->tm_year + 1900;
+		gCDRInfo.hour = pTime->tm_hour;
+		gCDRInfo.lastLine = 0;
+
+		switch(gCDRInfo.month)
+		{
+			case 1: sprintf(gCDRInfo.charMonth, "%s", "Jan");
+					break;
+			case 2: sprintf(gCDRInfo.charMonth, "%s", "Feb");
+					break;
+			case 3: sprintf(gCDRInfo.charMonth, "%s", "Mar");
+					break;
+			case 4: sprintf(gCDRInfo.charMonth, "%s", "Apr");
+					break;
+			case 5: sprintf(gCDRInfo.charMonth, "%s", "May");
+					break;
+			case 6: sprintf(gCDRInfo.charMonth, "%s", "Jun");
+					break;
+			case 7: sprintf(gCDRInfo.charMonth, "%s", "Jul");
+					break;
+			case 8: sprintf(gCDRInfo.charMonth, "%s", "Aug");
+					break;
+			case 9: sprintf(gCDRInfo.charMonth, "%s", "Sep");
+					break;
+			case 10: sprintf(gCDRInfo.charMonth, "%s", "Oct");
+					break;
+			case 11: sprintf(gCDRInfo.charMonth, "%s", "Nov");
+					break;
+			case 12: sprintf(gCDRInfo.charMonth, "%s", "Dec");
+					break;
+		}
+
+
+		return;
+	}
+	
+	
+	
+
+} // END: createCDRLogFromTime()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int dateToDayOfYear(int zMon, int zDay, int zYear, int *zDoy)
+{
+	static char	mod[]="dateToDayOfYear";
+
+	int		daysInFeb = 28;
+   // check for leap zYear
+
+	*zDoy=zDay;
+
+    if( (zYear % 4 == 0 && zYear % 100 != 0 ) || (zYear % 400 == 0) )
+    {
+        daysInFeb = 29;
+    }
+
+    switch(zMon)
+    {
+        case 2:
+            *zDoy += 31;
+            break;
+        case 3:
+            *zDoy += 31+daysInFeb;
+            break;
+        case 4:
+            *zDoy += 31+daysInFeb+31;
+            break;
+        case 5:
+            *zDoy += 31+daysInFeb+31+30;
+            break;
+        case 6:
+            *zDoy += 31+daysInFeb+31+30+31;
+            break;
+        case 7:
+            *zDoy += 31+daysInFeb+31+30+31+30;
+            break;            
+        case 8:
+            *zDoy += 31+daysInFeb+31+30+31+30+31;
+            break;
+        case 9:
+            *zDoy += 31+daysInFeb+31+30+31+30+31+31;
+            break;
+        case 10:
+            *zDoy += 31+daysInFeb+31+30+31+30+31+31+30;            
+            break;            
+        case 11:
+            *zDoy += 31+daysInFeb+31+30+31+30+31+31+30+31;            
+            break;                        
+        case 12:
+            *zDoy += 31+daysInFeb+31+30+31+30+31+31+30+31+30;            
+            break;                                    
+    }
+
+    return(0);
+} // END: dateToDayOfYear()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int dayOfYearToDate(int zDoy, int zYear, int *zMon, char *zCharMonth, int *zDay)
+{
+	static char	mod[]="dateToDayOfYear";
+	int		leapIdx = 0;
+	int		i;
+   // check for leap zYear
+
+    static const int days[2][12] = {
+        {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334},
+        {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335}
+    };
+
+	static char mons[12][8] = {
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }; 
+
+    if( (zYear % 4 == 0 && zYear % 100 != 0 ) || (zYear % 400 == 0) )
+    {
+        leapIdx = 1;
+    }
+
+	for (i=11; i>0; i--)
+	{
+		if ( zDoy > days[leapIdx][i] )
+		{
+			*zMon = i+1;
+			*zDay = zDoy - days[leapIdx][i];
+			sprintf(zCharMonth, "%s", mons[i]);
+			return(0);
+		}
+	}
+
+	return(0);
+	
+} // END: dayOfYearToDate()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int init()
+{
+	static char mod[]="init";
+	int			rc;
+	char		filename[128];
+	char		ispbase[32]="ISPBASE";
+	char		name[64];
+	char		value[64];
+	char		defaultValue[64];
+	static char	gaLogDir[256];
+
+    if ((gIspBase = getenv (ispbase)) == NULL)
+    {
+		gaVarLog(mod, 0, "Unable to get ISPBASE env variable. Set it and retry.  Unable to continue.");
+        return (-1);
+    }
+	sprintf(gaLogDir, "%s/LOG", gIspBase);
+	rc=gaSetGlobalString("$LOG_DIR", gaLogDir);
+
+	gaVarLog(mod, 0, "Starting.");
+	memset((Cfgs *)&gCfg, '\0', sizeof(gCfg));
+
+	if ( gIspBase[strlen(gIspBase) - 1] == '/' )
+	{
+		gIspBase[strlen(gIspBase) - 1] = '\0';
+	}
+	sprintf(filename, "%s/Global/.Global.cfg", gIspBase);
+
+	sprintf(name, "%s", "LOG_CDR_FILE");
+	sprintf(defaultValue, "%s", "YES_BOTH");
+	memset((char *)value, '\0', sizeof(value));
+	if ((rc = gaGetProfileString ("Settings", name, defaultValue, value, sizeof(value), filename)) == 0)
+	{
+		if (strncmp(value, "YES", 3) != 0 )
+		{
+			gaVarLog(mod, 0, "LOG_CDR_FILE in %s is not enabled. Real-time reports are disabled.", filename);
+			return(-1);
+		}
+	}
+	
+	sprintf(name, "%s", "REALTIME_REPORTS");
+	sprintf(defaultValue, "%s", "YES");
+	memset((char *)value, '\0', sizeof(value));
+	if ((rc = gaGetProfileString ("Settings", name, defaultValue, value, sizeof(value), filename)) == 0)
+	{
+		if (strncmp(value, "YES", 3) != 0 )
+		{
+			gaVarLog(mod, 0, "REALTIME_REPORTS in %s is not enabled.", filename);
+			return(-1);
+		}
+	}
+
+	sprintf(filename, "%s/Telecom/Tables/realtimeReports.cfg", gIspBase);
+	sprintf(name, "%s", "destIP");
+	sprintf(defaultValue, "%s", "");
+	memset((char *)value, '\0', sizeof(value));
+	if ((rc = gaGetProfileString ("", name, defaultValue, value, sizeof(value), filename)) != 0)
+	{
+		gaVarLog(mod, 0, "Unable to get destination address from %s.  Cannot continue.", filename);
+		return(-1);
+	}
+	sprintf(gCfg.destIP, "%s", value);
+	gaVarLog(mod, 1, "gCfg.destIP:(%s)", gCfg.destIP);
+
+	return(0);
+
+
+} // END: init()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static int updateTrackerFile(char *zFile, int zLine, int zJustClose)
+{
+	static char	mod[]="updateTrackerFile";
+	static FILE	*fp = NULL;
+
+	if ( zJustClose )
+	{
+		fclose(fp);
+		fp = NULL;
+		return(0);
+	}
+
+	if ( ! fp )
+	{
+		if((fp=fopen(gTrackerFile, "w")) == NULL)
+		{
+			gaVarLog(mod, 0, "Failed open file (%s) to update. [%d, %s]",
+				gTrackerFile, errno, strerror(errno));
+			return(-1);
+		}
+		gaVarLog(mod, 0, "Successfully opened file (%s) to update. [%d, %s]",
+				gTrackerFile, errno, strerror(errno));
+	}
+	else
+	{
+		rewind(fp);
+	}
+
+	fprintf(fp, "%s|%d    \n", zFile, zLine);
+
+	return(0);
+} // END: updateTrackerFile()
+
+/*-----------------------------------------------------------------------------
+  ---------------------------------------------------------------------------*/
+static void printCDRInfo()
+{
+	static char mod[]="printCDRInfo";
+
+	gaVarLog(mod, 1, "cdrFile(%s) fullPath(%s) month(%d:%s) day(%d) year(%d) hour(%d) doy(%d) lastLine(%d)",
+			gCDRInfo.cdrFileName, gCDRInfo.cdrFullPath, gCDRInfo.month, gCDRInfo.charMonth, gCDRInfo.day,
+			gCDRInfo.year, gCDRInfo.hour, gCDRInfo.doy, gCDRInfo.lastLine);
+
+} // END: printCDRInfo();

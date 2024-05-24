@@ -1,0 +1,23 @@
+echo
+echo "Linking ArcSipCallMgr"
+echo
+g++ -Wno-write-strings   -Wno-narrowing  -Wno-int-to-pointer-cast -o ArcSipCallMgr 		\
+	-Wl,--rpath=/home/dan/isp2.2/SIPTelecom3.6/glibc-2.29/lib		\
+	-Wl,--dynamic-linker=/home/dan/isp2.2/SIPTelecom3.6/glibc-2.29/lib/ld-linux-x86-64.so.2		\
+	-L /tmp/glibc-2.29/lib		\
+	-L . 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/lib 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/Common/lib 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/libeXosip2-4.1.0/src/.libs 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/libosip2-4.1.0/src/osip2/.libs 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/libosip2-4.1.0/src/osipparser2/.libs 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/c-ares-1.5.2/.libs 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/spandsp-0.0.6/src/.libs 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty/openssl-1.0.2k		\
+	ArcSipCallMgr.o RegistrationInfo.o RegistrationHandlers.o SubscriptionHandlers.o		\
+	SubscriptionInfo.o IncomingCallHandlers.o OutboundCallHandlers.o callTerminateList.o		\
+	SipInit.o Options.o CallOptions.o enum.o ArcSipCommon.o dl_open.o recycle.o arc_sdp.o		\
+	osip_utils.o dtmf_utils.o dynVarLog.o 			\
+	-lISPUtil -lISPCDR -lUTILS -lISPLog		\
+	-lcrypto -leXosip2 -losip2 -losipparser2 -lssl -lcares -lpthread -ldl -lm -lstdc++	\
+	-DARCSIP_VERSION=5.0 -DARCSIP_BUILD=1

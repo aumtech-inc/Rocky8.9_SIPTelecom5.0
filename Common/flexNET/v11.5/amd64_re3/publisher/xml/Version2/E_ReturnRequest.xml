@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Request xmlns="http://www.macrovision.com/fnp/2004/11/activation">
+<RequestHeader>
+<VersionNumber>2</VersionNumber>
+<RequestType>RETURN</RequestType>
+</RequestHeader>
+<RequestData>
+<EntitlementData>
+<EntitlementId>URALOWD-12345678</EntitlementId>
+<ProductId>PRODUCT-1</ProductId>
+<PublisherId>256</PublisherId>
+<SuiteId>SUITE-1</SuiteId>
+</EntitlementData>
+<OriginData>
+<ClientVersion>11.02.008</ClientVersion>
+<ConfigData>
+<IsServer>0</IsServer>
+<TrustedHostInformation>
+<TrustedId>1</TrustedId>
+<Revision>NumberOne</Revision>
+<RevisionType>SRV</RevisionType>
+<MachineIdentifier>E0CB25FC820217FF9BF7F447847C2CAA87479888</MachineIdentifier>
+<Status>OK</Status>
+</TrustedHostInformation>
+</ConfigData>
+<SequenceNumber>5</SequenceNumber>
+</OriginData>
+<EnterpriseData>
+<username>BOB</username>
+<hostname>CHAOS</hostname>
+</EnterpriseData>
+<ReturnData>
+<FulfillmentRecordUniqueId>1.190191.0.1</FulfillmentRecordUniqueId>
+<FulfillmentRecord>
+<FulfillmentRecordHeader>
+<VersionNumber>1</VersionNumber>
+</FulfillmentRecordHeader>
+<FulfillmentRecordData>
+<FulfillmentId>ID1</FulfillmentId>
+<FulfillmentDictionary>
+<Entries>
+<Entry>
+<Key>fulfillmentType</Key>
+<Value>6</Value>
+</Entry>
+<Entry>
+<Key>expiry</Key>
+<Value>31-dec-2008</Value>
+</Entry>
+<Entry>
+<Key>serverHostID</Key>
+<Value>FLEXID=6-a6300155</Value>
+</Entry>
+<Entry>
+<Key>servOrLocal</Key>
+<Value>2</Value>
+</Entry>
+<Entry>
+<Key>ProductId</Key>
+<Value>EZCALC-C</Value>
+</Entry>
+<Entry>
+<Key>EntitlementId</Key>
+<Value>ENTL-EZCALC-C1</Value>
+</Entry>
+<Entry>
+<Key>availAct</Key>
+<Value>1</Value>
+</Entry>
+<Entry>
+<Key>features</Key>
+<Value>INCREMENT ADD demo 1.0 31-dec-2008 1 SIGN="0074 91B0 7293 119A 99A3 \
+	7CEA 44D7 6E00 368C 772D A56F 9BC4 D91E 5889 4962"
+INCREMENT SUBTRACT demo 1.0 31-dec-2008 1 SIGN="00B0 7F97 5E13 53E6 \
+	46C6 C89C B5D9 4A00 3F54 1F3D 419B 3009 C8FC 14D1 FBFF"
+INCREMENT MULTIPLY demo 1.0 31-dec-2008 1 SIGN="00BC 73C6 BBEF 8651 \
+	ECD3 0B21 BE36 8900 AB28 5411 439C BF58 2CE0 CD7D F0CA"
+INCREMENT DIVIDE demo 1.0 31-dec-2008 1 SIGN="0059 F2CC 3B02 FD39 \
+	56D9 2602 0A31 9C00 F7D2 8AD7 0233 6084 9C44 7F41 46DA"
+INCREMENT AVG demo 1.0 31-dec-2008 1 SIGN="00AF 90A0 7FD4 5BFE 1B91 \
+	76A1 5899 1F00 F378 C41C 09F7 2FEA D1AC B9F3 49DE"
+INCREMENT POWER demo 1.0 31-dec-2008 1 SIGN="00E6 13FC 38B9 D357 AA5A \
+	988E 448C 7C00 B0EF 42FF 1C2E 93D1 5E85 B27A F8BA"
+</Value>
+</Entry>
+</Entries>
+</FulfillmentDictionary>
+</FulfillmentRecordData>
+</FulfillmentRecord>
+<OriginalMachineIdentifier>E0CB25FC820217FF9BF7F447847C2CAA87479888</OriginalMachineIdentifier>
+<VendorDictionary>
+<Entries>
+<Entry>
+<Key>VendorID1</Key>
+<Value>1</Value>
+</Entry>
+<Entry>
+<Key>VendorID2</Key>
+<Value>SOME DATA</Value>
+</Entry>
+</Entries>
+</VendorDictionary>
+</ReturnData>
+</RequestData>
+<Hash>D2EA92751CC6C023230F7F26BA34DEB498CE514A</Hash>
+<HashVersion>1</HashVersion>
+</Request>

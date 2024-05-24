@@ -1,0 +1,55 @@
+#!/bin/bash 
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# File:		cps
+# Purpose:	A shortcut to copying all work tables to active tables
+# Usage:	cps
+# Author:	Aumtech, Inc.
+# Update:	06/12/2003
+#------------------------------------------------------------------------------
+
+FILES="
+schedule
+pgmreference
+appref
+RedirectorTab
+ResourceDefTab
+TranLocTab
+resact
+huntGroups.cfg
+trunkGroups.cfg
+tones.cfg
+ss7call.cfg
+call.cfg
+"
+
+RELOAD_FILE="../locks/reload"
+
+cd $TELECOM/Tables
+for file in $FILES
+do
+	if [ -f $file.work ]
+	then
+		echo "Copying $file.work to $file"
+		cp $file.work $file
+	fi
+done
+
+if [ ! -f "$RELOAD_FILE" ]
+then
+	echo "Could not touch reload file ($RELOAD_FILE)"
+	#exit 1
+fi
+
+echo
+echo "Touching reload file ($RELOAD_FILE)"
+echo
+
+touch $RELOAD_FILE
+
+ls -l ../locks/reload
+date
+
+echo
+echo "Tables activated and reloaded!"
+echo

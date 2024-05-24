@@ -1,0 +1,23 @@
+#------------------------------------------------------------------
+# All Aumtech Telecom Services Products are registered
+# to a specific machine identification number.
+# Changes to this registration for the purpose of
+# transferring the license to another machine can be
+# performed on temporary licenses only (licenses with an
+# expiration date). Changes to a permanent license will
+# require the customer to return the original system's Network
+# Interface Card ('NIC' Card) to Aumtech before the license
+# will be transferred. All license transfers are subject
+# to a US$500.00 transfer charge.
+#------------------------------------------------------------------
+SERVER sipload64 001D09301065
+VENDOR arclicd /home/arc/flexNET.11.5/amd64_re3/arclicd
+FEATURE IPTEL arclicd 2.0 permanent 100 HOSTID=001d09301065 \
+	SIGN="0033 8ADF 5E15 7675 D95A C4FF 4581 5200 04B9 C8C9 8F69 \
+	A84E DC71 43D9 DC6D"
+FEATURE IPTEL_VIDEO arclicd 2.0 permanent 100 HOSTID=001d09301065 \
+	SIGN="00EF C4A0 6151 E481 BBA3 6E4D 7F6F 3E00 2A0C 4945 91E5 \
+	F6FC E9B5 149F 1F78"
+FEATURE SPEECH_REC arclicd 2.0 permanent 100 HOSTID=001d09301065 \
+	SIGN="0045 12E4 829E 4013 4CD4 8330 0F12 5E00 6E06 C8BB 501F \
+	0149 F5DE A3A5 C74A"

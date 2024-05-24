@@ -1,0 +1,4 @@
+
+#./configure --prefix=/home/dan/lib32 --enable-debug  --enable-trace  --enable-pthread --enable-semaphore 
+./configure --prefix=/home/dan/lib32 --enable-debug  --enable-trace  --enable-pthread --enable-semaphore 
+

@@ -1,0 +1,67 @@
+#-----------------------------------------------------------------------------
+# Program: 	Global.def
+# Purpose:	Configuration definition file for the .Global.cfg file. 
+#		It contains the definitions of valid fields in this
+#		table and rules for editing those fields.
+# 		The file is organized as follows:
+# Author:	Aumtech, Inc.
+# Date:		09/01/99
+# DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE.
+#-----------------------------------------------------------------------------
+
+[Sections]
+Settings
+Snmp
+Subsystem Startup
+Fifo
+Printer
+Title
+
+[Title]
+Global Parameter Definition
+
+[Settings]
+LOG_PRIMARY_SERVER
+LOG_SECONDARY_SERVER
+LOG_REPORT_VERBOSE
+LOG_x_LOCAL_FILE
+LOG_2x_LOCAL_FILE
+LOG_FREQUENCY
+LOG_RETENTION
+
+[Snmp]
+SNMP
+
+[Subsystem Startup]
+ResourceMgr
+
+[Fifo]
+FIFO_DIR 
+
+[Printer]
+DefaultPrinter
+
+[Field Name		Edit Type	Qualifier	MaxLen	Reserved]
+^LOG_PRIMARY_SERVER	List		String		10	All
+^LOG_SECONDARY_SERVER	List		String		10	All
+^LOG_REPORT_VERBOSE	List		OnOff		3	All
+^LOG_x_LOCAL_FILE	List		String		40	All
+^LOG_2x_LOCAL_FILE	List		String		40	All
+^LOG_FREQUENCY		List		FreqList	8	All
+^LOG_RETENTION		Range		1-30		7	All
+^SNMP			List		OnOff		3	All
+^ResourceMgr		List		OnOff		3	All
+^FIFO_DIR		List		String		100	All
+^DefaultPrinter		List		String		20	All
+
+[Misc]
+HelpFileName=Global/Tables/Global.hlp
+ConfigFileName=Global/.Global.cfg
+
+[OnOff]
+ON
+OFF
+
+[FreqList]
+HOURLY
+REALTIME

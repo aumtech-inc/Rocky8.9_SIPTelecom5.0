@@ -1,0 +1,56 @@
+#!/bin/ksh
+#-----------------------------------------------------------------------------
+# Program: 	replace_token
+# Purpose:	To replace a line in a file with another line.
+# 		This routine will replace the first token with the second 
+#		token in a given file. 
+# 		Parm 1 = filename; Parm 2 = token1; Parm 3 = token2; 
+#		Parm 4 = INSERT or blank If Parm 4 is INSERT and token1 is 
+#		not found in the file, then token 2 is inserted into the file.
+# Author:	George Wenzel
+# Date:		02/06/01
+#-----------------------------------------------------------------------------
+replace_token()
+{
+	FILE=$1
+	TOKEN1=$2
+	TOKEN2=$3
+	if `grep "$TOKEN1" $FILE > /dev/null 2>&1 `
+	then
+#		echo DEBUG REPLACING $TOKEN1 with $TOKEN2
+  		echo "/$TOKEN1"			>  e$$
+		echo "d"			>> e$$
+		echo "."			>> e$$
+		echo "i"			>> e$$
+		echo "$TOKEN2"			>> e$$
+		echo "."			>> e$$
+		echo "w\nq" 			>> e$$
+  		ed $FILE < e$$ > /dev/null 2>/dev/null
+ 		rm -f e$$
+	else
+#		echo DEBUG NOT FOUND $TOKEN1
+		if [ "$4" =  "INSERT" ]
+		then
+#			echo DEBUG INSERTING $TOKEN2
+			echo "."			>> e$$
+			echo "i"			>> e$$
+			echo "$TOKEN2"			>> e$$
+			echo "."			>> e$$
+			echo "w\nq" 			>> e$$
+  			ed $FILE < e$$ > /dev/null 2>/dev/null
+ 			rm -f e$$
+		fi
+	fi
+}
+
+#-----------------------------------------------------------------------------
+# main 
+#-----------------------------------------------------------------------------
+
+if [ "$#" -lt "3" ]
+then
+	echo "Invalid number of parameters passed to $0."
+	return
+fi
+
+replace_token "$1" "$2" "$3" "$4"

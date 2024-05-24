@@ -1,0 +1,30 @@
+
+  typedef struct osip_uri osip_uri_t;
+
+/**
+ * Structure for referencing SIP urls.
+ * @struct osip_uri
+ */
+  struct osip_uri
+  {
+    char *scheme;              /**< Uri Scheme (sip or sips) */
+    char *username;            /**< Username */
+    char *password;            /**< Password */
+    char *host;                /**< Domain */
+    char *port;                /**< Port number */
+    osip_list_t url_params;    /**< Uri parameters */
+    osip_list_t url_headers;   /**< Uri headers */
+
+    char *string;  /**< Space for other url schemes. (http, mailto...) */
+  };
+.....
+
+
+struct urlmap_s {
+   int  active;
+   int  expires;
+   osip_uri_t *true_url;    // true URL of UA  (inbound URL)
+   osip_uri_t *masq_url;    // masqueraded URL (outbound URL)
+   osip_uri_t *reg_url;     // registered URL  (masq URL as wished by UA)
+};       
+

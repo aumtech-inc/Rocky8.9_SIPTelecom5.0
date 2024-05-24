@@ -1,0 +1,30 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# Program:      Start_LogForward
+# Purpose:      To start log_forward process.
+# Author:       Aumtech
+# Date:         05/15/97
+#------------------------------------------------------------------------------
+# Copyright (c) 1997, Aumtech, Inc.
+# All Rights Reserved.
+#
+#  This is an unpublished work of Aumtech which is protected under
+#  the copyright laws of the United States and a trade secret
+#  of Aumtech. It may not be used, copied, disclosed or transferred
+#  other than in accordance with the written permission of Aumtech
+#
+#------------------------------------------------------------------------------
+
+if [ "$ISPBASE" = "" ]
+then
+	if [ ! -f $HOME/.isprc ]
+	then
+		echo "Env. var ISPBASE not set. Cannot find $HOME/.isprc either"
+		exit 1
+	fi
+
+	#echo "Env. var ISPBASE not set. Getting it from $HOME/.isprc"
+	. $HOME/.isprc
+fi
+
+$ISPBASE/Global/Exec/log_forward

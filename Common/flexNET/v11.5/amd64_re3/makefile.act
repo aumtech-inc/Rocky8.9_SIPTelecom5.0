@@ -1,0 +1,279 @@
+###############################################################################
+#
+#	Copyright (c) 2005-2007 Macrovision Europe Ltd. and/or Macrovision Corporation. All Rights Reserved
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of
+#	Macrovision Corporation and is protected by law.  It may
+#	not be copied or distributed in any form or medium, disclosed
+#	to third parties, reverse engineered or used in any manner not
+#	provided for in said License Agreement except with the prior
+#	written authorization from Macrovision Corporation
+#
+###############################################################################
+
+
+MAINSRCDIR=..
+PREPXMLDIR = $(MAINSRCDIR)/machind/activation/prep_xml
+SRCDIR = $(MAINSRCDIR)/machind
+EXAMPLESDIR=$(MAINSRCDIR)/examples
+EZCALCSRC=$(EXAMPLESDIR)/ezcalc
+ACTIVATIONSRC=$(EXAMPLESDIR)/activation
+AAINCDIR = $(MAINSRCDIR)/machind/activation/include
+AALIBDIR = ./activation/lib
+AALIB = $(AALIBDIR)/libact.a
+ACT_LIBRARY = libFNPload.a
+SDTINCLUDES=$(SRCDIR)/sdt
+
+INCFLAGS = -I$(SRCDIR) -I.
+
+THREADLIB = -lpthread
+
+XTRACFLAG = -DRELEASE_VERSION -g -O2 -m64 -D__BITS64 -pipe -pthread -DLM_INTERNAL -DFLEXLM_KITBUILD -DFLEX_STATIC -DRELEASE_VERSION -DGPLATFORM=\\"amd64_re3\\" -DLINUX -D__FD_SETSIZE=65535 -DGLIBC -DLINUX64 -DAMD64 -DREDHAT -DREL -DRHLINUX64 -DPLATFORM_AMD64_RHLINUX 
+
+XTRALIB = -ldl 
+
+LDSHAREFLAGS = -shared 
+
+MAJORVER = 11
+
+#
+#	Use XTRAOBJS to define your object files for vendor daemon
+#	initialization routines, checkout filter, checkin callback, etc.
+#
+XTRAOBJS = 
+
+LDFLAGS = 
+
+LINTFLAGS = -a -b -h
+
+CFLAGS = -c -g $(INCFLAGS) $(XTRACFLAG)
+
+SRCS	= $(SRCDIR)/lsvendor.c
+
+STRIP = strip
+
+OBJS =  lmcrypt.o \
+	lmstrip.o \
+	lsvendor.o 
+    
+PIC = _pic
+
+CFLAGS_PIC = -fPIC -DIS_PIC
+    
+#
+# Activation Stub
+#
+ACTSTUB		= ls_getActivationsStub.o
+PREPTOOL	= ./preptool
+
+LD=$(CC)
+ACT_LIBRARY = libFNPload.a
+
+DAEMON = demo
+
+EXECS = Activation_binaries lmcrypt lmflex appactutil serveractutil ezcalc ezcalcsdt liblmsign.a asrgen
+
+
+CLIENTLIB	= liblmgr.a libcrvs.a libsb.a $(BORROWOBJ) 
+LIBS		= liblmgr_as.a liblmgr_s.a $(CLIENTLIB)
+
+LINTLIB =	llib-llmgr.a.ln
+
+UTILS = lmhostid lmdown lminstall lmremove \
+	lmreread  lmswitchr lmstat lmdiag lmver lmpath lmborrow lmswitch
+
+all: $(EXECS) $(DAEMON) utils
+
+
+
+lmnewgen:	$(MAINSRCDIR)/machind/lsvendor.c $(MAINSRCDIR)/machind/lm_code.h
+	./lmrand1 -i $(SRCDIR)/lsvendor.c
+	$(CC) -c $(CFLAGS) lmcode.c
+	$(CC) lmnewgen.o lmcode.o $(ACTSTUB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) \
+						-o lmnewgen
+
+daemon:	$(DAEMON)
+
+$(DAEMON):	$(XTRAOBJS) $(LIBS) $(SRCDIR)/lsserver.h $(SRCDIR)/lm_code.h \
+    lm_new.o 
+	$(MAKE) -f makefile.act lm_new.o
+	$(CC) -c $(CFLAGS) lsrvend.c 
+	mv lsrvend.o lsvendor.o
+	rm -f lsrvend.c
+	$(LD) $(LDFLAGS) -o $(DAEMON) lsvendor.o lm_new.o \
+            $(XTRAOBJS) $(LIBS) $(XTRALIB) $(THREADLIB)  $(ACT_LIBRARY)
+	$(STRIP) $(DAEMON)
+	rm -f lm_new.o
+	$(PREPTOOL) -v $(PREPXMLDIR)/vendor_daemon_unix.xml
+
+Activation_binaries:
+	cp publisher/tsreset ./tsreset_app
+	-$(PREPTOOL) -v $(PREPXMLDIR)/tsreset_app_unix.xml
+	cp publisher/tsreset ./tsreset_svr
+	-$(PREPTOOL) -v $(PREPXMLDIR)/tsreset_svr_unix.xml
+	
+
+lm_new.o: $(SRCDIR)/lsvendor.c $(SRCDIR)/lm_code.h $(SRCDIR)/lmclient.h \
+	$(CLIENTLIB)
+	./lmrand1 -i $(SRCDIR)/lsvendor.c
+	$(CC) -c $(CFLAGS)  lmcode.c
+	$(CC) lmnewgen.o lmcode.o $(ACTSTUB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) \
+						-o lmnewgen
+	rm -f lm_new.c
+	./lmnewgen $(DAEMON) -o lm_new.c
+	$(CC) -c $(CFLAGS)  lm_new.c
+	$(CC) -c $(CFLAGS) $(CFLAGS_PIC) -o lm_new$(PIC).o  lm_new.c
+
+lm_new$(PIC).o: $(SRCDIR)/lsvendor.c $(SRCDIR)/lm_code.h $(SRCDIR)/lmclient.h \
+	$(CLIENTLIB)
+	./lmrand1 -i $(SRCDIR)/lsvendor.c
+	$(CC) -c $(CFLAGS)  lmcode.c
+	$(CC) lmnewgen.o lmcode.o $(ACTSTUB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) \
+						-o lmnewgen
+	rm -f lm_new.c
+	./lmnewgen $(DAEMON) -o lm_new.c
+	$(CC) -c $(CFLAGS) $(CFLAGS_PIC) -o lm_new$(PIC).o  lm_new.c
+
+liblmsign.a:	$(SRCDIR)/lmsign.c $(SRCDIR)/lmclient.h $(SRCDIR)/lm_code.h $(CLIENTLIB)
+	$(CC) $(CFLAGS) $(SRCDIR)/lmsign.c
+	ar cr liblmsign.a lmsign.o
+	ranlib liblmsign.a
+	
+
+asrgen:	asrgen.o liblmsign.a
+	$(LD) -o asrgen asrgen.o liblmsign.a $(ACTSTUB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB)
+
+lmcrypt: $(SRCDIR)/lmcrypt.c \
+		$(SRCDIR)/lmclient.h $(SRCDIR)/lm_code.h lmprikey.h $(CLIENTLIB)
+	$(CC) $(CFLAGS) $(SRCDIR)/lmcrypt.c
+	$(CC) -o lmcrypt lmcrypt.o   \
+        $(ACTSTUB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB)
+
+lmprikey.h: lm_new.o
+
+
+lmflex:	$(SRCDIR)/lmflex.c  $(SRCDIR)/lm_code.h $(CLIENTLIB) lm_new.o
+	$(MAKE) -f makefile.act lm_new.o
+	$(CC) $(CFLAGS) $(SRCDIR)/lmflex.c
+	$(LD) -o lmflex lmflex.o lm_new.o $(CLIENTLIB) $(XTRALIB) \
+        $(THREADLIB) $(ACT_LIBRARY)
+	rm lmflex.o
+	$(STRIP) lmflex
+	rm -f lm_new.o
+	$(PREPTOOL) -v $(PREPXMLDIR)/lmflex_unix.xml
+
+ezcalcsdt: $(EZCALCSRC)/ezcalcsdt.c $(SRCDIR)/sdt/sdtdata.c $(EZCALCSRC)/sdtdefs.c  lm_new.o
+	$(MAKE) -f makefile.act lm_new.o
+	$(CC) $(CFLAGS) -I$(AAINCDIR) -I$(SDTINCLUDES) $(SRCDIR)/sdt/sdtdata.c
+	$(CC) $(CFLAGS) -I$(AAINCDIR) -I$(SDTINCLUDES) $(EZCALCSRC)/sdtdefs.c
+	$(CC) $(CFLAGS) -I$(AAINCDIR) -I$(SDTINCLUDES) $(EZCALCSRC)/ezcalcsdt.c
+	$(LD) -o  ezcalcsdt ezcalcsdt.o sdtdefs.o sdtdata.o lm_new.o $(AALIB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) $(ACT_LIBRARY)
+	rm -f lm_new.o
+	$(PREPTOOL) -v $(EZCALCSRC)/ezcalcsdt_unix.xml
+
+ezcalc: $(EZCALCSRC)/ezcalc.c lm_new.o
+	$(MAKE) -f makefile.act lm_new.o
+	$(CC) $(CFLAGS) -I$(AAINCDIR) $(EZCALCSRC)/ezcalc.c
+	$(LD) -o  ezcalc ezcalc.o lm_new.o $(AALIB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) $(ACT_LIBRARY)
+	rm -f lm_new.o
+	$(PREPTOOL) -v $(EZCALCSRC)/ezcalc_unix.xml
+
+ezcalcsdtplus: $(EZCALCSRC)/ezcalcsdtplus.cpp $(SRCDIR)/sdt/sdttype.cpp $(EZCALCSRC)/sdtdefs.c lm_new.o
+	$(MAKE) -f makefile.act lm_new.o
+	$(CXX) $(CFLAGS) -I$(AAINCDIR) -I$(SDTINCLUDES) $(SRCDIR)/sdt/sdttype.cpp
+	$(CXX) $(CFLAGS) -I$(AAINCDIR) -I$(SDTINCLUDES) $(EZCALCSRC)/sdtdefs.c	
+	$(CXX) $(CFLAGS) -I$(AAINCDIR) -I$(SDTINCLUDES) $(EZCALCSRC)/ezcalcsdtplus.cpp
+	$(CXX) -o ezcalcsdtplus ezcalcsdtplus.o sdtdefs.o sdttype.o lm_new.o $(AALIB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) $(ACT_LIBRARY)
+	-$(PREPTOOL) -v $(EZCALCSRC)/ezcalcsdtplus_unix.xml
+
+appactutil: $(ACTIVATIONSRC)/appActUtil.c lm_new.o
+	$(MAKE) -f makefile.act lm_new.o
+	$(CC) $(CFLAGS) -I$(AAINCDIR) $(ACTIVATIONSRC)/appActUtil.c
+	$(LD) -o  appactutil appActUtil.o lm_new.o $(AALIB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) $(ACT_LIBRARY)
+	rm -f lm_new.o
+	$(PREPTOOL) -v $(ACTIVATIONSRC)/appActUtil_unix.xml
+
+
+serveractutil: $(ACTIVATIONSRC)/serverActUtil.c lm_new.o
+	$(MAKE) -f makefile.act lm_new.o
+	$(CC) $(CFLAGS) -I$(AAINCDIR) $(ACTIVATIONSRC)/serverActUtil.c
+	$(LD) -o serveractutil serverActUtil.o lm_new.o $(AALIB) $(CLIENTLIB) $(XTRALIB) $(THREADLIB) $(ACT_LIBRARY)
+	rm -f lm_new.o
+	$(PREPTOOL) -v $(ACTIVATIONSRC)/serverActUtil_unix.xml
+    
+
+lmstrip: $(SRCDIR)/lmstrip.c
+	$(CC) $(CFLAGS) $(SRCDIR)/lmstrip.c
+	$(CC) -o lmstrip lmstrip.o $(XTRALIB) $(THREADLIB)
+	rm lmstrip.o
+
+
+shared_object:	liblmgr$(PIC).a libsb$(PIC).a libcrvs$(PIC).a lm_new$(PIC).o
+	$(LD) $(LDSHAREFLAGS) -o liblmgr$(MAJORVER).so \
+	lm_new$(PIC).o \
+	liblmgr$(PIC).a \
+	libcrvs$(PIC).a \
+	libsb$(PIC).a \
+	$(THREADLIB) \
+	-lc
+
+libtsJavaAcc.so:	$(AALIBDIR)/TSJavaAccess.o
+	$(LD) $(LDSHAREFLAGS) -o libtsJavaAcc.so \
+	    $(AALIBDIR)/TSJavaAccess.o \
+        liblmgr.a libcrvs.a libsb.a $(ACT_LIBRARY) $(THREADLIB) -lc
+	$(PREPTOOL) -v ./activation/xml/tsJavaAcc_unix.xml
+
+lint:;	lint $(INCFLAGS) $(LINTFLAGS) $(SRCS) $(LINTLIB)
+
+clean:;	rm -f $(OBJS) $(EXECS) $(DAEMON) $(UTILS) lmcode.c lmcode.o \
+	lmnewgen lsrvend.c lmflex appactutil serveractutil lm_new* *.h \
+	ezcalc*
+
+
+
+
+lmcrypt.o:	$(SRCDIR)/lmcrypt.c $(SRCDIR)/lm_code.h $(SRCDIR)/lmclient.h
+	$(CC) $(CFLAGS) $(SRCDIR)/lmcrypt.c
+
+
+
+utils:	
+	-rm -f lmhostid lmver lmdown lmremove lmreread lmswitchr \
+		lmstat lmdiag lminstall lmpath lmborrow lmswitch
+	ln -s lmutil lmhostid
+	ln -s lmutil lmver
+	ln -s lmutil lmdown
+	ln -s lmutil lmremove 
+	ln -s lmutil lmreread 
+	ln -s lmutil lmswitchr 
+	ln -s lmutil lmstat 
+	ln -s lmutil lmdiag
+	ln -s lmutil lminstall
+	ln -s lmutil lmpath
+	ln -s lmutil lmborrow
+	ln -s lmutil lmswitch
+
+oldnames_comment:
+	@echo Many filenames were shortened in v5.
+	@echo If you want links to the old pre-v5 names, please type
+	@echo 	\'make oldnames\'
+
+oldnames:
+	rm -f lmcrypter; ln lmcrypt lmcrypter	
+	-(\
+		cd ../machind; \
+		rm -f ls_vendor.c; ln lsvendor.c ls_vendor.c; \
+		rm -f lm_client.h; ln lmclient.h lm_client.h; \
+		rm -f lm_errors.h; ln lmerrors.h lm_errors.h; \
+		rm -f lm_hosttype.h; ln	lmhtype.h lm_hosttype.h; \
+		rm -f lmcrypter.c; ln lmcrypt.c lmcrypter.c; \
+		rm -f ls_feature.h; ln lsfeatur.h ls_feature.h; \
+		rm -f ls_master.h; ln lsmaster.h ls_master.h; \
+		rm -f ls_server.h;  ln lsserver.h ls_server.h; \
+		rm -f ls_vendor.c; ln lsvendor.c ls_vendor.c; \
+	)
+
+eval:
+	rm -f lmprikey.h $(UTILS) lmcrypt.o lmpubkey.h lsvendor.o lm_new.c \
+			lmcode.c lmcode.o

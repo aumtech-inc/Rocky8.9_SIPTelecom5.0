@@ -1,0 +1,75 @@
+#------------------------------------------------------------------------------
+# File:		TEL.def
+# Purpose:	GUI Definition file for Telecom configuration file.
+# Author:	Aumtech, Inc.
+# Date:		08/27/99
+#
+# DO NOT CHANGE THIS FILE. DO NOT CHANGE THIS FILE. DO NOT CHANGE THIS FILE.
+#------------------------------------------------------------------------------
+
+[Sections]
+Service Type
+Auto Start/Stop
+Subsystem Startup
+TTS Host Setup
+Title
+
+[Title]
+Telecom Services Configuration Parameters
+
+[Service Type]
+ServiceType
+DefaultLanguage
+
+[Auto Start/Stop]
+AutoStop
+AutoStart
+
+[Subsystem Startup]
+NetServices
+AlarmHandler
+
+[TTS Host Setup]
+TTS_Server_Host
+
+^AutoStop		List		OnOff		1	All
+^AutoStart		List		OnOff		1	All
+^NetServices		List		OnOff		1	All
+^AlarmHandler		List		OnOff		1	All
+^ServiceType		List		servtype	1	All
+^DefaultLanguage	List		langtype	1	All
+^TTS_Server_Host        List            String          80      All
+
+[Misc]
+HelpFileName=Telecom/Tables/TEL.hlp
+ConfigFileName=Telecom/Tables/.TEL.cfg
+
+[servtype]
+TEL
+
+[OnOff]
+ON
+OFF
+
+[langtype]
+AMENG
+GERMAN
+FRENCH
+DUTCH
+BRITISH
+FLEMISH
+NONE
+
+[access]
+.
+,
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0

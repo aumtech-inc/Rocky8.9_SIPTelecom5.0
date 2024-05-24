@@ -1,0 +1,86 @@
+#
+# FaxTextDefaultsConfig.sample.txt:
+#	This file contains a brief explanation of the each of the different
+#	possible settings which alter the description of text data being
+#	faxed out.
+#
+#	At the bottom, each of the settings is set to the default.
+# ---------------------------------------------------------------------------
+# TEXT_WIDTH: width of text image (pixels per line)
+#	Valid values:	WIDTH_1728	1728 pixels per line	(default)
+#			WIDTH_2048	2048 pixels per line
+#			WIDTH_2432	2432 pixels per line
+# 
+# TEXT_RESOLUTION:
+#         Valid values:   RES_LOW (default)
+#                         RES_HIGH
+# 
+# TEXT_PAGELENGTH:
+#         Valid values:   >=5     when TEXT_UNITS field is TEXT_ONE_TENTH_INCHES
+#                         >=140   when TEXT_UNITS field is TEXT_MM
+#                         >=513   when TEXT_UNITS field is TEXT_SCAN_LINES
+#                                 (default is 110, or 11 inches)
+# 
+# TEXT_TOPMARGIN:
+#         Valid values:	>=0  and <= 52 	(default is 2)
+#				when TEXT_UNITS field is TEXT_ONE_TENTH_INCHES
+#			>=0  and <= 134
+#				when TEXT_UNITS field is TEXT_MM
+#			>=0  and <= 512
+#				when TEXT_UNITS field is TEXT_SCAN_LINES
+# 
+# TEXT_BOTMARGIN:
+#         Valid values:	>=0  and <= 52 	(default is 2)
+#				when TEXT_UNITS field is TEXT_ONE_TENTH_INCHES
+#			>=0  and <= 134
+#				when TEXT_UNITS field is TEXT_MM
+#			>=0  and <= 512
+#				when TEXT_UNITS field is TEXT_SCAN_LINES
+# 
+# TEXT_LEFTMARGIN:
+#         Valid values:	>=0  and <= 25 	(default is 2)
+#				when TEXT_UNITS field is TEXT_ONE_TENTH_INCHES
+#			>=0  and <= 64
+#				when TEXT_UNITS field is TEXT_MM
+#			>=0  and <= 512
+#				when TEXT_UNITS field is TEXT_SCAN_LINES
+#
+# TEXT_RIGHTMARGIN:
+#         Valid values:	>=0  and <= 25 	(default is 2)
+#				when TEXT_UNITS field is TEXT_ONE_TENTH_INCHES
+#			>=0  and <= 64
+#				when TEXT_UNITS field is TEXT_MM
+#			>=0  and <= 512
+#				when TEXT_UNITS field is TEXT_SCAN_LINES
+# 
+# 
+# TEXT_LINESPACING:
+#         Valid values:   LS_SINGLE       single space between lines (default)
+#                         LS_DOUBLE       double space between lines
+#                         LS_TRIPLE       triple space between lines
+#                         LS_8LPI         8 lines per inch
+#                         LS_6LPI         6 lines per inch
+#                         LS_4LPI         4 lines per inch
+#                         LS_3LPI         3 lines per inch
+#                         LS_2_4LPI       2.4 lines per inch
+# 
+# TEXT_FONT:
+#         Valid values:   FONT_6LPI   normal 6 lpi, 10 cpi, helvetica (default)
+#                         FONT_8LPI   compressed 8 lpi, 17 cpi, helvetica
+# 
+# TEXT_UNITS:
+#         Valid values:   UNITS_ONE_TENTH_INCHES   (default)
+#                         UNITS_MM
+#                         UNITS_SCAN_LINES
+# 
+# 
+TEXT_WIDTH=WIDTH_1728
+TEXT_RESOLUTION=RES_LOW
+TEXT_PAGELENGTH=110
+TEXT_TOPMARGIN=2
+TEXT_BOTMARGIN=2
+TEXT_LEFTMARGIN=3
+TEXT_RIGHTMARGIN=3
+TEXT_LINESPACING=LS_SINGLE
+TEXT_FONT=FONT_6LPI
+TEXT_UNITS=UNITS_ONE_TENTH_INCHES

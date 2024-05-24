@@ -1,0 +1,175 @@
+if test ! -f exosip-config.h; then rm -f stamp-h1; else :; fi
+if test ! -f exosip-config.h; then make  stamp-h1; else :; fi
+make  all-recursive
+make[1]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0'
+fail= failcom='exit 1'; \
+for f in x $MAKEFLAGS; do \
+  case $f in \
+    *=* | --[!k]*);; \
+    *k*) failcom='fail=yes';; \
+  esac; \
+done; \
+dot_seen=no; \
+target=`echo all-recursive | sed s/-recursive//`; \
+list='scripts platform src include tools help'; for subdir in $list; do \
+  echo "Making $target in $subdir"; \
+  if test "$subdir" = "."; then \
+    dot_seen=yes; \
+    local_target="$target-am"; \
+  else \
+    local_target="$target"; \
+  fi; \
+  (CDPATH="${ZSH_VERSION+.}:" && cd $subdir && make  $local_target) \
+  || eval $failcom; \
+done; \
+if test "$dot_seen" = "no"; then \
+  make  "$target-am" || exit 1; \
+fi; test -z "$fail"
+Making all in scripts
+make[2]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/scripts'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/scripts'
+Making all in platform
+make[2]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/platform'
+fail= failcom='exit 1'; \
+for f in x $MAKEFLAGS; do \
+  case $f in \
+    *=* | --[!k]*);; \
+    *k*) failcom='fail=yes';; \
+  esac; \
+done; \
+dot_seen=no; \
+target=`echo all-recursive | sed s/-recursive//`; \
+list='vsnet'; for subdir in $list; do \
+  echo "Making $target in $subdir"; \
+  if test "$subdir" = "."; then \
+    dot_seen=yes; \
+    local_target="$target-am"; \
+  else \
+    local_target="$target"; \
+  fi; \
+  (CDPATH="${ZSH_VERSION+.}:" && cd $subdir && make  $local_target) \
+  || eval $failcom; \
+done; \
+if test "$dot_seen" = "no"; then \
+  make  "$target-am" || exit 1; \
+fi; test -z "$fail"
+Making all in vsnet
+make[3]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/platform/vsnet'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/platform/vsnet'
+make[3]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/platform'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/platform'
+make[2]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/platform'
+Making all in src
+make[2]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/src'
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXosip.lo -MD -MP -MF .deps/eXosip.Tpo -c -o eXosip.lo eXosip.c
+mv -f .deps/eXosip.Tpo .deps/eXosip.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXconf.lo -MD -MP -MF .deps/eXconf.Tpo -c -o eXconf.lo eXconf.c
+mv -f .deps/eXconf.Tpo .deps/eXconf.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXregister_api.lo -MD -MP -MF .deps/eXregister_api.Tpo -c -o eXregister_api.lo eXregister_api.c
+mv -f .deps/eXregister_api.Tpo .deps/eXregister_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXcall_api.lo -MD -MP -MF .deps/eXcall_api.Tpo -c -o eXcall_api.lo eXcall_api.c
+mv -f .deps/eXcall_api.Tpo .deps/eXcall_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXmessage_api.lo -MD -MP -MF .deps/eXmessage_api.Tpo -c -o eXmessage_api.lo eXmessage_api.c
+mv -f .deps/eXmessage_api.Tpo .deps/eXmessage_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXtransport.lo -MD -MP -MF .deps/eXtransport.Tpo -c -o eXtransport.lo eXtransport.c
+mv -f .deps/eXtransport.Tpo .deps/eXtransport.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jrequest.lo -MD -MP -MF .deps/jrequest.Tpo -c -o jrequest.lo jrequest.c
+mv -f .deps/jrequest.Tpo .deps/jrequest.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jresponse.lo -MD -MP -MF .deps/jresponse.Tpo -c -o jresponse.lo jresponse.c
+mv -f .deps/jresponse.Tpo .deps/jresponse.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jcallback.lo -MD -MP -MF .deps/jcallback.Tpo -c -o jcallback.lo jcallback.c
+mv -f .deps/jcallback.Tpo .deps/jcallback.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jdialog.lo -MD -MP -MF .deps/jdialog.Tpo -c -o jdialog.lo jdialog.c
+mv -f .deps/jdialog.Tpo .deps/jdialog.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT udp.lo -MD -MP -MF .deps/udp.Tpo -c -o udp.lo udp.c
+mv -f .deps/udp.Tpo .deps/udp.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jcall.lo -MD -MP -MF .deps/jcall.Tpo -c -o jcall.lo jcall.c
+mv -f .deps/jcall.Tpo .deps/jcall.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jreg.lo -MD -MP -MF .deps/jreg.Tpo -c -o jreg.lo jreg.c
+mv -f .deps/jreg.Tpo .deps/jreg.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXutils.lo -MD -MP -MF .deps/eXutils.Tpo -c -o eXutils.lo eXutils.c
+mv -f .deps/eXutils.Tpo .deps/eXutils.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jevents.lo -MD -MP -MF .deps/jevents.Tpo -c -o jevents.lo jevents.c
+mv -f .deps/jevents.Tpo .deps/jevents.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT misc.lo -MD -MP -MF .deps/misc.Tpo -c -o misc.lo misc.c
+mv -f .deps/misc.Tpo .deps/misc.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jauth.lo -MD -MP -MF .deps/jauth.Tpo -c -o jauth.lo jauth.c
+mv -f .deps/jauth.Tpo .deps/jauth.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXtl_udp.lo -MD -MP -MF .deps/eXtl_udp.Tpo -c -o eXtl_udp.lo eXtl_udp.c
+mv -f .deps/eXtl_udp.Tpo .deps/eXtl_udp.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXtl_tcp.lo -MD -MP -MF .deps/eXtl_tcp.Tpo -c -o eXtl_tcp.lo eXtl_tcp.c
+mv -f .deps/eXtl_tcp.Tpo .deps/eXtl_tcp.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXtl_dtls.lo -MD -MP -MF .deps/eXtl_dtls.Tpo -c -o eXtl_dtls.lo eXtl_dtls.c
+mv -f .deps/eXtl_dtls.Tpo .deps/eXtl_dtls.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXtl_tls.lo -MD -MP -MF .deps/eXtl_tls.Tpo -c -o eXtl_tls.lo eXtl_tls.c
+mv -f .deps/eXtl_tls.Tpo .deps/eXtl_tls.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT milenage.lo -MD -MP -MF .deps/milenage.Tpo -c -o milenage.lo milenage.c
+mv -f .deps/milenage.Tpo .deps/milenage.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT rijndael.lo -MD -MP -MF .deps/rijndael.Tpo -c -o rijndael.lo rijndael.c
+mv -f .deps/rijndael.Tpo .deps/rijndael.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXsubscription_api.lo -MD -MP -MF .deps/eXsubscription_api.Tpo -c -o eXsubscription_api.lo eXsubscription_api.c
+mv -f .deps/eXsubscription_api.Tpo .deps/eXsubscription_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXoptions_api.lo -MD -MP -MF .deps/eXoptions_api.Tpo -c -o eXoptions_api.lo eXoptions_api.c
+mv -f .deps/eXoptions_api.Tpo .deps/eXoptions_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXinsubscription_api.lo -MD -MP -MF .deps/eXinsubscription_api.Tpo -c -o eXinsubscription_api.lo eXinsubscription_api.c
+mv -f .deps/eXinsubscription_api.Tpo .deps/eXinsubscription_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXpublish_api.lo -MD -MP -MF .deps/eXpublish_api.Tpo -c -o eXpublish_api.lo eXpublish_api.c
+mv -f .deps/eXpublish_api.Tpo .deps/eXpublish_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jnotify.lo -MD -MP -MF .deps/jnotify.Tpo -c -o jnotify.lo jnotify.c
+mv -f .deps/jnotify.Tpo .deps/jnotify.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jsubscribe.lo -MD -MP -MF .deps/jsubscribe.Tpo -c -o jsubscribe.lo jsubscribe.c
+mv -f .deps/jsubscribe.Tpo .deps/jsubscribe.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT inet_ntop.lo -MD -MP -MF .deps/inet_ntop.Tpo -c -o inet_ntop.lo inet_ntop.c
+mv -f .deps/inet_ntop.Tpo .deps/inet_ntop.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jpipe.lo -MD -MP -MF .deps/jpipe.Tpo -c -o jpipe.lo jpipe.c
+mv -f .deps/jpipe.Tpo .deps/jpipe.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT eXrefer_api.lo -MD -MP -MF .deps/eXrefer_api.Tpo -c -o eXrefer_api.lo eXrefer_api.c
+mv -f .deps/eXrefer_api.Tpo .deps/eXrefer_api.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT jpublish.lo -MD -MP -MF .deps/jpublish.Tpo -c -o jpublish.lo jpublish.c
+mv -f .deps/jpublish.Tpo .deps/jpublish.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -MT sdp_offans.lo -MD -MP -MF .deps/sdp_offans.Tpo -c -o sdp_offans.lo sdp_offans.c
+mv -f .deps/sdp_offans.Tpo .deps/sdp_offans.Plo
+/bin/sh ../libtool --tag=CC   --mode=link gcc -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g    -g  -version-info 11:0:0 -no-undefined  -o libeXosip2.la -rpath /usr/local/lib eXosip.lo eXconf.lo eXregister_api.lo eXcall_api.lo eXmessage_api.lo eXtransport.lo jrequest.lo jresponse.lo jcallback.lo jdialog.lo udp.lo jcall.lo jreg.lo eXutils.lo jevents.lo misc.lo jauth.lo eXtl_udp.lo eXtl_tcp.lo eXtl_dtls.lo eXtl_tls.lo milenage.lo rijndael.lo eXsubscription_api.lo eXoptions_api.lo eXinsubscription_api.lo eXpublish_api.lo jnotify.lo jsubscribe.lo inet_ntop.lo jpipe.lo eXrefer_api.lo jpublish.lo sdp_offans.lo -lrt -lresolv -lssl -lcrypto  -L/usr/local/lib -L/usr/local/lib -losip2 -losipparser2 
+make[2]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/src'
+Making all in include
+make[2]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include'
+fail= failcom='exit 1'; \
+for f in x $MAKEFLAGS; do \
+  case $f in \
+    *=* | --[!k]*);; \
+    *k*) failcom='fail=yes';; \
+  esac; \
+done; \
+dot_seen=no; \
+target=`echo all-recursive | sed s/-recursive//`; \
+list='eXosip2'; for subdir in $list; do \
+  echo "Making $target in $subdir"; \
+  if test "$subdir" = "."; then \
+    dot_seen=yes; \
+    local_target="$target-am"; \
+  else \
+    local_target="$target"; \
+  fi; \
+  (CDPATH="${ZSH_VERSION+.}:" && cd $subdir && make  $local_target) \
+  || eval $failcom; \
+done; \
+if test "$dot_seen" = "no"; then \
+  make  "$target-am" || exit 1; \
+fi; test -z "$fail"
+Making all in eXosip2
+make[3]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include/eXosip2'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include/eXosip2'
+make[3]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include'
+make[2]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/include'
+Making all in tools
+make[2]: Entering directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/tools'
+gcc -DHAVE_CONFIG_H -I. -I.. -I.. -I../include -I/usr/local/include -I/usr/local/include  -Wall -Wcast-align -Wchar-subscripts -Wformat -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -DSRV_RECORD -g   -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE -g  -MT sip_reg.o -MD -MP -MF .deps/sip_reg.Tpo -c -o sip_reg.o sip_reg.c
+mv -f .deps/sip_reg.Tpo .deps/sip_reg.Po
+make[2]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0/tools'
+make[1]: Leaving directory '/home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libeXosip2-4.1.0'

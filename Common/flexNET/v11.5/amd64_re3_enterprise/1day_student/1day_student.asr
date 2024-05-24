@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ActivationSpecificationRecord xmlns="http://www.macrovision.com/fnp/2004/11/activation">
+<Header>
+<Version>1</Version>
+<Id>1</Id>
+<PublisherId>256</PublisherId>
+</Header>
+<ConfigData>
+<ClientConfig>
+<Id>1</Id>
+<Revision>NumberOne</Revision>
+<RevisionType>ASR</RevisionType>
+<Data>E52E76223F3DC75D526EF107811C0A36E7738ECD5C559321FD4FFAA5DA29C8C046F0DE952CF03CA63A894F640C61811867594474BC01F0EE5D05192EC75E942F00490F57AD0944598965940CBF6947366999FA1C9310BE8423CCF740992F2213757FB0FF7569A7EE9C8E30927E56D133716E690CCA257FBE19706F908B757C4380FA6FF5D453D52D56C475BFE397680E5CCBAB237B75A13BC48900DFFB80578DA030FEE693B939C3E5318454D75B6D1322335150298A11BC44E6C26FD5C2C0AF84EFDD51F662FE37CF352CA1845139B1B89DBAA2FF3781D38C</Data>
+</ClientConfig>
+</ConfigData>
+<DataDictionary>
+<Entries>
+<Entry>
+<Key>PUBLISHER_DEFINED_CRITERION</Key>
+<Value>LOCAL_ALWAYS</Value>
+</Entry>
+<Entry>
+<Key>PUBLISHER_DEFINED_DURATION</Key>
+<Value>86400</Value>
+</Entry>
+</Entries>
+</DataDictionary>
+<FulfillmentRecord>
+<FulfillmentRecordHeader>
+<VersionNumber>1</VersionNumber>
+</FulfillmentRecordHeader>
+<FulfillmentRecordData>
+<FulfillmentId>FIL-EZCALC-S1</FulfillmentId>
+<FulfillmentDictionary>
+<Entries>
+<Entry>
+<Key>fulfillmentType</Key>
+<Value>1</Value>
+</Entry>
+<Entry>
+<Key>expiry</Key>
+<Value>31-dec-2008</Value>
+</Entry>
+<Entry>
+<Key>serverHostID</Key>
+<Value>FLEXID=6-a6300155</Value>
+</Entry>
+<Entry>
+<Key>servOrLocal</Key>
+<Value>2</Value>
+</Entry>
+<Entry>
+<Key>ProductId</Key>
+<Value>EZCALC-S</Value>
+</Entry>
+<Entry>
+<Key>EntitlementId</Key>
+<Value>ENTL-EZCALC-S1</Value>
+</Entry>
+<Entry>
+<Key>availAct</Key>
+<Value>1</Value>
+</Entry>
+<Entry>
+<Key>features</Key>
+<Value>INCREMENT ADD demo 1.0 31-dec-2008 1 SIGN="0074 91B0 7293 119A 99A3 \
+	7CEA 44D7 6E00 368C 772D A56F 9BC4 D91E 5889 4962"
+INCREMENT SUBTRACT demo 1.0 31-dec-2008 1 SIGN="00B0 7F97 5E13 53E6 \
+	46C6 C89C B5D9 4A00 3F54 1F3D 419B 3009 C8FC 14D1 FBFF"
+INCREMENT MULTIPLY demo 1.0 31-dec-2008 1 SIGN="00BC 73C6 BBEF 8651 \
+	ECD3 0B21 BE36 8900 AB28 5411 439C BF58 2CE0 CD7D F0CA"
+INCREMENT DIVIDE demo 1.0 31-dec-2008 1 SIGN="0059 F2CC 3B02 FD39 \
+	56D9 2602 0A31 9C00 F7D2 8AD7 0233 6084 9C44 7F41 46DA"
+</Value>
+</Entry>
+</Entries>
+</FulfillmentDictionary>
+</FulfillmentRecordData>
+</FulfillmentRecord>
+<Signature>08712ECAFFAA6E7FAC63EE5085D6103F43B5A32027AFB24EF1559337778C0780D044DCC033AA48272FEF422A1DB47C87C876A8F470728F751E516251</Signature>
+</ActivationSpecificationRecord>

@@ -1,0 +1,150 @@
+#!/bin/bash
+#----------------------------------------------------------------------------
+# Program:	build_LOGS
+# Purpose:	Script to build Central Log Services package on Linux.
+# Author:	Sandeep Agate
+# Update:	04/08/01 djb	Created the file
+#----------------------------------------------------------------------------
+
+Echo()
+{
+	# echo a string to the screen and write it to the log file
+	echo $1 | tee -a $LOGFILE
+}
+
+Copy()
+{
+	if [ ! -f ${1} ]; then
+		Echo "Cannot copy $1 to $2. Does not exist."
+		ERRORS=`expr $ERRORS + 1`; 
+		return 1
+	fi
+
+	cp $1 $2
+	if [ "$?" != "0" ]; 
+	then 
+		Echo "Failed to copy $1 to $2"
+		ERRORS=`expr $ERRORS + 1`; 
+	fi
+}
+
+Copy_from_master_directories()
+{
+
+	ERRORS=0
+	
+	echo
+	echo "Copying files from master directories to $TMP..."
+	echo "    Master directories : $LISTEN_DIR"
+	echo "    Master directories : $RTR_DIR"
+	echo "    Master directories : $COMMON_DIR"
+	echo
+
+	# Make the temporary directory if necessary
+	mkdir -p $TMP 1>/dev/null 2>&1
+	
+	#
+	# log_forwarding
+	#
+	Copy $LISTEN_DIR/log_svc				$TMP
+	Copy $LISTEN_DIR/log_listen			$TMP
+	Copy ${LISTEN_TABLES_DIR}/log_listen.service.noRun 	$TMP
+	Copy ${LISTEN_TABLES_DIR}/README.log_listen.txt	 	$TMP
+
+	#
+	# real-time reports
+	#
+	Copy $RTR_DIR/arcRTRServer				$TMP
+	Copy $RTR_DIR/arcRTRListener			$TMP
+	Copy ${RTR_TABLES_DIR}/arcRTRListener.service.noRun 	$TMP
+	Copy ${RTR_TABLES_DIR}/README.arcRTRListener.txt	 	$TMP
+
+	#
+	# common dir
+	#
+ 	Copy ${COMMON_DIR}/tables/Global.cfg			$TMP/Global.cfg
+	Copy ${COMMON_DIR}/utlscripts/isprc			$TMP/isprc
+
+	# Copy package information files
+	Copy install_arcLOGS								$TMP
+	Copy remove_arcLOGS									$TMP
+
+
+	return $ERRORS
+}
+	
+# ----------------------------------------------------------------------------
+# main routine
+# ----------------------------------------------------------------------------
+
+LISTEN_DIR=$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/loggingServices/logForwarding/server/src
+LISTEN_TABLES_DIR=$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/loggingServices/logForwarding/server/tables
+
+RTR_DIR=$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/loggingServices/realTimeReports/server/src
+RTR_TABLES_DIR=$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/loggingServices/realTimeReports/server/tables
+
+COMMON_DIR=$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/Common
+
+TMP="/tmp/packtemp"
+STORAGE_DIR="$ISP_BASE_DIR/$ISP_VERSION/builds"
+PRODUCT="arcLOGS.3.7"
+PRODUCT_ID="arcLOGS"
+LOGFILE="BUILD.LOG.$PRODUCT_ID"
+TAR_FILE="arcLOGS.3.7.tar"
+
+clear
+echo
+echo "`date`"
+echo "Build Package"
+echo "Product Id.......: $PRODUCT_ID"
+echo "Product Descrip..: $PRODUCT "
+echo "Temp directory...: $TMP"
+echo "Storage directory: $STORAGE_DIR"
+echo "Log file.........: $LOGFILE"
+echo
+
+echo "Press Enter to proceed or DELETE to abort."
+read Anything
+
+Echo "Removing files in $TMP..."
+rm -f $TMP/[a-l]* 1>/dev/null 2>&1
+rm -f $TMP/[m-z]* 1>/dev/null 2>&1
+rm -f $TMP/[A-Z]* 1>/dev/null 2>&1
+rm -f $TMP/* 1>/dev/null 2>&1
+
+Copy_from_master_directories
+
+if [ "$?" != "0" ]
+then
+	Echo "You must correct the problem before attempting to make the $PRODUCT package."
+	Echo "Exiting..."
+	exit
+fi
+
+echo "Building $PRODUCT ..."
+cd $TMP
+rm /tmp/$TAR_FILE   2>/dev/null
+rm /tmp/$TAR_FILE.Z 2>/dev/null
+tar -cvzf /tmp/$TAR_FILE.Z *
+echo "Central Log Services package (/tmp/$TAR_FILE.Z) has been created." 
+
+BUILD_DIR="${HOME%/}/isp2.2/builds"
+TODAY=`date +%Y%m%d`
+
+echo ""
+echo -n "Save this package in the builds directory (y or n, default=y)? "
+read a
+if [ "$a" = "Y" -o "$a" = "y" -o "$a" = "yes" -o "$a" = "Yes" -o "$a" = "YES" -o "$a" = "" ]
+then
+	if [ ! -d $BUILD_DIR/$PRODUCT ]
+	then
+		mkdir -p $BUILD_DIR/$PRODUCT
+		chown devmaul $BUILD_DIR/$PRODUCT 2>/dev/null
+		chgrp devmaul $BUILD_DIR/$PRODUCT 2>/dev/null
+	fi
+	CMD="mv -i /tmp/$TAR_FILE.Z $BUILD_DIR/$PRODUCT/$TAR_FILE.Z.$TODAY"
+	echo $PRODUCT package has been stored in the builds directory. 
+	$CMD
+else
+	echo File "(/tmp/$TAR_FILE.Z)" has not been copied to the builds directory.
+fi

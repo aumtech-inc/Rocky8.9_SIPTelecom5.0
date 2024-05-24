@@ -1,0 +1,522 @@
+#!/bin/bash
+#---------------------------------------------------------------------------
+# Program:	install_arcLOGS
+# Purpose:	Script to install Central Log Services package on Linux.
+# Date:		04/08/01  djb	Created the file.
+# Update:	12/04/01	djb Changed grep "^<user>"  to grep "^<user>:"
+#---------------------------------------------------------------------------
+Chgrp()
+{
+	# Change group -  Disabled
+#	chgrp "$1" "$2"
+	:
+}
+
+Makedir()
+{
+	dir="$1"
+	permissions="$2"
+	owner="$3"
+	group="$4"
+
+	if [ ! -d $dir ]; then
+		mkdir -p $dir
+	fi
+	chmod $permissions $dir
+	chown $owner $dir
+	Chgrp $group $dir
+}
+
+Update_rc_files_and_profile()
+{
+	# Update rc files & make sure they are in the profile
+
+	DEST_DIR="$USER_HOME"
+
+	FILE_LIST=".isprc"
+	for file in $FILE_LIST
+	do
+		if [ -f "$DEST_DIR/$file" ]
+		then
+			echo "Using existing $DEST_DIR/$file"
+			Copy $TEMP/isprc $DEST_DIR/$file.$TODAY
+		else	
+			echo "Creating new $DEST_DIR/$file"
+			Copy $TEMP/isprc $DEST_DIR/$file
+		fi
+	done
+
+	PROFILE="$USER_HOME/.bash_profile"
+	FILE_LIST=".isprc"
+	for file in $FILE_LIST
+	do
+		# Insert the command in the profile, if necessary	
+		CMD=$file
+       	if grep "$CMD" $PROFILE  1>/dev/null 2>&1
+       	then
+			echo "Found $CMD command in $PROFILE."
+       	else
+			if [  ! -f "$PROFILE" ]
+			then
+				echo "No profile found; creating $PROFILE"
+				echo "#" > $PROFILE
+				chmod 644 $PROFILE
+			fi
+			echo "Inserting $CMD command in $PROFILE"
+			echo ". $USER_HOME/$CMD  # Do not remove">>$PROFILE
+		fi
+	done
+}
+
+Update_bash_aliases()
+{
+	ks=$USER_HOME/.bashrc
+	
+	header="Global aliases"
+	if grep "$header" $ks 1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $header"
+		echo "# $header added `date`"				>>$ks
+		echo "alias Ge=\"cd \$ISPBASE/Global/Exec; pwd\""	>>$ks
+		echo "alias Gt=\"cd \$ISPBASE/Global/Tables; pwd\""	>>$ks
+	fi
+	
+	cmd='set -o vi'
+	if grep "$cmd" $ks  1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $cmd"
+		echo "$cmd # added `date`" >> $ks	
+	fi
+
+	header='alias Log'
+	if grep "$header" $ks  1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $header"
+		echo "# $header added `date`"			>>$ks
+		echo "alias Log=\"cd \$ISPBASE/LOG; pwd\""	>>$ks
+	fi
+
+	header='alias R='
+	if grep "$header" $ks  1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $header (\$ISPBASE/RTR)"
+		echo "# $header added `date`"			>>$ks
+		echo "alias R=\"cd \$ISPBASE/RTR; pwd\""	>>$ks
+	fi
+
+	chown $USER_ID $ks
+	Chgrp $GROUP   $ks
+
+}
+
+Copy()
+{
+	echo "cp $1 $2"
+	cp -pf $1 $2
+}
+
+Move()
+{
+	echo "mv $1 $2"
+	mv $1 $2
+}
+
+CD()
+{
+	echo "cd $1"
+	cd $1
+}
+
+Remove()
+{
+#	echo "rm -f $1" 
+	rm -f $1 
+}
+
+Update_global_config_files()
+{
+        # If a file already exists, don't overwrite it, but always retain
+        # the new file (in case the original proves to have a problem).
+
+	DEST_DIR=$USER_HOME/.ISP/Global
+	sourceFile="Global.cfg"
+	destFile=".Global.cfg"
+	if [ -f "$DEST_DIR/$destFile" ]
+	then
+		echo "Using existing $DEST_DIR/$destFile"
+		Copy $SRC_DIR/$sourceFile $DEST_DIR/$destFile.$TODAY
+	else	
+		echo "Creating new $DEST_DIR/$destFile"
+		Copy $SRC_DIR/$sourceFile $DEST_DIR/$destFile
+	fi
+	chown $USER_ID $DEST_DIR/$destFile
+	Chgrp $GROUP $DEST_DIR/$destFile
+
+}
+
+Set_all_permissions()
+{
+	echo "Setting ownership and permissions on all $USER_ID files..."
+	DIR=$USER_HOME
+	chown $USER_ID  $DIR/.isprc
+	Chgrp $GROUP    $DIR/.isprc
+        
+	DIR=$USER_HOME/ISP
+	chown -R $USER_ID  $DIR
+	Chgrp -R $GROUP    $DIR
+
+	DIR=$USER_HOME/.ISP
+	chown -R $USER_ID  $DIR
+	Chgrp -R $GROUP    $DIR
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the request script on SCO
+#-------------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null 2>/dev/null
+	then
+		echo "You must be root to install Central Log Services. "
+		echo "Installation aborted."
+		exit 3
+	fi
+	
+	clear
+	
+ 	if 	ps -ef | grep "log_listen" | egrep -v "grep|vi|install" >/dev/null   
+	then
+		echo "ERROR: Central Log Services (log_listen) appears to be running."
+		echo "Please stop it and remove the package by running 'remove_LOGSVC' before proceeding."
+		echo "Installation aborted."
+		exit 3
+	fi
+ 	
+ 	if 	ps -ef | grep "arcRTRListener" | egrep -v "grep|vi|install" >/dev/null   
+	then
+		echo "ERROR: Central Log Services (arcRTRListener) appears to be running."
+		echo "Please stop it and remove the package by running 'remove_LOGSVC' before proceeding."
+		echo "Installation aborted."
+		exit 3
+	fi
+
+	if tail -1 $PKGINFO 2>/dev/null | grep "INSTALL" | grep -v grep >/dev/null 2>/dev/null  
+	then
+		echo "ERROR: Central Log Services appears to be already installed."
+		show_pkginfo 
+		echo "Installation aborted."
+		exit 3
+	fi
+		
+	echo
+	echo -n "Enter the user id [default: arc]: "
+	read USER_ID
+	if [ "$USER_ID" = "" ]
+	then
+		USER_ID=arc
+	fi
+
+	# Check to see if $USER_ID user exists, has home dir, and bash
+	if grep "^$USER_ID:" /etc/passwd > /tmp/$USER_ID.$$
+	then
+		USER_HOME="`grep "^$USER_ID:" /etc/passwd | cut -d':' -f6`"
+		if [ ! -d $USER_HOME ]
+		then
+			echo "ERROR: User id '$USER_ID' doesn't have home directory '$USER_HOME'."
+			echo "Please set home directory for '$USER_ID' to '$USER_HOME'."
+			echo "Installation aborted."
+			exit 3
+		fi
+		x="${USER_HOME%/}";
+		USER_HOME="$x"
+		if [ `grep "^$USER_ID:" /etc/passwd | cut -d':' -f7` = "/bin/bash" ]
+		then
+			:
+		else
+			echo "ERROR: User id '$USER_ID' does not have 'bash' as its default shell."
+			echo "Please make 'bash' the default shell or install under another user."
+			echo "Installation aborted."
+			exit 3
+		fi
+	else
+		echo "ERROR: $USER_ID does not exist on the system."
+		echo "Please create userid '$USER_ID' with home directory '/home/$USER_ID' and default shell 'ksh'."
+		echo "Installation aborted."
+		exit 3
+	fi
+	
+	Update_bash_aliases
+
+} 
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the Unix script of the same name.
+#-------------------------------------------------------------------------------
+prototype()
+{
+
+	Makedir $USER_HOME/ISP 						0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/Exec 				0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/Tables 				0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/lib					0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/include				0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/doc					0755 $USER_ID $GROUP
+	Makedir $USER_HOME/ISP/.Utilities			0755 $USER_ID $GROUP
+	Makedir $USER_HOME/.ISP						0755 $USER_ID $GROUP
+	Makedir $USER_HOME/.ISP/LOG					0755 $USER_ID $GROUP
+
+	return 0
+} # prototype
+
+Copy_exec_file()
+{
+	oldFile="$1"
+	newFile="$2"
+
+	Copy $oldFile $newFile
+
+	chmod 755		$newFile
+	chown $USER_ID	$newFile
+	chgrp $GROUP	$newFile
+}
+
+Copy_plain_file()
+{
+	oldFile="$1"
+	newFile="$2"
+
+	Copy $oldFile $newFile
+
+	chmod 644		$newFile
+	chown $USER_ID	$newFile
+	chgrp $GROUP	$newFile
+}
+
+Copy_All_Files()
+{
+
+	#
+	# log_listen
+	#
+	Copy_exec_file	$TEMP/log_svc			$EXEC_DIR/log_svc
+	Copy_exec_file	$TEMP/log_listen		$EXEC_DIR/log_listen
+	Copy_plain_file $TEMP/log_listen.service.noRun    /etc/systemd/system
+	Copy_plain_file $TEMP/README.log_listen.txt   $EXEC_DIR/README.log_listen.txt
+
+	#
+	# arcRTRListener
+	#
+	Copy_exec_file	$TEMP/arcRTRServer			$EXEC_DIR/arcRTRServer
+	Copy_exec_file	$TEMP/arcRTRListener		$EXEC_DIR/arcRTRListener
+	Copy_plain_file $TEMP/arcRTRListener.service.noRun    /etc/systemd/system
+	Copy_plain_file $TEMP/README.arcRTRListener.txt   $EXEC_DIR/README.arcRTRListener.txt
+
+
+	Copy_exec_file $TEMP/remove_arcLOGS		$EXEC_DIR/remove_arcLOGS
+	Copy_exec_file $TEMP/install_arcLOGS	$EXEC_DIR/install_arcLOGS
+
+}
+
+log_listen_startup()
+{
+	echo 
+
+	echo "Enabling Aumtech's log listener to receive hourly files..."
+	
+#	echo -n "Enable Aumtech's log listener to receive hourly files? [y]/n ? "
+#	read ans
+#
+#	if [ "$ans" = "n" -o "$ans" = "N" -o "$ans" = "no" -o "$ans" = "No" ]
+#	then
+#		echo
+#		echo "The log listener's service file has been placed in the /etc/systemd/system directory."
+#		echo "To enable it as a service, please read the README file:"
+#		echo "${ISPBASE}/Global/Exec/README.log_listen.txt"
+#		echo
+#		return 0
+#	fi
+
+	sFile="/etc/systemd/system/log_listen.service.noRun"
+	tFile="/etc/systemd/system/log_listen.service"
+	if [ ! -f ${sFile} ]
+	then
+		echo "Error: the file ${sFile} does not exist. Exiting."
+		exit
+	fi
+
+	mv ${sFile} ${tFile}
+	systemctl daemon-reload
+	systemctl start log_listen
+	if [ $? -ne 0 ]
+	then
+		echo "Failed to start the log_listener service.  See your system administrator for details."
+		return 0
+	else
+		echo "The log_listener service is started."
+#		systemctl status log_listen
+	fi
+
+	return 0
+}
+
+arcRTRListener_startup()
+{
+	echo 
+	echo "Enabling Aumtech's Real-time Reports Service to receive real-time data... "
+
+#	echo -n "Enable Aumtech's Real-time Reports Service to receive real-time data? [y]/n ? "
+#	read ans
+#
+#	if [ "$ans" = "n" -o "$ans" = "N" -o "$ans" = "no" -o "$ans" = "No" ]
+#	then
+#		echo
+#		echo "The real-time reports service file has been placed in the /etc/systemd/system directory."
+#		echo "To enable it as a service, please read the README file:"
+#		echo "${ISPBASE}/Global/Exec/README.arcRTRListener.txt"
+#		echo
+#		return 0
+#	fi
+
+	sFile="/etc/systemd/system/arcRTRListener.service.noRun"
+	tFile="/etc/systemd/system/arcRTRListener.service"
+	if [ ! -f ${sFile} ]
+	then
+		echo "Error: the file ${sFile} does not exist. Exiting."
+		exit
+	fi
+
+	mv ${sFile} ${tFile}
+	systemctl daemon-reload
+	systemctl start arcRTRListener
+	if [ $? -ne 0 ]
+	then
+		echo "Failed to start the arcRTRListener service.  See your system administrator for details."
+		return 0
+	else
+		echo "The arcRTRListener service is started."
+#		systemctl status arcRTRListener
+	fi
+	echo
+	echo "See the files README.arcRTRListener.txt and README.log_listen.txt in "
+	echo "the $ISPBASE/Global/Exec directory for getting starting tips to manage "
+	echo "the processes with the systemctl command."
+	echo
+
+	return 0
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the most of the postinstall script on SCO
+#-------------------------------------------------------------------------------
+postinstall()
+{
+	echo
+	echo "`date` postinstall script begins..."
+	echo
+	
+	if [ ! -d $USER_HOME/.ISP/Global ]
+	then
+	 	echo "ln -s $USER_HOME/ISP $USER_HOME/.ISP/Global"
+	 	ln -s $USER_HOME/ISP $USER_HOME/.ISP/Global
+		chown	$USER_ID $USER_HOME/ISP
+		Chgrp	$GROUP   $USER_HOME/ISP
+		chown  	$USER_ID $USER_HOME/.ISP/Global
+		Chgrp  	$GROUP   $USER_HOME/.ISP/Global
+	fi
+
+	TABLE_DIR="$ISPBASE/Global/Tables"
+	EXEC_DIR="$ISPBASE/Global/Exec"
+
+	Copy_All_Files
+
+	Update_rc_files_and_profile
+	Update_global_config_files
+	log_listen_startup
+	arcRTRListener_startup
+
+	echo 
+	echo "Install complete."
+	
+} # postinstall
+
+#------------------------------------------------------------------------------
+# Put the file in place that indicates what version of this product is 
+# installed and when. 
+#------------------------------------------------------------------------------
+update_pkginfo()
+{
+	STATUS=$1
+	INSTDATE=`date +"%Y %B %d %X"`
+	subSystems="`echo $INSTALL_OPTION | sed s/" "/,/g`"
+	
+	echo "------------------------"	>> $PKGINFO
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST" 	>> $PKGINFO
+	echo "NAME      : $NAME" 	>> $PKGINFO
+	echo "VERSION   : $VERSION" 	>> $PKGINFO
+	echo "USER      : $USER_ID"	>> $PKGINFO
+	echo "VENDOR    : $VENDOR" 	>> $PKGINFO
+	echo "DESC      : $DESC ($subSystems) Services" 	>> $PKGINFO
+	echo "PSTAMP    : $PSTAMP" 	>> $PKGINFO
+	echo "INSTDATE  : $INSTDATE" 	>> $PKGINFO
+	echo "STATUS    : $STATUS" 	>> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO ...
+	tail -11 $PKGINFO | grep -v -i Caution
+}
+
+#------------------------------------------------------------------------------
+# main routine
+#------------------------------------------------------------------------------
+TEMP="."
+
+# Package information
+PKGINST="arcLOGS"
+PKGINFO="/home/.$PKGINST.pkginfo"	# File that contains Unix-like pkginfo
+NAME="ARC Central Log Services"
+PACKAGE_DATE="20-Dec-29-10AM"
+
+VERSION="3.7"
+PSTAMP=$VERSION.$PACKAGE_DATE
+VENDOR="Aumtech, Inc."
+DESC="ARC Central Logging Services"
+
+TODAY=`date +%y%m%d` 	# Used as suffix on "extra" files
+SRC_DIR=`pwd`
+
+echo
+echo "Installing ARC Central Log Services $VERSION. "
+echo
+echo "This includes the server products for log forwarding and real-time reports services."
+echo "The log forwarding server receives log files on an hourly basis."
+echo "The real-time reports server receives CDR log files in real time."
+echo 
+echo "Press Enter to continue..."
+
+read x
+request
+
+GROUP="`id -ng $USER_ID`"
+
+prototype
+ISPBASE=$USER_HOME/.ISP
+
+postinstall
+
+update_pkginfo INSTALLED
+	
+echo "Please reboot now to insure proper functioning of the Central Log Services."
+echo "Press Enter"
+read answer

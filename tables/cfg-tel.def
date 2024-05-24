@@ -1,0 +1,38 @@
+#------------------------------------------------------------------------------
+# File:		cfg-tel.def
+# Purpose:	arcFlash GUI definition file for Telecom configuration.
+# Author:	Aumtech, Inc.
+# Date:		2000/03/27
+# DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE. DO NOT MODIFY THIS FILE.
+#------------------------------------------------------------------------------
+
+[Config]
+Telecom Configuration=Telecom/Tables/cfg-tel.def
+
+[Settings]
+saveTo=Telecom/Tables/.TEL.cfg
+
+[Attributes]
+AutoStop=Auto Stop:list:OnOff:1:6:Stop Telecom Services automatically on reboot?
+AutoStart=Auto Start:list:OnOff:1:6:Start Telecom Services automatically on reboot?
+NetServices=Network Services:list:OnOff:1:6:Run Network Services for Telecom Services?
+ServiceType=Service Type:list:servtype:1:6:ARC Service type
+DefaultLanguage=Default Language:list:langtype:1:10:Default language for speech recognition
+TTS_Server_Host=TTS Server Host:string::1:80:Name of host acting as your text-to-speech (TTS) Server
+CTI_Services=CTI Services:list:OnOff:1:6:Enable ARC CTI Services?
+
+[list:OnOff]
+ON
+OFF
+
+[list:servtype]
+TEL
+
+[list:langtype]
+AMENG
+GERMAN
+FRENCH
+DUTCH
+BRITISH
+FLEMISH
+NONE

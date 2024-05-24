@@ -1,0 +1,196 @@
+[260] tran_shmid=131098
+[273] Mem_ok=1
+[157] strlen(ptr)=6288,  record len=131, number of records=48
+[168] DJB: len=6288 ( Reserve        0                 0       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=6157 ( Reserve        0                 1       field4     0 0000000000                                        ArcIPOCSMgr  1 1130634  0
+)
+[168] DJB: len=6026 ( Reserve        0                 2       field4     0 0000000000                                        ArcIPOCSMgr  1 1130634  0
+)
+[168] DJB: len=5895 ( Reserve        0                 3       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=5764 ( Reserve        0                 4       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=5633 ( Reserve        0                 5       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=5502 ( Reserve        0                 6       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=5371 ( Reserve        0                 7       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=5240 ( Reserve        0                 8       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=5109 ( Reserve        0                 9       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4978 ( Reserve        0                10       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4847 ( Reserve        0                11       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4716 ( Reserve        0                12       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4585 ( Reserve        0                13       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4454 ( Reserve        0                14       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4323 ( Reserve        0                15       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4192 ( Reserve        0                16       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=4061 ( Reserve        0                17       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3930 ( Reserve        0                18       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3799 ( Reserve        0                19       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3668 ( Reserve        0                20       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3537 ( Reserve        0                21       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3406 ( Reserve        0                22       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3275 ( Reserve        0                23       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3144 ( Reserve        0                24       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=3013 ( Reserve        0                25       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=2882 ( Reserve        0                26       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=2751 ( Reserve        0                27       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=2620 ( Reserve        0                28       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=2489 ( Reserve        0                29       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=2358 ( Reserve        0                30       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=2227 ( Reserve        0                31       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=2096 ( Reserve        0                32       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1965 ( Reserve        0                33       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1834 ( Reserve        0                34       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1703 ( Reserve        0                35       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1572 ( Reserve        0                36       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1441 ( Reserve        0                37       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1310 ( Reserve        0                38       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1179 ( Reserve        0                39       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=1048 ( Reserve        0                40       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=917 ( Reserve        0                41       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=786 ( Reserve        0                42       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=655 ( Reserve        0                43       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=524 ( Reserve        0                44       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=393 ( Reserve        0                45       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=262 ( Reserve        0                46       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[168] DJB: len=131 ( Reserve        0                47       field4     0 0000000000                                        ArcIPDynMgr  1 1130634  0
+)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(0) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(1) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPOCSMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(2) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPOCSMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(3) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(4) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(5) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(6) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(7) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(8) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(9) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(10) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(11) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(12) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(13) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(14) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(15) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(16) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(17) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(18) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(19) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(20) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(21) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(22) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(23) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(24) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(25) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(26) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(27) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(28) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(29) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(30) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(31) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(32) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(33) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(34) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(35) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(36) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(37) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(38) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(39) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(40) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(41) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(42) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(43) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(44) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(45) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(46) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+[181] Host_name(Reserve) Emu_num(0) Proc_no(47) Env(field4) Tran_type(0) Log_tbl(0000000000) Tabl_name(ArcIPDynMgr) Proc_stat(1) Proc_id(1130634) Sig(0)
+1       ArcIPDynMgr  0  Idle  1130634  N/A                   
+  2       ArcIPOCSMgr  1  Idle  1130634  N/A                   
+  3       ArcIPOCSMgr  2  Idle  1130634  N/A                   
+  4       ArcIPDynMgr  3  Idle  1130634  N/A                   
+  5       ArcIPDynMgr  4  Idle  1130634  N/A                   
+  6       ArcIPDynMgr  5  Idle  1130634  N/A                   
+  7       ArcIPDynMgr  6  Idle  1130634  N/A                   
+  8       ArcIPDynMgr  7  Idle  1130634  N/A                   
+  9       ArcIPDynMgr  8  Idle  1130634  N/A                   
+  10      ArcIPDynMgr  9  Idle  1130634  N/A                   
+  11      ArcIPDynMgr  10  Idle  1130634  N/A                   
+  12      ArcIPDynMgr  11  Idle  1130634  N/A                   
+  13      ArcIPDynMgr  12  Idle  1130634  N/A                   
+  14      ArcIPDynMgr  13  Idle  1130634  N/A                   
+  15      ArcIPDynMgr  14  Idle  1130634  N/A                   
+  16      ArcIPDynMgr  15  Idle  1130634  N/A                   
+  17      ArcIPDynMgr  16  Idle  1130634  N/A                   
+  18      ArcIPDynMgr  17  Idle  1130634  N/A                   
+  19      ArcIPDynMgr  18  Idle  1130634  N/A                   
+  20      ArcIPDynMgr  19  Idle  1130634  N/A                   
+  21      ArcIPDynMgr  20  Idle  1130634  N/A                   
+  22      ArcIPDynMgr  21  Idle  1130634  N/A                   
+  23      ArcIPDynMgr  22  Idle  1130634  N/A                   
+  24      ArcIPDynMgr  23  Idle  1130634  N/A                   
+  25      ArcIPDynMgr  24  Idle  1130634  N/A                   
+  26      ArcIPDynMgr  25  Idle  1130634  N/A                   
+  27      ArcIPDynMgr  26  Idle  1130634  N/A                   
+  28      ArcIPDynMgr  27  Idle  1130634  N/A                   
+  29      ArcIPDynMgr  28  Idle  1130634  N/A                   
+  30      ArcIPDynMgr  29  Idle  1130634  N/A                   
+  31      ArcIPDynMgr  30  Idle  1130634  N/A                   
+  32      ArcIPDynMgr  31  Idle  1130634  N/A                   
+  33      ArcIPDynMgr  32  Idle  1130634  N/A                   
+  34      ArcIPDynMgr  33  Idle  1130634  N/A                   
+  35      ArcIPDynMgr  34  Idle  1130634  N/A                   
+  36      ArcIPDynMgr  35  Idle  1130634  N/A                   
+  37      ArcIPDynMgr  36  Idle  1130634  N/A                   
+  38      ArcIPDynMgr  37  Idle  1130634  N/A                   
+  39      ArcIPDynMgr  38  Idle  1130634  N/A                   
+  40      ArcIPDynMgr  39  Idle  1130634  N/A                   
+  41      ArcIPDynMgr  40  Idle  1130634  N/A                   
+  42      ArcIPDynMgr  41  Idle  1130634  N/A                   
+  43      ArcIPDynMgr  42  Idle  1130634  N/A                   
+  44      ArcIPDynMgr  43  Idle  1130634  N/A                   
+  45      ArcIPDynMgr  44  Idle  1130634  N/A                   
+  46      ArcIPDynMgr  45  Idle  1130634  N/A                   
+  47      ArcIPDynMgr  46  Idle  1130634  N/A                   
+  48      ArcIPDynMgr  47  Idle  1130634  N/A                   
+  

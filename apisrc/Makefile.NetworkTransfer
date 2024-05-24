@@ -1,0 +1,67 @@
+#----------------------------------------------------------------------------
+# Program:	Makefile
+# Purpose:	Make file for building Telecom Server APIs and archiving
+#		them into libISPTel.a.
+# Author:	Wenzel-Joglekar
+# Date:		08/28/2000
+# Update:   09/06/2012 djb Created for network transfer APIs
+#----------------------------------------------------------------------------
+SHELL=/bin/ksh
+BASE = ${HOME}/isp2.2/SIPTelecom3.3
+COMMON = ${BASE}/Common
+VERSION = 1.0
+TELECOM = ${BASE}
+COMINC = ${COMMON}/include
+TELINC = ${TELECOM}/include
+LIBDIR = ${TELECOM}/lib
+LIB 	= libISPTel_NetworkTransfer.a
+MRCP_LIB = libISPTel_mrcp.a
+
+#ARC_FLAGS=-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -Wall 
+ARC_FLAGS= -Wall 
+
+UTLLIBPATH = $(COMMON)/lib
+UTLLIB  = libUTILS.a
+
+CC = gcc -ggdb -fPIC
+ECHO = echo
+AR = ar
+ARFLAGS = r
+
+INCLUDES = -I $(TELINC)	\
+	-I $(COMINC)
+
+TELSRC = ocmNTUtil.c \
+		TEL_ConfAddUser.c		\
+		TEL_ConfRemoveUser.c	\
+		TEL_ConferenceStart.c	\
+		TEL_ScheduleNTCall.c	\
+		TEL_SendMsgToApp.c		\
+		TEL_GetMsgFromApp.c		\
+		TEL_GetDTMF.c			\
+		TEL_Common.c			\
+		TEL_ExitTelecom.c		\
+		NetworkTransfer_Common.c
+
+OBJECTS =	${TELSRC:.c=.o}
+
+all:    $(LIBDIR)/$(LIB)
+
+.c.o:	${TELINC}/Telecom.h ${TELINC}/TEL_Common.h ${TELINC}/TEL_Globals.h ${TELINC}/AppMessages.h ${TELINC}/TEL_LogMessages.h
+	@$(ECHO) "Compiling $<"
+	$(CC) -DNETWORK_TRANSFER -c ${INCLUDES} $< $(ARC_FLAGS)
+
+all: 	$(LIBDIR)/$(LIB)		
+
+lint:
+	lint $(CFLAGS) $(INCLUDES) $(TELSRC)
+
+clean:
+	rm -f ${OBJECTS} $(LIBDIR)/$(LIB)
+
+$(LIBDIR)/$(LIB) : ${OBJECTS} 
+	@$(ECHO) "Building $(LIBDIR)/$(LIB)"	
+	cp ${LIBDIR}/${MRCP_LIB} ${LIBDIR}/${LIB}
+	@$(AR) -rv $(LIBDIR)/$(LIB)  ${OBJECTS}
+
+Always:

@@ -1,0 +1,17 @@
+#!/bin/bash
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# File:		tno
+# Purpose:	A shortcut to running a tail -f on nohup.out
+# Author:	Aumtech, Inc. 
+# Update:	02/06/2001
+#------------------------------------------------------------------------------
+LOGFILE="$TELECOM/Exec/nohup.out"
+
+if [ ! -r $LOGFILE ]
+then
+	echo "$LOGFILE does not exist."
+	exit 1
+fi
+
+tail -f $LOGFILE

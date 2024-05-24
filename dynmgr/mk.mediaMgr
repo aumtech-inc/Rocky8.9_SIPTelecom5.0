@@ -1,0 +1,81 @@
+echo "Compiling ArcSipMediaMgr.c"
+g++ -DSR_MRCP -g -O2 -DSR_MRCP -D__DEBUG__			\
+	-DENABLE_TRACE -DMAX_PORTS=960 -D_LARGEFILE64_SOURCE			\
+	-D_FILE_OFFSET_BITS=64 -DOSIP_MT -DHAVE_GLIB -DEXOSIP_VERSION_303 -c ArcSipMediaMgr.c 		\
+	-I /home/devmaul/isp2.2/Common/include 		\
+	-I . 		\
+	-I ./spandsp 		\
+	-I ./soundtouch 		\
+	-I ../include 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libeXosip2-3.0.3-3/src 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libeXosip2-3.0.3-3/include 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libosip2-3.0.3-2/src 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libosip2-3.0.3-2/include 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/ortp-0.6.3.core.ipv6 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/ortp-0.6.3.core.ipv6/src 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/glib-2.14.4/ 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/glib-2.14.4/glib 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/c-ares-1.5.2 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/spandsp-0.0.6/src 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/soundtouch/include 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/SNMP/include 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/include 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/include/ortp 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/include/eXosip2 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/Common/flexNET/v11.5/machind 		\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/Common/flexNET/v11.5/src 		\
+	-I /usr/lib/glib-2.0/include 		\
+	-I ./video_stack -DARCSIP_VERSION=`cat .version` -DARCSIP_BUILD=`cat .build`
+
+echo "Compiling ArcSipCommon.c"
+g++ -DSR_MRCP -g -O2 -DSR_MRCP -D__DEBUG__ -DENABLE_TRACE -DMAX_PORTS=960 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DOSIP_MT -DHAVE_GLIB -DEXOSIP_VERSION_303 -c ArcSipCommon.c 	\
+	-I /home/devmaul/isp2.2/Common/include 	\
+	-I . 	\
+	-I ./spandsp 	\
+	-I ./soundtouch 	\
+	-I ../include 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libeXosip2-3.0.3-3/src 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libeXosip2-3.0.3-3/include 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libosip2-3.0.3-2/src 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libosip2-3.0.3-2/include 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/ortp-0.6.3.core.ipv6 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/ortp-0.6.3.core.ipv6/src 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/glib-2.14.4/ 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/glib-2.14.4/glib 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/c-ares-1.5.2 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/spandsp-0.0.6/src 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/soundtouch/include 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/SNMP/include 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/include 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/include/ortp 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/include/eXosip2 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/Common/flexNET/v11.5/machind 	\
+	-I /home/devmaul/isp2.2/SIPTelecom3.3/Common/flexNET/v11.5/src 	\
+	-I /usr/lib/glib-2.0/include -I ./video_stack -DARCSIP_VERSION=`cat .version` -DARCSIP_BUILD=`cat .build`
+
+echo
+echo "Linking ArcSipMediaMgr"
+echo
+g++  -o ArcSipMediaMgr 		\
+	-L . 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/lib 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/Common/flexNET/v11.5/i86_re3/activation/lib 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/Common/flexNET/v11.5/i86_re3/ 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/Common/lib 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/SNMP/lib 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libeXosip2-3.0.3-3/src/.libs 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libosip2-3.0.3-2/src/osip2/.libs 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/libosip2-3.0.3-2/src/osipparser2/.libs 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/c-ares-1.9.1/.libs 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/spandsp-0.0.6/src/.libs 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/soundtouch/source/SoundTouch/.libs 		\
+	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/ortp-0.6.3.core.ipv6/src/.libs 		\
+	-L ./spandsp 		\
+	-L ./soundtouch 		\
+	ArcSipMediaMgr.o ArcSipCommon.o  \
+	-lISPUtil -lISPCDR -lrespcom -lUTILS -lISPLog -lcrypto -larcSNMP -lloglite			\
+	-lortp -lcares -lpthread -losip2 -losipparser2 -lspandsp				\
+	-lm -larctones -larcpromptcontrol -lSoundTouch				\
+	-DARCSIP_VERSION=`cat .version` -DARCSIP_BUILD=`cat .build`
+
+#	-L /home/devmaul/isp2.2/SIPTelecom3.3/thirdParty/soundtouch/soundtouch/lib 		\

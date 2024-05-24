@@ -1,0 +1,11 @@
+#!/bin/bash
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# File:		starttel
+# Purpose:	A shortcut to start ARC Telecom Services
+# Usage:	starttel
+# Author:	Aumtech, Inc.
+# Update:	02/06/2001
+#------------------------------------------------------------------------------
+ME=`basename $0`
+echo "y\n\n" | $TELECOM/Operations/Start_Telecom

@@ -1,0 +1,8 @@
+
+gcc -ggdb -fPIC -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O2		\
+	-o /home/dan/isp2.2/SIPTelecom3.6/Common/bin/send_SNMP_trap send_SNMP_trap.o                \
+    -L /home/dev/isp2.2/SIPTelecom3.6/Common/lib        \
+    -L /home/dev/isp2.2/SIPTelecom3.6/lib       \
+	-L /home/dev/isp2.2/SNMP/lib        \
+    -lISPCDR -lrespcom -larcSNMP  -lUTILS -lISPUtil -lISPLog -lTELLog -lloglite -lgaUtils
+

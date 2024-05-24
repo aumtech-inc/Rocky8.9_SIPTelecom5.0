@@ -1,0 +1,16 @@
+#------------------------------------------------------------------------------
+# Program:	.isprc
+# Purpose:	To environment variables common to all ARC services.
+# Author:	Aumtech Inc.
+# Date:		2001/02/08
+#------------------------------------------------------------------------------
+# Variables required for all services
+#------------------------------------------------------------------------------
+SHELL=/bin/bash;					export SHELL
+ISPBASE=${HOME%/}/.ISP;					export ISPBASE
+
+# Required for makegen
+IVIEW_LIB_DIR="$ISPBASE/Global/lib";  			export IVIEW_LIB_DIR
+IVIEW_BIN_DIR="$ISPBASE/Global/Exec";  			export IVIEW_BIN_DIR
+IVIEW_INC_DIR="$ISPBASE/Global/include"; 		export IVIEW_INC_DIR
+IVIEW_LIBS="-lloglite";					export IVIEW_LIBS

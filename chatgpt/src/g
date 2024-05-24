@@ -1,0 +1,5 @@
+echo "Compiling arcAICommon.c"
+gcc  	 -ggdb -fPIC   -c  arcAICommon.c
+gcc -shared -o /home/dan/isp2.2/SIPTelecom3.6/chatgpt/lib/libarcAICommon.so  		\
+		arcAICommon.o 	\
+		-L../lib -laiISPLog -lailoglite

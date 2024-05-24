@@ -1,0 +1,14 @@
+to clean 
+
+$ make clean 
+
+to make a static version of the routines 
+
+$ make object
+
+everything else in the makefile is usually test drivers for development 
+including "all"
+
+
+
+

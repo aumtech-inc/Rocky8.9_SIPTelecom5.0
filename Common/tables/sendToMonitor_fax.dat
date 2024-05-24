@@ -1,0 +1,17 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_fax.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		07/30/99
+#-----------------------------------------------------------------------------
+#
+# Fax APIs
+9001	TEL_SendFax
+9002	TEL_RecvFax
+9003	TEL_ScheduleFax
+9004	TEL_BuildFaxList
+9005	TEL_SetFaxTextDefaults
+#

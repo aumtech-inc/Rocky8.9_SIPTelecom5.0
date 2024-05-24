@@ -1,0 +1,8 @@
+user arc damian
+binary
+hash
+cd .ISP/Telecom/Exec
+prom
+lcd .libs
+mpu libortp*so*
+quit

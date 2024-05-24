@@ -1,0 +1,6 @@
+echo "Building log_listen ..."
+gcc -ggdb3 -DSERVER_PORT=6791 -o log_listen -I /home/dev/isp2.2/loggingServices/server/include -I /home/dev/isp2.2/SIPTelecom3.3/Common/include com_listen.c -L /home/dev/isp2.2/loggingServices/lib -L  /home/dev/isp2.2/SIPTelecom3.3/Common/lib  -lgaUtils -lISPLog -lloglite
+
+
+echo "Building log_svc ..."
+gcc -ggdb3 -o log_svc /home/dev/isp2.2/SIPTelecom3.3/Common/Log/log_routines.o -I /home/dev/isp2.2/loggingServices/server/include -I /home/dev/isp2.2/SIPTelecom3.3/Common/include log_svc.c -L /home/dev/isp2.2/loggingServices/lib  -L  /home/dev/isp2.2/SIPTelecom3.3/Common/lib   -llsServer  -lgaUtils -lISPLog -lloglite

@@ -1,0 +1,23 @@
+#-----------------------------------------------------------------------------
+# File:		motifgui.def
+# Purpose:	Master GUI definition file for the local Motif GUIs.
+#		This file is updated when packages are installed & removed.
+# Author:	Aumtech, Inc.
+# Date:		09/02/99
+#
+# DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY. DO NOT MODIFY.
+#
+#-----------------------------------------------------------------------------
+
+[Parameters]
+
+[Operations]
+
+[Resources]
+
+[Schedules]
+
+[Transactions]
+
+[Utilities]
+

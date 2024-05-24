@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+#include "ares.h"
+
+struct ares_naptr_list_t
+{
+ uint16_t order;
+ uint16_t preference;
+ char flag[2];
+ char service[80];
+ char re[80];
+ char replacement[500];
+ struct ares_naptr_list_t *next;
+};
+typedef struct ares_naptr_list_t ares_naptr_list_t;
+
+
+static int
+ares_naptr_list_add (struct ares_naptr_list_t **list, uint16_t order, uint16_t preference, const char *flag, const char *service, const char *re,
+                     const char *replacement)
+{
+
+ int rc = -1;
+ struct ares_naptr_list_t *elem;
+ struct ares_naptr_list_t *next;
+
+ // insert and sort as we go 
+
+ if (list) {
+  elem = calloc (1, sizeof (struct ares_naptr_list_t));
+  if (elem) {
+   elem->order = order;
+   elem->preference = preference;
+   snprintf (elem->flag, sizeof (elem->flag), "%s", flag);
+   snprintf (elem->service, sizeof (elem->service), "%s", service);
+   snprintf (elem->re, sizeof (elem->re), "%s", re);
+   snprintf (elem->replacement, sizeof (elem->replacement), "%s", replacement);
+  }
+  if (*list == NULL) {
+   *list = elem;
+  }
+  else {
+   // eventually sort 
+   fprintf (stderr, " %s: reminder to sort this list\n", __func__);
+   next = *list;
+   *list = elem;
+   (*list)->next = next;
+  }
+ }
+
+ return rc;
+}
+
+static void
+ares_naptr_list_free (struct ares_naptr_list_t **list)
+{
+
+ struct ares_naptr_list_t *elem;
+ struct ares_naptr_list_t *next;
+
+ if (list && *list) {
+  elem = *list;
+  while (elem) {
+   next = elem->next;
+   free (elem);
+   elem = next;
+  }
+  *list = NULL;
+ }
+ return;
+}

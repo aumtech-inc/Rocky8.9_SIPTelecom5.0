@@ -1,0 +1,56 @@
+#------------------------------------------------------------------------------
+# Program:	Verify_Telecom
+# Purpose:	To show the state of IP Telecom and Network Services.
+# Author: 	Aumtech, Inc.
+# Date:		12/04/2000
+#------------------------------------------------------------------------------
+# Copyright (c) 2000, Aumtech, Inc.
+# All Rights Reserved.
+#
+# This is an unpublished work of Aumtech which is protected under
+# the copyright laws of the United States and a trade secret
+# of Aumtech. It may not be used, copied, disclosed or transferred
+# other than in accordance with the written permission of Aumtech.
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# main routine
+#------------------------------------------------------------------------------
+TEL_EXEC="ArcIPResp"
+
+AUTO="$1"
+
+if [ -z "$AUTO" ]
+then 
+	clear
+	echo "IP Telecom Services"
+	echo 
+	echo
+fi
+
+ps -ef | grep "$TEL_EXEC" | grep -v grep >/dev/null
+if [ "$?" != "0" ]
+then
+	echo "Telecom Services : NOT ACTIVE."
+else
+	PID=`ps -ef | fgrep $TEL_EXEC |fgrep -v fgrep |awk '{print  $2}'`
+	echo "Telecom Services : Active. pid=$PID"
+fi
+ 
+ps -ef | grep "isp_telserv" | grep -v grep >/dev/null
+if [ "$?" != "0" ]
+then
+	echo "Network Services : NOT ACTIVE."
+else
+	PID=`ps -ef | fgrep  isp_telserv |fgrep -v fgrep |awk ' {print  $2}'`
+	echo "Network Services : Active. pid=$PID"
+fi
+
+if [ -z "$AUTO" ]
+then
+	echo
+	echo -n "Press Enter"
+	read ANYTHING
+fi
+
+exit 0

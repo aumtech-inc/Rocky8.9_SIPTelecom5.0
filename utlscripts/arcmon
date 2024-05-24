@@ -1,0 +1,10 @@
+#!/bin/bash
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# File:		tmon
+# Purpose:	A shortcut to start the ARC Telecom Services monitor.
+# Usage:	tmon
+# Author:	Aumtech, Inc. 
+# Update:	02/06/2001
+#------------------------------------------------------------------------------
+$TELECOM/Exec/tel_monitor

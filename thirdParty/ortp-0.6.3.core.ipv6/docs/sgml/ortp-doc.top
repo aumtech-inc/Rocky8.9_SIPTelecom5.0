@@ -1,0 +1,5 @@
+<!ENTITY ortp-RtpSession-API SYSTEM "sgml/rtpsessionapi.sgml">
+<!ENTITY ortp-Library-management-functions SYSTEM "sgml/stackmanagement.sgml">
+<!ENTITY ortp-RTP-payloads-and-profiles SYSTEM "sgml/payloads.sgml">
+<!ENTITY ortp-Multiplexing-sessions-(in-a-one-thread-design) SYSTEM "sgml/multiplexing.sgml">
+<!ENTITY ortp-Telephone-events-(RFC2833)- SYSTEM "sgml/telephoneevents.sgml">

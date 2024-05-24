@@ -1,0 +1,19 @@
+#-----------------------------------------------------------------------------
+# File:		sendToMonitor_cti.dat
+# Purpose:	This file cross references the numbers of APIs to their
+#		text names so that the monitor program can display the
+#		text names on the monitor screen based only on the number of
+#		the api that is passed to it.	
+# Author:	Aumtech, Inc.
+# Date:		03/30/00
+#-----------------------------------------------------------------------------
+#
+# CTI APIs
+5001	CTI_Init 
+5002	CTI_SendAnswerCall
+5003	CTI_SendInitiateCall
+5004	CTI_SendRouteRequest
+5005	CTI_SendBridgeCall
+5006	CTI_SendEndOfCall
+5007	CTI_Exit
+5008	CTI_SendVruStatus

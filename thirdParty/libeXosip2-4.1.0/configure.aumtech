@@ -1,0 +1,28 @@
+#!/bin/bash
+# change source directories if installed 
+# in a different directory than below
+
+CFLAGS="-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty/libosip2-4.1.0/include -I /home/dan/isp2.2/SIPTelecom3.6/thirdParty/openssl-1.0.2k/include"
+export CFLAGS
+
+CPPFLAGS="-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty/libosip2-4.1.0/include -I /home/dan/isp2.2/SIPTelecom3.6/thirdParty/openssl-1.0.2k/include"
+export CFPPLAGS
+
+#LDFLAGS="-Wl,--rpath=/home/dan/isp2.2/SIPTelecom3.6/glibc-2.29/lib \
+#	-Wl,--dynamic-linker=/home/dan/isp2.2/SIPTelecom3.6/glibc-2.29/lib/ld-linux-x86-64.so.2	\
+#	-L/home/dan/isp2.2/SIPTelecom3.6/thirdParty/openssl-1.0.2k"
+#LDFLAGS="-Wl,--dynamic-linker=/home/dan/isp2.2/SIPTelecom3.6/glibc-2.29/lib/ld-linux-x86-64.so.2"
+
+LDFLAGS="-L/home/dan/isp2.2/SIPTelecom3.6/thirdParty/openssl-1.0.2k"
+export LDFLAGS
+
+OSIP_CFLAGS="-I/home/dan/isp2.2/SIPTelecom3.6/thirdParty/libosip2-4.1.0/include" 
+export OSIP_CFLAGS
+
+OSIP_LIBS="-L/home/dan/isp2.2/SIPTelecom3.6/thirdParty/libosip2-4.1.0/osip2/.libs  -L/home/dan/isp2.2/SIPTelecom3.6/thirdParty/libosip2-4.1.0/osipparser2/.libs"
+export OSIP_LIBS
+
+./configure --enable-pthread  --enable-shared  --enable-openssl
+
+
+

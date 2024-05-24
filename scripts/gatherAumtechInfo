@@ -1,0 +1,174 @@
+#!/bin/bash
+#-------------------------------------------------------------------------------
+# File:     gatherAumtechInfo
+# Purpose:  Compile various SIP or SDM Telecom information and output it to
+#           a file and standard output.
+#
+#         	This script requires no parameters.
+#
+# Author:   Aumtech
+# Usage:    gatherAumtechInfo
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+listAumtechPackages()
+{
+	cd /home 1>/dev/null
+	packagesInstalled=0
+	telecomPackageInstalled=0
+
+	piFile="/tmp/.pi"
+	>$piFile
+	ls -1 .[a-Z]* | while read x
+	do
+		if [ `tail -n 1 $x  | cut -d':' -f2` = "INSTALLED" ]
+		then
+
+			if [ "$x" = ".arcSIPTEL.pkginfo" -o "$x" = ".arcDMTEL_SR6.1.pkginfo" ] 
+			then
+				echo $x | cut -d'.' -f2 > $platformFile
+			fi
+
+			echo "1" >>$piFile
+
+			tmpFile="/tmp/.$$"
+			if [ `grep -c Caution $x` -eq 0 ] 
+			then
+				continue
+			fi
+
+			grep -n Caution $x | cut -d':' -f1 |while read y
+			do
+				echo $y >$tmpFile
+			done
+			startLineNo=`cat $tmpFile`
+			rm $tmpFile
+
+			lastLineNo=`wc -l $x | awk '{ print $1 }'`
+			lastLines=`expr $lastLineNo - $startLineNo`
+
+			echo "" >> $outputFile2
+			echo "* Package information for `echo $x | cut -d'.' -f2`"  >>$outputFile2
+			tail -n `expr $lastLineNo - $startLineNo` $x >>$outputFile2
+
+		fi
+	done
+
+	if [ ! -s $piFile ]
+	then
+		echo "There are currently no Aumtech Packages installed on `uname -n`." >> $outputFile2
+	fi
+	rm $piFile 2>/dev/null
+
+	cd - 1>/dev/null
+}
+
+#-------------------------------------------------------------------------------
+# main() - Execution starts here
+#-------------------------------------------------------------------------------
+
+outputFile="/tmp/`basename $0`.`date +%Y%m%d`"
+outputFile2="${outputFile}.2"
+platformFile="/tmp/platform.$$"
+
+>$outputFile
+>$outputFile2
+>$platformFile
+
+#--------------------------------------
+#  get telecom and package information
+#--------------------------------------
+listAumtechPackages
+
+if [ -s "$platformFile" ]
+then
+	telecomPackagesInstalled=1
+	platform=`cat $platformFile`
+fi
+rm $platformFile  2>/dev/null
+
+#--------------------------------------
+#  get general system information
+#--------------------------------------
+echo 							>> $outputFile
+echo "`date`: System `uname -n` is running $platform Telecom" >> $outputFile
+echo 							>> $outputFile
+echo "`uname -a`"				>> $outputFile
+
+cat $outputFile2 >> $outputFile
+rm $outputFile2 
+
+if [ $telecomPackagesInstalled -eq 0 ]
+then
+	exit
+fi
+
+#
+# Now get the info for the correct Telecom processes,
+# speech recognition client, and ttsClient
+#
+
+# Telecom
+dynmgr=`head -n1 $ISPBASE/Telecom/Tables/ResourceDefTab | \
+	cut -d'|' -f5`
+
+if [ "$platform" = "arcSIPTEL" ]
+then
+	resp="ArcIPResp"
+	mediaMgr="ArcSipMediaMgr"
+else
+	resp="ArcTelResp"
+	mediaMgr=""
+fi
+
+# Speech Rec
+mrcpClient=""
+if [ `grep -c "^mc2m" /etc/inittab` -ne 0 ]
+then
+	mrcpClient="mrcpClient2"
+fi
+
+# TTS
+ttsClient=""
+if [ `grep -c "^ttC" /etc/inittab` -ne 0 ]
+then
+	ttsClient="ttsClient2"
+fi
+
+echo 							>> $outputFile
+
+echo "---- Below is the information on Aumtech binaries ----"	>> $outputFile
+
+cd $ISPBASE/Telecom/Exec 1>/dev/null
+
+for var in $resp $dynmgr $mediaMgr $mrcpClient $ttsClient
+do
+	echo				>>$outputFile
+	echo "* $var" >>$outputFile
+	
+	echo "[`uname -n`] $ISPBASE/Telecom/Exec/$var -v"	>> $outputFile
+	$var -v >> $outputFile 2>&1
+	echo 							>> $outputFile
+	
+	echo "[`uname -n`] ls -l $ISPBASE/Telecom/Exec/$var"	>> $outputFile
+	echo -n "    "			>> $outputFile
+	ls -l $var           >> $outputFile
+	
+	echo "[`uname -n`] sum $ISPBASE/Telecom/Exec/$var"	>> $outputFile
+	echo -n "    "			>> $outputFile
+	sum $var 			>> $outputFile
+done
+
+clear
+echo 
+echo "The file ($outputFile) has been created and contains system "
+echo "information for the Aumtech Telecom system (`uname -n`)."
+echo "Please forward it to Aumtech Support."
+echo 
+
+echo "Press <Enter> to continue; $outputFile will be displaye to the screen."
+
+read x
+
+more $outputFile

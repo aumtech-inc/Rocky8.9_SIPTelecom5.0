@@ -1,0 +1,14 @@
+
+gcc -ggdb   -c appLogMsg.c 	\
+	-I /home/dan/isp2.2/SIPTelecom3.6/Common/include
+
+if [ $? -ne 0 ]
+then
+	exit
+fi
+
+
+gcc -ggdb   -o appLogMsg appLogMsg.o  		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/Common/lib		\
+	-lISPCDR -lUTILS -lISPUtil -lISPLog -lgaUtils
+

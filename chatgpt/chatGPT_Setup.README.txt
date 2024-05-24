@@ -1,0 +1,97 @@
+Aumtech's AI ChatGPT Client Doc
+===============================
+
+This documument describes the instructions for configuring Aumtech's AI
+client (arcChatGPTClient.py). It's located is the $TELECOM/Exec/chatgpt/
+directory.  
+
+What does it do?
+----------------
+In short, it gives context the user's response by employing Openai's ChatGPT
+chatbot.  
+
+Tasks to be done
+----------------
+There are three things to be done to get the chatGPT client running properly.
+1. Install the virtual environment
+2. Obtain and encrypt an OpenAI API Key
+3. Configure the chatGPT client to run.
+
+Virtual environment setup for Aumtech's chatGPT Client
+------------------------------------------------------
+
+1.  update system as the root user
+	# yum update
+
+2.  update python to 3.10.12
+
+	# yum install gcc openssl-devel bzip2-devel libffi-devel
+
+	// Downlod the Python-3.10.12.tgz from the ftp site (user=guest1234_034fa18)
+	// to a temp directory.  It resides in the AI_pkgs directory.
+
+	# tar -zxvf Python-3.10.12.tgz
+	# cd Python-3.10.12/
+	# ./configure --enable-optimizations 
+	# make altinstall
+	// This will install python-3.10.12 under the /usr/local/bin directory.
+
+3.	install pip
+	# yum install epel-release
+	# yum install python-pip
+
+4.	install development tools
+	# yum install python-devel
+	# yum groupinstall 'development tools'
+
+5.	Set up the virtual environment.
+
+	The python scripts, libraries, etc. will be placed in the 
+	/home/arc/.ISP/Telecom/Exec/chatgpt directory. 
+
+//	A requirements.txt is delivered with the package.  The requirements.txt file
+//	lists the required Python packages for the arcChatGPTClient to run
+//	successfully.
+
+//	As the arc user, enter the following commands:
+	$ cd /home/arc/.ISP/Telecom/Exec/chatgpt directory
+	$ python3.10 -m venv venv	// This will create the venv subdirectory and 3.10.12
+	                         	// Python environment.
+
+	$ . venv/bin/activate		// This will activate the python-3.10.12 as the active
+	                     		// version.
+	$ python --version
+	// It should print out 'Python 3.10.12'.  If it doesn't, this must be corrected
+	// before continuing.
+
+	(venv) $ /home/arc/.ISP/Telecom/Exec/chatgpt/venv/bin/python -m pip install --upgrade pip   // upgrade pip
+	(venv) $ pip install -r requirements.txt 			// install the same packages and versions 
+	(venv) $ pip list 			// A list of packages and versions as required for this application will 
+	                 			// be displayed.
+
+Obtain and encrypt an OpenAI API Key
+------------------------------------
+Obtain an OpenAI API key from https://platform.openai.com/. It requires creating an openAI
+user account.
+
+After getting it, it must be encrypted and placed the $TELECOM/Tables/.TEL.cfg.
+The .TEL.cfg has the following [AI] section:
+	[AI]
+	ChatGPT=OFF
+	ChatGPT_model=gpt-3.5-turbo
+	ChatGPT_temperature=0.8
+	ChatGPT_max_tokens=2000
+	ChatGPT_api_key=<encrypted openai key>
+	
+Replace the contents of the ChatGPT_api_key setting with the unencrypted API key and save the file.
+As the arc user, type in the following commands:
+	$ cd /home/arc/.ISP/Telecom/Exec/chatgpt
+	$ arcChatGPTEncrypt
+	// you should see the following line
+	//    'Encryption of ChatGPT_api_key in /home/arc/.ISP/Telecom/Tables/.TEL.cfg successfully completed.'
+	// otherwise, and error will be printed out.
+
+Configure the chatGPT client to run
+-----------------------------------
+To configure it to run, simply set the 'ChatGPT' setting to 'ON' in the $TELECOM/Tables/.TEL.cfg and 
+restart the system ($ stoptel; $ starttel )

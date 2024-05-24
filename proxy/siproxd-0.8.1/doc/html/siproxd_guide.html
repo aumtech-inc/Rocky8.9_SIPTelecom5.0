@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Siproxd Users Guide</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="README"
+HREF="siproxd_guide_c0.html"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="SIPROXD-DOC"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>Siproxd Users Guide</A
+></H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN7"
+></A
+>Thomas Ries</H3
+><P
+CLASS="COPYRIGHT"
+><A
+HREF="ln15.html"
+>Copyright</A
+> &copy; 2005-2010 Thomas Ries</P
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="siproxd_guide_c0.html"
+>README</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="siproxd_guide_c0.html#AEN47"
+>Important / Warning</A
+></DT
+></DL
+></DD
+><DT
+>1. <A
+HREF="siproxd_guide_c1.html"
+>Overview</A
+></DT
+><DT
+>2. <A
+HREF="siproxd_guide_c2.html"
+>Building and Installation</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="siproxd_guide_c2.html#AEN76"
+>Prerequisites</A
+></DT
+><DT
+>2.2. <A
+HREF="siproxd_guide_c2s2.html"
+>Compiling and Installing</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="siproxd_guide_c3.html"
+>Configuration</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="siproxd_guide_c3.html#AEN111"
+>The configuration file 'siproxd.conf'</A
+></DT
+><DT
+>3.2. <A
+HREF="siproxd_guide_c3s2.html"
+>Command Line Options</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="siproxd_guide_c4.html"
+>Features</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="siproxd_guide_c4.html#AEN263"
+>Custom Firewall Module</A
+></DT
+><DT
+>4.2. <A
+HREF="siproxd_guide_c4s2.html"
+>Chroot() Jail</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="siproxd_guide_c5.html"
+>Plug-ins</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="siproxd_guide_c5.html#AEN275"
+>Plug-in API</A
+></DT
+><DT
+>5.2. <A
+HREF="siproxd_guide_c5s2.html"
+>Available Plug-ins</A
+></DT
+><DD
+><DL
+><DT
+>5.2.1. <A
+HREF="siproxd_guide_c5s2.html#AEN338"
+>Demo Plug-in</A
+></DT
+><DT
+>5.2.2. <A
+HREF="siproxd_guide_c5s2.html#AEN346"
+>Call Logging Plug-in</A
+></DT
+><DT
+>5.2.3. <A
+HREF="siproxd_guide_c5s2.html#AEN354"
+>Short Dial Plug-in</A
+></DT
+><DT
+>5.2.4. <A
+HREF="siproxd_guide_c5s2.html#AEN362"
+>Default Target Plug-in</A
+></DT
+><DT
+>5.2.5. <A
+HREF="siproxd_guide_c5s2.html#AEN370"
+>Fix bogus Via Plug-in</A
+></DT
+><DT
+>5.2.6. <A
+HREF="siproxd_guide_c5s2.html#AEN378"
+>STUN Plug-in</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>6. <A
+HREF="siproxd_guide_c6.html"
+>Troubleshooting</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="siproxd_guide_c6.html#AEN388"
+>Problem Reporting</A
+></DT
+><DT
+>6.2. <A
+HREF="siproxd_guide_c6s2.html"
+>Create a Debug Log</A
+></DT
+><DT
+>6.3. <A
+HREF="siproxd_guide_c6s3.html"
+>Siproxd crashes</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="siproxd_guide_c7.html"
+>Sample Configurations</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="siproxd_guide_c7.html#AEN439"
+>The "Standard Scenario"</A
+></DT
+><DT
+>7.2. <A
+HREF="siproxd_guide_c7s2.html"
+>GS BT-100 behind NAT Router running Siproxd</A
+></DT
+><DT
+>7.3. <A
+HREF="siproxd_guide_c7s3.html"
+>GS BT-100 with Siproxd running "in front of" a NAT router</A
+></DT
+><DT
+>7.4. <A
+HREF="siproxd_guide_c7s4.html"
+>Transparent SIP Proxy</A
+></DT
+><DT
+>7.5. <A
+HREF="siproxd_guide_c7s5.html"
+>Masquerading an Asterisk box</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c0.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>README</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

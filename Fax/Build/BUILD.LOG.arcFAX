@@ -1,0 +1,63 @@
+Wed Jun 19 21:18:48 EDT 2002
+Build Package
+Product Id.......: arcFAX
+Product Descrip..: arcFAX.3.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/dev/isp2.2/builds
+Log file.........: BUILD.LOG.arcFAX
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/dev/isp2.2/DTelecom/Fax
+All files copied successfully.
+Building arcFAX.3.1 ...
+Thu Mar 4 17:22:54 EST 2010
+Build Package
+Product Id.......: arcFAX
+Product Descrip..: arcFAX.3.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/devmaul/isp2.2/builds
+Log file.........: BUILD.LOG.arcFAX
+
+Thu Mar 4 17:23:18 EST 2010
+Build Package
+Product Id.......: arcFAX
+Product Descrip..: arcFAX.3.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/devmaul/isp2.2/builds
+Log file.........: BUILD.LOG.arcFAX
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/devmaul/isp2.2/DTelecom/Fax
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/bin/FaxServerAnalog to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/bin/FaxServerT1 to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/bin/FaxServerE1 to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/lib/libarcFAX.a to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/include/arcFAX.h to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/tables/FaxTextDefaultsConfig.sample.txt to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/tables/FaxServer.cfg to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/Build/install_arcFAX to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/Build/remove_arcFAX to /tmp/packtemp
+Failed to copy /home/devmaul/isp2.2/DTelecom/Fax/Build/install_arcFAX.readme to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcFAX.3.1 package.
+Exiting...
+Thu Mar 4 17:24:12 EST 2010
+Build Package
+Product Id.......: arcFAX
+Product Descrip..: arcFAX.3.1
+Temp directory...: /tmp/packtemp
+Storage directory: /home/devmaul/isp2.2/builds
+Log file.........: BUILD.LOG.arcFAX
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/packtemp...
+Copying files from master directories to /tmp/packtemp...
+Master directories : /home/devmaul/isp2.2/SIPTelecom/2.0.video/Fax
+Failed to copy /home/devmaul/isp2.2/SIPTelecom/2.0.video/Fax/lib/libarcFAX.a to /tmp/packtemp
+Error: failed to copy all files to /tmp/packtemp.
+You must correct the problem before attempting to make the arcFAX.3.1 package.
+Exiting...

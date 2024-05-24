@@ -1,0 +1,38 @@
+
+TEL_SRInit() [ app API ] 
+	2 -> mrcpClientFifo = /tmp/to.mrcpClient2.fifo
+
+	openChannelToSRClient()
+	4 -> if (GV_TotalSRRequests > 0)
+	     {   
+	         sprintf (GV_SRFifo, "%s/%s.%d", fifoDir,
+	         MRCP_TO_SR_CLIENT2, GV_AttchaedSRClient);
+	     }
+	     else
+	     {
+	         sprintf (GV_SRFifo, "%s/%s", fifoDir, MRCP_TO_SR_CLIENT2);
+	     }
+
+TEL_SR<any>()
+	writes to /tmp/to.mrcpClient2.fifo.<cliendID>
+
+readerThread.cpp
+1 -> openRequestFifo()
+		opens /tmp/to.mrcpClient2.fifo
+
+1 -> openSpecialRequestFifo()
+		opens /tmp/to.mrcpClient2.fifo.<cliendID>
+
+	processInit()
+		sCreateAppResponseFifoName()
+			app response fifo -> /tmp/ResponseFifo.<pid>
+		start mrcpThread()
+
+	readAndProcessAppRequest()
+5 ->	reads from both fifos with a select()
+		
+
+mrcpThread.cpp
+	processSrInit()
+	3 -> respond with mrcpClient2 id
+		 INF: [TEL_Common.c, 265] Received 256 bytes. msg={op:56,c#:0,pid:2847,ref:3,pw:0,rc:0,data:2	// id=2

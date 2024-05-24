@@ -1,0 +1,7 @@
+Date of request: 30 September 19 12:23:36
+Host name: linsys1c.aumtechinfosoft.com
+Machine id: 000C2955B614
+Service requested: IPTEL_3.6_7.2_64_Xeon
+Service requested: SPEECH_REC_2.0_7.2_64_Xeon
+Resources requested: 384
+License Model: Floating

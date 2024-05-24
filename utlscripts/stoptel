@@ -1,0 +1,16 @@
+#!/bin/bash
+#!/bin/ksh
+#------------------------------------------------------------------------------
+# File:		stoptel
+#
+# Purpose:	A shortcut to stop ARC Telecom Services
+#
+# Usage:	stoptel
+#
+# Author:	Aumtech, Inc. (USA)
+#
+# Update:	yy/mm/dd who	what did you change?
+#------------------------------------------------------------------------------
+ME=`basename $0`
+
+echo -e "y\n\n" | $TELECOM/Operations/Stop_Telecom

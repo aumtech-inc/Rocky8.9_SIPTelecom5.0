@@ -1,0 +1,197 @@
+#----------------------------------------------------------------------
+# Program:	snmpdrc
+# Purpose: 	This script starts and stops the SNMP Agent process.	
+# Author: 	Jenny Huang
+# Date:		06/03/94
+# Update: 	02/19/96 G. Wenzel added tab to Echo function
+# Update: 	03/21/96 G. Wenzel changed GetValue
+# Update: 	03/21/96 G. Wenzel added definition of GTLOGCFG in main
+# Update: 	06/02/96 S. Agate  added a check to ignore "in.snmpd" in stop.
+# Update: 	06/07/96 S. Agate  Changed egrep to grep while looking for the
+#				   snmpd pid.
+#----------------------------------------------------------------------
+# Copyright (c) 1996, Aumtech, Inc.
+# All Rights Reserved.
+#
+# This is an unpublished work of Aumtech which is protected under
+# the copyright laws of the United States and a trade secret
+# of Aumtech. It may not be used, copied, disclosed or transferred
+# other than in accordance with the written permission of Aumtech.
+#
+#----------------------------------------------------------------------
+Echo()
+{
+	echo "\tsnmpdrc: $1"
+}
+
+#----------------------------------------------------------------------
+#  Determine appropriate ping command. Different if we're on an HP machine.
+#----------------------------------------------------------------------
+Determine_ping_command_pathname()
+{
+	if [ -f /bin/i386 ] && /bin/i386
+	then
+		PING_CMD=/usr/sbin/ping
+	elif [ -f /bin/hp-pa ] && /bin/hp-pa
+	then
+		PING_CMD=/etc/ping
+	fi
+}
+#----------------------------------------------------------------------
+#  Ping the trap host. Put up warning message if it's not avaiable.
+#----------------------------------------------------------------------
+Ping_the_trap_host()
+{
+	SNMPmgr=`awk '/^TRAP_HOST/ { print $2}' $SNMPconf`
+	if $PING_CMD "$SNMPmgr"  $PACKETSZ $NPINGS > /dev/null 2>&1
+	then
+		:
+	else
+		echo $Beep
+		Echo "Warning - Trap host \"$SNMPmgr\" not available."
+		Echo "          SNMP traps cannot be forwarded."
+	fi
+}
+#----------------------------------------------------------------------
+# GetValue () - Get a key word value from the log configuration file.
+#----------------------------------------------------------------------
+GetValue()
+{
+	error=0
+	TempFile=/tmp/.GetValue$$
+	${GTLOGCFG} $1 > ${TempFile} 2>&1
+	Code=$?
+	case "$Code"
+	in
+		0) ;;
+		*) error = 1;;
+	esac
+
+	if [ "$error" = "1" ]
+	then
+		echo "ERROR in Global configuration file" 
+		if [ -s ${TempFile} ]
+		then
+                	if `grep LOGXXCTL ${TempFile} > /dev/null`
+                	then
+				Echo "-----------"
+				cat ${TempFile}
+                	fi
+                fi
+
+		rm -f ${TempFile} 1>/dev/null 2>&1
+		exit 1
+	fi
+
+	ConfigValue=`grep gtlogcfg ${TempFile} | awk -F'|' '{ print  $2 }' `
+	rm -f ${TempFile} 1>/dev/null 2>&1
+	return 0
+}
+
+# ----------------------------------------------------------------------------
+# Update the iview configuration file with the Primary and Secondary servers
+# and the name of the log file.
+# ----------------------------------------------------------------------------
+Update_iview_conf_file()
+{
+	# Get values from the log configuration file	
+	GetValue logprimserv; 	PrimServ=${ConfigValue}
+	GetValue logsecserv;	SecServ=${ConfigValue}
+	GetValue logfile; 	LogFile=${ConfigValue}
+
+	echo "\n"
+	Echo "Updating iview configuration file (${SNMPconf})..."
+	Echo "\tSetting LM_SERVERS: ${PrimServ} ${SecServ}"
+	Echo "\tSetting LM_LOGFILE: ${LogFile}"
+
+#	ed  - ${SNMPconf}<<! > /dev/null 2>&1 - gpw 
+	ed  - ${SNMPconf}<<!
+/^LM_SERVERS.*/s//LM_SERVERS	${PrimServ}	${SecServ}/
+/^LM_LOGFILE.*/d
+i
+LM_LOGFILE	${LogFile}
+.
+/^EM_SERVERS.*/s//EM_SERVERS	${PrimServ}	${SecServ}/
+w ${SNMPconf}
+q
+!
+}	
+
+# ----------------------------------------------------------------------------
+# main routine
+# ----------------------------------------------------------------------------
+GTLOGCFG=$ISPBASE/Global/.Utilities/gtlogcfg
+
+if [ "${ISPBASE}" = "" ]
+then
+	Echo "ISPBASE environment variable is not set."
+	Echo "Exiting."
+	exit 1
+fi
+
+PATH=$ISPBASE/Global/.Utilities:$PATH;	export PATH
+
+PgmName=${0}
+SNMP_Agent="SNMP Agent"
+Agent=snmpd
+Agent_Pathname="/usr/sbin/snmpd"
+SNMPconf=/etc/iview.conf
+NPINGS=3
+PACKETSZ=64
+Beep="\007"
+USAGE="usage:  $0 {start | stop }"
+ConfigValue=""		# value is set in GetValue
+
+case "$1" in
+#------------------------------------------------------------------------------
+# Start the SNMP Agent
+#------------------------------------------------------------------------------
+start)
+	# Get the pid of the agent process.	
+	pid=`ps -e | grep -v grep | grep $Agent | cut -c2-6`
+	if [ "${pid}" ]
+	then
+		echo $Beep
+		Echo "${SNMP_Agent} (${Agent_Pathname}) is already running."
+		exit 0
+	fi
+
+	Determine_ping_command_pathname	# it may be different on HP 
+	Ping_the_trap_host		# check to see if host is avaaible
+	Update_iview_conf_file    	# w/ primary and sec server and logfile
+
+	# Start the SNMP agent demon
+	# Note: Can't just start daemon and check for error because when it
+	#	is started in background, its return code is always 0.
+
+	if [ ! -f ${Agent_Pathname} ]
+	then
+		echo "\n"
+		Echo "${SNMP_Agent} (${Agent_Pathname}) not found."
+		exit 1
+	fi
+	${Agent_Pathname} & > /dev/null
+	# Note: Instead of assuming if it exists, it will run, I can check
+	#	to see if pid $! is actually running.
+	Echo "${SNMP_Agent} (${Agent_Pathname}) started."
+	;;
+#------------------------------------------------------------------------------
+# Stop the SNMP Agent
+#------------------------------------------------------------------------------
+stop)
+	pid=`ps -e | grep snmpd | grep -v in.snmpd | grep -v grep | cut -c2-6`
+	if [ -z "${pid}" ]
+	then
+		Echo "${SNMP_Agent} (${Agent_Pathname}) is not running."
+		exit 0
+	fi
+	kill ${pid} 
+	Echo "${SNMP_Agent} (${Agent_Pathname}) stopped."
+	;;
+*)
+	Echo $USAGE >&2
+	exit 1
+	;;
+esac
+
+exit 0

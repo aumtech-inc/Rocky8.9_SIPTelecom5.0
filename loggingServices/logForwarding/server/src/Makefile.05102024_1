@@ -1,0 +1,57 @@
+#----------------------------------------------------------------------------
+# Program:      Makefile
+# Purpose:      Make file for building the listener for WSS apps.
+# Author:   	sja
+# Date:    	01/22/97 sja	Created the Makefile
+# Date:    	01/24/97 sja	Made CC silent
+# Date:    	06/02/97 sja	Renamed db_listen to db_listener
+# Date:    	07/22/97 sja	Added arc_listen
+# Date:    	08/18/99 gpw	Changed arcLic to arcLicense (Globetrotter)
+# Date:    	1999/11/09 sja	arc_listen is now built using arc_listen.c
+# Update:   09/11/12 djb    Changed to loggingServices
+#----------------------------------------------------------------------------
+
+
+ISP_BASE_DIR=/home/dan
+ISP_VERSION=isp2.2
+
+BASE 	= ${ISP_BASE_DIR}/${ISP_VERSION}/SIPTelecom3.6
+LSBASE 	= ${BASE}/loggingServices/logForwarding
+COMINC 	= ${BASE}/Common/include
+WSSINC 	= ${LSBASE}/server/include
+LIBDIR  = ${LSBASE}/lib
+
+# CFLAGS	= -s -O
+CFLAGS	= -ggdb3
+
+CC 	= @gcc ${CFLAGS}
+ECHO 	= @echo
+AR 	= ar
+ARFLAGS = r
+
+INCLUDES = -I $(WSSINC) -I $(COMINC)
+
+# LIBPATHS = 	-L ${LIBDIR} -L ${BASE}/Common/lib
+LIBPATHS = 	-L ${LIBDIR}  -L ${BASE}/Common/lib
+
+
+LIBS	= 	$(LICLIBS) -lgaUtils -lISPLog -lloglite
+
+EXECS 	= 	log_listen log_svc
+
+all: $(EXECS)
+
+install:
+	scp log_listen arc@10.0.0.59:/home/arc/.ISP/Global/Exec/log_listen
+	scp log_svc    arc@10.0.0.59:/home/arc/.ISP/Global/Exec/log_svc
+
+log_listen: com_listen.c com_listen.h
+	${ECHO} "Building log_listen ..."
+	$(CC) -DSERVER_PORT=6791 -o log_listen ${INCLUDES} com_listen.c ${LIBPATHS} ${LIBS}
+
+log_svc: log_svc.c
+	${ECHO} "Building log_svc ..."
+	$(CC) -o log_svc /home/dan/isp2.2/SIPTelecom3.6/Common/Log/log_routines.o ${INCLUDES} log_svc.c ${LIBPATHS} -llsServer ${LIBS}
+
+clean:
+	rm -f *.o $(EXECS) core

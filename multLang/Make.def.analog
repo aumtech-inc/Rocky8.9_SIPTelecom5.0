@@ -1,0 +1,62 @@
+#------------------------------------------------------------------------------
+# File:		Multiple Languages Make.def
+#
+# Purpose:	This file defines all macros and flags used by makefiles that
+#		compile various components of the Multiple Languages system.
+#
+# Update: 2001/01/14 djb Created the file.
+#------------------------------------------------------------------------------
+
+# Standard shell commands
+CC              = @gcc
+# CFLAGS          = -O -s
+CFLAGS          = -g
+AR              = @ar
+ARFLAGS         = ru
+ECHO            = @echo
+RM              = rm
+CP 				= @cp
+RCP 			= rcp -p
+RMFLAGS			= -f
+CTAGS			= @ctags
+
+ML				= ${ISPBASE}/Telecom/Applications/multLang
+
+INCPATHS		= \
+				-I .										\
+				-I ${ISPBASE}/Telecom/Applications/include	\
+				-I ${ISPBASE}/Global/include				\
+				-I ${ML}/include
+
+#
+# Library Paths
+#
+LIBPATHS		= \
+				-L .										\
+				-L ${ISPBASE}/Telecom/Applications/lib		\
+				-L ${ISPBASE}/Global/lib					\
+				-L ${ML}/lib
+
+#
+# ARC Common Libraries
+#
+LIBS_ARC_COM	= \
+
+#
+# ARC Telecom Libraries
+#
+LIBS_ARC_TEL    = \
+				-larcMultLang 	\
+				-ltaUtils		\
+				-lISPTel        \
+				-lISPIndxary	\
+				-lISPUtil		\
+				-lISPCDR		\
+				-lrespcom       \
+				 -lcmAnalog -ldxxx -ldti -lsrl		\
+				-lUTILS			\
+				-lISPLog		\
+            	-lTELLog        \
+				-lloglite		\
+				-lgaUtils		\
+				-lLiS -lelf

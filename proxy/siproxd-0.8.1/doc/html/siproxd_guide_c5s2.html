@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Available Plug-ins</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Siproxd Users Guide"
+HREF="siproxd_guide.html"><LINK
+REL="UP"
+TITLE="Plug-ins"
+HREF="siproxd_guide_c5.html"><LINK
+REL="PREVIOUS"
+TITLE="Plug-ins"
+HREF="siproxd_guide_c5.html"><LINK
+REL="NEXT"
+TITLE="Troubleshooting"
+HREF="siproxd_guide_c6.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Siproxd Users Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="siproxd_guide_c5.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Plug-ins</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="siproxd_guide_c6.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN310"
+>5.2. Available Plug-ins</A
+></H1
+><P
+>The following plug-ins are provided with siproxd:
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>plugin_demo</TT
+></P
+><P
+>Demo plug-in. Provides the basic framework to
+                      be used for plug-ins.
+                    </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>plugin_logcall</TT
+></P
+><P
+>Very simplistic call logging to syslog.
+                    </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>plugin_shortdial</TT
+></P
+><P
+>Quick Dial feature.
+                    </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>plugin_defaulttarget</TT
+></P
+><P
+>Incoming calls to a non-existing UA are
+                      redirected to a specific target (catch-all).
+                    </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>plugin_fix_bogus_via</TT
+></P
+><P
+>Fixes broken VIA headers on incoming calls.
+                    </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>plugin_stun</TT
+></P
+><P
+>Cyclically checks with an STUN server for
+                      the public IP address of siproxd.
+                    </P
+></LI
+></OL
+>
+        Some of the plug-ins are described in more detail in the
+        following chapters.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN338"
+>5.2.1. Demo Plug-in</A
+></H2
+><P
+>Name: plugin_demo</P
+><P
+>Purpose: To be used as skeletton for your own plug-ins.</P
+><P
+>Configuration options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>plugin_demo_string = This_is_a_string_passed_to_the_demo_plugin</PRE
+></TD
+></TR
+></TABLE
+><P
+>Description:</P
+><P
+>This plug-in can be used as framework for your own plug-ins.
+          It contains the required code for the API and also shows
+          how to load plug-in specific configuration parameters.
+          </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN346"
+>5.2.2. Call Logging Plug-in</A
+></H2
+><P
+>Name: plugin_logcall</P
+><P
+>Purpose: Does a very simplistic call logging to syslog.</P
+><P
+>Configuration options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>none</PRE
+></TD
+></TR
+></TABLE
+><P
+>Description:</P
+><P
+>The numbering starts with "1" ("*01") and every following
+          "plugin_shortdial_entry" entry will allocate the following position.
+          It is not possible to freely assign the positions.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN354"
+>5.2.3. Short Dial Plug-in</A
+></H2
+><P
+>Name: plugin_shortdial.c</P
+><P
+>Purpose: Provides a quick-Dial feature.
+        </P
+><P
+>Configuration options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+># The first character is the "key", the following characters give
+# the length of the number string. E.g. "*00" allows speed dials
+# from *01 to *99. (the number "*100" will be passed through unprocessed)
+plugin_shortdial_akey = *00
+#
+# *01 sipphone echo test
+plugin_shortdial_entry = 17474743246
+# *02 sipphone welcome message
+plugin_shortdial_entry = 17474745000</PRE
+></TD
+></TR
+></TABLE
+><P
+>Description:</P
+><P
+>Allows the definition of quick dial entries. E.g.
+          *01 to *99 can be defined to redirect the caller.
+          Note: Currently only the user part (phone number) can
+          be replaced, the domain part will not be changed (means
+          a short dial tarket of sip:111@other.domain.com will
+          not work). The '*' character can be chosen freely
+          (plugin_shortdial_akey).
+          Note: To call a real number like "*12" you have to dial
+          "**12"
+          </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN362"
+>5.2.4. Default Target Plug-in</A
+></H2
+><P
+>Name: plugin_defaulttarget</P
+><P
+>Purpose: Incoming calls to non-existing local UAs are 
+          redirected to another SIP URI.</P
+><P
+>Configuration options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+># Log redirects to syslog
+plugin_defaulttarget_log = 1
+# target must be a full SIP URI with the syntax
+# sip:user@host[:port]
+plugin_defaulttarget_target = sip:defaulttarget@some.sip.domain:port</PRE
+></TD
+></TR
+></TABLE
+><P
+>Description:</P
+><P
+>Incoming SIP calls directed to a non-existing (registered)
+          local UA will be redirected to another target. This basically
+          implements a catch-all feature. The new target can be any SIP
+          URI and is not required to be local.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN370"
+>5.2.5. Fix bogus Via Plug-in</A
+></H2
+><P
+>Name: plugin_fix_bogus_via</P
+><P
+>Purpose: Fixes broken VIA headers on incoming SIP requests.</P
+><P
+>Configuration options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+># Incoming (from public network) SIP messages are checked for broken
+# SIP Via headers. If the IP address in the latest Via Header is
+# part of the list below, it will be replaced by the IP where the
+# SIP message has been received from.
+plugin_fix_bogus_via_networks = 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16</PRE
+></TD
+></TR
+></TABLE
+><P
+>Description:</P
+><P
+>Fixes broken VIA headers on incoming SIP requests
+          (inspired by Ralph Babel, see http://babel.de/art20080317a.html
+          for more info). Can be applied if you have remote UAs calling you
+          from the Internet and those UAs do have crappy Via headers (like 
+          private IPs because there is some NAT involved on their side).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN378"
+>5.2.6. STUN Plug-in</A
+></H2
+><P
+>Name: plugin_stun</P
+><P
+>Purpose: Uses an external STUN server to determine the
+          public IP address of the host running siproxd.</P
+><P
+>Configuration options:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+># Plugin_stun
+#
+# Uses an external STUN server to determine the public IP
+# address of siproxd. Useful for "in-front-of-NAT-router"
+# scenarios.
+plugin_stun_server = stun.ekiga.net
+plugin_stun_port = 3478
+# period in seconds to request IP info from STUN server
+plugin_stun_period = 300</PRE
+></TD
+></TR
+></TABLE
+><P
+>Description:</P
+><P
+>Does contact the configured STUN server at startup and then
+          cyclically at the configured interval to determine the public
+          visible IP address of the host running siproxd. Useful for setups
+          that have changing public IP addresses and siproxd is running
+          in the "in-front-of-NAT-router" scenario.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c5.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="siproxd_guide.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c6.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Plug-ins</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="siproxd_guide_c5.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Troubleshooting</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

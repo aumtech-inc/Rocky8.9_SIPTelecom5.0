@@ -1,0 +1,15 @@
+/bin/sh ../libtool --tag=CC   --mode=link gcc -DHAVE_PTHREAD -pedantic -DENABLE_DEBUG -g -DENABLE_TRACE 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/include 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/openssl-1.0.2k/include   		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/include 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/openssl-1.0.2k/include -version-info 11:0:0 -no-undefined 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/openssl-1.0.2k/lib 		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/osip2/.libs  		\
+	-L /home/dan/isp2.2/SIPTelecom3.6/thirdParty.previous/libosip2-4.1.0/osipparser2/.libs 	\
+	-o libeXosip2.la 		\
+	-rpath /usr/local/lib eXosip.lo eXconf.lo eXregister_api.lo eXcall_api.lo eXmessage_api.lo 		\
+	eXtransport.lo jrequest.lo jresponse.lo jcallback.lo jdialog.lo udp.lo jcall.lo jreg.lo 		\
+	eXutils.lo jevents.lo misc.lo jauth.lo eXtl_udp.lo eXtl_tcp.lo eXtl_dtls.lo eXtl_tls.lo milenage.lo		\
+	rijndael.lo eXsubscription_api.lo eXoptions_api.lo eXinsubscription_api.lo eXpublish_api.lo		\
+	jnotify.lo jsubscribe.lo inet_ntop.lo jpipe.lo eXrefer_api.lo jpublish.lo sdp_offans.loo		\
+	-lrt -lresolv -lcrypto  -L/usr/local/lib -L/usr/local/lib -losip2 -losipparser2 

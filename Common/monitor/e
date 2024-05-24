@@ -1,0 +1,184 @@
+debugShm.c: In function ‘myLog’:
+debugShm.c:38:13: error: storage class specified for parameter ‘write_fld’
+   38 | extern  int write_fld();
+      |             ^~~~~~~~~
+debugShm.c:39:13: error: storage class specified for parameter ‘read_fld’
+   39 | extern  int read_fld();
+      |             ^~~~~~~~
+debugShm.c:40:13: error: storage class specified for parameter ‘Status_Resources’
+   40 | extern  int Status_Resources(char *fileName, char *logMsg);
+      |             ^~~~~~~~~~~~~~~~
+In file included from /home/dan/isp2.2/SIPTelecom3.6/Common/include/BNS.h:47,
+                 from debugShm.c:3:
+debugShm.c:41:14: error: storage class specified for parameter ‘__errno_location’
+   41 | extern  int  errno;
+      |              ^~~~~
+debugShm.c:43:1: error: parameter ‘GV_AppPid’ is initialized
+   43 | int     GV_AppPid = 0;
+      | ^~~
+debugShm.c:45:14: error: storage class specified for parameter ‘display_results’
+   45 | static  void display_results();
+      |              ^~~~~~~~~~~~~~~
+debugShm.c:46:14: error: storage class specified for parameter ‘get_shmem’
+   46 | static  void get_shmem();
+      |              ^~~~~~~~~
+debugShm.c:50:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘static’
+   50 | static  key_t   Shm_key;
+      | ^~~~~~
+debugShm.c:52:17: error: storage class specified for parameter ‘gMsg’
+   52 | static char     gMsg[512];
+      |                 ^~~~
+debugShm.c:54:17: error: storage class specified for parameter ‘offset’
+   54 | static  int     offset;
+      |                 ^~~~~~
+debugShm.c:55:18: error: storage class specified for parameter ‘Status’
+   55 | static  char    *Status[] = {"Init", /* 0 */
+      |                  ^~~~~~
+debugShm.c:55:1: error: parameter ‘Status’ is initialized
+   55 | static  char    *Status[] = {"Init", /* 0 */
+      | ^~~~~~
+debugShm.c:55:30: warning: initialization of ‘char **’ from incompatible pointer type ‘char *’ [-Wincompatible-pointer-types]
+   55 | static  char    *Status[] = {"Init", /* 0 */
+      |                              ^~~~~~
+debugShm.c:55:30: note: (near initialization for ‘Status’)
+debugShm.c:56:26: warning: excess elements in scalar initializer
+   56 |                          "Idle", /* 1 */
+      |                          ^~~~~~
+debugShm.c:56:26: note: (near initialization for ‘Status’)
+debugShm.c:57:26: warning: excess elements in scalar initializer
+   57 |                          "Busy", /* 2 */
+      |                          ^~~~~~
+debugShm.c:57:26: note: (near initialization for ‘Status’)
+debugShm.c:58:26: warning: excess elements in scalar initializer
+   58 |                          "Kill", /* 3 */
+      |                          ^~~~~~
+debugShm.c:58:26: note: (near initialization for ‘Status’)
+debugShm.c:59:26: warning: excess elements in scalar initializer
+   59 |                          "Mont", /* 4 */
+      |                          ^~~~~~
+debugShm.c:59:26: note: (near initialization for ‘Status’)
+debugShm.c:60:26: warning: excess elements in scalar initializer
+   60 |                          "Umon", /* 5 */
+      |                          ^~~~~~
+debugShm.c:60:26: note: (near initialization for ‘Status’)
+debugShm.c:61:26: warning: excess elements in scalar initializer
+   61 |                          "Off ", /* 6 */
+      |                          ^~~~~~
+debugShm.c:61:26: note: (near initialization for ‘Status’)
+debugShm.c:62:26: warning: excess elements in scalar initializer
+   62 |                          "POff", /* 7 */
+      |                          ^~~~~~
+debugShm.c:62:26: note: (near initialization for ‘Status’)
+debugShm.c:63:26: warning: excess elements in scalar initializer
+   63 |                          "Susp", /* 8 */
+      |                          ^~~~~~
+debugShm.c:63:26: note: (near initialization for ‘Status’)
+debugShm.c:64:26: warning: excess elements in scalar initializer
+   64 |                          "Cot", /* 9 */
+      |                          ^~~~~
+debugShm.c:64:26: note: (near initialization for ‘Status’)
+debugShm.c:65:26: warning: excess elements in scalar initializer
+   65 |                          "ROff"}; /* 10 */
+      |                          ^~~~~~
+debugShm.c:65:26: note: (near initialization for ‘Status’)
+debugShm.c:67:17: error: storage class specified for parameter ‘Que_no’
+   67 | static  long    Que_no;
+      |                 ^~~~~~
+debugShm.c:68:17: error: storage class specified for parameter ‘cur_pg_no’
+   68 | static  int     cur_pg_no = 1;  /* Page that is currently displayed */
+      |                 ^~~~~~~~~
+debugShm.c:68:1: error: parameter ‘cur_pg_no’ is initialized
+   68 | static  int     cur_pg_no = 1;  /* Page that is currently displayed */
+      | ^~~~~~
+debugShm.c:69:17: error: storage class specified for parameter ‘max_pg’
+   69 | static  int     max_pg = 1;     /* Total Pages to be displayed */
+      |                 ^~~~~~
+debugShm.c:69:1: error: parameter ‘max_pg’ is initialized
+   69 | static  int     max_pg = 1;     /* Total Pages to be displayed */
+      | ^~~~~~
+debugShm.c:70:17: error: storage class specified for parameter ‘no_reco’
+   70 | static  int     no_reco;        /* # of records in the shared memory table */
+      |                 ^~~~~~~
+debugShm.c:71:17: error: storage class specified for parameter ‘cur_file_pg’
+   71 | static  int     cur_file_pg = 1; /* pg is currently displayed from log file */
+      |                 ^~~~~~~~~~~
+debugShm.c:71:1: error: parameter ‘cur_file_pg’ is initialized
+   71 | static  int     cur_file_pg = 1; /* pg is currently displayed from log file */
+      | ^~~~~~
+debugShm.c:72:17: error: storage class specified for parameter ‘Mem_ok’
+   72 | static  int     Mem_ok;         /* Successful access to shared memory ?*/
+      |                 ^~~~~~
+debugShm.c:73:17: error: storage class specified for parameter ‘tot_file_lines’
+   73 | static  int     tot_file_lines=0;/* total number of lines in monitor file */
+      |                 ^~~~~~~~~~~~~~
+debugShm.c:73:1: error: parameter ‘tot_file_lines’ is initialized
+   73 | static  int     tot_file_lines=0;/* total number of lines in monitor file */
+      | ^~~~~~
+debugShm.c:74:17: error: storage class specified for parameter ‘tot_file_pg’
+   74 | static  int     tot_file_pg=1;  /* total pages in the monitor tran_proc file */
+      |                 ^~~~~~~~~~~
+debugShm.c:74:1: error: parameter ‘tot_file_pg’ is initialized
+   74 | static  int     tot_file_pg=1;  /* total pages in the monitor tran_proc file */
+      | ^~~~~~
+debugShm.c:75:17: error: storage class specified for parameter ‘port_no’
+   75 | static  int     port_no;        /* port number assign to application */
+      |                 ^~~~~~~
+debugShm.c:76:17: error: storage class specified for parameter ‘max_len_line’
+   76 | static  int     max_len_line=80; /* maxium length of line on current screen */
+      |                 ^~~~~~~~~~~~
+debugShm.c:76:1: error: parameter ‘max_len_line’ is initialized
+   76 | static  int     max_len_line=80; /* maxium length of line on current screen */
+      | ^~~~~~
+debugShm.c:77:17: error: storage class specified for parameter ‘cur_col_pos’
+   77 | static  int     cur_col_pos=0;  /* current column position for display page */
+      |                 ^~~~~~~~~~~
+debugShm.c:77:1: error: parameter ‘cur_col_pos’ is initialized
+   77 | static  int     cur_col_pos=0;  /* current column position for display page */
+      | ^~~~~~
+debugShm.c:78:17: error: storage class specified for parameter ‘Monitor_dir’
+   78 | static  char    Monitor_dir[512];
+      |                 ^~~~~~~~~~~
+debugShm.c:79:17: error: storage class specified for parameter ‘menu_screen_title’
+   79 | static  char    menu_screen_title[80];
+      |                 ^~~~~~~~~~~~~~~~~
+debugShm.c:80:14: error: storage class specified for parameter ‘column_headings’
+   80 | static  char column_headings[128];
+      |              ^~~~~~~~~~~~~~~
+debugShm.c:81:14: error: storage class specified for parameter ‘Host_name’
+   81 | static  char Host_name[128];
+      |              ^~~~~~~~~
+debugShm.c:82:14: error: storage class specified for parameter ‘ArcServiceName’
+   82 | static  char ArcServiceName[64];
+      |              ^~~~~~~~~~~~~~
+debugShm.c:83:14: error: storage class specified for parameter ‘ModuleName’
+   83 | static  char ModuleName[]="isp_monitor";
+      |              ^~~~~~~~~~
+debugShm.c:83:1: error: parameter ‘ModuleName’ is initialized
+   83 | static  char ModuleName[]="isp_monitor";
+      | ^~~~~~
+debugShm.c:84:17: error: storage class specified for parameter ‘MsgLine’
+   84 | static  int     MsgLine;        /* Line # on screen for messages */
+      |                 ^~~~~~~
+debugShm.c:86:13: error: storage class specified for parameter ‘load_arc_custom_api’
+   86 | extern  int load_arc_custom_api(char *err_msg);
+      |             ^~~~~~~~~~~~~~~~~~~
+debugShm.c:87:17: error: storage class specified for parameter ‘read_apiName’
+   87 | extern  int     read_apiName(int api_id, char *apiName);
+      |                 ^~~~~~~~~~~~
+debugShm.c:91:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+   91 | {
+      | ^
+debugShm.c:105:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+  105 | {
+      | ^
+debugShm.c:228:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+  228 | {
+      | ^
+debugShm.c:256:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+  256 | {
+      | ^
+debugShm.c:16:13: error: old-style parameter declarations in prototyped function definition
+   16 | static void myLog(char *messageFormat, ...)
+      |             ^~~~~
+debugShm.c:283: error: expected ‘{’ at end of input
+make: *** [Makefile:53: debugShm] Error 1

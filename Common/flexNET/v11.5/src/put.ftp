@@ -1,0 +1,6 @@
+user arc arc123
+binary
+hash
+cd /tmp
+put testLic
+quit

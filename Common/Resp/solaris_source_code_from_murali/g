@@ -1,0 +1,10 @@
+echo "Building isp_baseresp"
+gcc  -DDIALOGIC -o  isp_baseresp isp_baseresp.c portActive.c		\
+	-I . 		\
+	-I /home/dev/isp2.2/DTelecom/include 		\
+	-I /home/dev/isp2.2/Common/include 		\
+	-L /home/dev/isp2.2/DTelecom/lib 			\
+	-L /home/dev/isp2.2/Common/lib 			\
+	-L /home/dev/isp2.2/SNMP/lib 			\
+	-L /home/dev/isp2.2/Common/Log 			\
+    -lISPUtil -lUTILS -lRULES -lgaUtils  -lISPLog -lloglite -larcSNMP -lsnmp  -lcrypto

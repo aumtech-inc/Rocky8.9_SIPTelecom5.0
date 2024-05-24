@@ -1,0 +1,28 @@
+#------------------------------------------------------------------------------
+# File:     Make.def.new
+# Purpose:  This file defines all macros and flags used by makefiles that #           compile various components of the SpeechWorks SR system.
+# Author:   Aumtech, Inc.
+# Update: 2003/03/20 djb    Created the file.
+#------------------------------------------------------------------------------
+BASE        = ${ISP_BASE_DIR}/${ISP_VERSION}
+
+MRCP_HOME       = ${BASE}/mrcpClient2.0
+MRCP_INC        = ${MRCP_HOME}/include
+MRCP_LIB        = $(MRCP_HOME)/lib
+
+COMMON_HOME		= ${BASE}/SIPTelecom3.5/Common
+COMMON_INC		= ${COMMON_HOME}/include
+COMMON_LIB		= ${COMMON_HOME}/lib
+
+STEL_HOME		= ${BASE}/SIPTelecom3.5
+STEL_INC		= ${STEL_HOME}/include
+
+SNMP_LIB		= ${BASE}/SNMP/lib
+
+SR_LIB			= ${MRCP_LIB}/libSR_mrcpV2301.new.a
+
+FLEXLM_BASE=${BASE}/SIPTelecom3.2/Common/flexNET/v11.5
+FLEXLM_INC=${FLEXLM_BASE}/machind
+FLEXLM_INC_2=${FLEXLM_BASE}/src
+
+CPPFLAGS	= -ggdb -DENABLE_TRACE -DOSIP_MT

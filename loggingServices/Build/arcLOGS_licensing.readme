@@ -1,0 +1,124 @@
+$ISPBASE/Global/doc/licensing.readme			   March 7, 2001
+
+			Aumtech License Information
+			===========================
+
+The Purpose of This Document
+============================
+
+The purpose of this document is to explain what an Aumtech license is, 
+how to obtain one, how to install one, and how changes to your IN 
+Server either do or do not invalidate a license. 
+
+
+What is a License?
+==================
+
+A license is a text file that contains information necessary for ARC IN
+Services to provide the functionality that you have purchased. IN 
+Services will not run without a properly installed license. 
+
+How to Request a License
+========================
+
+To request a license you must first have installed IN Services on 
+your Unix/Linux IN Server machine. Complete instructions for doing so are 
+found in "installation.readme" under the $ISPBASE/Global/doc directory of
+the machine on which you installed ARC IN Services and on the Aumtech website.
+
+	To request a license do the following:
+
+	1) Log in with the user id you specified when you installed IN Services.
+	2) cd $HOME/.ISP/Global/Exec
+	3) ./arcLicense IN ARC_LISTEN
+	4) Respond to the prompts.
+	5) e-mail the file /tmp/license.txt to support@aumtechinc.com,
+	   and indicate how soon you need the license.
+
+
+What To Do When You Receive a License File
+==========================================
+
+You will receive your Aumtech license as an e-mail attachment. If payment
+has been received for the Aumtech product activated by the license, your 
+license will be a full-term license, otherwise it will be a temporary license 
+that will be upgraded upon receipt of payment.
+
+To activate the license, detach the license file from the e-mail and copy it 
+(unchanged) to the file $HOME/.ISP/Global/Tables/license.dat on the machine 
+for which it was issued, then restart IN Services to activate the
+license.  If you move the license file from a Windows-based machine, be sure 
+that you have not introduced Control-M characters into the file in the process.
+
+If IN Services does not start, look for messages in the current Aumtech
+system log file ($HOME/.ISP/LOG/ISP.cur) and the nohup.out file 
+($HOME/.ISP/Global/Exec/nohup.out), and correct the problem.  The most likely 
+causes of failure will be: 
+
+	(1) failure to put the license file in the correct 
+	    directory, 
+	(2) failure to name the license file properly - it must be 
+            license.dat,  
+	(3) corruption of the license file.  
+
+If, after reviewing the log messages and the license file itself, the 
+problem is not apparent or your fix does not work, please send an e-mail
+to support@aumtechinc.com, with the following information.
+
+        1) A description of your problem.
+        2) Your current license file: $HOME/.ISP/Global/Tables/license.dat.
+        3)  The license request information from your system: /tmp/license.txt.
+            If this file is not present on your system, then generate it by
+            issuing the following commands:
+            cd $HOME/.ISP/Global/Exec
+            arcLicense IN ARC_LISTEN
+        4) The Aumtech system log file for the hour in which the failure
+	   to start occurred. The current system log file is 
+	   $HOME/.ISP/LOG/ISP.cur; if the problem occurred in a previous
+	   hour you must the appoproprite file from $HOME/.ISP/LOG. For 
+	   example, if the failure occured at 9:15 on February 8, 2001, 
+	   then send "ISP.2001-Feb08-09" from $HOME/.ISP/LOG.
+
+
+How to Protect Your License
+===========================
+
+If your license is lost or corrupted, your IN Server will cease to 
+function, so it is important to insure that you can quickly replace it in
+an emergency. The surest way to do this is to adequately back up your 
+license file(s).
+
+You are strongly advised to do ALL of the following to protect your license:
+
+	1) Keep a copy of the license file on a floppy disk or on a machine 
+	   other than the one for which the license was issued. 
+
+	2) Keep a copy of the license file on the machine for which it was 
+	   issued.
+
+	3) Print out a copy of the license on paper and file it. 
+	   (You can retype a license file and it will be valid as long
+	    as you type it exactly as the original.)
+
+
+How Licenses Are Invalidated
+============================
+
+The following actions WILL invalidate your license:
+
+	1) Changing or adding any text in the license file, except:
+		a) the host name on the "SERVER" line, 
+		b) the path to the license daemon on the "VENDOR" line, 
+		c) the text on any line that begins with a #.
+	2) Moving the disk on which the license resides to another 
+	   physical chassis.
+
+The following actions will NOT invalidate your license:
+
+	1) Changing the name (uname) of the host on which the license resides 
+	   (you must adjust the name of the host on the "SERVER" line).
+	2) Changing the IP address of the machine.
+	3) Installing a newer version of IN Services.
+	4) Installing a patch to an existing IN Services package.
+	5) Reinitializing the same disk (even from scratch) as long as 
+	   you restore the license file to its proper location. 

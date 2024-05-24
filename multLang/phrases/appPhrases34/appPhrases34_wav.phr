@@ -1,0 +1,145 @@
+#------------------------------------------------------------------------------
+# File:		GenericApp34.phr
+#
+# Purpose:	Contains all the phrase definitions for the application. This
+#		file is read by the taLoadTags() accessory routine to load
+#		all phrase tags and lists.
+#
+# Author:	Aumtech, Inc. (USA)
+#
+# Usage:	Each line contains a phrase tag definition entry. e.g.:
+#
+#		prompt		|prompt.wav	|This is a prompt
+#		
+#		In this case, the application would use the phrase tag "prompt"
+#		to speak the phrase "prompt.wav". 
+#		
+#		Menus can be defined as a list of comma separated phrase tags
+#		each defined in the format described above. e.g.:
+#
+#		^menu 		= option1, press1, option2, press2
+#
+# Update:	26/05/2000      Gary Knapper (XAL)  
+#------------------------------------------------------------------------------
+#Actual Phrase Tag	|Name of the phrase file	|Actual Text
+goodMorning		|1000.wav	|Good Morning
+goodEvening		|1001.wav	|Good Evening
+goodAfternoon		|1002.wav	|Good Afternoon
+enterAcctNo		|1003.wav	|Please enter PIN
+invalidAcctNo		|1004.wav	|Pin not recognised
+enterPin		|1005.wav	|Please enter PIN
+invalidPin		|1006.wav	|Pin not recognised
+redialNumber		|1007.wav	|Please redial
+outOfTime		|1008.wav	|You have no more time
+warning			|1009.wav	|You have 20s left
+makeACall 		|1010.wav	|Please dial the number
+operatorXfer 		|1011.wav	|Please wait....operator
+operatorsAreBusy	|1012.wav	|All operators are busy
+yourBalanceIs		|1013.wav	|Your balance is...
+remaining		|1014.wav	|Remaining
+invalidPhoneNo		|1015.wav	|Dialed invalid number
+accountExpired		|1016.wav	|Your card has expired
+numberIsBusy		|1017.wav	|Number dialed is busy
+ringNoAnswer		|1018.wav	|Number did not answer
+invalidTone		|1019.wav	|Number not responding
+callDuration		|1020.wav	|Time on this call...
+minute			|1021.wav	|Minute
+minutes			|1022.wav	|Minutes
+second			|1023.wav	|Second
+seconds			|1024.wav	|Seconds
+zero			|1025.wav	|Zero
+pressStarNow		|1026.wav	|Please press star now
+accountInUse            |1028.wav	|Your Card is locked
+tryAgain		|1029.wav	|Try again
+tryLater		|1030.wav	|Try later
+pressHashHash		|1031.wav	|Press ##
+weeks			|1032.wav	|Weeks
+month			|1033.wav	|Month
+months			|1034.wav	|Months
+days			|1035.wav	|Days
+week			|1036.wav	|Week
+day			|1037.wav	|Day
+needHlp			|1039.wav	|If you need help....
+helpMsg1		|1040.wav	|Help message 1
+helpMsg2		|1041.wav	|Help message 2
+noMoreTime		|1042.wav	|No more time
+# remaining		|1043.wav	|Remaining
+beforeExpiry		|1044.wav	|Befory expiry
+useFor			|1045.wav	|Can use card for...
+notEnoughCredit		|1008.wav	|Not enough for call
+changePin		|1047.wav	|To change PIN press 1
+enterNewPin		|1048.wav	|Enter new PIN
+invalidEntry		|1049.wav	|Invalid entry
+confirmPin		|1050.wav	|Confirm new PIN
+pinChanged		|1051.wav	|PIN changed OK
+pinsNotMatched		|1052.wav	|PINs not matched
+announce		|phr.GenericApp44/1053.wav	|Announce xfer to oper
+dialTone		|dialTone.24a	|DialTone
+thousand                |thousand.wav          |Thousand
+million                 |million.wav           |Million
+hundred                 |hundred.wav           |Hundred
+hundredPlus             |hundredPlus.wav       |Hundred+
+twoHundred              |twoHundred.wav        |200
+threeHundred            |threeHundred.wav      |300
+fourHundred             |fourHundred.wav       |400
+fiveHundred             |fiveHundred.wav       |500
+sixHundred              |sixHundred.wav        |600
+sevenHundred            |sevenHundred.wav      |700
+eightHundred            |eightHundred.wav      |800
+nineHundred             |nineHundred.wav       |900
+mainCurrencyUnit1    	|mainCU1.wav	|Peseta
+mainCurrencyUnit2    	|mainCU2.wav	|Pesetas
+mainCurrencyUnit3    	|mainCU3.wav	|Pesetas
+and						|and.wav		|ee		(and)
+minorCurrencyUnit1    	|minorCU1.wav	|Nothing
+minorCurrencyUnit2    	|minorCU1.wav	|Nothing
+#
+# The following are for speaking dates and times.
+#
+first			|first.wav			|primero	(first)
+third			|third.wav			|tercero	(third)
+today			|today.wav			|hoy		(today)
+tomorrow		|tomorrow.wav		|manyana	(tomorrow)
+yesterday		|yesterday.wav		|ayer		(yesterday)
+#
+de				|de.wav				|de			(of)
+dela			|dela.wav			|de le		(of the)
+afternoon		|afternoon.wav		|tarde		(afternoon)
+evening			|evening.wav		|noche		(evening)
+earlyMorning	|earlyMorning.wav	|nadrugada	(early morning)
+morning			|morning.wav		|manyana	(morning)
+delaAfternoon	|delaAfternoon.wav	|de le tarde	(of the afternoon)
+delaEvening	 	|delaEvening.wav	|de le noche	(of the evening)
+delaEarlyMorning|delaEarlyMorning.wav|de le nadrugada	(of the early morning)
+delaMorning		|delaMorning.wav	|de le morning	(of the morning)
+noon			|noon.wav			|mediodia	(noon)
+midnight		|midnight.wav		|medianoche	(midnight)
+15Minutes		|15Minutes.wav		|cuarto (15 minutes / quarter past)
+30Minutes		|30Minutes.wav		|media (30 minutes / half past)
+#
+monday			|monday.wav			|lunes		(monday)
+tuesday			|tuesday.wav		|martes		(tuesday)
+wednesday		|wednesday.wav		|miercoles	(wednesday)
+thursday		|thursday.wav		|jueves		(thursday)
+friday			|friday.wav			|viernes	(friday)
+saturday		|saturday.wav		|sabado		(saturday)
+sunday			|sunday.wav			|domingo	(sunday)
+#
+january			|january.wav	|enero		(january)
+february		|february.wav	|febrero	(february)
+march			|march.wav		|marzo		(march)
+april			|april.wav		|abril		(april)
+may				|may.wav		|mayo		(may)
+june			|june.wav		|junio		(june)
+july			|july.wav		|julio		(july)
+august			|august.wav		|agosto		(august)
+september		|september.wav	|septiembre	(september)
+october			|october.wav	|octubre	(october)
+november		|november.wav	|noviembre	(november)
+december		|december.wav	|diciembre	(december)
+
+#
+# Menus and phrase lists
+#
+#^welcomeStar		= welcome, pressStarNow
+^daysBeforeExpiry	= days, beforeExpiry

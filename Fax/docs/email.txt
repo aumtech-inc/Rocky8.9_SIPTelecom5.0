@@ -1,0 +1,59 @@
+
+Hi everyone,
+
+I have the new TEL_SetFaxTextDefaults() API completed.  
+
+Other modifications that you should be aware to make when
+re-compiling the fax applications (apitest) are:
+	- An additional parameter (char *) has been
+	  added to the TEL_BuildFaxList API.  This
+	  parameter is currently ignored and is 
+	  reserved for future use.
+	- I renamed the arcFax.h include to ARCFax.h.  
+	  The package is ARCFax, the library is libARCFax.a,
+	  now the include file is ARCFax.h - consistant.
+	- Remember, the Resoure Manager must be running (specified in
+	  .TEL.cfg); the resource manager reads the
+	  $TELECOM/Tables/resource.cfg file - if you make changes to the file,
+	  they will not become effective until you either kill the resource
+	  manager or restart Telecom.
+
+Other key notes:
+	- I put the version as 3.0 - is that ok?
+	- I am going through the Fax users guide which was sent
+	  to me earlier this week.  From the Linkon document, 
+	  it said that once a call is converted to a fax call, it
+	  can no longer be converted to a voice call.  That is
+	  no longer the case.  It is set back to voice immediately
+	  after a fax transmission.  This should be tested.
+
+The attachment is the latest design document.  George, I placed 
+changes in it (the document only - not code) to respond to
+your request regarding TEL_ScheduleFax() delete_flag, as well as
+the  TEL_BuildFaxList() operation and eject_page parameters.  
+
+For the delete flag, currently 1 means delete after successful
+transmission and 2 means not to delete it.  How about #defines of
+DELETE_ON_SUCCESS (1) and RETAIN_ON_SUCCESSS (2).
+
+For the operation parameter, currently 0 means append and 1
+means overwrite.  I suggested having a #define of APPEND = 0
+and OVERWRITE = 1.  This way, current applications would not
+have to be modified.  Likewise for eject_page, 0 currently means
+'dont eject' while 1 is to eject a page.  My #defines are 
+DONT_EJECT_PAGE (0) and EJECT_PAGE (1).
+
+Also, I am assuming that the values in the list files remain as numbers,
+not as the descriptive names.  For example, the line in a list file of
+	/fax/header.tif |TIF |1|1|0|logo
+would remain as is, and not be changed to
+	/fax/header.tif |TIF |1|1|DONT_EJECT_PAGE|logo
+
+Is my assumption correct? Please let me know as I would like to 
+wrap this up this week.
+
+Thanks,
+
+Dan
+
+
