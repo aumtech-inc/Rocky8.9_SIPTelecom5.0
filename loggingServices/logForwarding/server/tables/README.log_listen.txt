@@ -2,7 +2,10 @@ systemd / systemctl tips
 ========================
 
 To successfully transfer Aumtech's log files to this system, the log_listen 
-binary is to be scheduled as a systemd service.
+binary is to be scheduled as a systemd service.  
+
+For all non-centos versions, the log_listen binary is located in /usr/local/bin
+because the executable cannot be in a non-system directory (i.e. /home/arc/...).
 
 1. A systemd service operates on 'service' configuration files in the /etc/systemd/system directory.
    The file /etc/systemd/system/log_listen.service was installed and enabled by the arcLOGS package.

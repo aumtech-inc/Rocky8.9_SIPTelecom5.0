@@ -50,8 +50,9 @@ char		msgbuf[256];
 
 void		Exit();
 static int	lValidateDirectory(char *iDirectory, char *oErrorMsg);
+static int decryptFile(char *decFile, char *outFile);
 
-main(argc, argv)
+int main(argc, argv)
 int	argc;
 char	*argv[];
 {
@@ -70,7 +71,7 @@ if(argc == 2 && (strcmp(argv[1], "-v") == 0))
 {
 	fprintf(stdout, 
 		"Aumtech's Logging Services (%s).\n"
-		"Version 2.3.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
+		"Version 5.0.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
 	exit(0);
 }
 sprintf(BaseDir,"%s",(char *)getenv("ISPBASE"));
@@ -350,7 +351,7 @@ while(1)
 
 /*-----------------------------------------------------------------------------
 -----------------------------------------------------------------------------*/
-int decryptFile(char *decFile, char *outFile)
+static int decryptFile(char *decFile, char *outFile)
 {
 	static char	mod[]="decryptFile";
     char        sysBuf[512];

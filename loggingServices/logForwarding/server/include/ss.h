@@ -5,6 +5,7 @@ Author:		Aumtech Inc.
 Date:		01/24/96
 Update:		04/08/97 sja	Added ss_FILE_EXISTS
 ----------------------------------------------------------------------------*/
+#include <stdio.h>
 #define	ss_SUCCESS	 0			/* server api success */
 #define	ss_FAILURE	-1			/* server api failed */
 #define	ss_TIMEOUT	-2			/* api timeout */
@@ -30,7 +31,7 @@ int ss_Exit(void);
 int ss_GetGlobal(char *globalVar, int *value);
 int ss_GetGlobalString(const char *var_name, char *var_value);
 int ss_Init(int argc, char **argv);
-//int ss_RecvData(int timeout, size_t dataSize, char *dataBuf, long *readBytes);
+int ss_RecvData(int timeout, size_t dataSize, char *dataBuf, long *readBytes);
 int ss_RecvFile(char *destination, int fileOption);
 int ss_NewRecvFile(char *destination, int fileOption);
 int ss_SendData(guint32 size, char *data);

@@ -23,6 +23,7 @@ Update:	09/14/12 djb	Updated logging.
 
 #include "WSC_var.h"
 #include "sc.h"
+#include <time.h>
 
 /* #define DEBUG */
 

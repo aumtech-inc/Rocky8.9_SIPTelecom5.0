@@ -23,6 +23,7 @@ ISP_VERSION=isp2.2
 BASE = $(ISP_BASE_DIR)/$(ISP_VERSION)/SIPTelecom3.6
 LSBASE = ${BASE}/loggingServices/logForwarding
 WSCINC = ${LSBASE}/client/include
+COMINC = ${BASE}/Common/include
 LIBDIR = ${LSBASE}/lib
 #CFLAGS = -O -s
 #CFLAGS = -g -D_LARGEFILE64_SOURCE 
@@ -45,7 +46,8 @@ APISRC =  	\
 
 OBJECTS = 	${APISRC:.c=.o}
 
-INCLUDES = -I ${WSCINC}  -I . -I../include 
+#INCLUDES = -I ${WSCINC}  -I . -I../include  -I ${COMINC}
+INCLUDES = -I ${WSCINC}  -I ${COMINC}
 
 all:	$(LIBDIR)/$(LIBLOGCOMM) 
 

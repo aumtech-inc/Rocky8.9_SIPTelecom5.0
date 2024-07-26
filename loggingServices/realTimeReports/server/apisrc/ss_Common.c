@@ -17,10 +17,12 @@ Update:	2006/11/29 djb	Removed log message which was core dumping.
 Update: 09/14/12 djb  Updated/cleaned up logging.
 -----------------------------------------------------------------------------*/
 
+#include <stdio.h>
+#include <sys/poll.h>
 #include "ss.h"
 #include "ssHeaders.h"
+#include "gaUtils.h"
 #include "WSS_Externs.h"
-#include <sys/poll.h>
 
 /* static char ModuleName[]="ss_Common"; */
 

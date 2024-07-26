@@ -1,0 +1,1267 @@
+#---------------------------------------------------------------------------
+# Program:	install_arcSIPTEL
+# Purpose:	Script to install SIP Telecom Services on Linux.
+# Author:	Aumtech, Inc.
+#---------------------------------------------------------------------------
+Aumtech_Agreement()
+{
+	cat aumtechagreement.txt | more
+	echo ""
+	echo -n "Do you agree to these terms and conditions? [yes|no] "
+	read ans
+
+	if [ "$ans" = "n" -o "$ans" = "N" -o "$ans" = "no" -o "$ans" = "No" ]
+	then
+		echo "Installation aborted."
+		exit 3
+		return 0
+	fi
+
+	if [ "$ans" = "yes" ]
+	then
+		:
+	else
+		echo "Installation aborted."
+		exit 3
+		return 0
+	fi
+}
+
+getOSVersion()
+{
+	osFile="/etc/redhat-release"
+
+	export LINUX_OS_VERSION=""
+	if [ ! -f ${osFile} ]; then
+		echo "Unable to get OS and Version.  ${osFile} does not exist."
+		return
+	fi
+
+	ln="`cat ${osFile}`"
+	if [ `echo $ln |  grep "Rocky Linux" | grep "8.9" | grep "Green Obsidian" | wc -l` -eq 1 ]
+	then
+		export LINUX_OS_VERSION="Rocky8.9"
+		return
+	fi
+
+	if [ `echo $ln |  grep "^Red Hat" | grep "8.9" | grep "Ootpa" | wc -l` -eq 1 ]
+	then
+		export LINUX_OS_VERSION="Oracle8.9"
+		return
+	fi
+
+	if [ `echo $ln |  grep "^Red Hat" | grep "9.4" | grep "Plow" | wc -l` -eq 1 ]
+	then
+		export LINUX_OS_VERSION="Redhat 9.4"
+		return
+	fi
+
+	echo "Unable to get OS and Version.  ${osFile} contents don't match Rocky or Oracle."
+
+	return
+
+}
+replace_token()
+{
+    FILE=$1
+    TOKEN1=$2
+    TOKEN2=$3
+    if `grep "$TOKEN1" $FILE > /dev/null 2>&1 `
+    then
+#       echo DEBUG REPLACING $TOKEN1 with $TOKEN2
+        echo "/$TOKEN1"         >  e$$
+        echo "d"            >> e$$
+        echo "."            >> e$$
+        echo "i"            >> e$$
+        echo "$TOKEN2"          >> e$$
+        echo "."            >> e$$
+        echo "w\nq"             >> e$$
+        ed $FILE < e$$ > /dev/null 2>/dev/null
+        rm -f e$$
+    else
+#       echo DEBUG NOT FOUND $TOKEN1
+        if [ "$4" =  "INSERT" ]
+        then
+#           echo DEBUG INSERTING $TOKEN2
+            echo "."            >> e$$
+            echo "i"            >> e$$
+            echo "$TOKEN2"          >> e$$
+            echo "."            >> e$$
+            echo "w\nq"             >> e$$
+            ed $FILE < e$$ > /dev/null 2>/dev/null
+            rm -f e$$
+        fi
+    fi
+}
+
+
+check_platform(){
+
+  plat=`uname -i`
+
+  if [ "$plat" != 'x86_64' ]; then 
+	echo -ne " Platform [$plat] does not match x86_64 ! Exiting installer... \n"
+	exit 1
+  fi
+
+}
+
+Chgrp()
+{
+	chgrp -R "$1" "$2"
+}
+
+Makedir()
+{
+	dir="$1"
+	permissions="$2"
+	owner="$3"
+	group="$4"
+
+	if [ ! -d $dir ]; then
+		mkdir -p $dir
+	fi
+	chmod $permissions $dir
+	chown $owner $dir
+	Chgrp $group $dir
+}
+
+Does_inittab_entry_already_exist()
+{
+	if [ `grep -c "$1" $inittab` -gt 0 ]
+	then
+		echo "$1 already exists in $inittab:"
+		echo "  $2"
+		echo "$1 will not be added to $inittab."
+		return 1
+	fi
+	return 0
+}
+
+Update_bashshell_aliases()
+{
+	ks="/home/$USER_ID/.bashrc"
+
+	cmd='set -o vi'
+	if grep "$cmd" $ks  1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with $cmd"
+		echo "$cmd                      # added `date`" >> $ks	
+	fi
+
+	if grep "PS1" $ks  1>/dev/null 2>&1
+	then
+	:
+	else
+		echo "Updating $ks with PS1 Setting."
+		echo "PS1=\"[${USER_ID}@`hostname`] \" ; export PS1       # added `date`" >> $ks	
+	fi
+	chown $USER_ID $ks
+	Chgrp $GROUP   $ks
+
+}
+
+Echo()
+{
+	echo "$1" 
+}
+
+Copy()
+{
+	Echo "cp $1 $2"
+	cp $1 $2
+}
+
+Move()
+{
+	Echo "mv $1 $2"
+	mv $1 $2
+}
+
+CD()
+{
+	Echo "cd $1"
+	cd $1
+}
+
+Remove()
+{
+	Echo "rm $1" 
+	rm $1 
+}
+
+Copy_global_files()
+{
+	# Copy all the global files from their temporary location to
+	# where they belong. They were copied to a temporary directory so
+	# that on removal, they wouldn't be automatically removed from their
+	# permanent location because their pathnames were in the prototype.
+	# This allows the global files to NOT be removed if this package is
+	# removed, but another ARC package still needs the global files.
+
+	GLOBAL=/tmp/global
+	CMD="cp -p "
+	
+	TARGET=$ISPBASE/Global/Tables
+
+#	$CMD $GLOBAL/Parameters.def			$TARGET
+#	$CMD $GLOBAL/Global.def				$TARGET
+#	$CMD $GLOBAL/Global.hlp				$TARGET
+#	$CMD $GLOBAL/cfg.def				$TARGET
+#	$CMD $GLOBAL/cfg-global.def			$TARGET
+	
+	TARGET=$ISPBASE/Global/Exec
+
+#	Flexlm licensing files
+	$CMD $GLOBAL/Exec/arcLicense			$TARGET
+	$CMD $GLOBAL/Exec/arclicd			$TARGET
+	$CMD $GLOBAL/Exec/lmgrd				$TARGET
+	$CMD $GLOBAL/Exec/lmutil			$TARGET
+	$CMD $GLOBAL/Exec/chkSRLicense		$TARGET
+
+	$CMD $GLOBAL/Exec/isplogrc 			$TARGET
+
+	$CMD $GLOBAL/Exec/log_cli 			$TARGET
+	$CMD $GLOBAL/Exec/log_forward 			$TARGET
+	$CMD $GLOBAL/Exec/Start_LogForward		$TARGET
+	$CMD $GLOBAL/Exec/arcLogCleanup			$TARGET
+	$CMD $GLOBAL/Exec/arczip.sh 		$TARGET
+#	$CMD $GLOBAL/Exec/ResourceMgr			$TARGET
+
+	$CMD $GLOBAL/Exec/arcRTRClient			$TARGET
+
+	TARGET=$ISPBASE/Global/include
+	$CMD $GLOBAL/include/ISPCommon.h 		$TARGET
+	$CMD $GLOBAL/include/UTL_accessories.h 		$TARGET
+	$CMD $GLOBAL/include/gaUtils.h			$TARGET
+	
+	TARGET=$ISPBASE/Global/lib
+	$CMD $GLOBAL/lib/libISPLog.a 			$TARGET
+	$CMD $GLOBAL/lib/libUTILS.a 			$TARGET
+#  	$CMD $GLOBAL/lib/libRULES.a 			$TARGET
+ 	$CMD $GLOBAL/lib/libISPCDR.a 			$TARGET
+ 	$CMD $GLOBAL/lib/libISPUtil.a 			$TARGET
+# 	$CMD $GLOBAL/lib/libISPIndxary.a 		$TARGET
+	$CMD $GLOBAL/lib/libgaUtils.a			$TARGET
+
+#	TARGET=/home/$USER_ID/ISP/.Utilities
+#	$CMD $GLOBAL/.Utilities/Current_LogParams 	$TARGET
+
+}
+
+Update_global_config_files()
+{
+	# If a file already exists, don't overwrite it, but always retain
+	# the new file (in case the original proves to have a problem).
+
+	SRC_DIR=/tmp/global
+
+	DEST_DIR=/home/$USER_ID/.ISP/Global
+	file=.Global.cfg	
+
+	replace_token $SRC_DIR/$file "^LOG_PRIMARY_SERVER=" "LOG_PRIMARY_SERVER=`uname -n`"
+
+	if [ -f "$DEST_DIR/$file" ]
+	then
+		Echo "Using existing $DEST_DIR/$file"
+		cp -p $SRC_DIR/$file $DEST_DIR/$file.$TODAY
+	else	
+		Echo "Creating new $DEST_DIR/$file"
+		cp -p $SRC_DIR/$file $DEST_DIR/$file
+	fi
+	chown $USER_ID $DEST_DIR/$file
+	Chgrp $GROUP $DEST_DIR/$file
+
+	DEST_DIR=/home/$USER_ID/.ISP/Global/Tables
+	LIST="arcLogFiles sendToMonitor_com.dat"
+	for file in $LIST
+	do
+		if [ -f "$DEST_DIR/$file" ]
+		then
+			Echo "Using existing $DEST_DIR/$file"
+			cp -p $SRC_DIR/$file $DEST_DIR/$file.$TODAY
+		else	
+			Echo "Creating new $DEST_DIR/$file"
+			cp -p $SRC_DIR/$file $DEST_DIR/$file
+		fi
+
+		chown $USER_ID $DEST_DIR/$file
+		Chgrp $GROUP $DEST_DIR/$file
+	done
+}
+
+Update_arcsiproxyConf()
+{
+	proxyConf="/home/$USER_ID/.ISP/Telecom/Tables/arcsiproxy.conf"
+
+	if [ `grep "registration_file" ${proxyConf}  | grep -c "/var/lib/siproxd"` -eq 1 ]
+	then
+		tmpFile="/tmp/arcsiproxy.conf.$$"
+		cat ${proxyConf} | sed s?/var/lib/siproxd?/tmp? >$tmpFile
+		mv $tmpFile ${proxyConf}
+	fi
+
+} # END: Update_arcsiproxyConf()
+
+Update_telecom_config_files()
+{
+	# Create new configuration & scheduling files (unless they exist)
+	# If a file exists, retain its newly copied counterpart.
+
+	SRC_DIR=/tmp/no
+	DEST_DIR=/home/$USER_ID/.ISP/Telecom/Tables
+	FILE_LIST="\
+			.TEL.cfg \
+            ResourceDefTab\
+            ResourceDefTab.work\
+			appref\
+ 			appref.work\
+			pgmreference\
+			pgmreference.work\
+			RedirectorTab\
+			RedirectorTab.work\
+			schedule\
+			schedule.work\
+			TranLocTab.work\
+			TranLocTab\
+			arcMRCP2.cfg\
+			FaxServer.cfg\
+			arcsiproxy.conf\
+			OCServer.cfg"
+
+#			FaxServer.cfg\
+#			OCServer.cfg\
+
+	for file in $FILE_LIST	
+	do
+		if [ -f "$DEST_DIR/$file" ]
+		then
+			Echo "Using existing $file"
+			cp -p $SRC_DIR/$file $DEST_DIR/$file.$TODAY
+		else	
+			Echo "Creating new $file"
+			cp -p $SRC_DIR/$file $DEST_DIR/$file
+		fi
+
+		chown $USER_ID $DEST_DIR/$file
+		Chgrp $GROUP $DEST_DIR/$file
+	done
+
+#ddn 2011/05/09 MR 3476
+	file=ArcSipRedirector.cfg
+	cp -p $SRC_DIR/$file $DEST_DIR/$file.$TODAY
+}
+
+Setup_rc_scripts()
+{
+	echo "/USER=
+d
+.
+i
+USER=$USER_ID;export USER
+.
+wq" > e$$
+	
+	# Add the USER to the S99 script which starts Telecom
+	FILE=/home/$USER_ID/.ISP/Telecom/Operations/S99arciptel
+	Echo "Defining USER as $USER_ID in $FILE"	
+	ed $FILE < e$$ > /dev/null 2>/dev/null
+
+    if [ `grep -c S99arciptel /etc/rc.d/rc.local` -eq 0 ]
+    then 
+        echo "/home/$USER_ID/.ISP/Telecom/Operations/S99arciptel" >>/etc/rc.d/rc.local
+    fi
+    chmod 755 /etc/rc.d/rc.local
+
+	# Copy the Autostart kickers to appropriate /etc/init.d directories
+#	Echo "Creating /etc/rc.d/rc3.d/S99arciptel"
+#	cp /home/$USER_ID/.ISP/Telecom/Operations/S99arciptel /etc/rc.d/rc3.d
+#	rm /home/$USER_ID/.ISP/Telecom/Operations/S99arciptel
+	
+}
+
+Setup_crontab_for_log_cleanup()
+{
+        CRON_DIR="/var/spool/cron"
+        ISPBASE=/home/$USER_ID/.ISP
+        EXEC_DIR=$ISPBASE/Global/Exec
+
+	# Add entry to user's crontab if it's not already there
+	CMD="${EXEC_DIR}/arcLogCleanup"
+	CMD2="${EXEC_DIR}/arczip.sh >/tmp/arczip.debug.txt 2>/tmp/arczip.error.txt"
+	if grep "$CMD" $CRON_DIR/${USER_ID}  1>/dev/null 2>&1
+	then
+		:
+	else
+		echo "Adding arcLogCleanup entry for $USER_ID in $CRON_DIR..."
+		cd $CRON_DIR
+		>/tmp/ISPcron
+		cp ${USER_ID} /tmp/ISPcron 1>/dev/null 2>&1
+		echo "01 0 * * * $CMD" >> /tmp/ISPcron
+		echo "0 7 * * * $CMD2" >> /tmp/ISPcron
+
+		crontab -u $USER_ID /tmp/ISPcron # 2>/dev/null
+	fi
+
+        rm /tmp/ISPcron 1>/dev/null 2>&1
+}
+
+Setup_crontab_for_log_forward()
+{
+        CRON_DIR="/var/spool/cron"
+        ISPBASE=/home/$USER_ID/.ISP
+        EXEC_DIR=$ISPBASE/Global/Exec
+
+        # Add the entry to user's crontab if it's not already there
+        CMD="${EXEC_DIR}/Start_LogForward"
+        if grep "$CMD" $CRON_DIR/${USER_ID}  1>/dev/null 2>&1
+        then
+                :
+        else
+        	echo "Adding Start_LogForward for $USER_ID in $CRON_DIR..."
+                cd $CRON_DIR
+                >/tmp/ISPcron
+                cp ${USER_ID} /tmp/ISPcron 1>/dev/null 2>&1
+                echo "03 * * * * $CMD" >> /tmp/ISPcron
+		crontab -u $USER_ID /tmp/ISPcron # 2>/dev/null
+        fi
+        rm /tmp/ISPcron 1>/dev/null 2>&1
+}
+        
+Setup_cron_allow()
+{
+	# Update the cron.allow table with the user name, if necessary
+        CRON_ALLOW=/etc/cron.allow
+        grep "${USER_ID}" ${CRON_ALLOW} > /dev/null
+        if [ $? -ne 0 ]
+	then
+		echo "${USER_ID}" >>$CRON_ALLOW
+	fi
+}
+
+Update_Global_config_log_entry()
+{
+	# Update the .Globa.cfg LOG_x_LOCAL_FILE entry 
+	# to point to $ISPBASE/LOG/ISP
+	# NOTE: ISPBASE must have been previously set.
+
+	Global_cfg=$ISPBASE/Global/.Global.cfg
+	Echo "Updating $Global_cfg LOG_x_LOCAL_FILE entry to $ISPBASE/LOG/ISP..."
+
+if [ -f $Global_cfg ]
+then
+	ed - $Global_cfg <<! >/dev/null 2>&1
+/^LOG_x_LOCAL_FILE=/d
+i
+LOG_x_LOCAL_FILE=$ISPBASE/LOG/ISP
+.
+w
+q
+!
+else
+	Echo "WARNING: Can't find global configuration file: $Global_cfg "
+	Echo "         LOG_x_LOCAL_FILE entry not updated."
+fi
+}
+
+Update_rc_files_and_profile()
+{
+        # Update rc files & make sure they are in the profile
+
+	SRC_DIR=/tmp/global
+	DEST_DIR="/home/$USER_ID"
+
+	FILE_LIST=".isprc"
+	for file in $FILE_LIST
+	do
+		if [ -f "$DEST_DIR/$file" ]
+		then
+			Echo "Using existing $file"
+			cp -p $SRC_DIR/$file $DEST_DIR/$file.$TODAY
+		else	
+			Echo "Creating new $file"
+			cp -p $SRC_DIR/$file $DEST_DIR/$file
+		fi
+	done
+
+	# Guarantees that always called first
+	ENV_SETUP_FILE=".arciptelrc"
+
+    grep "^$USER_ID:" /etc/passwd |cut -d':' -f7 | grep bash 2>/dev/null
+    if [ $? -eq 0 ]
+    then
+		PROFILE="/home/$USER_ID/.bash_profile"
+    else
+		PROFILE="/home/$USER_ID/.profile"
+    fi
+
+	FILE_LIST=".isprc .arciptelrc"
+	for file in $FILE_LIST
+	do
+		# Insert the command in the profile, if necessary	
+		CMD=$file
+        	if grep "$CMD" $PROFILE  1>/dev/null 2>&1
+        	then
+               		echo "Found $CMD command in $PROFILE."
+        	else
+			if [  ! -f "$PROFILE" ]
+			then
+				echo "No profile found; creating $PROFILE"
+				echo "#" > $PROFILE
+				chmod 644 $PROFILE
+        		chown $USER_ID  $PROFILE
+		        Chgrp $GROUP    $PROFILE
+			fi
+			echo "Inserting $CMD command in $PROFILE"
+#			echo ". /home/$USER_ID/$CMD  # Do not remove">>$PROFILE
+
+			echo "if [ -f "/home/$USER_ID/$CMD" ]; then . /home/$USER_ID/$CMD;fi  # Do not remove">>$PROFILE
+		fi
+	done
+}
+
+Set_all_permissions()
+{
+        Echo "Setting ownership and permissions on all $USER_ID files..."
+        DIR=/home/$USER_ID
+        chown $USER_ID  $DIR/.isprc
+        chgrp $GROUP    $DIR/.isprc
+        
+		DIR=/home/$USER_ID/ISP
+        chown -R $USER_ID  $DIR
+        Chgrp $GROUP    $DIR
+
+        DIR=/home/$USER_ID/.ISP
+        chown -R $USER_ID  $DIR
+        Chgrp $GROUP    $DIR
+}
+
+Process_system_phrases()
+{
+HERE=`pwd`;
+PHRASE_DIR=$ISPBASE/Telecom/phrases/AMENG
+mkdir -p $PHRASE_DIR 1>/dev/null 2>&1
+cd $PHRASE_DIR
+COUNT=`find . -name "*.wav" -exec ls -1 {} \; |wc -l`
+
+echo -n "Overwrite existing American English system phrases? (y/n) "
+read answer
+if [ "$answer" = "y" ]
+then
+	# Make sure you are in $PHRASE_DIR here!
+	Echo "Uncompressing system phrases in $PHRASE_DIR"
+	# uncompress -f ameng.tar.Z
+	tar -xvf ameng.tar 2>/dev/null 1>&2
+else
+	Echo "New system phrases stay in $PHRASE_DIR/ameng.tar"
+fi
+
+# Added 2/27/2001
+if [ ! -f $ISPBASE/Telecom/Exec ]
+then
+	Echo "Copying beep file to $ISPBASE/Telecom/Exec as beep.wav"
+	cp 0420.wav $ISPBASE/Telecom/Exec/beep.wav
+fi
+cd $HERE
+C $ISPBASE/Telecom/Exec/beep.wav                $TEMP/beep.wav          0644 $U $G
+C $ISPBASE/Telecom/Exec/beep.g729b              $TEMP/beep.g729b        0644 $U $G
+C $ISPBASE/Telecom/Exec/beep.g729a              $TEMP/beep.g729a        0644 $U $G
+C $ISPBASE/Telecom/Exec/beep.729                $TEMP/beep.729          0644 $U $G
+C $ISPBASE/Telecom/Exec/beep.711                $TEMP/beep.711          0644 $U $G
+
+for lang in FRENCH MANDARIN CANTONESE SPANISH
+do
+
+	PHRASE_DIR=$ISPBASE/Telecom/phrases/${lang}
+
+	if [ -d ${PHRASE_DIR} ]
+	then
+		C $PHRASE_DIR/${lang}_phrases.tar.Z  $TEMP/${lang}_phrases.tar.Z        0644 $U $G
+		if [ "${lang}" != "SPANISH" ]
+		then
+			C $PHRASE_DIR/${lang}_phrases_in_english.tar.Z  $TEMP/${lang}_phrases_in_english.tar.Z   0644 $U $G
+		fi
+	else
+		mkdir -p $PHRASE_DIR
+		C $PHRASE_DIR/${lang}_phrases.tar.Z  $TEMP/${lang}_phrases.tar.Z        0644 $U $G
+		if [ "${lang}" != "SPANISH" ]
+		then
+			C $PHRASE_DIR/${lang}_phrases_in_english.tar.Z  $TEMP/${lang}_phrases_in_english.tar.Z   0644 $U $G
+		fi
+
+		echo "Extracting ${lang} system phrases..."
+		cd $PHRASE_DIR
+		tar -zxvf ${lang}_phrases.tar.Z 2>/dev/null 1>&2
+		cd - >/dev/null 2>&1
+	fi
+
+done
+
+}
+
+update_resact()
+{
+
+	dir=$ISPBASE/Telecom/Tables
+	file=resact
+	if [ -n "$1" ]
+	then
+		maxPorts=96
+	else
+		maxPorts=$1
+	fi
+    
+	if [ -f $dir/$file.work ]
+	then 
+		echo "Using existing $file."
+		return
+	fi
+    
+	echo "Creating $file with $maxPorts ports."
+	port=0
+	while [ "$port" -lt "$maxPorts" ]
+	do
+		line="$port|*| | |1|9|050101|101231|000000|240000|ON"
+		if [ "$port" = "0" ]
+		then
+		echo $line > $dir/$file.work
+		else
+		echo $line >> $dir/$file.work
+		fi
+		port=`expr $port + 1`
+	done
+
+	cp $dir/$file.work $dir/$file
+}
+
+Update_config_info()
+{
+#
+#echo
+#echo Please provide the necessary configuration information. You will be given
+#echo the opportunity to approve all entries before values are saved. If you 
+#echo are not sure what value to use, take the default shown in square brackets.
+
+	FILE=$ISPBASE/Telecom/Tables/resact
+	if [ ! -f $FILE.work ]
+	then
+		unset PORTS
+		FILE_2="$ISPBASE/Telecom/Tables/ResourceDefTab"
+		if [ ! -f ${FILE_2}.work ]
+		then
+			PORTS=`wc -l ${FILE_2}`
+		else
+			FILE_2="$ISPBASE/Telecom/Tables/ResourceDefTab.work"
+			if [ ! -f ${FILE_2}.work ]
+			then
+				PORTS=`wc -l ${FILE_2}`
+			else
+				echo -n  "Number of ports: " 
+				read ans
+				if [ ${ans} -ge 0 -a ${ans} -le 288 ]
+				then
+					PORTS=${ans}
+				fi
+			fi
+		fi
+		update_resact $PORTS
+	fi
+
+}
+
+# This routine addes the appropriate include lines to sendToMonitor.dat
+AddTo_sendToMonitor()
+{
+	BASE=sendToMonitor
+	FILE=$ISPBASE/Global/Tables/sendToMonitor.dat
+
+	if [ ! -f $FILE ]
+	then
+		>$FILE
+	fi
+
+	for SUFFIX in $*
+	do
+		rm -f /tmp/$$
+		INSERT=${BASE}_${SUFFIX}.dat
+#debug		CMD="grep $INSERT $FILE | grep ^include > /tmp/$$"
+#debug		echo CMD=$CMD
+		grep $INSERT $FILE | grep \^include > /tmp/$$
+		if [ -s /tmp/$$ ]
+		then
+			# It's already there. Do nothing.
+			:
+		else
+			Echo "Adding $INSERT to $FILE"
+			Echo "include $INSERT" >> $FILE
+		fi
+	done	
+	rm -f /tmp/$$
+}
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the request script on SCO
+#-------------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null 2>/dev/null
+	then
+		echo "You must be root to install SIP Telecom Services. "
+		echo "Installation aborted."
+		exit 3
+	fi
+	
+	clear
+	
+ 	if 	ps -ef | grep "ArcIPDynMgr" | grep -v grep >/dev/null   
+	then
+echo "ERROR: SIP Telecom Services appears to be running."
+echo "Please stop it and remove the package by running 'remove_arcSIPTEL' before proceeding."
+		Echo "Installation aborted."
+		exit 3
+	fi
+ 	
+	if tail -1 $PKGINFO 2>/dev/null | grep "INSTALL" | grep -v grep >/dev/null 2>/dev/null  
+	then
+	     echo "ERROR: SIP Telecom Services appears to be already installed."
+		show_pkginfo 
+		Echo "Installation aborted."
+		exit 3
+	fi
+		
+	s="bash"
+	
+echo
+echo "If other Aumtech products are installed, the user id entered below should"
+echo "be the same as that which was used when installing the other Aumtech products."
+echo "If no other Aumtech products are installed, please enter an id that currently"
+echo "exists on the system with home directory /home/<user_id> and ${s} as its default shell."
+
+	echo
+	echo -n "Enter the user id [default: arc] : "
+	read USER_ID
+	if [ "$USER_ID" = "" ]
+	then
+       		USER_ID=arc
+	fi
+
+	# Check to see if $USER_ID user exists, has home dir, and bash
+	if grep "^$USER_ID:" /etc/passwd > /tmp/$USER_ID.$$
+	then
+		if [ ! -d /home/$USER_ID ]
+		then
+echo "ERROR: User id '$USER_ID' doesn't have home directory '/home/$USER_ID'."
+echo "Please set home directory for '$USER_ID' to '/home/$USER_ID'."
+			echo "Installation aborted."
+			exit 3
+		fi
+	else
+		echo "ERROR: $USER_ID does not exist on the system."
+		echo "Please create userid '$USER_ID' with home directory '/home/$USER_ID' and default shell 'bash'."
+		echo "Installation aborted."
+		exit 3
+	fi
+	GROUP="`id -ng $USER_ID`"
+	
+	Update_bashshell_aliases
+} 
+
+#---------------------------------------------------------------------------
+# Copy file utility used by the prototype function.
+#-----------------------------------------------------------------------------
+C()
+{
+	to="$1"
+	from="$2"
+	permissions="$3"
+	owner="$4"
+	group="$5"
+
+	cp $from $to
+	chmod $permissions $to
+	chown $owner $to
+	Chgrp $group $to
+}
+
+#---------------------------------------------------------------------------
+# Copy file utility used by the prototype function. Always Overwrite
+#-----------------------------------------------------------------------------
+C_Over()
+{
+	to="$1"
+	from="$2"
+	permissions="$3"
+	owner="$4"
+	group="$5"
+
+	Echo "Creating new $1"
+	cp $from $to
+	chmod $permissions $to
+	chown $owner $to
+	Chgrp $group $to
+}
+	
+#-------------------------------------------------------------------------------
+# This is the equivalent to the prototype script for Unix
+#-------------------------------------------------------------------------------
+prototype()
+{
+U=$USER_ID
+G=$GROUP
+H=/home/$USER_ID
+Makedir $H/ISP 					0755 $U $G
+Makedir $H/ISP/Exec 				0755 $U $G
+Makedir $H/ISP/Log 				0755 $U $G
+Makedir $H/ISP/Tables 				0755 $U $G
+Makedir $H/ISP/lib				0755 $U $G
+Makedir $H/ISP/include				0755 $U $G
+Makedir $H/ISP/.Utilities			0755 $U $G
+Makedir $H/.ISP					0755 $U $G
+Makedir $H/.ISP/LOG				0755 $U $G
+Makedir $H/.ISP/MONITOR				0755 $U $G
+Makedir $H/.ISP/Telecom				0755 $U $G
+Makedir $H/.ISP/Telecom/Exec			0755 $U $G
+Makedir $H/.ISP/Telecom/Exec/chatgpt	0755 $U $G
+Makedir $H/.ISP/Telecom/Exec/chatgpt/venv	0755 $U $G
+Makedir $H/.ISP/Telecom/OCS         0755 $U $G
+Makedir $H/.ISP/Telecom/OCS/work            0755 $U $G
+Makedir $H/.ISP/Telecom/OCS/called          0755 $U $G
+Makedir $H/.ISP/Telecom/OCS/errors          0755 $U $G
+Makedir $H/.ISP/Telecom/Applications 		0755 $U $G
+Makedir $H/.ISP/Telecom/Applications/lib 	0755 $U $G
+Makedir $H/.ISP/Telecom/Applications/include 	0755 $U $G
+Makedir $H/.ISP/Telecom/Operations 		0755 $U $G
+Makedir $H/.ISP/Telecom/Tables			0755 $U $G
+Makedir $H/.ISP/Telecom/phrases			0777 $U $G
+Makedir $H/.ISP/Telecom/phrases/AMENG		0777 $U $G
+Makedir $H/.ISP/Telecom/locks			0755 $U $G
+Makedir $H/.ISP/Telecom/bin			0755 $U $G
+# Makedir $H/.ISP/Telecom/doc			0755 $U $G
+Makedir /tmp/no					0755 $U $G
+Makedir /tmp/global				0755 $U $G
+Makedir /tmp/global/Exec			0755 $U $G
+Makedir /tmp/global/include			0755 $U $G
+Makedir /tmp/global/lib				0755 $U $G
+Makedir /tmp/global/.Utilities			0755 $U $G
+
+C /tmp/global/.isprc	 	 $TEMP/isprc 		0755 $U $G
+C /tmp/global/.Global.cfg	 $TEMP/Global.cfg 	0644 $U $G
+C /tmp/global/Exec/isplogrc	$TEMP/isplogrc		0755 $U $G
+C /tmp/global/Exec/arczip.sh	$TEMP/arczip.sh		0755 $U $G
+
+C /tmp/global/Exec/arcRTRClient $TEMP/arcRTRClient		0755 $U $G
+C /tmp/global/Exec/log_cli 	$TEMP/log_cli		0755 $U $G
+C /tmp/global/Exec/log_forward  $TEMP/log_forward	0755 $U $G
+C /tmp/global/Exec/Start_LogForward $TEMP/Start_LogForward 0755 $U $G
+C /tmp/global/Exec/arcLogCleanup $TEMP/arcLogCleanup	0755 $U $G
+C /tmp/global/Exec/arcLicense 	$TEMP/arcLicense	0755 $U $G
+C /tmp/global/Exec/arclicd	$TEMP/arclicd		0755 $U $G
+C /tmp/global/Exec/lmgrd 	$TEMP/lmgrd		0755 $U $G
+# C /tmp/global/Exec/lmreread 	$TEMP/lmreread		0755 $U $G
+C /tmp/global/Exec/lmutil 	$TEMP/lmutil		0755 $U $G
+C /tmp/global/Exec/chkSRLicense 	$TEMP/chkSRLicense		0755 $U $G
+# C /tmp/global/Exec/ResourceMgr	$TEMP/ResourceMgr	0755 $U $G
+C /tmp/global/include/ISPCommon.h $TEMP/ISPCommon.h	0644 $U $G
+C /tmp/global/include/UTL_accessories.h $TEMP/UTL_accessories.h	0644 $U $G
+C /tmp/global/include/gaUtils.h $TEMP/gaUtils.h 	0644 $U $G
+C /tmp/global/arcLogFiles 	$TEMP/arcLogFiles 	0644 $U $G
+C /tmp/global/lib/libISPLog.a 	$TEMP/libISPLog.a 	0644 $U $G
+C /tmp/global/lib/libUTILS.a 	$TEMP/libUTILS.a 	0644 $U $G
+C /tmp/global/lib/libgaUtils.a 	$TEMP/libgaUtils.a 	0644 $U $G
+C /tmp/global/lib/libISPCDR.a 	$TEMP/libISPCDR.a 	0644 $U $G
+# C /tmp/global/lib/libRULES.a 	$TEMP/libRULES.a 	0644 $U $G
+C /tmp/global/lib/libISPUtil.a 	$TEMP/libISPUtil.a 	0644 $U $G
+# C /tmp/global/lib/libISPIndxary.a $TEMP/libISPIndxary.a 0644 $U $G
+# C /tmp/global/.Utilities/Current_LogParams $TEMP/Current_LogParams 0644 $U $G
+C /tmp/no/.TEL.cfg 		$TEMP/TEL.cfg 		0644 $U $G
+C /tmp/no/ArcSipRedirector.cfg 		$TEMP/ArcSipRedirector.cfg 		0644 $U $G
+C /tmp/no/appref 		$TEMP/appref 		0644 $U $G
+C /tmp/no/appref.work 		$TEMP/appref 		0644 $U $G
+C /tmp/no/pgmreference 		$TEMP/pgmreference 	0644 $U $G
+C /tmp/no/pgmreference.work	$TEMP/pgmreference	0644 $U $G
+C /tmp/no/RedirectorTab.work	$TEMP/RedirectorTab.work 	0644 $U $G
+C /tmp/no/RedirectorTab	$TEMP/RedirectorTab 	0644 $U $G
+C /tmp/no/schedule 		$TEMP/schedule 		0644 $U $G
+C /tmp/no/schedule.work		$TEMP/schedule 		0644 $U $G
+C /tmp/no/ResourceDefTab        $TEMP/ResourceDefTab            0644 $U $G
+C /tmp/no/ResourceDefTab.work   $TEMP/ResourceDefTab            0644 $U $G
+# C /tmp/no/resact 		$TEMP/resact 		0644 $U $G
+# C /tmp/no/resact.work 		$TEMP/resact 		0644 $U $G
+C /tmp/no/FaxServer.cfg 	$TEMP/FaxServer.cfg 	0644 $U $G
+C /tmp/no/OCServer.cfg 		$TEMP/OCServer.cfg 	0644 $U $G
+C /tmp/no/arcMRCP2.cfg 		$TEMP/arcMRCP2.cfg 	0644 $U $G
+C /tmp/no/TranLocTab 		$TEMP/TranLocTab 	0644 $U $G
+C /tmp/no/TranLocTab.work	$TEMP/TranLocTab 	0644 $U $G
+C /tmp/no/arcsiproxy.conf 		$TEMP/arcsiproxy.conf 		0644 $U $G
+C /home/$U/.ISP/Telecom/Applications/lib/libTELLog.a $TEMP/libTELLog.a 0644 $U $G
+
+C /home/$U/.ISP/Telecom/Applications/lib/libISPTel.a $TEMP/libISPTel_mrcp.a 0644 $U $G
+# C /home/$U/.ISP/Telecom/Applications/lib/libISPTel_gc.a $TEMP/libISPTel_mrcp_GC.a 0644 $U $G
+
+# C /home/$U/.ISP/Telecom/Exec/libxerces-c1_5.so  \
+#            $TEMP/libxerces-c1_5.so 0644 $U $G
+
+C /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28.0  \
+            $TEMP/libxerces-c.so.28.0 0644 $U $G
+
+ln -s /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28.0   /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28       2>/dev/null
+ln -s /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28.0   /home/$U/.ISP/Telecom/Exec/libxerces-c.so      2>/dev/null
+
+if [ ! -f /usr/lib64/libtiff.so.3.9.4 ]
+then
+	C /usr/lib64/libtiff.so.3.9.4  $TEMP/libtiff.so.3.9.4 0644 root root
+fi
+
+if [ ! -h /usr/lib64/libtiff.so.3 ]
+then
+	ln -s /usr/lib64/libtiff.so.3.9.4  /usr/lib64/libtiff.so.3
+fi
+
+C /home/$U/.ISP/Telecom/Exec/libcrypto.so.1.0.0 $TEMP/libcrypto.so.1.0.0 0644 $U $G
+ln -s /home/$U/.ISP/Telecom/Exec/libcrypto.so.1.0.0 /home/$U/.ISP/Telecom/Exec/libcrypto.so
+
+C /home/$U/.ISP/Telecom/Exec/libssl.so.1.0.0 $TEMP/libssl.so.1.0.0 0644 $U $G
+ln -s /home/$U/.ISP/Telecom/Exec/libssl.so.1.0.0 /home/$U/.ISP/Telecom/Exec/libssl.so
+
+chmod  0644 /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28
+chown $USER_ID /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28
+chgrp $GROUP /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28
+
+chmod  0644 /home/$U/.ISP/Telecom/Exec/libxerces-c.so
+chown $USER_ID /home/$U/.ISP/Telecom/Exec/libxerces-c.so
+chgrp $GROUP /home/$U/.ISP/Telecom/Exec/libxerces-c.so
+
+C /home/$U/.ISP/Telecom/Operations/Start_Telecom $TEMP/Start_Telecom 0755 $U $G
+C /home/$U/.ISP/Telecom/Operations/Stop_Telecom	$TEMP/Stop_Telecom 0755 $U $G
+C /home/$U/.ISP/Telecom/Operations/Verify_Telecom $TEMP/Verify_Telecom 0755 $U $G
+C /home/$U/.ISP/Telecom/Operations/S99arciptel 	$TEMP/S99arciptel 0755 $U $G
+
+C /home/$U/.ISP/Telecom/Exec/ArcIPDynMgr        $TEMP/ArcSipCallMgr    1755 $U $G
+C /home/$U/.ISP/Telecom/Exec/ArcSipMediaMgr     $TEMP/ArcSipMediaMgr   1755 $U $G
+C /home/$U/.ISP/Telecom/Exec/ArcSipRedirector 	$TEMP/ArcSipRedirector   	1755 $U $G
+
+C /home/$U/.ISP/Telecom/Exec/ttsClient      $TEMP/ttsClient.mrcp     0755 $U $G
+
+C /home/$U/.ISP/Telecom/Exec/arcsiproxd			$TEMP/arcsiproxd 0755 $U $G 
+
+Te="/home/$U/.ISP/Telecom/Exec"
+
+C $Te/libosipparser2.so.11.0.0  $TEMP/libosipparser2.so.11.0.0 1755 $U $G
+ln -s $Te/libosipparser2.so.11.0.0 $Te/libosipparser2.so.11
+ln -s $Te/libosipparser2.so.11 $Te/libosipparser2.so
+
+C $Te/libosip2.so.11.0.0    $TEMP/libosip2.so.11.0.0  1755 $U $G
+ln -s $Te/libosip2.so.11.0.0 $Te/libosip2.so.11
+ln -s $Te/libosip2.so.11 $Te/libosip2.so
+
+C $Te/libortp.so.0.0.0 	$TEMP/libortp.so.0.0.0 1755 $U $G
+ln -s $Te/libortp.so.0.0.0 $Te/libortp.so.0.0
+ln -s $Te/libortp.so.0.0.0 $Te/libortp.so.0
+ln -s $Te/libortp.so.0.0.0 $Te/libortp.so
+
+C $Te/libeXosip2.so.11.0.0  $TEMP/libeXosip2.so.11.0.0 1755 $U $G
+ln -s $Te/libeXosip2.so.11.0.0 $Te/libeXosip2.so.11
+ln -s $Te/libeXosip2.so.11 $Te/libeXosip2.so
+
+C $Te/libspandsp.so.2 	$TEMP/libspandsp.so.2 1755 $U $G
+
+C $Te/libSoundTouch.so.0.0.0      $TEMP/libSoundTouch.so.0.0.0 1755 $U $G
+ln -s $Te/libSoundTouch.so.0.0.0  $Te/libSoundTouch.so.0
+ln -s $Te/libSoundTouch.so.0      $Te/libSoundTouch.so
+
+# C /home/$U/.ISP/Telecom/Exec/OCServer 		$TEMP/OCServer      0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/FaxServer 		$TEMP/FaxServer     0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/mrcpClient2 	$TEMP/mrcpClient2.sip   1755 $U $G
+C /home/$U/.ISP/Telecom/Exec/mrcpClient2Mgr $TEMP/mrcpClient2Mgr    0755 $U $G
+
+C /home/$U/.ISP/Telecom/Exec/arcGoogleSR.sh		$TEMP/arcGoogleSR.sh      0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/GoogleSpeechRec.jar	$TEMP/GoogleSpeechRec.jar 0755 $U $G
+
+C /home/$U/.ISP/Telecom/Exec/mrcpTTSClient2Mgr $TEMP/mrcpTTSClient2Mgr    0755 $U $G
+# C /home/$U/.ISP/Telecom/Exec/ArcCalea 	$TEMP/ArcCalea   1755 $U $G
+# C /home/$U/.ISP/Telecom/Exec/ArcConferenceMgr $TEMP/ArcConferenceMgr    0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/ArcIPResp 		$TEMP/ArcIPResp     0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/ArcIPStopResp	$TEMP/ArcIPStopResp 0755 $U $G
+C /home/$U/.ISP/Telecom/Exec/tel_monitor 	$TEMP/isp_monitor 0755 $U $G
+C /home/$U/.ISP/Telecom/bin/textMonitor 	$TEMP/textMonitor 0755 $U $G
+C /home/$U/ISP/Tables/sendToMonitor_tel.dat $TEMP/sendToMonitor_tel.dat 0644 $U $G
+C /home/$U/ISP/Tables/sendToMonitor_sir.dat $TEMP/sendToMonitor_sir.dat 0644 $U $G
+C /tmp/global/sendToMonitor_com.dat $TEMP/sendToMonitor_com.dat 0644 $U $G
+
+C /home/$U/.ISP/Telecom/Applications/include/Telecom.h $TEMP/Telecom.h 0644 $U $G
+C /home/$U/.ISP/Telecom/Applications/include/arcFAX.h $TEMP/arcFAX.h 0644 $U $G
+C /home/$U/.ISP/Telecom/Applications/include/arcSR.h    $TEMP/arcSR.h 0644 $U $G
+C /home/$U/.ISP/Telecom/Applications/makegen 	$TEMP/makegen       0755 $U $G
+C /home/$U/.ISP/Telecom/Applications/sample.c 	$TEMP/sample.c      0644 $U $G
+C /home/$U/.ISP/Telecom/Exec/instructions.wav 	$TEMP/instructions.wav 0444 $U $G
+C /home/$U/.ISP/Telecom/Exec/fax_cng.wav 	$TEMP/fax_cng.wav 0444 $U $G
+C /home/$U/.ISP/Telecom/Exec/fax_ced.wav 	$TEMP/fax_ced.wav 0444 $U $G
+C /home/$U/.arciptelrc				$TEMP/arciptelrc    0755 $U $G
+C /home/$U/.ISP/Telecom/phrases/AMENG/ameng.tar $TEMP/ameng.tar 0755 $U $G
+# C /tmp/global/Parameters.def 			$TEMP/gParameters.def 0444 $U $G
+# C /tmp/global/Global.def 			$TEMP/Global.def    0444 $U $G
+# C /tmp/global/Global.hlp 			$TEMP/Global.hlp    0444 $U $G
+# 
+# C /home/$U/.ISP/Telecom/Tables/Parameters.def 	$TEMP/Parameters.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/Operations.def 	$TEMP/Operations.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/Resources.def 	$TEMP/Resources.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/Transactions.def $TEMP/Transactions.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/Schedules.def 	$TEMP/Schedules.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/TEL.def 		$TEMP/TEL.def 	    0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/TEL.hlp  	$TEMP/TEL.hlp 	    0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/analogcfg.def 	$TEMP/analogcfg.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/analogcfg.hlp.txt $TEMP/analogcfg.hlp 0644 $U $G
+# C /home/$U/.ISP/Telecom/Tables/isdncfg.def   	$TEMP/isdncfg.def   0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/isdncfg.hlp  	$TEMP/isdncfg.hlp   0644 $U $G
+# C /home/$U/.ISP/Telecom/Tables/schedule.def 	$TEMP/schedule.def  0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/schedule.hlp 	$TEMP/schedule.hlp  0644 $U $G
+# C /home/$U/.ISP/Telecom/Tables/appref.def   	$TEMP/appref.def    0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/appref.hlp   	$TEMP/appref.hlp    0644 $U $G
+# C /home/$U/.ISP/Telecom/Tables/pgmreference.def $TEMP/pgmreference.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/pgmreference.hlp $TEMP/pgmreference.hlp 0644 $U $G
+# C /home/$U/.ISP/Telecom/Tables/resourcedef.def 	$TEMP/resourcedef.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/resourcedef.hlp 	$TEMP/resourcedef.hlp 0644 $U $G
+# C /home/$U/.ISP/Telecom/Tables/resact.def 	$TEMP/resact.def 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/resact.hlp 	$TEMP/resact.hlp 0444 $U $G
+# C /home/$U/.ISP/Telecom/Tables/cfg.def 		$TEMP/cfg.def 0755 $U $G
+# C /home/$U/.ISP/Telecom/Tables/cfg-tel.def 	$TEMP/cfg-tel.def 0755 $U $G
+# C /home/$U/.ISP/Telecom/Tables/cfg-analog.def 	$TEMP/cfg-analog.def 0755 $U $G
+# C /home/$U/.ISP/Telecom/Tables/cfg-isdn.def 	$TEMP/cfg-isdn.def 0755 $U $G
+# C /tmp/global/cfg.def 		$TEMP/gcfg.def 		0644 $U $G
+# C /tmp/global/cfg-global.def 	$TEMP/cfg-global.def 	0644 $U $G
+
+C /home/$U/.ISP/Telecom/bin/gatherAumtechInfo		$TEMP/gatherAumtechInfo 	0755 $U $G
+C /home/$U/.ISP/Telecom/bin/cps		$TEMP/cps 	0755 $U $G
+C /home/$U/.ISP/Telecom/bin/starttel	$TEMP/starttel 	0755 $U $G
+C /home/$U/.ISP/Telecom/bin/stoptel	$TEMP/stoptel 	0755 $U $G
+C /home/$U/.ISP/Telecom/bin/tcur	$TEMP/tcur 	0755 $U $G
+C /home/$U/.ISP/Telecom/bin/arcmon	$TEMP/arcmon 	0755 $U $G
+C /home/$U/.ISP/Telecom/bin/tno		$TEMP/tno 	0755 $U $G
+C /home/$U/.ISP/Telecom/bin/generate_certs.sh       $TEMP/generate_certs.sh     0755 $U $G
+C /home/$U/.ISP/Telecom/bin/lsCores.sh       $TEMP/lsCores.sh     0755 $U $G
+C /home/$U/.ISP/Telecom/bin/rmCores.sh       $TEMP/rmCores.sh     0755 $U $G
+C /home/$U/.ISP/Telecom/bin/copyCoresToTmp.sh       $TEMP/copyCoresToTmp.sh     0755 $U $G
+
+C /home/$U/.ISP/Telecom/bin/remove_arcSIPTEL  $TEMP/remove_arcSIPTEL  0744 root $G
+# C /home/$U/.ISP/Telecom/doc/installation.readme $TEMP/installation.readme 0644 $U $G
+# C /home/$U/.ISP/Telecom/doc/licensing.readme  $TEMP/licensing.readme 0644 $U $G
+# C /home/$U/.ISP/Telecom/doc/sample_app.readme $TEMP/sample_app.readme 0644 $U $G
+
+C_Over /home/$U/.ISP/Telecom/Exec/silence_1024.64p	$TEMP/silence_1024.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_128.64p	$TEMP/silence_128.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_1.64p		$TEMP/silence_1.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_16.64p	$TEMP/silence_16.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_2048.64p	$TEMP/silence_2048.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_256.64p	$TEMP/silence_256.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_2.64p		$TEMP/silence_2.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_32.64p	$TEMP/silence_32.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_4096.64p	$TEMP/silence_4096.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_4.64p		$TEMP/silence_4.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_512.64p	$TEMP/silence_512.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_64.64p	$TEMP/silence_64.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_8192.64p	$TEMP/silence_8192.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence_8.64p	$TEMP/silence_8.64p 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/silence.729a	$TEMP/silence.729a 0644 $U $G
+# 
+
+C_Over /etc/systemd/system/Aumtech-Redirector.service.noRun  $TEMP/Aumtech-Redirector.service   0644 root root	# centos 7.x
+
+# Fax tone files
+C /home/$U/.ISP/Telecom/Exec/fax_ced.wav	$TEMP/fax_ced.wav 0644 $U $G
+C /home/$U/.ISP/Telecom/Exec/fax_cng.wav	$TEMP/fax_cng.wav 0644 $U $G
+
+# chatGPT AI
+C_Over /home/$U/.ISP/Telecom/Exec/arcChatGPTClientMgr.sh	$TEMP/arcChatGPTClientMgr.sh 0755 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/aiCommon.py	$TEMP/aiCommon.py 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/aiThread.py	$TEMP/aiThread.py 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/arcChatGPTClient.py	$TEMP/arcChatGPTClient.py 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/chat.py	$TEMP/chat.py 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/arcChatGPTEncrypt	$TEMP/arcChatGPTEncrypt 0755 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/libaiISPLog.so	$TEMP/libaiISPLog.so 0755 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/libailoglite.so	$TEMP/libailoglite.so 0755 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/libarcAICommon.so	$TEMP/libarcAICommon.so 0755 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/requirements.txt	$TEMP/requirements.txt 0644 $U $G
+C_Over /home/$U/.ISP/Telecom/Exec/chatgpt/chatGPT_Setup.README.txt $TEMP/chatGPT_Setup.README.txt 0644 $U $G
+
+} # prototype
+
+#-------------------------------------------------------------------------------
+# This is the equivalent to the most of the postinstall script on SCO
+#-------------------------------------------------------------------------------
+postinstall()
+{
+	Echo "`date` postinstall script begins..."
+	if [ ! -d /home/$USER_ID/.ISP/Global ]
+	then
+	 	Echo "ln -s /home/$USER_ID/ISP /home/$USER_ID/.ISP/Global"
+	 	ln -s /home/$USER_ID/ISP /home/$USER_ID/.ISP/Global
+		chown	$USER_ID /home/$USER_ID/ISP
+		Chgrp	$GROUP   /home/$USER_ID/ISP
+		chown  	$USER_ID /home/$USER_ID/.ISP/Global
+		Chgrp  	$GROUP   /home/$USER_ID/.ISP/Global
+	fi
+	
+	Copy_global_files
+	Update_global_config_files
+	Update_telecom_config_files
+	Update_rc_files_and_profile
+	Update_arcsiproxyConf
+	Setup_rc_scripts
+	Process_system_phrases
+	Update_config_info
+    
+	Setup_cron_allow
+	Setup_crontab_for_log_cleanup
+	Setup_crontab_for_log_forward
+#	Update_Global_config_log_entry
+	AddTo_sendToMonitor tel com sir
+	Set_all_permissions
+	
+    create_ssl_certs_for_TLS
+
+	Echo 
+	
+	Echo "Install complete."
+	
+	if [ ! -f /home/$USER_ID/.ISP/Global/Tables/license.dat ]
+	then
+		Echo "To obtain a license for this product, run the following command:"
+		Echo "cd /home/$USER_ID/ISP/Exec"
+		Echo "arcLicense IPTEL"
+		Echo
+	fi 
+		
+	Echo
+	Echo "To compile the sample application, run the following commands:"
+	Echo "cd /home/$USER_ID/.ISP/Telecom/Applications"
+	Echo "makegen sample"
+} # postinstall
+
+#------------------------------------------------------------------------------
+# Put the file in place that indicates what version of this product is
+# installed and when. 
+#------------------------------------------------------------------------------
+create_ssl_certs_for_TLS()
+{
+    echo
+    echo -n "Create/Overwrite SSL certificates for TLS now? (y/[n]) "
+    read ans
+
+    if [ "${ans}" = "y" -o "${ans}" = "Y" ]
+    then
+        :
+    else
+        echo
+        echo "SSL certificates are required for the TLS to function properly.  The script "
+        echo "/home/$USER_ID/.ISP/Telecom/bin/generate_certs.sh will generate the SSL "
+        echo "certificates for TLS. Please execute this script to generate the certificates"
+        echo "prior to running the TLS protocol."
+        echo
+        echo -n "Press [Enter] to continue..."
+        read ans
+        return
+    fi
+
+    echo
+    echo -n "Press [Enter] to create SSL cerificates for TLS.  This is take a few minutes."
+    read ans
+
+    su - $USER_ID /home/$USER_ID/.ISP/Telecom/bin/generate_certs.sh
+
+} # END: create_ssl_certs_for_TLS()
+
+#------------------------------------------------------------------------------
+# Put the file in place that indicates what version of this product is 
+# installed and when. 
+#------------------------------------------------------------------------------
+update_pkginfo()
+{
+	STATUS=$1
+	INSTDATE=`date +"%Y %B %d %X"`
+	
+	echo "------------------------"	>> $PKGINFO
+	echo
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST" 	>> $PKGINFO
+	echo "NAME      : $NAME" 	>> $PKGINFO
+	echo "VERSION   : $VERSION" 	>> $PKGINFO
+	echo "BUILD     : $BUILD" 	>> $PKGINFO
+	echo "OS        : $OS_VER"  >> $PKGINFO
+	echo "USER      : $USER_ID"	>> $PKGINFO
+	echo "VENDOR    : $VENDOR" 	>> $PKGINFO
+	echo "DESC      : $DESC" 	>> $PKGINFO
+	echo "PSTAMP    : $PSTAMP" 	>> $PKGINFO
+	echo "INSTDATE  : $INSTDATE" 	>> $PKGINFO
+	echo "STATUS    : $STATUS" 	>> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO ...
+	tail -11 $PKGINFO | grep -v -i Caution
+}
+
+#------------------------------------------------------------------------------
+# main routine
+#------------------------------------------------------------------------------
+TEMP="."
+
+getOSVersion
+if [ ${#LINUX_OS_VERSION} -eq 0 ]
+then
+	exit 	# error message is printed in log file
+fi
+
+if [ "${LINUX_OS_VERSION}" = "Rocky8.9" ]
+then
+	NAME="ARC SIP Telecom Services on Rocky Linux 8.9"
+else
+	if [ "${LINUX_OS_VERSION}" = "Oracle8.9" ]
+	then
+		NAME="ARC SIP Telecom Services on Oracle Linux 8.9"
+	else
+		if [ "${LINUX_OS_VERSION}" = "Redhat 9.4" ]
+		then
+			NAME="ARC SIP Telecom Services on Redhat 9.4"
+		fi
+	fi
+fi
+
+TAR_FILE="$PRODUCT.${LINUX_OS_VERSION}.tar" 
+# Package information
+PKGINST="arcSIPTEL"
+PKGINFO="/home/.$PKGINST.pkginfo"	# File that contains Unix-like pkginfo
+PACKAGE_DATE="11-Jun-2024"
+OS_VER="${LINUX_OS_VERSION}"
+VERSION="5.0"
+BUILD="1"
+PSTAMP=${VERSION}.b${BUILD}.$PACKAGE_DATE
+VENDOR="Aumtech, Inc."
+DESC="ARC SIP Telecom Services provides IVR services over an IP network using SIP"
+
+GLOBAL=/tmp/global
+TODAY=`date +%y%m%d` 	# Used as suffix on "extra" files
+
+check_platform 
+
+export OS="Rocky release 9.2"
+
+Aumtech_Agreement
+
+request
+ISPBASE=/home/$USER_ID/.ISP
+IU=/home/$USER_ID/.ISP/Global/Exec 	# Specify location of install utilities
+
+Echo "Installing $NAME"
+Echo "Please wait..."
+Echo
+
+prototype
+postinstall
+update_pkginfo INSTALLED
+Echo "Please reboot now to insure proper functioning of SIP Telecom Services."
+Echo "Press Enter"
+read anything

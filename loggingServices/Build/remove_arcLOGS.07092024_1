@@ -1,0 +1,187 @@
+#!/bin/bash
+#---------------------------------------------------------------------------
+# Program:	remove_arcLOGS
+# Purpose:	Script to remove a Linux Log Server package. 
+# Author:	Aumtech, Inc.
+# Update:	04/08/01	djb Created the file
+# Update:	12/04/01	djb Changed grep "^<user>"  to grep "^<user>:"
+#---------------------------------------------------------------------------
+
+Echo()
+{
+	echo "$1" 
+}
+
+RemoveDir()
+{
+	rmdir $1 1>/dev/null 2>/dev/null
+}
+
+Remove()
+{
+	rm -f $1 
+}
+
+
+Remove_directories()
+{
+	echo "Removing Central Log Server directories..."
+	RemoveDir $USER_HOME/ISP/doc
+
+	return 0
+}
+
+Remove_files()
+{
+	echo "Removing Central Log Server files..."
+
+	#
+	# log_forwarding
+	#
+	Remove $USER_HOME/ISP/Exec/log_listen
+	Remove $USER_HOME/ISP/Exec/log_svc
+	Remove $USER_HOME/ISP/Exec/README.log_listen.txt
+	Remove /etc/systemd/system/log_listen.service.noRun  2>/dev/null
+	Remove /etc/systemd/system/log_listen.service        2>/dev/null
+
+	#
+	# rtr listener
+	#
+	Remove $USER_HOME/ISP/Exec/arcRTRServer
+	Remove $USER_HOME/ISP/Exec/arcRTRListener
+	Remove $USER_HOME/ISP/Exec/README.arcRTRListener.txt
+	Remove /etc/systemd/system/arcRTRListener.service.noRun  2>/dev/null
+	Remove /etc/systemd/system/arcRTRListener.service        2>/dev/null
+
+	Remove $USER_HOME/ISP/Exec/install_arcLOGS
+	Remove $USER_HOME/ISP/Exec/remove_arcLOGS
+
+	systemctl daemon-reload
+
+} # Remove_files
+
+#-------------------------------------------------------------------------
+# This function requests relevant information from the user before allowing
+# the removal to proceed. In particular, it gets the user id under which
+# Telecom Services was installed.
+#-------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null
+	then
+		echo "You must be root to remove the Central Log Server. "
+		echo "Removal aborted."
+		exit 3
+	fi
+
+	echo
+	echo -n "User id under which you installed the Central Log Server $VERSION [default: arc] : "
+	read USER_ID
+	if [ "$USER_ID" = "" ]
+	then
+		USER_ID=arc
+	fi
+
+	if	ps -ef | grep "log_listen" | egrep -v "grep|vi|install|remove" >/dev/null
+	then
+		echo "ERROR: The log_listen process appears to be running."
+		echo "Please stop it before proceeding."
+		echo "To stop it, enter the following command as root: "
+		echo "   # systemctl stop log_listen "
+		echo
+		echo "Removal aborted."
+		exit 3
+	fi
+
+	if	ps -ef | grep "arcRTRListener" | egrep -v "grep|vi|install|remove" >/dev/null
+	then
+		echo "ERROR: The arcRTRListener process appears to be running."
+		echo "Please stop it before proceeding."
+		echo "To stop it, enter the following command as root: "
+		echo "   # systemctl stop arcRTRListener "
+		echo
+		echo "Removal aborted."
+		exit 3
+	fi
+
+	if  !   tail -1 $PKGINFO | grep "INSTALL" | grep -v grep >/dev/null
+	then
+		echo "ERROR: The Central Log Server does not appear to be installed."
+		echo
+		show_pkginfo
+		echo
+		echo "Removal aborted."
+		exit 3
+	fi
+
+	USER_HOME="`grep "^$USER_ID:" /etc/passwd | cut -d':' -f6`"
+	x="${USER_HOME%/}";
+	USER_HOME="$x"
+}
+
+update_pkginfo()
+{
+	STATUS=$1
+	REMOVEDATE=`date +"%Y %B %d %X"`
+
+	echo "--------------------------" >> $PKGINFO
+	echo 				  >> $PKGINFO
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST"       >> $PKGINFO
+	echo "VERSION   : $VERSION"       >> $PKGINFO
+	echo "USER      : $USER_ID"       >> $PKGINFO
+	echo "REMOVEDATE: $REMOVEDATE"    >> $PKGINFO
+	echo "STATUS    : $STATUS"        >> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO...
+        tail -11 $PKGINFO
+}
+
+#-----------------------------------------------------------------------------
+# main routine
+#-----------------------------------------------------------------------------
+
+# Packing information
+PKGINST="arcLOGS"
+VERSION="3.7"
+PKGINFO="/home/.$PKGINST.pkginfo" 
+
+request
+
+while :
+do
+	echo
+	echo -n "About to remove Central Log Server $VERSION. Are you sure? [(y/n): (no default)]: "
+	read ans
+	
+	if [ "$ans" = "n" -o "$ans" = "N" -o "$ans" = "no" -o "$ans" = "No" ]
+	then
+		echo "Removal aborted."
+		exit 3
+	fi
+
+	if [ "$ans" = "y" -o "$ans" = "Y" -o "$ans" = "yes" -o "$ans" = "Yes" ]
+	then
+		break
+	fi
+done
+
+echo "`date` Removing Central Log Services ..."
+
+ISPBASE=$USER_HOME/.ISP
+GLOBAL=$ISPBASE/Global
+
+ARC_PKGS="arcSIPTEL arcVXML2"
+Other_ARC_pkgs=0		# assume no other packages installed
+
+Remove_files
+#Remove_directories
+update_pkginfo REMOVED
+echo
+echo "Central Log Services has been removed."
+#echo "Please reboot now for changes to take effect."
+echo

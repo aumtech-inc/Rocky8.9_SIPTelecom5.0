@@ -2,9 +2,36 @@
 #----------------------------------------------------------------------------
 # Program:	build_LOGS
 # Purpose:	Script to build Central Log Services package on Linux.
-# Author:	Sandeep Agate
-# Update:	04/08/01 djb	Created the file
 #----------------------------------------------------------------------------
+
+getOSVersion()
+{
+	osFile="/etc/redhat-release"
+
+	export LINUX_OS_VERSION=""
+	if [ ! -f ${osFile} ]; then
+		echo "Unable to get OS and Version.  ${osFile} does not exist."
+		return
+	fi
+
+	ln="`cat ${osFile}`"
+	if [ `echo $ln |  grep "Rocky Linux" | grep "8.9" | grep "Green Obsidian" | wc -l` -eq 1 ]
+	then
+		export LINUX_OS_VERSION="Rocky8.9"
+		return
+	fi
+
+	if [ `echo $ln |  grep "^Red Hat" | grep "8.9" | grep "Ootpa" | wc -l` -eq 1 ]
+	then
+		export LINUX_OS_VERSION="Oracle8.9"
+		return
+	fi
+
+	echo "Unable to get OS and Version.  ${osFile} contents don't match Rocky or Oracle."
+
+	return
+
+}
 
 Echo()
 {
@@ -87,10 +114,17 @@ COMMON_DIR=$ISP_BASE_DIR/$ISP_VERSION/SIPTelecom3.6/Common
 
 TMP="/tmp/packtemp"
 STORAGE_DIR="$ISP_BASE_DIR/$ISP_VERSION/builds"
-PRODUCT="arcLOGS.3.7"
+PRODUCT="arcLOGS.5.0"
 PRODUCT_ID="arcLOGS"
 LOGFILE="BUILD.LOG.$PRODUCT_ID"
-TAR_FILE="arcLOGS.3.7.tar"
+
+
+getOSVersion
+if [ ${#LINUX_OS_VERSION} -eq 0 ]
+then
+	exit    # error message is printed in log file
+fi
+TAR_FILE="$PRODUCT.${LINUX_OS_VERSION}.tar"
 
 clear
 echo
@@ -143,7 +177,7 @@ then
 		chgrp devmaul $BUILD_DIR/$PRODUCT 2>/dev/null
 	fi
 	CMD="mv -i /tmp/$TAR_FILE.Z $BUILD_DIR/$PRODUCT/$TAR_FILE.Z.$TODAY"
-	echo $PRODUCT package has been stored in the builds directory. 
+	echo "$PRODUCT package has been stored in $BUILD_DIR/$PRODUCT/$TAR_FILE.Z.$TODAY"
 	$CMD
 else
 	echo File "(/tmp/$TAR_FILE.Z)" has not been copied to the builds directory.

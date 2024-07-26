@@ -82,4 +82,5 @@ int recvSize(char *module, long *size, int timeout);
 int sendSize(char *module, long size);
 int readSocketData(char *module, char *whatData, int timeout,
 						long dataSize, char *dataBuf);
+int writeSocketData(char *module, char *whatData, long dataSize, char *dataBuf);
 #endif /* WSC_var_H */

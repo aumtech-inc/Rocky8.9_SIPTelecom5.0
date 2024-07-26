@@ -1,0 +1,15 @@
+[Unit]
+Description=Aumtech's Log Listener service
+After=network.target
+
+[Service]
+Environment=ISPBASE=/home/arc/.ISP
+Type=simple
+User=arc
+ExecStart=/home/arc/.ISP/Global/Exec/log_listen LOG 30
+PIDFile=/var/run/log_listen.pid
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

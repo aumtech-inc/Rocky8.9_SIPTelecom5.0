@@ -31,6 +31,7 @@ Update:		11/05/97 D. Barto removed function declarations
 #define DEF_BASENAME    "ISP"
 
 #ifdef LOG_SERVER_CLIENT
+int GetLogForwardEncryption(int *zLogForwardEncryption);
 int     GetLogServer(char *Server,	char *NodeName);
 void    GetLogPaths( char *LogPath_1,	char *LogPath_2);
 int     WriteToFifo( char *logpath1,	char *message);

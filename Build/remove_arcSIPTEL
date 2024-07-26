@@ -277,6 +277,9 @@ Remove_files()
 	Remove /home/$USER_ID/.ISP/Telecom/Exec/libssl.so
 	Remove /home/$USER_ID/.ISP/Telecom/Exec/libssl.so.1.0.0
 
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libtiff.so.3
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libtiff.so.3.9.4
+
 #	Remove /home/$USER_ID/.ISP/Telecom/Exec/OCServer
 #	Remove /home/$USER_ID/.ISP/Telecom/Tables/cps
 	Remove /home/$USER_ID/.ISP/Telecom/Exec/tel_monitor
@@ -474,7 +477,7 @@ show_pkginfo()
 # Packing information
 PKGINST="arcSIPTEL"
 VERSION="5.0"
-BUILD="1"
+BUILD="2"
 PKGINFO="/home/.$PKGINST.pkginfo" 
 
 request

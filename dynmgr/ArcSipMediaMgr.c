@@ -243,7 +243,7 @@ int             processSpeakMrcpTTS (int zCall, MsgToDM * zMsgToDM,
 									 int *zpTermReason,
 									 struct MsgToApp *zResponse,
 									 int interrupt_option);
-int             process_DMOP_END_CALL_PROGRESS (int zCall);
+int             process_DMOP_END_CALL_PROGRESS (int zLine, int zCall);
 
 /* wrappers for various audio functions */
 
@@ -17085,7 +17085,7 @@ inbandToneDetectionThread (void *args)
 							 152);
 					memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 							sizeof (struct MsgToDM));
-					process_DMOP_END_CALL_PROGRESS (zCall);
+					process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 				}
 				gCall[zCall].toneDetect &= (~ARC_TONES_HUMAN);
 
@@ -17114,7 +17114,7 @@ inbandToneDetectionThread (void *args)
 							 153);
 					memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 							sizeof (struct MsgToDM));
-					process_DMOP_END_CALL_PROGRESS (zCall);
+					process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 				}
 				gCall[zCall].toneDetect &= (~ARC_TONES_HUMAN);
 				stopInbandToneDetectionThread (__LINE__, zCall);
@@ -17136,7 +17136,7 @@ inbandToneDetectionThread (void *args)
 				sprintf (yMsgCallProgress.nameValue, "callProgress=%d", 52);
 				memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 						sizeof (struct MsgToDM));
-				process_DMOP_END_CALL_PROGRESS (zCall);
+				process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 				stopInbandToneDetectionThread (__LINE__, zCall);
 			}
 
@@ -17155,7 +17155,7 @@ inbandToneDetectionThread (void *args)
 				sprintf (yMsgCallProgress.nameValue, "callProgress=%d", 155);
 				memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 						sizeof (struct MsgToDM));
-				process_DMOP_END_CALL_PROGRESS (zCall);
+				process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 				stopInbandToneDetectionThread (__LINE__, zCall);
 			}
 
@@ -17174,7 +17174,7 @@ inbandToneDetectionThread (void *args)
 				sprintf (yMsgCallProgress.nameValue, "callProgress=%d", 156);
 				memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 						sizeof (struct MsgToDM));
-				process_DMOP_END_CALL_PROGRESS (zCall);
+				process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 				stopInbandToneDetectionThread (__LINE__, zCall);
 			}
 
@@ -17193,7 +17193,7 @@ inbandToneDetectionThread (void *args)
 				sprintf (yMsgCallProgress.nameValue, "callProgress=%d", 156);
 				memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 						sizeof (struct MsgToDM));
-				process_DMOP_END_CALL_PROGRESS (zCall);
+				process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 				stopInbandToneDetectionThread (__LINE__, zCall);
 			}
 
@@ -17213,7 +17213,7 @@ inbandToneDetectionThread (void *args)
 			sprintf (yMsgCallProgress.nameValue, "callProgress=%d", 151);
 			memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 					sizeof (struct MsgToDM));
-			process_DMOP_END_CALL_PROGRESS (zCall);
+			process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 			stopInbandToneDetectionThread (__LINE__, zCall);
 		}
 
@@ -17231,7 +17231,7 @@ inbandToneDetectionThread (void *args)
 			sprintf (yMsgCallProgress.nameValue, "callProgress=%d", 151);
 			memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 					sizeof (struct MsgToDM));
-			process_DMOP_END_CALL_PROGRESS (zCall);
+			process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 			stopInbandToneDetectionThread (__LINE__, zCall);
 		}
 
@@ -17370,7 +17370,7 @@ inbandToneDetectionThread (void *args)
 			{
 				memcpy (&gCall[zCall].msgToDM, &yMsgCallProgress,
 						sizeof (struct MsgToDM));
-				process_DMOP_END_CALL_PROGRESS (zCall);
+				process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 				stopInbandToneDetectionThread (__LINE__, zCall);
 			} else {
                 // added to catch runaway tone detection thread 
@@ -20298,8 +20298,7 @@ process_DMOP_START_CALL_PROGRESS_RESPONSE (int zCall)
  *	make the inputThread stop sending audio to aculab.
  *	It will also send the result of call progress back to application.
  */
-int
-process_DMOP_END_CALL_PROGRESS (int zCall)
+int process_DMOP_END_CALL_PROGRESS (int zLine, int zCall)
 {
 	int             yRc = 0;
 	char            mod[] = { "process_DMOP_END_CALL_PROGRESS" };
@@ -20321,18 +20320,20 @@ process_DMOP_END_CALL_PROGRESS (int zCall)
 
 	yMsgCallProgress.appPid = gCall[zCall].appPid;
 
+	//BT-344
+	response.appPid = gCall[zCall].appPid;
+
 	if (!canContinue (mod, zCall, __LINE__))
 	{
 		dynVarLog (__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, INFO,
-				   "Not processing (%s). Call was disconnected.", message);
+				   "[%d] Not processing (%s). Call was disconnected. appPid=%d", zLine, message, gCall[zCall].msgToDM.appPid);
 
 		return (0);
 	}
 	else if (gCall[zCall].sendCallProgressAudio == 0)
 	{
 		dynVarLog (__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, INFO,
-				   "Not processing (%s); lendCallProgressAudio flag was reset.",
-				   message);
+				   "Not processing (%s) for appPid %d; lendCallProgressAudio flag was reset.", zLine, message, gCall[zCall].msgToDM.appPid);
 		return (0);
 	}
 
@@ -20373,7 +20374,7 @@ process_DMOP_END_CALL_PROGRESS (int zCall)
 			 response.appPassword, response.message);
 
 		dynVarLog (__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, INFO,
-				   "Call has not yet been answered; Not processing (%s).", message);
+				   "[%d] Call has not yet been answered; Not processing (%s) for appPid %d.", zLine, message, gCall[zCall].msgToDM.appPid);
 		gCall[zCall].sendSavedInitiateCall = 1;
 		memcpy (&gCall[zCall].respMsgInitiateCallToApp, &response, sizeof (struct MsgToApp));
 		return(0);
@@ -20381,7 +20382,7 @@ process_DMOP_END_CALL_PROGRESS (int zCall)
 // END: MR 4655
 
 	dynVarLog (__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE, INFO,
-			   "Sending call progress retcode(%d) to app.", retCode);
+			   "[%d] Sending call progress retcode(%d) to appPid %d.", zLine, retCode, gCall[zCall].msgToDM.appPid);
 
 	writeGenericResponseToApp (zCall, &response, mod, __LINE__);
 
@@ -25578,7 +25579,7 @@ processAppRequest (int zCall)
 		return process_DMOP_START_CALL_PROGRESS_RESPONSE (zCall);
 		break;
 	case DMOP_END_CALL_PROGRESS:
-		return process_DMOP_END_CALL_PROGRESS (zCall);
+		return process_DMOP_END_CALL_PROGRESS (__LINE__, zCall);
 		break;
 
 	case DMOP_CONFERENCE_START:

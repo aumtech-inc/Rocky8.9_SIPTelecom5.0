@@ -50,6 +50,7 @@ Update: 07/16/2010 rg,ddn Replaced localtime with thread safe localtime_r
 #include <unistd.h>
 // #include <rpc/des_crypt.h>
 
+#define LOG_SERVER_CLIENT
 #include "log_defs.h"
 #include "gaUtils.h"
 #include "sc.h"
@@ -85,7 +86,7 @@ int encryptFile(char *inFile, char *encFile);
 static int processLargeEnc(int index);
 static int setCDRLogForwarding(int *z_if_RTR_is_enabled_then_no_forward_CDRs);
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 struct LogNameInfo      LogNames[MAXLOGDIRS];
 char			LogServer[32], NodeName[32];
@@ -103,7 +104,7 @@ if(argc == 2 && (strcmp(argv[1], "-v") == 0))
 {
     fprintf(stdout, 
         "Aumtech's Logging Services Client (%s).\n"
-        "Version 2.3.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
+        "Version 5.0.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
     exit(0);
 }
 
@@ -127,12 +128,17 @@ GetLogPaths(LogNames[0].Path, LogNames[1].Path);
 memset((char *)LogServer, 0, sizeof(LogServer));
 memset((char *)NodeName, 0, sizeof(NodeName));
 if ((retcode=GetLogServer(LogServer, NodeName)) == -1)
+{
         forward_sw=LOCAL_LOG;
+}
 else
+{
+        forward_sw=LOCAL_LOG;
         if (strcmp(LogServer, NodeName))
                 forward_sw=FORWARD_LOG;
         else
                 forward_sw=LOCAL_LOG;
+}
 
 rc=GetLogForwardEncryption(&gLogForwardEncryption);
 

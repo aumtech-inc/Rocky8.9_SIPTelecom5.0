@@ -25285,6 +25285,14 @@ main (int argc, char *argv[])
 				dynVarLog (__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE,
 						   INFO, "eXosip event EXOSIP_CALL_CANCELLED.",
 						   zCall);
+				if ( canContinue (mod, zCall))
+				{
+					dynVarLog (__LINE__, zCall, mod, REPORT_VERBOSE, TEL_BASE,
+						INFO, "BT-340 eXosip event EXOSIP_CALL_CANCELLED when the call was already established. Disconnecting.", zCall);
+					
+					SendMediaManagerPortDisconnect (zCall, 1);
+				}
+
 
 				setCallState (zCall, CALL_STATE_CALL_CANCELLED);
 

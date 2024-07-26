@@ -38,7 +38,7 @@ Remove_files()
 	#
 	# log_forwarding
 	#
-	Remove $USER_HOME/ISP/Exec/log_listen
+	Remove /usr/local/bin/log_listen
 	Remove $USER_HOME/ISP/Exec/log_svc
 	Remove $USER_HOME/ISP/Exec/README.log_listen.txt
 	Remove /etc/systemd/system/log_listen.service.noRun  2>/dev/null
@@ -48,7 +48,7 @@ Remove_files()
 	# rtr listener
 	#
 	Remove $USER_HOME/ISP/Exec/arcRTRServer
-	Remove $USER_HOME/ISP/Exec/arcRTRListener
+	Remove /usr/local/bin/arcRTRListener
 	Remove $USER_HOME/ISP/Exec/README.arcRTRListener.txt
 	Remove /etc/systemd/system/arcRTRListener.service.noRun  2>/dev/null
 	Remove /etc/systemd/system/arcRTRListener.service        2>/dev/null
@@ -147,7 +147,7 @@ show_pkginfo()
 
 # Packing information
 PKGINST="arcLOGS"
-VERSION="3.7"
+VERSION="5.0"
 PKGINFO="/home/.$PKGINST.pkginfo" 
 
 request

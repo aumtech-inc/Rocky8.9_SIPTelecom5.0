@@ -1,0 +1,30 @@
+#------------------------------------------------------------------------------
+# Program:  .Global.cfg
+# Purpose:  This file defines the parameters are used by one or more 
+#           ARC services.
+# Author:   Aumtech, Inc.
+#
+# Refer to the SIP Operations Guide for a description of each parameter.
+#------------------------------------------------------------------------------
+[Settings]
+LOG_PRIMARY_SERVER=localhost
+REPORT_MODE=NORMAL
+LOG_FORWARD_ENCRYPTION=OFF
+LOG_x_LOCAL_FILE=/home/arc/.ISP/LOG/ISP
+LOG_2x_LOCAL_FILE=/tmp/ISP
+LOG_FREQUENCY=HOURLY
+LOG_RETENTION=7
+LOG_CDR_FILE=NO
+LOG_ERR_FILE=NO
+CEV_EVENT_LOGGING=OFF
+REALTIME_REPORTS=NO
+RTR_DELAY_ON_EOF=120
+FIFO_DIR=/tmp
+SNMP=OFF
+SNMP_AGENT_HOST=localhost
+SNMP_AGENT_DOMAIN=public
+ResourceMgr=OFF
+ENABLE_CDRS=DISABLED
+DATE_FORMAT=MILLISECONDS
+licenseFileList=/home/arc/.ISP/Global/Tables/license.dat
+telLicenseServerList=@localhost

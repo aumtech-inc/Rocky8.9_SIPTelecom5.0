@@ -28,6 +28,9 @@ char	destination[21];
 int	diag_on_flag;
 char	appl_name[60];				/* current status of appli. */
 
+static int parse_arguments(int argc, char *argv[]);
+static void arg_switch(int c, char *string);
+
 /* #define DEBUG   */
 /*----------------------------------------------------------------------------
 This routine is called when Signal SIGTERM is sent.
@@ -126,7 +129,7 @@ Set the value of string passed based on the switch. This routine is used
 to parse the command line arguments that were passed to the executable and
 then passed on to this API.
 ------------------------------------------------------------------------------*/
-arg_switch(int c, char *string)
+static void arg_switch(int c, char *string)
 {
 
 	int	i;
@@ -143,7 +146,7 @@ arg_switch(int c, char *string)
 	    			sprintf(error,"Illegal port number %s",
 								__port_name);
 					Write_Log(ModuleName, 0, error);
-	    			return (-1);
+	    			return;
 			}
 			break;
 
@@ -212,12 +215,12 @@ arg_switch(int c, char *string)
 	fflush(stderr);
 
 #endif
-	return(0);
+	return;
 } /* END: arg_switch() */ 
 /*----------------------------------------------------------------------------
 parse_arguments(): Parse command line args passed to the app.
 ---------------------------------------------------------------------------*/
-int parse_arguments(int argc, char *argv[])
+static int parse_arguments(int argc, char *argv[])
 {
 	int c;
 

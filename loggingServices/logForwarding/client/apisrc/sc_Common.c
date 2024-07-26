@@ -18,6 +18,7 @@ Update:	09/14/12 djb	Updated logging.
 
 */
 
+#include "gaUtils.h"
 #include "WSC_var.h"
 #include "sc.h"
 #include <sys/poll.h>
@@ -25,6 +26,7 @@ Update:	09/14/12 djb	Updated logging.
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <errno.h> 
+#include <ctype.h> 
 #include <sys/socket.h> 
 
 // #define DEBUG
@@ -32,6 +34,7 @@ Update:	09/14/12 djb	Updated logging.
 
 void	clean_up();
 extern char GV_hostName[];
+extern int hostStatus(char *host, int timeout);
 
 /*--------------------------------------------------------------------------
 Write_Log(): Error routine. Write error to the WSCyymmdd file.

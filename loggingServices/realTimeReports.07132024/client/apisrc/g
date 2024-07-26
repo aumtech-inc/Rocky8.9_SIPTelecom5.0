@@ -1,0 +1,26 @@
+echo "Building sc_Common.c API"	
+gcc -g  -c 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realtimeReports/client/include		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/Common/include			\
+	sc_Common.c
+
+exit
+echo "Building sc_Exit.c API"	
+gcc -g  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_Exit.c
+echo "Building sc_GetGlobal.c API"	
+gcc -g  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_GetGlobal.c
+echo "Building sc_RecvData.c API"	
+gcc -g  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_RecvData.c
+echo "Building sc_RecvFile.c API"	
+gcc -g  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_RecvFile.c
+echo "Building sc_SendData.c API"	
+gcc -g  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_SendData.c
+echo "Building sc_SendFile.c API"	
+gcc -g  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_SendFile.c
+echo "Building sc_SetGlobal.c API"	
+gcc -g  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_SetGlobal.c
+rm -f sc_Init.o 2>/dev/null
+echo "Building sc_Init.c API"	
+gcc -g  -DSERVER_PORT=6791 -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/client/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include sc_Init.c
+echo "Building /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/lib/librtrcComm.a"	
+ar r /home/dan/isp2.2/SIPTelecom3.6/loggingServices/realTimeReports/lib/librtrcComm.a  sc_Common.o sc_Exit.o sc_GetGlobal.o sc_RecvData.o sc_RecvFile.o sc_SendData.o sc_SendFile.o sc_SetGlobal.o sc_Init.o

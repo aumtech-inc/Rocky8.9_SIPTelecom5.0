@@ -910,14 +910,13 @@ C /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28.0  \
 ln -s /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28.0   /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28       2>/dev/null
 ln -s /home/$U/.ISP/Telecom/Exec/libxerces-c.so.28.0   /home/$U/.ISP/Telecom/Exec/libxerces-c.so      2>/dev/null
 
-if [ ! -f /usr/lib64/libtiff.so.3.9.4 ]
-then
-	C /usr/lib64/libtiff.so.3.9.4  $TEMP/libtiff.so.3.9.4 0644 root root
-fi
 
-if [ ! -h /usr/lib64/libtiff.so.3 ]
+C	/home/$U/.ISP/Telecom/Exec/libtiff.so.3.9.4		$TEMP/libtiff.so.3.9.4 1755 $U $G
+ln -s /home/$U/.ISP/Telecom/Exec/libtiff.so.3.9.4 /home/$U/.ISP/Telecom/Exec/libtiff.so.3
+if [ -h /usr/lib64/libtiff.so.3 ]
 then
-	ln -s /usr/lib64/libtiff.so.3.9.4  /usr/lib64/libtiff.so.3
+	unlink /usr/lib64/libtiff.so.3
+	ln -s /home/$U/.ISP/Telecom/Exec/libtiff.so.3.9.4  /usr/lib64/libtiff.so.3
 fi
 
 C /home/$U/.ISP/Telecom/Exec/libcrypto.so.1.0.0 $TEMP/libcrypto.so.1.0.0 0644 $U $G
@@ -1234,10 +1233,10 @@ TAR_FILE="$PRODUCT.${LINUX_OS_VERSION}.tar"
 # Package information
 PKGINST="arcSIPTEL"
 PKGINFO="/home/.$PKGINST.pkginfo"	# File that contains Unix-like pkginfo
-PACKAGE_DATE="22-May-2024"
+PACKAGE_DATE="16-Jul-2024"
 OS_VER="${LINUX_OS_VERSION}"
 VERSION="5.0"
-BUILD="1"
+BUILD="2"
 PSTAMP=${VERSION}.b${BUILD}.$PACKAGE_DATE
 VENDOR="Aumtech, Inc."
 DESC="ARC SIP Telecom Services provides IVR services over an IP network using SIP"

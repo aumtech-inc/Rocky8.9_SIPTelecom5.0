@@ -19,6 +19,7 @@ Update: 09/14/12 djb  Updated/cleaned up logging.
 
 #include "ss.h"
 #include "ssHeaders.h"
+#include "gaUtils.h"
 #include "WSS_Externs.h"
 #include <sys/poll.h>
 

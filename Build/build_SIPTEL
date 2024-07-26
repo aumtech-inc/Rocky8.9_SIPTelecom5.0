@@ -144,7 +144,8 @@ THIRDPARTYLIBPATH="$STelecom/thirdParty"
 
 # DJB_NOMORE  Copy /usr/lib64/libjpeg.so.62.1.0  $TMP
 
-	Copy /usr/local/lib/libtiff.so.3.9.4     $TMP/libtiff.so.3.9.4
+ Copy $THIRDPARTYLIBPATH/tiff-3.9.4/libtiff/.libs/libtiff.so.3.9.4 $TMP
+
  Copy $THIRDPARTYLIBPATH/openssl-1.0.2k/libcrypto.so.1.0.0 $TMP
  Copy $THIRDPARTYLIBPATH/openssl-1.0.2k/libssl.so.1.0.0 $TMP
 #

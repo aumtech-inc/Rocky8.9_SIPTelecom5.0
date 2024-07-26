@@ -6,6 +6,8 @@ WSS_VAR.h : This is header file for work station server.(using socket)
 Update:		04/16/97 sja	Declared _*clnt_mesg buffers to be MAXDATA+1
 -----------------------------------------------------------------------------*/
 
+#define	MAXDATA			2048
+
 char	__S_clnt_mesg[MAXDATA+1];	/* message buffer for client */
 char	__R_clnt_mesg[MAXDATA+1];	/* message buffer for client */
 char	*__S_clnt_mesg_ptr;		/* pointer to message buffer */

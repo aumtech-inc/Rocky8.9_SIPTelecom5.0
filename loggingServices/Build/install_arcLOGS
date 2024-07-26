@@ -264,6 +264,11 @@ request()
 prototype()
 {
 
+	if [ ! -d /usr/local/bin ]
+	then
+		Makedir /usr/local/bin 						0755 root  root
+	fi
+	
 	Makedir $USER_HOME/ISP 						0755 $USER_ID $GROUP
 	Makedir $USER_HOME/ISP/Exec 				0755 $USER_ID $GROUP
 	Makedir $USER_HOME/ISP/Tables 				0755 $USER_ID $GROUP
@@ -310,7 +315,7 @@ Copy_All_Files()
 	# log_listen
 	#
 	Copy_exec_file	$TEMP/log_svc			$EXEC_DIR/log_svc
-	Copy_exec_file	$TEMP/log_listen		$EXEC_DIR/log_listen
+	Copy_exec_file	$TEMP/log_listen		/usr/local/bin/log_listen
 	Copy_plain_file $TEMP/log_listen.service.noRun    /etc/systemd/system
 	Copy_plain_file $TEMP/README.log_listen.txt   $EXEC_DIR/README.log_listen.txt
 
@@ -318,7 +323,7 @@ Copy_All_Files()
 	# arcRTRListener
 	#
 	Copy_exec_file	$TEMP/arcRTRServer			$EXEC_DIR/arcRTRServer
-	Copy_exec_file	$TEMP/arcRTRListener		$EXEC_DIR/arcRTRListener
+	Copy_exec_file	$TEMP/arcRTRListener		/usr/local/bin/arcRTRListener
 	Copy_plain_file $TEMP/arcRTRListener.service.noRun    /etc/systemd/system
 	Copy_plain_file $TEMP/README.arcRTRListener.txt   $EXEC_DIR/README.arcRTRListener.txt
 
@@ -488,9 +493,9 @@ TEMP="."
 PKGINST="arcLOGS"
 PKGINFO="/home/.$PKGINST.pkginfo"	# File that contains Unix-like pkginfo
 NAME="ARC Central Log Services"
-PACKAGE_DATE="20-Dec-29-10AM"
+PACKAGE_DATE="15-Jul-2024"
 
-VERSION="3.7"
+VERSION="5.0"
 PSTAMP=$VERSION.$PACKAGE_DATE
 VENDOR="Aumtech, Inc."
 DESC="ARC Central Logging Services"

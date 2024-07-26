@@ -35,3 +35,5 @@ int sc_NewSendFile(char *destination);
 int sc_SetGlobal(char *globalVar, int value);
 
 int isSocketStillConnected(char *parmModuleName, int *parmErrNo);
+int getField(char delim, char *buffer, int fld_num, char *field);
+

@@ -10,6 +10,7 @@ Update: 06/11/98 mpb  Changed GV_Connected to GV_SsConnected.
 Update: 09/14/12 djb  Updated/cleaned up logging.
 -----------------------------------------------------------------------------*/
 
+#include "ss.h"
 #include "ssHeaders.h"
 #include "WSS_Externs.h"
 

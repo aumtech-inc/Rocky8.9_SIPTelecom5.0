@@ -6,7 +6,7 @@ After=network.target
 Environment=ISPBASE=/home/arc/.ISP
 Type=simple
 User=arc
-ExecStart=/home/arc/.ISP/Global/Exec/log_listen LOG 30
+ExecStart=/usr/local/bin/log_listen LOG 30
 PIDFile=/var/run/log_listen.pid
 Restart=always
 RestartSec=3

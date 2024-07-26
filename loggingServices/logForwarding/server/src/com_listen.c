@@ -36,12 +36,20 @@ Update: 12/09/14 djb    Updated logging.
 #include "ISPSYS.h"
 #include "com_listen.h"
 #include "gaUtils.h"
+#include <ctype.h>
+#include <signal.h>
 
 /*DDN: 02032009 */
 #ifndef GUINT32
 #define GUINT32
 typedef unsigned int guint32;
 #endif
+
+static int read_fld(char *ptr, int rec, int ind, char *stor_arry);
+static int write_fld(char *ptr, int rec, int ind, char *stor_arry);
+static int checkProcessStatus(char *server_name);
+static int initSocketConnection();
+static void checkApps();
 
 extern int        GV_tfd;
 
@@ -147,7 +155,7 @@ int cleanup_app(int int_pid)
 /*--------------------------------------------------------------------
 Main entry point
 --------------------------------------------------------------------*/
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	static char	mod[]="main";
 	short	invalidExitNap;
@@ -167,7 +175,7 @@ main(int argc, char **argv)
 	{
 		fprintf(stdout, 
 			"Aumtech's Logging Services (%s).\n"
-			"Version 2.3.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
+			"Version 5.0.  Compiled on %s %s.\n", argv[0], __DATE__, __TIME__);
 		exit(0);
 	}
 	if(argc < 3)
@@ -718,7 +726,7 @@ int getShmemSlot()
 /*--------------------------------------------------------------------------
 checkProcessStatus(): Check if work station server already running.
 ---------------------------------------------------------------------------*/
-int checkProcessStatus(char *server_name)
+static int checkProcessStatus(char *server_name)
 {
 	static char mod[]="checkProcessStatus";
 	FILE	*fin;
@@ -756,7 +764,7 @@ int checkProcessStatus(char *server_name)
 /*-----------------------------------------------------------------------------
 checkApps():This routine check for all application dead and does cleanup.
 -----------------------------------------------------------------------------*/
-checkApps()
+static void checkApps()
 {
 	static char mod[]="checkApps";
 	register	int	appl_no;
@@ -783,7 +791,7 @@ checkApps()
 /*----------------------------------------------------------------------------
 This routine updates an field in the shared memory tables with the given value.
 ------------------------------------------------------------------------------*/
-int write_fld(char *ptr, int rec, int ind, char *stor_arry)
+static int write_fld(char *ptr, int rec, int ind, char *stor_arry)
 {
 	static char mod[]="write_fld";
 	char    tmp[60];
@@ -824,7 +832,7 @@ int write_fld(char *ptr, int rec, int ind, char *stor_arry)
 /*-----------------------------------------------------------------------------
 This routine returns the value of the desired field from the shared memory.
 -----------------------------------------------------------------------------*/
-int read_fld(char *ptr, int rec, int ind, char *stor_arry)
+static int read_fld(char *ptr, int rec, int ind, char *stor_arry)
 {
 	static char mod[]="read_fld";
 	char	*schd_tabl_ptr;
@@ -879,7 +887,7 @@ int getPort(char *servType, int *serverPort)
 /*-----------------------------------------------------------------------------
 initSocketConnection():
 -----------------------------------------------------------------------------*/
-int initSocketConnection()
+static int initSocketConnection()
 {
 	static char mod[]="initSocketConnection";
 	static int	firstTime = 0;

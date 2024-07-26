@@ -1,0 +1,514 @@
+#---------------------------------------------------------------------------
+# Program:	remove_arcSIPTEL
+# Purpose:	Script to remove a SIP Telecom Services package. 
+# Author:	Aumtech, Inc.
+#---------------------------------------------------------------------------
+
+Echo()
+{
+	echo "$1" 
+}
+
+replace_token()
+{
+    FILE=$1
+    TOKEN1=$2
+    TOKEN2=$3
+    if `grep "$TOKEN1" $FILE > /dev/null 2>&1 `
+    then
+#       echo DEBUG REPLACING $TOKEN1 with $TOKEN2
+        echo "/$TOKEN1"         >  e$$
+        echo "d"            >> e$$
+        echo "."            >> e$$
+        echo "i"            >> e$$
+        echo "$TOKEN2"          >> e$$
+        echo "."            >> e$$
+        echo "w\nq"             >> e$$
+        ed $FILE < e$$ > /dev/null 2>/dev/null
+        rm -f e$$
+    else
+#       echo DEBUG NOT FOUND $TOKEN1
+        if [ "$4" =  "INSERT" ]
+        then
+#           echo DEBUG INSERTING $TOKEN2
+            echo "."            >> e$$
+            echo "i"            >> e$$
+            echo "$TOKEN2"          >> e$$
+            echo "."            >> e$$
+            echo "w\nq"             >> e$$
+            ed $FILE < e$$ > /dev/null 2>/dev/null
+            rm -f e$$
+        fi
+    fi
+}
+
+#----------------------------------------------------------------------------
+# Determine what other ARC packages are installed. 
+#----------------------------------------------------------------------------
+Determine_whats_installed()
+{
+	for pkg in $ARC_PKGS
+	do
+		if [ "$pkg" = "arcSNA" ]
+		then
+			if [ -f /home/$USER_ID/.ISP/SNA/Exec/isp_snaresp ]
+			then
+				Echo "Found $pkg installed."
+				Other_ARC_pkgs=1
+			fi
+		fi
+		if [ "$pkg" = "arcWSS" ]
+		then
+			if [ -f /home/$USER_ID/.ISP/WSS/Exec/wss_listen ]
+			then
+				Echo "Found $pkg installed."
+				Other_ARC_pkgs=1
+			fi
+		fi
+		if [ "$pkg" = "arcTCP" ]
+		then
+			if [ -f /home/$USER_ID/.ISP/TCP/Exec/isp_tcpresp ]
+			then
+				Echo "Found $pkg installed."
+				Other_ARC_pkgs=1
+			fi
+		fi
+	done
+	
+	if [ -f /home/$USER_ID/.ISP/Network/Exec/isp_netserv ]
+	then
+		Other_ARC_pkgs=1
+		Network_services_installed=1 
+		Echo "Found ARC Network Services installed."
+	fi
+}
+
+Remove_global_files()
+{
+	Echo "Removing global files..."
+	GLOBAL=/home/$USER_ID/ISP
+	CMD="rm"
+	
+	$CMD /home/$USER_ID/.isprc
+	
+	
+#	Flexlm license files	
+	$CMD $GLOBAL/Exec/arcLicense
+	$CMD $GLOBAL/Exec/arclicd
+	$CMD $GLOBAL/Exec/lmgrd
+	$CMD $GLOBAL/Exec/lmutil
+	$CMD $GLOBAL/Exec/chkSRLicense
+
+	$CMD $GLOBAL/Exec/isplogrc 				
+	$CMD $GLOBAL/Exec/arczip.sh
+
+	$CMD $GLOBAL/Exec/log_cli
+	$CMD $GLOBAL/Exec/log_forward
+	$CMD $GLOBAL/Exec/Start_LogForward
+	$CMD $GLOBAL/Exec/arcLogCleanup
+	$CMD $GLOBAL/Exec/arcRTRClient
+
+	$CMD $GLOBAL/include/ISPCommon.h 		
+	$CMD $GLOBAL/include/UTL_accessories.h 		
+	$CMD $GLOBAL/include/gaUtils.h
+	
+	$CMD $GLOBAL/lib/libISPLog.a 			
+	$CMD $GLOBAL/lib/libUTILS.a 			
+	$CMD $GLOBAL/lib/libISPCDR.a 			
+	$CMD $GLOBAL/lib/libISPUtil.a 			
+	$CMD $GLOBAL/lib/libgaUtils.a
+	
+#	$CMD $GLOBAL/.Utilities/Current_LogParams 
+
+}
+
+Remove_rc_scripts()
+{
+	Echo "Removing Telecom Startup Mechanism."
+    if [ `grep -c S99arciptel /etc/rc.d/rc.local` -eq 1 ]
+    then 
+		grep -v S99arciptel /etc/rc.d/rc.local >/tmp/tc99
+		mv /tmp/tc99  /etc/rc.d/rc.local 2>/dev/null
+		chmod 755 /etc/rc.d/rc.local
+		rm /tmp/tc99 2>/dev/null
+    fi
+}
+Remove_crontab_entries()
+{
+        Echo "Removing crontab entries..."
+
+        CRON_DIR="/var/spool/cron"
+
+	FILE="$CRON_DIR/$USER_ID"
+	if [ -f $FILE ]
+	then
+		EXECUTABLE="/home/$USER_ID/.ISP/Global/Exec/Start_LogForward"
+		EXECUTABLE2="/home/$USER_ID/.ISP/Global/Exec/arcLogCleanup"
+		EXECUTABLE3="/home/$USER_ID/.ISP/Global/Exec/arczip.sh"
+		cat $FILE | egrep -v "$EXECUTABLE|$EXECUTABLE2|$EXECUTABLE3" > $FILE.tmp
+		if [ -s $FILE.tmp ]
+		then
+			# There was "keepable" stuff in original cron file
+			# so move the good stuff back.
+			mv $FILE.tmp $FILE
+		else
+			# There was NO "keepable" stuff in original cron file
+			# so just delete the original file & the tmp file.
+			rm $FILE $FILE.tmp
+		fi
+	fi
+}
+
+Remove_environment_setup_from_profile()
+{
+	# Remove the .isprc line from the profile
+	ENV_SETUP_FILE=".isprc"
+	PROFILE="/home/$USER_ID/.bash_profile"
+
+	if grep "$ENV_SETUP_FILE" $PROFILE  1>/dev/null 2>&1
+	then
+		echo "Removing call to $ENV_SETUP_FILE from $PROFILE."
+		echo "/$ENV_SETUP_FILE\nd\n.\nw\nq" > e.$$
+        	ed $PROFILE < e.$$ >/dev/null 2>/dev/null
+		rm e.$$ >/dev/null 2>/dev/null 
+	fi
+}
+
+Remove_arciptelrc_from_profile()
+{
+Echo "Removing call to arciptelrc from /home/$USER_ID/.profile"
+$IU/replace_token /home/$USER_ID/.profile ". \/home\/$USER_ID\/.arciptelrc" \# 
+}
+
+
+RemoveDir()
+{
+	rmdir $1 1>/dev/null 2>/dev/null
+}
+
+Remove()
+{
+	rm -f $* 1>/dev/null 2>/dev/null
+}
+
+
+Remove_directories()
+{
+	echo "Removing Telecom Services directories..."
+	RemoveDir /home/$USER_ID/.ISP/Telecom/Exec
+	RemoveDir /home/$USER_ID/.ISP/Telecom/Operations
+	RemoveDir /home/$USER_ID/.ISP/Telecom/Tables
+	RemoveDir /home/$USER_ID/.ISP/Telecom/phrases
+	RemoveDir /home/$USER_ID/.ISP/Telecom/locks
+	RemoveDir /home/$USER_ID/.ISP/Telecom
+}
+
+Remove_files()
+{
+	echo "Removing Telecom Services files..."
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/TranLocTab.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/TranLocTab.hlp
+	Remove /home/$USER_ID/.ISP/Telecom/Tables/samples/ResourceDefTab
+	
+	Remove /home/$USER_ID/.ISP/Telecom/Applications/lib/libISPTel.a
+#	Remove /home/$USER_ID/.ISP/Telecom/Applications/lib/libISPTel_gc.a
+	Remove /home/$USER_ID/.ISP/Telecom/Applications/lib/libTELLog.a
+
+	Remove /home/$USER_ID/.ISP/Telecom/Operations/Start_Telecom
+	Remove /home/$USER_ID/.ISP/Telecom/Operations/Stop_Telecom
+	Remove /home/$USER_ID/.ISP/Telecom/Operations/Verify_Telecom
+	Remove /home/$USER_ID/.ISP/Telecom/Operations/S99arciptel
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcIPDynMgr
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcSipMediaMgr
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcSipRedirector
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcIPResp
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcIPStopResp
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/arcsiproxyd
+
+#	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcCalea
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcSipTonesClient
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcSipTonesClientMgr
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/mrcpClient2
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/mrcpClient2Mgr
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/mrcpSRClient
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ArcMrcpSRClientMgr
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ttsClient
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/ttsClient.mrcp
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/mrcpTTSClient2Mgr
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/arcGoogleSR.sh
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/GoogleSpeechRec.jar
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/FaxServer
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libxerces-c.so.28.0
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libxerces-c.so.28
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libxerces-c.so
+
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libosipparser2.so.11.0.0
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libosipparser2.so.11
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libosipparser2.so
+
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libosip2.so.11.0.0
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libosip2.so.11
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libosip2.so
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libortp.so.0.0.0
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libortp.so.0.0
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libortp.so.0
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libortp.so
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libeXosip2.so.6
+
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libeXosip2.so.11.0.0
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libeXosip2.so.11
+    Remove /home/$USER_ID/.ISP/Telecom/Exec/libeXosip2.so
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libspandsp.so.2
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libSoundTouch.so.0.0.0
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libSoundTouch.so.0
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libSoundTouch.so
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libcrypto.so
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libcrypto.so.1.0.0
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libssl.so
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/libssl.so.1.0.0
+
+#	Remove /home/$USER_ID/.ISP/Telecom/Exec/OCServer
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/cps
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/tel_monitor
+	Remove /home/$USER_ID/.ISP/Telecom/bin/textMonitor
+	Remove /home/$USER_ID/ISP/Tables/sendToMonitor.dat
+	Remove /home/$USER_ID/ISP/Tables/sendToMonitor_com.dat
+	Remove /home/$USER_ID/ISP/Tables/sendToMonitor_tel.dat
+	Remove /home/$USER_ID/ISP/Tables/sendToMonitor_sir.dat
+	Remove /home/$USER_ID/.ISP/Telecom/Applications/include/Telecom.h
+	Remove /home/$USER_ID/.ISP/Telecom/Applications/include/arcFAX.h
+	Remove /home/$USER_ID/.ISP/Telecom/Applications/include/arcSR.h
+	Remove /home/$USER_ID/.ISP/Telecom/Applications/makegen
+	Remove /home/$USER_ID/.ISP/Telecom/Applications/sample.c
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/instructions.wav
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/beep.wav
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/beep.g729b
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/beep.g729a
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/beep.729
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/beep.711
+	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_1024.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_128.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_1.64p		
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_16.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_2048.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_256.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_2.64p		
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_32.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_4096.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_4.64p		
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_512.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_64.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_8192.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence_8.64p	
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/silence.729a	
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/fax_ced.wav
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/fax_cng.wav
+
+	Remove /home/$USER_ID/.arciptelrc
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/AMENG/ameng.tar.Z
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/SPANISH/SPANISH_phrases.tar.Z
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/FRENCH/FRENCH_phrases.tar.Z
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/FRENCH/FRENCH_phrases_in_english.tar.Z
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/MANDARIN/MANDARIN_phrases.tar.Z
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/MANDARIN/MANDARIN_phrases_in_english.tar.Z
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/CANTONESE/CANTONESE_phrases.tar.Z
+	Remove /home/$USER_ID/.ISP/Telecom/phrases/CANTONESE/CANTONESE_phrases_in_english.tar.Z
+
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/Parameters.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/Operations.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/Resources.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/Transactions.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/Schedules.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/TEL.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/TEL.hlp
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/analogcfg.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/analogcfg.hlp.txt
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/isdncfg.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/isdncfg.hlp
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/schedule.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/schedule.hlp
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/appref.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/appref.hlp
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/pgmreference.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/pgmreference.hlp
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/resourcedef.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/resourcedef.hlp
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/resact.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/resact.hlp
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/cfg.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/cfg-tel.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/cfg-analog.def
+#	Remove /home/$USER_ID/.ISP/Telecom/Tables/cfg-isdn.def
+	Remove /home/$USER_ID/.ISP/Telecom/bin/gatherAumtechInfo
+	Remove /home/$USER_ID/.ISP/Telecom/bin/cps
+	Remove /home/$USER_ID/.ISP/Telecom/bin/starttel
+	Remove /home/$USER_ID/.ISP/Telecom/bin/stoptel
+	Remove /home/$USER_ID/.ISP/Telecom/bin/tcur
+	Remove /home/$USER_ID/.ISP/Telecom/bin/arcmon
+	Remove /home/$USER_ID/.ISP/Telecom/bin/tno
+	Remove /home/$USER_ID/.ISP/Telecom/bin/install_arcSIPTEL
+	Remove /home/$USER_ID/.ISP/Telecom/bin/remove_arcSIPTEL
+
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/.mrcp*
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/.200
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/.LogInfo*
+
+	Remove /home/$USER_ID/.ISP/Telecom/locks/reload
+	RemoveDir /home/$USER_ID/.ISP/Telecom/locks
+
+    Remove /home/$USER_ID/.ISP/Telecom/bin/generate_certs.sh
+
+    # Remove temporary fifos
+    Remove /tmp/*Fifo*
+    Remove /tmp/*fifo*
+    
+	# Remove chatGPT AI
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/arcChatGPTClientMgr.sh
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/aiCommon.py
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/aiThread.py
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/arcChatGPTClient.py
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/chat.py
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/arcChatGPTEncrypt
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/libaiISPLog.so
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/libailoglite.so
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/libarcAICommon.so
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/requirements.txt
+	Remove /home/$USER_ID/.ISP/Telecom/Exec/chatgpt/chatGPT_Setup.README.txt
+
+	# Note: documents are not removed, but will be overwritten on reinstall
+
+} # Remove_files
+
+#-------------------------------------------------------------------------
+# This function requests relevant information from the user before allowing
+# the removal to proceed. In particular, it gets the user id under which
+# Telecom Services was installed.
+#-------------------------------------------------------------------------
+request()
+{
+
+	if ! echo $HOME | grep "root" >/dev/null
+	then
+		echo "You must be root to remove SIP Telecom Services. "
+		echo "Removal aborted."
+		exit 3
+	fi
+
+	if      ps -ef | grep "ArcIPDynMgr" | grep -v grep >/dev/null
+	then
+		echo "ERROR: SIP Telecom Services appears to be running."
+		echo "Please stop it before proceeding."
+                echo "Removal aborted."
+                exit 3
+        fi
+
+        if  !   tail -1 $PKGINFO | grep "INSTALL" | grep -v grep >/dev/null
+        then
+              echo "ERROR: SIP Telecom Services does not appear to be installed."
+                show_pkginfo
+                echo "Removal aborted."
+                exit 3
+        fi
+
+while :
+do
+	echo
+	echo -n "User id under which you installed SIP Telecom Services $VERSION [default: arc] : "
+	read USER_ID
+	if [ "$USER_ID" = "" ]
+	then
+		USER_ID=arc
+	fi
+
+	if [ `grep -c "^$USER_ID:" /etc/passwd` -ne 1 ]
+	then
+		echo "Error: invalid username ($USER_ID) entered.  Please try again..."
+		echo
+		continue
+	fi
+	break
+done
+}
+
+update_pkginfo()
+{
+	STATUS=$1
+	REMOVEDATE=`date +"%Y %B %d %X"`
+
+	echo "--------------------------" >> $PKGINFO
+	echo 				  >> $PKGINFO
+	echo "Caution: Do not remove or edit this file." >> $PKGINFO
+	echo "PKGINST   : $PKGINST"       >> $PKGINFO
+	echo "VERSION   : $VERSION"       >> $PKGINFO
+	echo "USER      : $USER_ID"       >> $PKGINFO
+	echo "REMOVEDATE: $REMOVEDATE"    >> $PKGINFO
+	echo "STATUS    : $STATUS"        >> $PKGINFO
+}
+
+show_pkginfo()
+{
+	echo Showing $PKGINFO...
+        tail -11 $PKGINFO
+}
+
+#-----------------------------------------------------------------------------
+# main routine
+#-----------------------------------------------------------------------------
+
+# Packing information
+PKGINST="arcSIPTEL"
+VERSION="5.0"
+BUILD="1"
+PKGINFO="/home/.$PKGINST.pkginfo" 
+
+request
+
+IU=/home/$USER_ID/.ISP/Global/Exec 	# Location of install utilities.
+echo -n "About to remove SIP Telecom Services $VERSION. Are you sure? (y/[n]) "
+read answer
+if [ "$answer" = "y" ]
+then 
+	:
+else
+	echo "Removal aborted."
+	exit 3
+fi
+                             
+Echo "`date` Removing SIP Telecom Services ..."
+
+ISPBASE=/home/$USER_ID/.ISP
+
+#
+# Stop the licensing
+#
+echo "y\n" | $ISPBASE/Global/Exec/lmutil lmdown -c $ISPBASE/Global/Tables/license.dat >/dev/null 2>&1
+
+Remove_rc_scripts
+
+Remove_global_files
+Remove_crontab_entries
+
+Remove_files
+
+initctl stop Aumtech-Redirector 2>/dev/null
+systemctl stop Aumtech-Redirector.service 2>/dev/null
+
+rm -f /etc/systemd/system/Aumtech-Redirector.service 2>/dev/null
+rm -f /etc/systemd/system/Aumtech-Redirector.service.noRun 2>/dev/null
+
+update_pkginfo REMOVED
+echo 
+echo "SIP Telecom Services has been removed."
+echo

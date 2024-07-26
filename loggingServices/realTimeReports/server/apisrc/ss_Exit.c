@@ -12,6 +12,7 @@ Update: 09/14/12 djb  Updated/cleaned up logging.
 
 #include "ssHeaders.h"
 #include "WSS_Externs.h"
+#include "WSS_VAR.h"
 
 static char ModuleName[]="ss_Exit";
 

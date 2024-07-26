@@ -204,6 +204,7 @@ char GV_ConfData[64];
 
 int GV_SRType;
 int GV_GoogleRecord;
+int GV_OverrideInbandDTMF;
 
 #else
 
@@ -330,6 +331,7 @@ extern char GV_ConfData[64];
 
 extern int GV_SRType;
 extern int GV_GoogleRecord;
+extern int GV_OverrideInbandDTMF;               // BT-313
 
 /* bridge connect and disconnect time */
 extern int GV_BridgeConnectTimeSec;

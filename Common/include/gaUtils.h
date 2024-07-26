@@ -18,6 +18,7 @@ Update:	2001/01/16 sja	Added function prototypes for gaNT functions.
 #ifndef gaUtil_H	/* Just preventing multiple includes... */
 #define gaUtil_H
 
+#include <stdio.h> 
 #include <sys/types.h> 
 
 

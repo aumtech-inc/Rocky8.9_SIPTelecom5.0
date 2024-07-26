@@ -11,7 +11,8 @@ Update:		04/16/97 sja	Decreased MAXDATA from 4096 to 2048
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/signal.h>
+#include <ctype.h>
+#include <signal.h>
 #include <sys/utsname.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -48,3 +49,4 @@ int readSocketData(char *module, char *whatData, int timeout,
 						size_t dataSize, char *dataBuf);
 int writeSocketData(char *module, char *whatData, guint32 dataSize, char *dataBuf);
 int getField(char delim, char *buffer, int fld_num, char *field);
+int Write_Log(char *mod, int debugMode, char *msg);

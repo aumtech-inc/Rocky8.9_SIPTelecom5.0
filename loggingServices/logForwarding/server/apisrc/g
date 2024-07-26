@@ -1,0 +1,33 @@
+echo "Building ss_Common.c API"	
+gcc -ggdb3  -c 		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/Common/include 		\
+	ss_Common.c
+
+
+
+echo "Building ss_Exit.c API"	
+gcc -ggdb3  -c		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include		\
+	-I /home/dan/isp2.2/SIPTelecom3.6/Common/include		\
+	ss_Exit.c
+exit
+
+echo "Building ss_GetGlobal.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_GetGlobal.c
+echo "Building ss_GetGlobalString.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_GetGlobalString.c
+echo "Building ss_Init.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_Init.c
+echo "Building ss_RecvData.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_RecvData.c
+echo "Building ss_RecvFile.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_RecvFile.c
+echo "Building ss_SendData.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_SendData.c
+echo "Building ss_SendFile.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_SendFile.c
+echo "Building ss_SetGlobal.c API"	
+gcc -ggdb3  -c -I /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/server/include  -I /home/dan/isp2.2/SIPTelecom3.6/Common/include ss_SetGlobal.c
+echo "Building /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/lib/liblsServer.a"	
+ar r /home/dan/isp2.2/SIPTelecom3.6/loggingServices/logForwarding/lib/liblsServer.a  ss_Common.o ss_Exit.o ss_GetGlobal.o ss_GetGlobalString.o ss_Init.o ss_RecvData.o ss_RecvFile.o ss_SendData.o ss_SendFile.o ss_SetGlobal.o

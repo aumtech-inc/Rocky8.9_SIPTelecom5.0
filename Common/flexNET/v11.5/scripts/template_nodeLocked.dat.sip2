@@ -10,7 +10,7 @@
 # will be transferred. All license transfers are subject
 # to a US$500.00 transfer charge.
 #------------------------------------------------------------------
-SERVER	USNJROCKYIVR04 000c29588887 27000
+SERVER	USNJROCKYIVR05 000C297FD1DD 27000
 VENDOR	arclicd /home/arc/.ISP/Global/Exec/arclicd port=27010
-FEATURE	IPTEL arclicd 2.0 permanent 400 HOSTID=000c29588887 SIGN=0
-FEATURE SPEECH_REC arclicd 2.0 permanent uncounted HOSTID=000c29588887 SIGN=0
+FEATURE	IPTEL arclicd 2.0 permanent 192 HOSTID=000C297FD1DD SIGN=0
+FEATURE SPEECH_REC arclicd 2.0 permanent uncounted HOSTID=000C297FD1DD SIGN=0

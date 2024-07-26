@@ -160,6 +160,7 @@ int sc_Init(char *application, char *host)
 			close(sockfd);
 			return (sc_FAILURE);
 		}
+		sprintf(__log_buf, "gethostbyname() returned (%s).", hp->h_name);
 	
 		memcpy((caddr_t)&serv_addr.sin_addr, hp->h_addr_list[0],
 								hp->h_length);

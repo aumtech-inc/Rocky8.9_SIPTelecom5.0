@@ -1,0 +1,1784 @@
+Thu Nov 9 02:38:56 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Thu Nov 9 02:39:37 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Thu Nov 9 02:40:19 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Thu Nov 9 02:58:20 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Thu Nov 9 03:00:06 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Thu Nov 9 03:01:16 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+Thu Nov 9 03:01:59 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu Nov 9 03:34:24 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Nov 10 03:59:07 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Nov 10 04:00:40 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Nov 10 04:02:52 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Nov 10 05:13:35 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Fri Nov 10 05:15:20 PM EST 2023
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Jan 5 11:31:38 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Fri Jan 5 11:37:54 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Jan 5 12:19:51 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Jan 5 12:21:51 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sun Jan 7 05:39:58 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sun Jan 7 05:40:08 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed Jan 10 03:33:43 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Wed Jan 10 03:35:03 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed Jan 10 03:36:29 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu Jan 11 01:49:39 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu Jan 11 02:02:09 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu Jan 11 02:02:21 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Jan 12 12:22:21 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Jan 12 12:27:56 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Fri Jan 12 12:31:32 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Fri Jan 12 12:35:32 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Fri Jan 12 12:35:43 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 04:43:14 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 07:02:54 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 07:08:52 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 07:10:28 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 07:27:18 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 07:35:16 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 07:37:54 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 07:45:08 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 08:08:54 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 08:12:55 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 08:14:56 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 08:15:18 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 08:18:51 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 08:24:40 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 08:28:14 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 13 09:41:24 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat Jan 27 05:10:39 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Sat Jan 27 05:11:56 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Mon Feb 5 01:54:29 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Mon Feb 5 02:14:42 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Mon Feb 5 02:39:55 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Mon Feb 5 03:16:05 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu Feb 15 04:48:48 PM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Mon Feb 19 11:06:51 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Mon Feb 19 11:09:37 AM EST 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed Mar 27 05:03:29 PM EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu Mar 28 03:48:03 PM EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu Mar 28 05:43:03 PM EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri Apr 5 11:32:28 AM EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Fri Apr 5 11:32:42 AM EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Mon Apr 8 09:23:04 AM EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Tue Apr 30 16:54:05 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Tue Apr 30 16:58:14 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.-b
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom5.0 for Rocky V8.9
+.................. : /home/dan/isp2.2/SIPTelecom5.0 for Rocky V8.9/Common
+Tue Apr 30 17:00:48 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.-b
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom5.0 for Rocky V8.9
+.................. : /home/dan/isp2.2/SIPTelecom5.0 for Rocky V8.9/Common
+Tue Apr 30 17:03:35 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Tue Apr 30 18:34:27 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Tue Apr 30 18:34:45 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Tue Apr 30 18:34:54 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Tue Apr 30 18:35:07 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Sat May 4 18:29:30 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 9 10:40:37 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Thu May 9 10:51:31 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 9 10:53:12 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 9 11:05:34 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 9 11:05:50 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Mon May 13 17:52:07 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Mon May 13 17:53:19 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 16 16:19:39 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 16 16:29:16 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 16 16:30:33 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Thu May 16 16:39:20 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Fri May 17 11:46:57 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed May 22 15:10:13 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed May 22 15:14:13 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed May 22 15:38:39 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed May 22 15:58:02 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Wed May 22 16:03:06 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0090.wav
+Putting empty file for /home/dan/isp2.2/SIPTelecom3.6/phrases/0350.wav
+We do not support 0400.wav to 0411.32; files not copied
+All files copied successfully.
+Tarring American English speech phrases...
+Building arcSIPTEL.5.0-b1 ...
+Tue Jun 11 13:47:12 EDT 2024
+
+Build Package
+
+Product Id.......: arcSIPTEL
+Product Descrip..: arcSIPTEL.5.0-b1
+Temp directory...: /tmp/buildsiptemp
+Storage directory: /home/dan/isp2.2/builds
+Log file.........: BUILD.LOG.arcSIPTEL
+
+Press Enter to proceed or DELETE to abort.
+Removing files in /tmp/buildsiptemp...
+Copying files from master directories to /tmp/buildsiptemp...
+
+Master directories : /home/dan/isp2.2/SIPTelecom3.6
+.................. : /home/dan/isp2.2/SIPTelecom3.6/Common

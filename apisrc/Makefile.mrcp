@@ -67,6 +67,7 @@ TELSRC =  	TEL_AnswerCall.c \
 		ocmUtil.c \
 		TEL_ScheduleCall.c \
 		TEL_SetGlobal.c  \
+		TEL_SetGlobalSecondParty.c		\
 		TEL_SetGlobalString.c \
 		TEL_UnscheduleCall.c \
 		TEL_GetCDFInfo.c \
@@ -143,6 +144,7 @@ OBJECTS =	TEL_AnswerCall.o \
 		ocmUtil.o \
 		TEL_ScheduleCall.o \
 		TEL_SetGlobal.o \
+		TEL_SetGlobalSecondParty.o		\
 		TEL_SetGlobalString.o \
 		TEL_UnscheduleCall.o \
 		TEL_GetCDFInfo.o \
@@ -217,8 +219,8 @@ ${LIBDIR}/${LIB} : ${OBJECTS}
 	@${AR} ${ARFLAGS} ${LIBDIR}/${LIB}  ${UTLLIBPATH}/${UTLLIB} ${OBJECTS}
 
 TEL_AnswerCall.o: TEL_AnswerCall.c
-	${ECHO} "Building TEL_AnswerCall API"	
-	${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_AnswerCall.c ${ARC_FLAGS}
+	@${ECHO} "Building TEL_AnswerCall API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_AnswerCall.c ${ARC_FLAGS}
 
 TEL_BridgeCall.o: TEL_BridgeCall.c
 	@${ECHO} "Building TEL_BridgeCall API"	
@@ -293,6 +295,10 @@ TEL_Rest.o: TEL_Rest.c
 TEL_SetGlobal.o: TEL_SetGlobal.c
 	@${ECHO} "Building TEL_SetGlobal API"	
 	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SetGlobal.c ${ARC_FLAGS}
+
+TEL_SetGlobalSecondParty.o: TEL_SetGlobalSecondParty.c
+	@${ECHO} "Building TEL_SetGlobalSecondParty API"	
+	@${CC} -ggdb -DMRCP_SR -c ${INCLUDES} TEL_SetGlobalSecondParty.c ${ARC_FLAGS}
 
 TEL_SetGlobalString.o: TEL_SetGlobalString.c
 	@${ECHO} "Building TEL_SetGlobalString API"	

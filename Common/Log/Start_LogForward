@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 #------------------------------------------------------------------------------
 # Program:      Start_LogForward
 # Purpose:      To start log_forward process.

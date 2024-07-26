@@ -43,7 +43,7 @@ APISRC =  	\
 
 OBJECTS = ${APISRC:.c=.o}
 
-INCLUDES = -I $(WSSINC) 
+INCLUDES = -I $(WSSINC)  -I $(ISP_BASE_DIR)/$(ISP_VERSION)/SIPTelecom3.6/Common/include
 
 all:	${LIBDIR}/${LIB}
 

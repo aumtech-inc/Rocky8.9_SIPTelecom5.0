@@ -45,7 +45,7 @@ install:
 
 arcRTRListener: com_listen.c com_listen.h
 	${ECHO} "Building arcRTRListener ..."
-	$(CC) -DSERVER_PORT=6800 -o arcRTRListener ${INCLUDES} com_listen.c ${LIBPATHS} ${LIBS}
+	$(CC) -DOS_ORACLE -DSERVER_PORT=6800 -o arcRTRListener ${INCLUDES} com_listen.c ${LIBPATHS} ${LIBS}
 
 arcRTRServer: arcRTRServer.c
 	${ECHO} "Building arcRTRServer ..."

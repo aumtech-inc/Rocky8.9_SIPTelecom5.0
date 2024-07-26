@@ -51,6 +51,7 @@ LIBPATHS	=	\
 		-L ${BASE}/thirdParty/libosip2-4.1.0/src/osipparser2/.libs \
 		-L ${BASE}/thirdParty/c-ares-1.5.2/.libs         \
 		-L ${BASE}/thirdParty/spandsp-0.0.6/src/.libs		\
+		-L ${BASE}/thirdParty/tiff-3.9.4/libtiff/.libs			\
 		-L ${BASE}/thirdParty/openssl-1.0.2k		\
 
 LIBPATHS_MEDIA	=	\

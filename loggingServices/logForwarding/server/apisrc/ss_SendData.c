@@ -48,7 +48,8 @@ int ss_SendData(guint32 dataSize, char *data)
 
 	if(dataSize == 0)
 	{
-		Write_Log(ModuleName, 0, "%s|%d|Sending NULL data", __FILE__, __LINE__);
+		sprintf(__log_buf, "%s|%d|Sending NULL data", __FILE__, __LINE__);
+		Write_Log(ModuleName, 0, __log_buf);
 	}
 
 	if(sendSize(ModuleName, dataSize) < 0)
